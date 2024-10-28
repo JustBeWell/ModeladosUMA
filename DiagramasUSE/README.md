@@ -1,2 +1,2 @@
-# ModeladosUMA
-Modelados UMA 24-25
+# USE DIAGRAMS
+En esta seccion guardaremos los diagramas resultantes en USE
