@@ -1,0 +1,139 @@
+--=============================================================================
+--                                  MODELO
+--=============================================================================
+
+model practica2 -- Sistema de Aviación
+
+--=============================================================================
+--                                  ENUMERADOR
+--=============================================================================
+enum TipoRevision{Mantenimiento, Reparacion}
+
+
+--=============================================================================
+--                                 CLASES
+--=============================================================================
+
+class Coche
+    attributes
+        Id : Integer
+        kmRecorridos: Integer derive:
+            self.viajes.recorridos -> collect(rs | rs.distancia) -> sum()
+        fechaMatriculacion: Integer
+        necesitaMantenimiento: Boolean derive:
+            not (fechaMatriculacion < 400)--( or fechaActual - (self.averiado ->collect(r | r.fechaFin) -> max())) < 100)  -- Pendiente de terminar
+        enGarantia: Boolean derive:
+            fechaMatriculacion < 400 -- or (fechaActual - (self.averiado ->collect(r | r.fechaFin) -> max())) < self.averiado.oficial ->collect( t| t.garantia) -> max()
+        validezDeGarantia: Integer derive:
+            self.averiado.oficial -> collect(t | t.garantia) - > max() --fechaActual
+end
+
+class Viaje
+    attributes
+        fechaSalida : Integer
+        fechaLlegada: Integer
+        
+end
+
+class Ciudad
+    attributes
+        nombre: String
+end
+
+class Taller
+    attributes
+        nombre: String
+end
+
+class Oficial < Taller
+    attributes
+        garantia: Integer
+end 
+
+class NoOficial < Taller
+end
+
+class Revision
+attributes
+    fechaInicio : Integer
+    fechaFin : Integer
+    tipo : TipoRevision
+end
+
+class Clock
+  attributes
+    NOW : Integer init = 0 -- POSIX representation starting at 0
+    resolution: Integer init = 1
+end
+
+--=============================================================================
+--                            CLASES DE ASOCIACIÓN
+--=============================================================================
+
+associationclass Recorrido between
+    Ciudad [1] role origen
+    Ciudad [1..*] role destino
+    attributes
+        distancia : Double
+end
+
+
+--=============================================================================
+--                               RELACIONES
+--=============================================================================
+
+-- Relaciones de la clase Coche
+
+association esta_en between
+    Coche [0..*] role coche
+    Ciudad [1] role ciudad
+end
+
+association se_somete between
+    Coche [1..*] role necesita
+    Revision [0..*] role averiado
+end
+
+association realiza_viaje between
+    Coche [0..*] role vuelosPrin
+    Viaje [1] role pilotoPrin
+end
+
+-- Relaciones de la clase Revision
+
+composition se_realiza_oficial between
+    Revision [0..*] role revision
+    Oficial [1] role oficial
+end
+
+composition se_realiza_no_oficial between
+    Revision [0..*] role revision
+    NoOficial [1] role no_oficial
+end
+
+-- Relaciones de la clases Oficial y NoOficial
+
+composition existe_en between
+    Oficial [0..1] role tallerOficial
+    Ciudad [1] role oficial
+end
+
+composition puede_existir between
+    NoOficial [0..*] role tallerNoOficial
+    Ciudad [1] role no_oficial
+end
+
+-- Relaciones de la clase Viaje
+
+association realiza between
+    Viaje [1..*] role viaje
+    Recorrido [1..*] role recorrido
+end
+
+
+--=============================================================================
+--                              INVARIANTES
+--=============================================================================
+
+context Ciudad 
+inv minimo
