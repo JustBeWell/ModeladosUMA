@@ -1,2 +1,2 @@
-# ModeladosUMA
-Modelados UMA 24-25
+# Documentacion
+En esta seccion guardaremos las memorias de las practicas que desarrollemos
