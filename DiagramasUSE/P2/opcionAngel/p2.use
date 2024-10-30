@@ -86,7 +86,7 @@ end
 
 association esta_en between
     Coche [0..*] role coche
-    Ciudad [1] role ciudad
+    Ciudad [0..1] role ciudad
 end
 
 association se_somete between
@@ -145,19 +145,23 @@ context Coche
     inv revisionDespuesdeMatriculacion:
     self.revision -> forAll(rev | rev.fecha >= self.fechaMatriculacion)
 
--- Invariante 3: Todos los coches han de ser revisado al menos una vez.
+-- Invariante 3: Todos los coches han de ser revisado como maximo en un momento dado.
     inv revisadoUnaVez:
-    self.revision -> size() >= 1
+    self.revision -> forAll(rev1,rev2 | rev1.fechaInicio != rev2.fechaInicio or rev1.fechaInicio >= rev2.fechaFinal or rev2.fechaInicio >= rev1.fechaFinal)
 
 -- Invariante 4: Si un coche esta en revision, debe de estar en la misma ciudad que el taller.
     inv mismaCiudadqueTallerEnRevision:
+    self.necesitaMantenimiento = true implies self.revision -> exists(t1 | t1.oficial.ciudad == self.ciudad or t1.no_oficial.ciudad == self.ciudad)
 
 -- Invariante 5: Un coche tiene que estar o viajando o en una ciudad.
     inv viajandoOenCiudad:
+    if self.viajes.oclIsUndefined() then self.ciudad.size() == 1
+    else self.ciudad.oclIsUndefined()
 
 -- Invariante 6: Un coche después de su viaje tiene que encontrarse en su ciudad destino.
 context Viaje
     inv enCiudadDestino:
+    self.recorrido -> exists(r | r.destino == self.coche.ciudad)
 
 -- Invariante 7: No pueden haber dos viajes solapados.
 Context viaje
@@ -171,11 +175,17 @@ Context ciudad
 Context Coche
     inv enGarantiaMatriculacion:
     self.enGarantia = true implies (fechaActual - self.fechaMatriculacion) < 400
+
 -- Invariante 10: Un coche esta en garantia si no han pasado los dias indicados en la garantia de un taller oficial donde el coche tuvo una revision.
     inv enGarantiaRevision:
-    self.enGarantia = true implies self.revisiones -> exists(rev | rev.oficial && (now - rev.fechaFin) < rev.oficial.garantia)
+    self.enGarantia = true implies self.revisiones -> exists(rev | rev.oficial and (now - rev.fechaFin) < rev.oficial.garantia)
 
 -- Invariante 11: No pueden haber ciudades sin recorridos con otras.
 Context Ciudad
     inv hayRecorridos:
     self.recorridos -> notEmpty()
+
+    --=============================================================================
+--                              DUDAS
+--=============================================================================
+
