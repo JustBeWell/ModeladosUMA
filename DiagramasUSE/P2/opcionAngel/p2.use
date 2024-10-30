@@ -1,0 +1,181 @@
+--=============================================================================
+--                                  MODELO
+--=============================================================================
+
+model practica2 -- Sistema de Aviación
+
+--=============================================================================
+--                                  ENUMERADOR
+--=============================================================================
+enum TipoRevision{Mantenimiento, Reparacion}
+
+
+--=============================================================================
+--                                 CLASES
+--=============================================================================
+
+class Coche
+    attributes
+        Id : Integer
+        kmRecorridos: Integer derive:
+            self.viajes.recorridos -> collect(rs | rs.distancia) -> sum()
+        fechaMatriculacion: Integer
+        necesitaMantenimiento: Boolean derive:
+            not (fechaMatriculacion < 400)--( or fechaActual - (self.averiado ->collect(r | r.fechaFin) -> max())) < 100)  -- Pendiente de terminar
+        enGarantia: Boolean derive:
+            fechaMatriculacion < 400 -- or (fechaActual - (self.averiado ->collect(r | r.fechaFin) -> max())) < self.averiado.oficial ->collect( t| t.garantia) -> max()
+        validezDeGarantia: Integer derive:
+            self.averiado.oficial -> collect(t | t.garantia) - > max() --fechaActual
+end
+
+class Viaje
+    attributes
+        fechaSalida : Integer
+        fechaLlegada: Integer
+        
+end
+
+class Ciudad
+    attributes
+        nombre: String
+end
+
+class Taller
+    attributes
+        nombre: String
+end
+
+class Oficial < Taller
+    attributes
+        garantia: Integer
+end 
+
+class NoOficial < Taller
+end
+
+class Revision
+attributes
+    fechaInicio : Integer
+    fechaFin : Integer
+    tipo : TipoRevision
+end
+
+class Clock
+  attributes
+    NOW : Integer init = 0 -- POSIX representation starting at 0
+    resolution: Integer init = 1
+end
+
+--=============================================================================
+--                            CLASES DE ASOCIACIÓN
+--=============================================================================
+
+associationclass Recorrido between
+    Ciudad [1] role origen
+    Ciudad [1..*] role destino
+    attributes
+        distancia : Double
+end
+
+
+--=============================================================================
+--                               RELACIONES
+--=============================================================================
+
+-- Relaciones de la clase Coche
+
+association esta_en between
+    Coche [0..*] role coche
+    Ciudad [1] role ciudad
+end
+
+association se_somete between
+    Coche [1..*] role coche
+    Revision [0..*] role revision
+end
+
+association realiza_viaje between
+    Coche [0..*] role coche
+    Viaje [1] role viaje
+end
+
+-- Relaciones de la clase Revision
+
+composition se_realiza_oficial between
+    Revision [0..*] role revision
+    Oficial [1] role oficial
+end
+
+composition se_realiza_no_oficial between
+    Revision [0..*] role revision
+    NoOficial [1] role no_oficial
+end
+
+-- Relaciones de la clases Oficial y NoOficial
+
+composition existe_en between
+    Oficial [0..1] role tallerOficial
+    Ciudad [1] role oficial
+end
+
+composition puede_existir between
+    NoOficial [0..*] role tallerNoOficial
+    Ciudad [1] role no_oficial
+end
+
+-- Relaciones de la clase Viaje
+
+association realiza between
+    Viaje [1..*] role viaje
+    Recorrido [1..*] role recorrido
+end
+
+
+--=============================================================================
+--                              INVARIANTES
+--=============================================================================
+constraints
+-- Invariante 1: Cada cuidad debe tener una distancia minima de 5 km de la otra.
+context Ciudad 
+    inv minimo5Km:
+    self.recorrido -> forAll (r | r.distancia >= 5)
+
+-- Invariante 2: Cada coche debe de pasar revision despues de matricularse y no antes.
+context Coche
+    inv revisionDespuesdeMatriculacion:
+    self.revision -> forAll(rev | rev.fecha >= self.fechaMatriculacion)
+
+-- Invariante 3: Todos los coches han de ser revisado al menos una vez.
+    inv revisadoUnaVez:
+    self.revision -> size() >= 1
+
+-- Invariante 4: Si un coche esta en revision, debe de estar en la misma ciudad que el taller.
+    inv mismaCiudadqueTallerEnRevision:
+
+-- Invariante 5: Un coche tiene que estar o viajando o en una ciudad.
+    inv viajandoOenCiudad:
+
+-- Invariante 6: Un coche después de su viaje tiene que encontrarse en su ciudad destino.
+context Viaje
+    inv enCiudadDestino:
+
+-- Invariante 7: No pueden haber dos viajes solapados.
+Context viaje
+    inv viajeUnico:
+
+-- Invariante 8: Un coche debe de empezar el siguiente viaje en la ciudad destino del anterior.
+Context ciudad
+    inv destinoComoOrigen:
+
+-- Invariante 9: Un coche esta en garantia si no pasaron 4 años desde su matriculacion.
+Context Coche
+    inv enGarantiaMatriculacion:
+    self.enGarantia = true implies (fechaActual - self.fechaMatriculacion) < 400
+-- Invariante 10: Un coche esta en garantia si no han pasado los dias indicados en la garantia de un taller oficial donde el coche tuvo una revision.
+    inv enGarantiaRevision:
+    self.enGarantia = true implies self.revisiones -> exists(rev | rev.oficial && (now - rev.fechaFin) < rev.oficial.garantia)
+
+-- Invariante 11: No pueden haber ciudades sin recorridos con otras.
+Context Ciudad
+    inv hayRecorridos:
+    self.recorridos -> notEmpty()
