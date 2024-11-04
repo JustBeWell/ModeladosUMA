@@ -134,14 +134,14 @@ Revision [1] role revision
 Taller [1] role taller
 end
 
-composition existe_en between
-Taller [0..1] role tallerOficial
-Ciudad [1] role ciudadConOficial
+composition existeOficial between
+Oficial [0..1] role oficial
+Ciudad [1] role ciudad
 end
 
 composition puede_existir between
-Taller [0..*] role tallerNoOficial
-Ciudad [1] role ciudadConNoOficial
+No_Oficial [0..*] role noOficial
+Ciudad [1] role ciudad
 end
 
 
