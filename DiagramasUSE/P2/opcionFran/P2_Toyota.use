@@ -1,0 +1,150 @@
+-- =====================================================================
+--                             MODELO
+-- =====================================================================
+
+model P2_Toyota
+
+-- =====================================================================
+--                           ENUMERATIONS
+-- =====================================================================
+
+enum TipoRevision{Mantenimiento, Reparacion}
+
+
+-- =====================================================================
+--                             CLASES
+-- =====================================================================
+
+class Clock
+attributes
+    NOW : Integer init = 0                    -- Nos dice el dia actual en el que se encuentra el sistema
+    resolution : Integer init = 1
+operations
+    tick()
+    begin
+    end
+
+    run(n : Integer)
+    begin
+    end
+end
+
+abstract class ActiveObject
+operations
+    tick()
+    begin
+    end
+end
+
+class Coche < ActiveObject
+attributes
+    kmRecorridos : Real derive :              -- Registro de todos los km que ha recorrido el coche entre ciudades en sus viajes
+        self.viaje.recorrido -> collect(distancia |distancia.recorrido.distancia) -> sum()
+    fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
+    necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
+        -- razones de necesitaMantenimiento
+        -- not (NOW - self.revisionn->sortedBy(r | r.fechaFin)->last() < 100) or 
+        not (fechaMatriculacion < 400)
+    enGarantia : Boolean derive :             -- Flag que indica que el coche tiene una garantia activa
+        -- razones por estar enGarantia
+        (fechaMatriculacion < 400) or
+        (validezDeGarantia > 0)
+    validezDeGarantia : Integer derive :      -- Días por los que la garantia proporcionada por un tallerOficial esta activa
+        self.revision.taller.allInstances()->select(taller | taller.oclIsKindOf(Oficial)) -> last()
+        
+        --self.revision->select(revisionEn | revisionEn.taller.oclIsKindOf(Oficial))->
+        --collect(revisionEn | revisionEn.taller.validezGarantia)->last()
+end 
+
+class Viaje
+attributes
+    fechaSalida : Integer                     -- Dia en el que el coche comienza en viaje
+    fechaLlegada : Integer derive :               -- Dia en el que el coche finaliza el viaje
+        -- NOW - self.fechaSalida
+end
+
+class Revision
+attributes
+    tipo : TipoRevision                       -- Selecciona el tipo de revisión del enumeration definido
+    fechaInicio : Integer                     -- Guarda el registro de cuando inició la revisión del coche
+    fechaFin : Integer                        -- Guarda el registro de cuando el coche sale de revisión
+end
+
+abstract class Taller                         -- Clase abstracta Taller. No debe tener instancias, solo sus subclases tienen
+end
+
+class Oficial < Taller                        -- Taller Oficial hereda de Taller
+attributes
+    garantia : Integer                        -- Total del dias en lo que el coche estará enGarantia
+end
+
+class No_Oficial < Taller                     -- Taller No Oficial hereda de Taller
+end 
+
+class Ciudad
+attributes
+    nombre : String                           -- Nombre de la ciudad
+end
+
+
+-- =====================================================================
+--                       CLASES DE ASOCIACIÓN
+-- =====================================================================
+
+associationclass Recorrido between
+    Ciudad [1..*] role origen
+    Ciudad [1..*] role destino
+attributes
+    distancia : Real                    -- Define el camino de separación entre dos Ciudades distintas
+end 
+
+-- =====================================================================
+--                         ASOCIACIONES 
+-- =====================================================================
+
+association time between
+Clock [1] role clock
+ActiveObject [0..*] role ao
+end
+
+association hace between
+Coche [1] role coche
+Viaje [0..*] role viaje
+end
+
+association realiza between
+Viaje [1..*] role viaje
+Recorrido [1..*] role recorrido
+end
+
+association esta_en between
+Coche [0..*] role coche
+Ciudad [1] role ciudad
+end
+
+composition se_somete between
+Coche [1..*] role coche
+Revision [*] role revision
+end
+
+composition se_realiza between
+Revision [1] role revision
+Taller [1] role taller
+end
+
+composition existe_en between
+Taller [0..1] role tallerOficial
+Ciudad [1] role ciudadConOficial
+end
+
+composition puede_existir between
+Taller [0..*] role tallerNoOficial
+Ciudad [1] role ciudadConNoOficial
+end
+
+
+-- =====================================================================
+--                         INVARIANTES
+-- =====================================================================
+
+
