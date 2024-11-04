@@ -124,7 +124,7 @@ Coche [*] role coche
 Ciudad [1] role ciudad
 end
 
-composition esSometido between
+association esSometido between
 Coche [1] role coche
 Revision [*] role revision
 end
@@ -189,7 +189,7 @@ context Revision
 context Viaje
     inv viajandoOenCiudad:
     ((self.coche.clock -> asOrderedSet() -> first()).NOW - self.fechaLlegada) < 0 implies
-    self.coche.coche.oclIsUndefined()
+    self.coche.oclIsUndefined()
 -- V2: PARA MODELADO DINAMICO
 -- inv viajandoOenCiudad:
 --    if self.viaje -> exists(v | v.fechLlegada = 0) then self.ciudad.oclIsUndefined()
@@ -200,7 +200,7 @@ context Viaje
 -- Invariante 6: Un coche después de su viaje tiene que encontrarse en su ciudad destino.
 context Coche
     inv enCiudadDestino:
-    let ultimoViaje : Viaje = self.viaje -> asOrderedSet(Viaje) -> sortedBy(fechaLlegada) -> last() in
+    let ultimoViaje : Viaje = self.viaje -> asOrderedSet() -> sortedBy(fechaLlegada) -> last() in
     ultimoViaje.recorrido.destino = self.ciudad
     
 
@@ -235,4 +235,4 @@ context Coche
     -- Invariante 10 (antigua 13): Una ciudad tiene que tener un recorrido con otra ciudad de manera obligatoria
 context Ciudad
     inv hayRecorridos:
-    not (self.Recorrido.oclIsUndefined())
+    not (self.origen -> notEmpty() and self.destino -> notEmpty())
