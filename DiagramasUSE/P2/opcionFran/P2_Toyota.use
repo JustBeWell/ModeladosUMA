@@ -43,8 +43,9 @@ attributes
     fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
     necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
         -- razones de necesitaMantenimiento
-        not ((self.clock -> asOrderedSet() -> first()).NOW - (self.revision -> collect(rev | revision.fechaFin) -> max()) < 100) or 
-        not (fechaMatriculacion < 400)
+        not (((self.clock -> asOrderedSet() -> first()).NOW  - fechaMatriculacion) < 400) or 
+        not (((self.clock -> asOrderedSet() -> first()).NOW - (self.revision -> collect(rev | revision.fechaFin) -> max())) < 100) 
+        
     enGarantia : Boolean derive :             -- Flag que indica que el coche tiene una garantia activa
         -- razones por estar enGarantia
         (fechaMatriculacion < 400) or
@@ -108,27 +109,27 @@ Clock [1] role clock
 ActiveObject [0..*] role ao
 end
 
-association hace between
+association realiza between
 Coche [1] role coche
 Viaje [0..*] role viaje
 end
 
-association realiza between
+association recorre between
 Viaje [1..*] role viaje
 Recorrido [1..*] role recorrido
 end
 
-association esta_en between
+association estaEn between
 Coche [0..*] role coche
 Ciudad [1] role ciudad
 end
 
-composition se_somete between
+composition esSometido between
 Coche [1..*] role coche
 Revision [*] role revision
 end
 
-composition se_realiza between
+composition esRealizada between
 Revision [1] role revision
 Taller [1] role taller
 end
