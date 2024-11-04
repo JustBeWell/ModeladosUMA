@@ -38,7 +38,6 @@ end
 
 class Coche < ActiveObject
 attributes
-    velocidad : Integer
     kmRecorridos : Real derive :              -- Registro de todos los km que ha recorrido el coche entre ciudades en sus viajes
         self.viaje.recorrido -> collect(dist | dist.distancia) -> sum()
     fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
