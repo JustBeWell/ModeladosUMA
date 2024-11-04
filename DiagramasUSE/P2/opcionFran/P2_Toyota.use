@@ -135,13 +135,13 @@ Taller [1] role taller
 end
 
 composition existeOficial between
-Oficial [0..1] role oficial
 Ciudad [1] role ciudad
+Oficial [0..1] role oficial
 end
 
-composition puede_existir between
-No_Oficial [0..*] role noOficial
+composition existeNoOficial between
 Ciudad [1] role ciudad
+No_Oficial [0..*] role  noOficial
 end
 
 
@@ -166,7 +166,7 @@ context Coche
 
 -- Invariante 4: Si un coche esta en revision, debe de estar en la misma ciudad que el taller.
     inv mismaCiudadqueTallerEnRevision:
-    self.necesitaMantenimiento implies self.revision -> exists(t1 | t1.taller.ciudadConOficial = self.ciudad or t1.taller.ciudadConNoOficial = self.ciudad)
+    self.necesitaMantenimiento implies self.revision -> exists(t1 | t1.taller.oclAsType(Oficial).ciudad = self.ciudad or t1.taller.oclAsType(No_Oficial).ciudad = self.ciudad)
 
 -- Invariante 5: Un coche tiene que estar o viajando o en una ciudad.
     inv viajandoOenCiudad:
