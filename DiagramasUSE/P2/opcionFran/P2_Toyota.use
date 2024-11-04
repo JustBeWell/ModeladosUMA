@@ -106,31 +106,31 @@ end
 
 association time between
 Clock [1] role clock
-ActiveObject [0..*] role ao
+ActiveObject [*] role ao
 end
 
 association realiza between
 Coche [1] role coche
-Viaje [0..*] role viaje
+Viaje [*] role viaje
 end
 
 association recorre between
-Viaje [1..*] role viaje
-Recorrido [1..*] role recorrido
+Viaje [*] role viaje
+Recorrido [1] role recorrido
 end
 
 association estaEn between
-Coche [0..*] role coche
+Coche [*] role coche
 Ciudad [1] role ciudad
 end
 
 composition esSometido between
-Coche [1..*] role coche
+Coche [1] role coche
 Revision [*] role revision
 end
 
 composition esRealizada between
-Revision [1] role revision
+Revision [*] role revision
 Taller [1] role taller
 end
 
@@ -141,7 +141,7 @@ end
 
 composition existeNoOficial between
 Ciudad [1] role ciudad
-No_Oficial [0..*] role  noOficial
+No_Oficial [*] role  noOficial
 end
 
 
