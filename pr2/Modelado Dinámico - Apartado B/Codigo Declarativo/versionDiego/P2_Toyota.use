@@ -30,10 +30,6 @@ operations
 end
 
 abstract class ActiveObject
-operations
-    tick()
-    begin
-    end
 end
 
 class Coche < ActiveObject
