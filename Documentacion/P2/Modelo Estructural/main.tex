@@ -1,0 +1,665 @@
+\documentclass[12pt.a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx} 
+\usepackage{float} 
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage[colorlinks= true, allcolors=blue]{hyperref}
+\usepackage{lipsum}
+
+% Configuración de márgenes
+\geometry{
+    left=2.5cm,  % Margen izquierdo
+    right=2.5cm, % Margen derecho
+    top=3cm,     % Margen superior
+    bottom=3cm   % Margen inferior
+}
+
+% Configuración del formato para títulos, subtítulos y subsecciones adicionales
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+\centering
+{\bfseries\LARGE Universidad de Málaga\par}
+\vspace{1cm}
+{\scshape\Large ETSI Informática\par}
+\vspace{2cm}
+{\scshape\Huge Modelado estructural y Dinámico\par}
+\vspace{0.1cm}
+{\scshape\Huge de un sistema de coches}
+\vspace{2cm}
+\begin{figure}[H]
+    \centering
+     \includegraphics[width=0.25\linewidth]{Assets/umaLogo.png}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+\vfill
+{\scshape\Large Modelado y Diseño del Software (2024-25)\par}
+\vspace{0.5cm}
+{\Large Daniil Gumeniuk\par}
+{\Large Angel Bayon Pazos \par}
+{\Large Diego Sicre Cortizo\par}
+{\Large Pablo Ortega Serapio\par}
+{\Large Angel Nicolás Escaño López\par}
+{\Large Francisco Javier Jordá Garay\par}
+{\Large Janine Bernadeth Olegario Laguit\par}
+\vspace{1cm}
+{\Large Grupo 1.1}
+\vfill
+{\Large Noviembre 2024}
+
+\end{titlepage}
+
+% ÍNDICE
+\thispagestyle{empty} % Quita el número de la primera página
+\tableofcontents % Crea el Índice
+\newpage
+\thispagestyle{empty}
+\listoffigures % Crea un Índice de figuras (registra imágenes)
+\newpage
+% FIN ÍNDICE
+
+\setcounter{page}{4} % Inicia a contar las páginas a partir de {}
+\section{Introducción}
+
+El presente proyecto tiene como objetivo el modelado de un sistema de coches que puedan viajar entre ciudades y se sometan a revisiones utilizando la herramienta USE (UML-based Specification Environment), que permite la especificación y verificación formal de sistemas mediante el lenguaje OCL (Object Constraint Language). El sistema desarrollado gestiona la información relacionada con coches, ciudades, viajes, recorridos, revisiones, y talleres ya sean oficiales o no. A través de la implementación de este modelo, se puede asegurar el cumplimiento de reglas como cada cuanto tiempo a un coche le deben realizar una revisión o que no haya más de un taller oficial por ciudad.
+\vspace{0.5cm} 
+
+El sistema está compuesto por varias clases fundamentales para el comportamiento dinámico de los coches. La nueva clase \emph{Clock} discretiza el tiempo en el sistema. Su operación \emph{tick()} avanza en el tiempo y los \emph{tick()} asociados a cada \emph{ActiveObject} representa la acción síncrona que cada subclase que herede realiza en cada llamada; esto implica que cada coche, el \emph{ActiveObject} del modelo, implementará cambios en su estado actual. Además, el uso de restricciones e invariantes considerando estos nuevos elementos garantizan el comportamiento dinámico que se  busca por la descripción proporcionada del sistema.
+\vspace{0.5cm} 
+
+A lo largo de este documento, se presentarán las especificaciones detalladas de cada clase, junto con los atributos y las invariantes que aseguran la consistencia del sistema. También se describirá cómo se gestionan las relaciones entre las diferentes entidades del modelo, desde los recorridos que hay entre dos ciudades hasta saber si el coche esta en garantía o no.
+\vspace{0.5cm} 
+
+
+Finalmente, se incluye un conjunto de pruebas definidas en el archivo \texttt{.soil} que demuestran el correcto funcionamiento del sistema, validando cada una de las restricciones especificadas en el modelo.
+\vspace{1.0cm} 
+
+
+\newpage
+
+\section{Modelado Estructural}
+\subsection{Diagrama de Clases}
+En primer lugar veremos el diagrama de clase que hemos creado en VisualParadigm para la primera parte de la práctica, la cual pide el modelado conceptual de la estructura del sistema. Cuenta con una clase \emph{Clock} de la cual hay una única instancia y las siguientes entidades con sus respectivas relaciones entre si:
+
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Diagrama VPP apartado a).png}
+     \caption{Diagrama del sistema de coches}
+     \label{Diagrama del sistema de coches}
+\end{figure}
+\vspace{1.0 cm}
+
+\subsection{Enumeraciones del Sistema}
+
+\subsubsection{TipoRevision}
+\textbf{Descripción}:  
+Distingue entre las los tipos de revisión a los que un coche se puede someter.
+\begin{itemize}
+    \item \textbf{Literales}:
+    \begin{enumerate}
+        \item \texttt{Mantenimiento}: Revisión obligatoria que cada coche necesita después de 4 años desde que se matriculó o después de 1 año desde la última revisión de mantenimiento que tuvo algún coche.
+        \item \texttt{Reparación}: Revisión necesaria para la reparación de alguna avería en el coche.
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Clases del Sistema}
+
+\subsubsection{Clock}
+\textbf{Descripción}:  
+Representa el elemento que lleva conteo del instante actual en el que se encuentre el sistema y el valor los saltos que cada tick avanza en el tiempo. Se definió que cada unidad de tiempo equivale a un día y un año se representa con 100 días.
+\begin{itemize}
+    \item \textbf{Atributos}:
+    \begin{itemize}
+        \item \texttt{NOW: Integer}: Contador del tiempo registrado. Representa el instante actual en el que se encuentre el sistema.
+        \item \texttt{resolution: Integer}: Valor de los saltos que hace el Clock en la llamada de cada tick.
+    \end{itemize}
+    \item \textbf{Operaciones}:
+    \begin{itemize}
+        \item \texttt{tick()}: Usada para avanzar en el tiempo la cantidad definida en \emph{resolution}.
+        \item \texttt{run(n : Integer)}: Permite avanzar en el tiempo \emph{n} pasos en un solo tick.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{ActiveObject} (Clase abstracta)
+\textbf{Descripción}:  
+Representa la clase padre de cualquier entidad del sistema que necesite un paso del tiempo para cambiar su estado. En este sistema solo \textbf{Coche} es una especificación de ActiveObject.
+\begin{itemize}
+    \item \textbf{Operaciones}:
+    \begin{itemize}
+        \item \texttt{tick()}: Operación que todas las subclases de ActiveObject heredan. El tick de cada entidad ActiveObject representan la acción que esta debe realizar cuando se ejecuta el \emph{tick} general de \textbf{Clock}.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Coche} (Subclase de ActiveObject)
+\textbf{Descripción}:  
+Representa un coche en el sistema. Cada coche puede realizar viajes entre ciudades y se someten a revisiones cuando lo requieran.
+\begin{itemize}
+    \item \textbf{Atributos}:
+    \begin{itemize}
+        \item \texttt{kmRecorridos: Real (derive)}: Atributo derivado que registra todos los kilómetros que el coche ha viajado entre ciudades como la suma de
+        \textit{distancia} de cada \textit{recorrido} entre un par de ciudades.
+        \item \texttt{fechaMatriculacion: Integer}: Marca el instante en el que el coche se ha registrado en el sistema.
+        \item \texttt{necesitaMantenimiento: Boolean (derive)}: Atributo derivado que indica que el coche necesita ir a revisión \textit{Tipo: Mantenimiento} ya sea porque han pasado 4 años desde que se matriculó o pasó más de 1 año desde la última revisión de mantenimiento que tuvo.
+        \item \texttt{enGarantia: Boolean (derive)}: Atributo derivado que indica que el coche tiene una garantía activa ya sea porque no han pasado 4 años desde que se matriculó o la \textit{validez de garantía} proporcionada por el \textit{Taller Oficial} donde se revisó sigue vigente. Un coche en garantía puede necesitar alguna revisión si las condiciones lo dictan.
+        \item \texttt{validezDeGarantia: Integer (derive)}: Atributo derivado que indica los días por los que la garantía proporcionada por un \textit{Taller Oficial} está activa. En caso que un coche realice una revisión \textit{Tipo: Mantenimiento} en un \textit{Taller Oficial}, este recibirá la garantía comenzará a contar a la par que el año de garantía que el coche recibe por revisión de mantenimiento.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Revision}
+\textbf{Descripción}:  
+...
+\begin{itemize}
+    \item \textbf{Atributos}:
+    \begin{itemize}
+        \item \texttt{fechaInicio: Integer}: ...
+        \item \texttt{fechaFin: Integer}: ...
+        \item \texttt{tipo: TipoRevisión}: ...
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Taller} (Clase abstracta)
+\textbf{Descripción}:  
+...
+
+\subsubsection{Oficial} (Subclase de \texttt{Taller})
+\textbf{Descripción}:  
+...
+\begin{itemize}
+    \item \textbf{Atributos}:
+    \begin{itemize}
+        \item \texttt{garantía: Integer}: ...
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{No\texttt{\_}Oficial} (Subclase de \texttt{Taller})
+\textbf{Descripción}:  
+
+\subsubsection{Ciudad} (Clase abstracta)
+\textbf{Descripción}:  
+...
+\begin{itemize}
+    \item \textbf{Atributos}:
+    \begin{itemize}
+        \item \texttt{nombre: String}:...
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Recorrido} (Clase de Asociación entre Ciudad y Viaje)
+\textbf{Descripción}:  
+...
+\begin{itemize}
+    \item \textbf{Atributos}:
+    \begin{itemize}
+        \item \texttt{distancia: Double}:...
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Viaje}
+\textbf{Descripción}:  
+...
+\begin{itemize}
+    \item \textbf{Atributos}:
+    \begin{itemize}
+        \item \texttt{fechaSalida: Integer}:...
+        \item \texttt{fechaLlegada: Integer}:...
+    \end{itemize}
+\end{itemize}
+
+\vspace{2.0cm} % Espacio vertical de 2.0 cm
+
+\subsection{Código USE}
+\lstdefinestyle{useNormal}{
+    basicstyle=\ttfamily\small,   % Estilo básico: letra monoespaciada pequeña
+    keywordstyle=\color{blue},    % Color para palabras clave
+    commentstyle=\color{green!50!black}, % Color para comentarios
+    stringstyle=\color{red},      % Color para strings
+    numberstyle=\tiny\color{gray}, % Color de los números de línea
+    stepnumber=1,                 % Mostrar un número de línea en cada línea
+    numbersep=10pt,               % Separación de los números del código
+    tabsize=2,                    % Tamaño del tabulador
+    showspaces=false,             % No mostrar espacios
+    showstringspaces=false,       % No mostrar espacios en cadenas de texto
+    breaklines=true,              % Ajustar líneas largas                  % Añadir un marco alrededor del código
+}
+\lstdefinestyle{useEspecifico}{
+    basicstyle=\ttfamily\small,   % Estilo básico: letra monoespaciada pequeña
+    backgroundcolor=\color{gray!10},  % Fondo gris claro
+    keywordstyle=\color{blue},    % Color para palabras clave
+    commentstyle=\color{green!50!black}, % Color para comentarios
+    stringstyle=\color{red},      % Color para strings
+    numberstyle=\tiny\color{gray}, % Color de los números de línea
+    stepnumber=1,                 % Mostrar un número de línea en cada línea
+    numbersep=10pt,               % Separación de los números del código
+    tabsize=4,                    % Tamaño del tabulador
+    showspaces=false,             % No mostrar espacios
+    showstringspaces=false,       % No mostrar espacios en cadenas de texto
+    breaklines=true,              % Ajustar líneas largas
+    frame=single                  % Añadir un marco alrededor del código
+}
+A continuación mostraremos todo el código desarrollado con el lenguaje USE, están divididos en varios sectores:
+
+
+\begin{itemize}
+    \item \textbf{‘Enumeraciones’}: Representa los distintos valores que un atributo puede tomar en un momento dado en sistema.
+    \item \textbf{‘Clases’}: Representa todas las entidades del sistema.
+    \item \textbf{‘Relaciones’}: Representa las interacciones existentes entre entidades.
+    \item \textbf{‘Invariantes’}: Representa todas las restricciones del sistema a manejar.
+\end{itemize}
+Todo el código suministrado ha sido realizado en VSCode y
+todas las secciones están separadas por sus respectivos títulos tabulados en mayúsculas.
+\vspace{3cm}
+\begin{lstlisting}[style = useNormal,language=SQL, caption={Modelo de Sistema de Aviación en USE}] 
+
+    CLASES
+
+class Aerolinea
+    attributes
+        nombre : String
+end
+
+class Avion
+    attributes
+        numVuelos : Integer derive :
+            self.vuelos -> size()
+        kmRecorridosTotal : Real derive : 
+            self.vuelos->collect(v | v.kmRecorridos)->sum()
+        estaVolando : Boolean derive :
+            self.alojados->size() = 0 and self.relegados->size() = 0
+end
+
+associationclass Contrato between
+    Avion [0..*] role cliente
+    Aerolinea [*] role contratador
+    attributes
+        mesesContrato : Integer
+        precioPorMes : Real
+        precioTotal : Real derive :
+            self.mesesContrato * self.precioPorMes
+end
+
+class Vuelo
+    attributes
+        vueloID : Integer
+        kmRecorridos : Real
+end
+
+class Persona
+    attributes
+        nombre : String
+        edad : Integer
+end
+
+class Piloto < Persona
+    attributes
+        pro : Boolean derive : 
+            self.vuelosPrin->size() >= 1000 and self.vuelosSec->size() >= 2000
+        totalKmRecorridos : Real derive : 
+            self.vuelosPrin->collect(v | v.kmRecorridos)->sum() + self.vuelosSec->collect(v | v.kmRecorridos)->sum()
+end
+
+abstract class Almacen
+    attributes
+        capacidadMaxima : Integer
+end
+
+class Hangar < Almacen
+end
+
+class Desguace < Almacen
+end
+
+class Aeropuerto
+end
+
+class Ciudad
+    attributes
+        nombre : String
+end
+
+    RELACIONES
+                               
+association realizan between
+    Vuelo [0..*] role vuelos
+    Avion [1] role aviones
+end
+
+association viaja_en between
+    Persona [0..*] role pasajero
+    Vuelo [0..*] role vuelo
+end
+
+association vuela_en between
+    Vuelo [0..*] role vuelosPrin
+    Piloto [1] role pilotoPrin
+end
+
+association participa between
+    Vuelo [0..*] role vuelosSec
+    Piloto [0..1] role pilotoSec
+end
+
+association se_encuentra between
+    Avion [*] role activo
+    Hangar [0..1] role alojados
+end
+
+association es_relegado between
+    Avion [*] role desgastado
+    Desguace [0..1] role relegados
+end
+
+association aerolineaRealizaVuelo between
+    Vuelo [0..*] role vueloPara
+    Aerolinea [1] role conAerolinea
+end
+
+composition tiene between
+    Aeropuerto [1] role ubicacion
+    Hangar [0..*] role hangar
+end
+
+composition almenos_tiene between
+    Aeropuerto [1] role ubicacion
+    Desguace [0..1] role desguace
+end
+
+composition existe between
+    Ciudad [1] role nombre
+    Aeropuerto [0..1] role aeropuerto
+end
+
+    INVARIANTES
+        
+constraints
+
+context Avion
+    inv enviarAlDesguace :
+    self.numVuelos >= 1000 implies self.relegados -> size() > 0
+
+context Piloto
+    inv maxDosAerolineas:
+    self.vuelosPrin -> union(self.vuelosSec) -> collect(it | it.conAerolinea) -> asSet()-> size() <= 2
+
+context Avion
+    inv avionVolando:        
+        if not self.estaVolando then
+            (self.alojados->size() = 1 xor self.relegados->size() = 1)
+        else self.estaVolando
+        endif
+
+context Aerolinea
+    inv nombreUnico: 
+        Aerolinea.allInstances() -> isUnique(a | a.nombre)
+
+context Vuelo
+    inv vueloIDUnico: 
+        Vuelo.allInstances()->isUnique(v | v.vueloID)
+
+context Hangar
+    inv capacidadMaximaNoSobrepasadaHangar: 
+        self.activo->size() <= self.capacidadMaxima
+
+context Desguace
+    inv capacidadMaximaNoSobrepasadaDesguace:
+        self.desgastado->size() <= self.capacidadMaxima
+
+context Vuelo
+    inv pilotoNoDuplicado: 
+        self.pilotoPrin <> self.pilotoSec
+\end{lstlisting}
+\vspace{5cm}
+
+\subsection{Diagrama de Clases en USE}
+La herramienta USE nos permite llevar a cabo un diagrama de clases, el cual se muestra a continuación:
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{use del apartado a).jpeg}
+     \caption{Diagrama del sistema de coches en USE}
+     \label{Diagrama del sistema de coches en USE}
+\end{figure}
+\vspace{1.0cm}
+
+Todas las relaciones entre las entidades del modelo tienen su significado y están definidas de la siguiente manera:
+\begin{itemize}
+\item \textbf{realizan (Vuelo-Avión)}: Un vuelo está asociado a un único avión (\(1\)), pero un avión puede realizar 0 o muchos vuelos a lo largo del tiempo (\(0..*\)). Esta relación modela las interacciones entre vuelos y los aviones que los llevan a cabo.
+  
+\item \textbf{viaja en (Persona-Vuelo)}: Representa la relación de una persona que viaja en un vuelo. Una persona puede haber viajado en 0 o más vuelos (\(0..*\)), y un vuelo puede tener 0 o más pasajeros (\(0..*\)). Esta relación nos permite obtener la lista de pasajeros de cada vuelo sin tener una clase separada para los pasajeros.
+
+\item \textbf{vuela en (Vuelo-Piloto)}: Define que un piloto principal pilota un vuelo. Cada vuelo tiene un único piloto principal (\(1\)), mientras que un piloto puede haber sido el piloto principal de 0 o más vuelos (\(0..*\)).
+
+\item \textbf{participa (Vuelo-Piloto)}: Representa que un piloto secundario participa en un vuelo. Un vuelo puede tener 0 o 1 piloto secundario (\(0..1\)), y un piloto puede haber participado como piloto secundario en 0 o más vuelos.
+
+\item \textbf{se encuentra (Avión-Hangar)}: Modela la situación en la que un avión está estacionado en un hangar. Un avión puede estar alojado en 0 o 1 hangar (\(0..1\)), y un hangar puede alojar múltiples aviones (\(*\)).
+
+\item \textbf{es relegado (Avión-Desguace)}: Representa la situación en la que un avión ha sido enviado al desguace. Un avión puede estar en 0 o 1 desguace (\(0..1\)), y un desguace puede albergar múltiples aviones relegados (\(*\)).
+
+\item \textbf{contrato (Avión-Aerolínea)}: Define una relación contractual entre un avión y una aerolínea. Un avión puede estar contratado por varias aerolíneas a lo largo de su vida (\(0..*\)), y una aerolínea puede tener contratos con múltiples aviones (\(0..*\)). La relación incluye una clase de asociación \textit{Contrato}, que almacena detalles como la duración del contrato, el precio mensual y el precio total calculado a partir de los otros dos atributos.
+
+\item \textbf{tiene (Aeropuerto-Hangar)}: Esta relación indica mediante una composición que un aeropuerto puede tener varios hangares (\(0..*\)), pero un hangar solo puede pertenecer a un único aeropuerto (\(1\)).
+
+\item \textbf{almenos tiene (Aeropuerto-Desguace)}: Representa mediante una composición que un aeropuerto puede tener o no un desguace (\(0..1\)), y cada desguace está asociado a un único aeropuerto (\(1\)).
+
+\item \textbf{existe (Ciudad-Aeropuerto)}: Relaciona mediante una composición una ciudad con su aeropuerto. Una ciudad puede tener 0 o 1 aeropuerto (\(0..1\)), y un aeropuerto debe estar ubicado en una única ciudad (\(1\)).
+
+\item \textbf{aerolineaRealizaVuelo (Vuelo-Aerolínea)}: 
+Es necesario añadir esta relación para determinar con precisión para qué aerolínea trabaja cada piloto en un vuelo específico. Aunque la relación entre `Avion` y `Aerolinea` podría sugerir esta información, en realidad solo indica los contratos que un avión tiene con diversas aerolíneas, sin especificar para cuál de ellas el piloto está volando en ese momento. Esta asociación asegura que podemos vincular directamente cada vuelo a una aerolínea, evitando ciclos, ya que las relaciones son distintas. Un vuelo puede estar asociado a una única aerolínea (\(1\)), mientras que una aerolínea puede realizar múltiples vuelos (\(0..*\)).
+\end{itemize}
+
+\vspace{1.0cm}
+
+\subsection{Diagrama de Objetos en USE}
+Ademas al crear instancias reales de las entidades podemos desarrollar un diagrama que estructure tanto los objetos como las relaciones directas entre estos:
+\vspace{1.0cm}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{soil1 del apartado a).jpeg}
+     \caption{Diagrama de Objetos 1 en USE}
+     \label{Diagrama de Objetos 1 en USE}
+\end{figure}
+
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{comprobante.png}
+     \caption{Tabla de invariantes en USE para Diagrama de Objetos 1}
+     \label{Tabla de invariantes en USE para Diagrama de Objetos 1}
+\end{figure}
+\vspace{1.0cm}
+
+\subsection{Invariantes y .SOIL}
+Para poder comprobar las restricciones de nuestro sistema, primero es necesario definir las reglas que aseguran su correcto funcionamiento. Las restricciones o invariantes que se han definido son las siguientes:
+
+\begin{itemize}
+    \item \textbf{1.}: Un avión debe ser enviado al desguace cuando haya realizado 1000 o más vuelos. Esta restricción asegura que un avión no sigue en operación después de haber completado su ciclo de vida útil.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+    context Avion
+    inv enviarAlDesguace :
+    self.numVuelos >= 1000 implies self.relegados -> size() > 0
+    \end{lstlisting}
+    
+    \item \textbf{2.}: Un piloto no puede trabajar ni haber trabajado para más de dos aerolíneas. Esta invariante restringe que los pilotos se asocien con más de dos aerolíneas a lo largo de su carrera.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+   context Piloto
+    inv maxDosAerolineas:
+    self.vuelosPrin -> union(self.vuelosSec) -> collect(it | it.conAerolinea) -> asSet()-> size() <= 2
+    \end{lstlisting}
+    
+    \item \textbf{3.}: Un avión que está volando no puede estar simultáneamente en un hangar o en un desguace. Esta invariante asegura que un avión solo pueda estar en una de estas tres situaciones: volando, en un hangar, o en un desguace.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+   context Avion
+    inv avionVolando:        
+        if not self.estaVolando then
+            (self.alojados->size() = 1 xor self.relegados->size() = 1)
+        else self.estaVolando
+        endif
+    \end{lstlisting}
+    
+    \item \textbf{4.}: El nombre de cada aerolínea debe ser único. Esta restricción garantiza que no haya dos aerolíneas con el mismo nombre dentro del sistema.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+  context Aerolinea
+    inv nombreUnico: 
+        Aerolinea.allInstances() -> isUnique(a | a.nombre)
+    \end{lstlisting}
+    
+    \item \textbf{5.}: El número de identificación (ID) de cada vuelo debe ser único. Esta invariante asegura que no haya dos vuelos con el mismo identificador.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+  context Vuelo
+    inv vueloIDUnico: 
+        Vuelo.allInstances()->isUnique(v | v.vueloID)
+    \end{lstlisting}
+    
+    \item \textbf{6.}: No puede sobrepasarse la capacidad máxima de los hangares. Esta invariante controla que los hangares no alojen más aviones de los que su capacidad permite.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+  context Hangar
+    inv capacidadMaximaNoSobrepasadaHangar: 
+        self.activo->size() <= self.capacidadMaxima
+    \end{lstlisting}
+    
+    \item \textbf{7.}: No puede sobrepasarse la capacidad máxima del desguace. Al igual que con los hangares, esta invariante garantiza que los desguaces no alberguen más aviones de lo que su capacidad permite.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+  context Desguace
+    inv capacidadMaximaNoSobrepasadaDesguace:
+        self.desgastado->size() <= self.capacidadMaxima
+    \end{lstlisting}
+    
+    \vspace{1 cm}
+    \item \textbf{8.}: Un mismo piloto no puede ser asignado simultáneamente como piloto principal y secundario en el mismo vuelo. Esta invariante asegura que los roles de piloto principal y secundario sean ocupados por personas distintas.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+  context Vuelo
+    inv pilotoNoDuplicado: 
+        self.pilotoPrin <> self.pilotoSec
+    \end{lstlisting}
+\end{itemize}
+\vspace{1.0 cm}
+A partir de aqui podemos desarrollar los archivos de prueba que respaldaran el funcionamiento de nuestras restricciones, hemos usado los siguientes casos de prueba:\\\\
+\textbf{Restricciones 1,3,4,5,6 y 7}\\\\
+
+Para poder comprobar estas restricciones se proporciona el siguiente .soil para los casos verdaderos y falsos:
+
+\vspace{2.0 cm}
+\begin{lstlisting}[style = useNormal,language=SQL, caption={Codigo de pruebas 1}] 
+
+    Creacion de Objetos
+    
+!new Aeropuerto('AeropuertoMalaga')
+!new Hangar('HangarMain')
+    !HangarMain.capacidadMaxima := 1
+!new Desguace('DesguaceMain')
+    !DesguaceMain.capacidadMaxima := 1
+!new Avion('F23')
+!new Avion('F24')
+!new Vuelo('VueloMalagaRoma')
+    !VueloMalagaRoma.vueloID := 1234
+    !VueloMalagaRoma.kmRecorridos := 232.00
+!new Vuelo('VueloMalagaMadrid')
+    !VueloMalagaMadrid.vueloID := 4321
+    !VueloMalagaMadrid.kmRecorridos := 323.00
+!new Vuelo('VueloMalagaBarcelona')
+    !VueloMalagaBarcelona.vueloID := 2341
+    !VueloMalagaBarcelona.kmRecorridos := 2323.00
+    
+    Inserciones en relaciones
+    
+!insert(AeropuertoMalaga, HangarMain) into tiene
+!insert(AeropuertoMalaga, DesguaceMain) into almenos_tiene
+!insert(F23, DesguaceMain) into es_relegado
+!insert(F23, HangarMain) into se_encuentra
+!insert(F24, DesguaceMain) into es_relegado
+!insert(F24, HangarMain) into se_encuentra
+!insert(VueloMalagaRoma, F23) into realizan
+!insert(VueloMalagaMadrid, F23) into realizan
+!insert(VueloMalagaBarcelona, F23) into realizan
+
+\end{lstlisting}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{caso1.jpeg}
+     \caption{Diagrama para el caso de pruebas 1}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+\vspace{0.5 cm}
+\textbf{Restricciones 2 y 8}
+\begin{lstlisting}[style = useNormal,language=SQL, caption={Codigo de pruebas 2}] 
+    Creacion de Objetos
+    
+!new Piloto('Piloto1')
+    !Piloto1.nombre := 'Sigfri'
+    !Piloto1.edad := 19
+!new Vuelo('VueloMalagaRoma')
+    !VueloMalagaRoma.vueloID := 1234
+    !VueloMalagaRoma.kmRecorridos := 232.00
+!new Vuelo('VueloMalagaRoma2')
+    !VueloMalagaRoma2.vueloID := 12343
+    !VueloMalagaRoma2.kmRecorridos := 231.00
+!new Vuelo('VueloMalagaRoma3')
+    !VueloMalagaRoma3.vueloID := 123411
+    !VueloMalagaRoma3.kmRecorridos := 2322.00
+!new Avion('F23')
+!new Aerolinea('Aerolinea1')
+    !Aerolinea1.nombre := 'Emirates'
+!new Aerolinea('Aerolinea2')
+    !Aerolinea2.nombre := 'Rayanair'
+!new Aerolinea('Aerolinea3')
+    !Aerolinea3.nombre := 'Japan Airlines'
+
+    Inserciones en relaciones
+    
+!insert (VueloMalagaRoma, Piloto1) into vuela_en
+!insert (VueloMalagaRoma, F23) into realizan
+!insert (VueloMalagaRoma, Piloto1) into participa
+!insert (VueloMalagaRoma2, Piloto1) into vuela_en
+!insert (VueloMalagaRoma2, F23) into realizan
+!insert (VueloMalagaRoma3, Piloto1) into vuela_en
+!insert (VueloMalagaRoma3, F23) into realizan
+!insert (VueloMalagaRoma, Aerolinea1) into aerolineaRealizaVuelo
+!insert (VueloMalagaRoma2, Aerolinea2) into aerolineaRealizaVuelo
+!insert (VueloMalagaRoma3, Aerolinea2) into aerolineaRealizaVuelo
+!insert (F23, Aerolinea1) into Contrato -- Contrato1
+    !Contrato1.mesesContrato := 12
+    !Contrato1.precioPorMes := 200
+!insert (F23, Aerolinea2) into Contrato -- Contrato2
+    !Contrato2.mesesContrato := 6
+    !Contrato2.precioPorMes := 250
+!insert (F23, Aerolinea3) into Contrato -- Contrato3
+    !Contrato3.mesesContrato := 8
+    !Contrato3.precioPorMes := 300
+\end{lstlisting}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{caso2.jpeg}
+     \caption{Diagrama para el caso de pruebas 2}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+De esta manera podemos comprobar que todas las restricciones se cumplen, para ver el caso contrario basta con modificar atributos dentro de los archivos suministrados anteriormente.\\\\
+
+\newpage
+\section{Modelado Dinámico}
+En este apartado, se debe entregar la imagen del diagrama de clases y el código USE desarrollado (al ser este apartado un incremento respecto del anterior, hay que entregar únicamente el código USE nuevo). En las operaciones añadidas, especificar las pre- y post- condiciones.
+
+\subsection{b1}
+Un coche comienza un viaje desde la ciudad en la que se encuentra. Esta operación debe recibir como parámetro el recorrido entre dos ciudades que debe realizar en su viaje.
+
+\subsection{b2}
+Una operación avanzar que se ejecuta sobre los coches, y que no recibe ningún parámetro. Esta operación debe hacer avanzar el coche el número de kilómetros indicados en su velocidad si el coche está realizando algún viaje.
+
+\subsection{b3}
+Se debe modelar el paso del tiempo, de modo que un tic del reloj representa el paso de un día, lo cual se debe tener en cuenta a la hora de que los coches puedan avanzar en el viaje que estén realizando.
+
+\newpage
+\section{Caso Particular}
+Ahora se debe desarrollar un modelo de objetos y simularlo. Vamos a considerar tres ciudades: Málaga, Sevilla y Granada. Tendremos dos recorridos: entre Málaga y Sevilla con 210 kilómetros, y entre Sevilla y Granada con 250 kilómetros. Supondremos un coche matriculado en el instante 0 (día 0) y que viaja a una velocidad de 27. El coche comienza en Málaga y continúa en Málaga hasta el día 5, día en que comienza un viaje haciendo el recorrido de Málaga a Sevilla. Los días van pasando y el coche va avanzando hasta que llega a Sevilla. El mismo día que llega a Sevilla, el coche comienza otro viaje haciendo el recorrido entre Sevilla y Granada. Los días van pasando y el coche continúa realizando el viaje. Una vez llega a Granada, la simulación termina.
+Se debe mostrar 3 imágenes del diagrama conceptual: una en el instante 0, otra cuando el coche llega a Sevilla y otra cuando el coche lleva a Granada. Entregar también el código SOIL necesario para reproducir el modelo conceptual y la simulación.
+
+
+\newpage
+\section{Conclusión}
+\lipsum[]
+
+
+\end{document}
