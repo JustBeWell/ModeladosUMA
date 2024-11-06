@@ -1,0 +1,85 @@
+reset
+
+--=============================================================================
+--                               OBJETOS
+--=============================================================================
+!new Clock('Clock')               -- Solo puede existir una única instancia
+!Clock.NOW := 10                  -- Día actual
+!Clock.resolution := 1            -- Saltos cada tick
+
+
+!new Coche('Coche1')
+!Coche1.fechaMatriculacion := 1   -- Día en el que el coche comenzó a existir en el sistema
+--!new Coche('Coche2')
+--!Coche2.fechaMatriculacion := 2   -- Día en el que el coche comenzó a existir en el sistema
+--!new Coche('Coche3')
+--!Coche3.fechaMatriculacion := 3   -- Día en el que el coche comenzó a existir en el sistema
+
+
+!new Ciudad('Ciudad1')
+!Ciudad1.nombre := 'Malaga'
+
+!new Ciudad('Ciudad2')
+!Ciudad2.nombre := 'Cartagena'
+
+--!new Ciudad('Ciudad2')
+--!Ciudad2.nombre := 'Cadiz'
+
+
+
+!new Viaje('Viaje1')
+!Viaje1.fechaSalida := 1
+!Viaje1.fechaLlegada := 3
+
+!new Viaje('Viaje2')
+!Viaje2.fechaSalida := 4
+!Viaje2.fechaLlegada := 8
+
+
+--Creo una revisión en curso y la pongo en la misma ciudad
+
+
+
+
+
+
+
+--=============================================================================
+--                               INSERTS
+--=============================================================================
+
+-- Modelamos para un caso en particular donde no hay paso del tiempo ni cambio de estado
+
+!insert(Coche1, Ciudad2) into estaEn     -- coche1 esta en Málaga y va a realizar un viaje a Cádiz:
+  -- coche1 ya realizó el viaje,
+!insert(Ciudad1, Ciudad2) into Recorrido -- y estos son los km que recorrió en dicho viaje entre Málaga->Cádiz
+!Recorrido1.distancia := 300          
+!insert(Ciudad2, Ciudad1) into Recorrido -- y estos son los km que recorrió en dicho viaje entre Málaga->Cádiz
+!Recorrido2.distancia := 300   
+!insert(Coche1, Viaje1) into realiza     -- coche2 esta en Cádiz y va a realizar un viaje a Málaga:
+!insert(Coche1, Viaje2) into realiza     -- coche2 ya realizó el viaje,
+--!insert(Ciudad2, Ciudad1) into Recorrido -- y estos son los km que recorrió en dicho viaje entre Cádiz->Málaga
+--!Recorrido2.distancia := 1000 -- Probando a ver que pasa si el numero no es el mismo
+!insert(Viaje1, Recorrido1) into recorre -- Registro del viaje que hizo coche2
+!insert(Viaje2, Recorrido2) into recorre
+-- Probar caso de un viaje de una ciudad a la misma ciudad
+--!insert(Coche3, Ciudad2) into estaEn     -- coche3 esta en Cádiz y va a realizar un viaje a Cádiz:
+--!insert(Coche3, Viaje3) into realiza     -- coche3 ya realizó el viaje,
+--!insert(Ciudad2, Ciudad2) into Recorrido -- y estos son los km que recorrió en dicho viaje entre Cádiz->Cádiz
+--!Recorrido3.distancia := 100
+--!insert(Viaje3, Recorrido3) into recorre -- Registro del viaje que hizo coche3
+
+
+
+!insert(Ciudad1, TOficial1) into existeOficial     -- En Málaga existe un taller oficial
+!insert(Ciudad1, TNoOficial1) into existeNoOficial -- y uno no oficial
+
+
+--!insert(Coche1, Revision1) into esSometido
+--!insert(TOficial1, Revision1) into esRealizada     -- El coche1 se revisa  en el taller oficial que está en la ciudad donde reposa
+
+
+-- Relaacionamos cada ActiveObject con el clock
+!insert(Clock, Coche1) into time
+--!insert(Clock, Coche2) into time
+--!insert(Clock, Coche3) into time

@@ -1,0 +1,59 @@
+Inviariantes:
+#context Recorrido
+    inv minimo5Km --> CHECK
+	--He generado una recorrido entre Ciudad2 y Ciudad2 de menos de 5km, y da error, mientras que los otros dos reccoridos funcionan bien.
+
+#context Coche
+    inv revisionDespuesdeMatriculacion --> CHECK
+--Creo un tallerNoOficial y una revision en la ciudad del coche 3 y lo someto a una revisión antes de su matriculación y da false la constraint mientras que para el resto de valores válidos funciona
+	
+
+	inv revisadoUnaVez --> CHECK
+
+--He añadido que no pueda haber dos en curso a la restricción para el dinámico
+Revision 1 y 2 se solapan con inicios y finales distintos y lo detecta
+Revision 1 y 2 se solapan con incios iguales y lo detecta
+Revision 1 y 2 se solapan con incios distintos y mismo final y lo detecta
+Revision 1 y 2 se solapan al estar en curso (ambos finales null)
+#context Revision
+    inv mismaCiudadqueTallerEnRevision -->CHECK
+
+--Cuando una revisión está en curso, es necesario que el coche se encuentre en la misma ciudad que su taller
+Creo una revision en la misma ciudad que el coche y da true
+Creo una nueva ciudad y hago que la revisión en curso no esté en el taller y lo detecta
+
+#context Viaje
+    inv viajandoOenCiudad--> CHECK
+Si el coche está viajando no está en una ciudad
+Creo un viaje no terminado y pongo el coche en una ciudad y lo detecta
+Hago que el coche deje de estar en la ciudad y da true
+
+#context Coche
+    inv enCiudadDestino--> CHECK
+
+--Hago que el coche1 viaje a Ciudad 1 desde Ciudad 2 y se encuentre alli y da true
+--Hago que el coche1 viaje a Ciudad 1 desde Ciudad 2 y se encuentre en Ciudad 2 y da false
+
+#context Coche
+    inv viajeUnico--> CHECK
+--He añadido que no pueda haber dos en curso a la restricción para el dinámico
+Dos viajes solapados en inicio da false
+Dos viajes solapados con inicio y fin distintos da false
+Dos viajes solapados con incio distinto y fin igual da false
+Dos viajes solapados por estar en curso, fin a null
+	inv destinoComoOrigen-->
+
+#context Ciudad
+    inv hayRecorridos-->
+- Hago que solo haya un recorrido entre dos ciudades da false
+-Hago que no haya recorridos entre dos ciudades
+- Hago que hayan 2
+#context Coche
+    inv empiezaViajeEnOrigen-->
+
+	inv viajeDespuesdeMatriculacion-->
+
+Operaciones:
+inciarViaje(recorrido : Recorrido) -> Funciona
+
+
