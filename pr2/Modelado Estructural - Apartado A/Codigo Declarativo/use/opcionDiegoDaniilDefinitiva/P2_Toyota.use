@@ -236,3 +236,10 @@ context Coche
 context Ciudad
     inv hayRecorridos:
     not (self.origen -> notEmpty() and self.destino -> notEmpty())
+-- Invariante 11: Un coche debe de estar en la ciudad origen de un recorrido antes de iniciar un viaje
+context Coche
+    inv empiezaViajeEnOrigen:
+    (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.origen = self.ciudad
+-- Invariante 12: Cada coche debe de pasar revision despues de matricularse y no antes.
+    inv viajeDespuesdeMatriculacion:
+    self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
