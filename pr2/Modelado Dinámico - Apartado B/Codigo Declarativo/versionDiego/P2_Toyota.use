@@ -74,17 +74,24 @@ class Coche < ActiveObject
             delete(self, self.ciudad) from estaEn;
         end
         pre estaEnCiudad : self.ciudad = recorrido.origen
-        pre viajeNoEnCurso : self.viaje->isEmpty() or (self.viaje->asOrderedSet()->sortedBy(v | v.fechaLlegada)->last().fechaLlegada < self.clock.NOW)
+        pre viajeNoEnCurso : self.viaje->isEmpty() or not (self.viaje->asOrderedSet()->sortedBy(v | v.fechaSalida)->last().fechaLlegada = null)
         post noEstaEnCiudad : self.ciudad.oclIsUndefined()
         
-        --avanzar()
-        --begin
-        --declare viajeEnCurso : Viaje;
-        --viajeEnCurso = self.viaje -> asOrderedSet() -> sortedBy(v | v.fechaSalida) -> last();
-        --viajeEnCurso.kmViaje := viajeEnCurso.kmViaje + self.velocidad 
-       -- end
-     --   pre estaEnViaje: (self.viaje -> asOrderedSet() -> sortedBy( v| v.fechaSalida) -> last()).fechaLlegada = null and self.ciudad.oclIsUndefined()
-end 
+        avanzar()
+        begin
+            declare viajeEnCurso : Viaje;
+            viajeEnCurso := self.viaje -> asOrderedSet() -> sortedBy(v | v.fechaSalida) -> last();
+            viajeEnCurso.kmViaje := viajeEnCurso.kmViaje + self.velocidad;
+            if viajeEnCurso.kmViaje > viajeEnCurso.recorrido.distancia then 
+                viajeEnCurso.kmViaje := viajeEnCurso.recorrido.distancia;       
+                self.velocidad := 0;
+                viajeEnCurso.fechaLlegada := self.clock.NOW;
+                insert(self, viajeEnCurso.recorrido.destino) into estaEn;
+            end;
+        end
+        pre estaEnViaje: (self.viaje -> asOrderedSet() -> sortedBy( v| v.fechaSalida) -> last()).fechaLlegada = null and self.ciudad.oclIsUndefined()
+        
+end     
 
 class Viaje
 attributes
