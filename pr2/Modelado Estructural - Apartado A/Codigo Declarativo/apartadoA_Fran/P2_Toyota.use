@@ -182,8 +182,7 @@ context Viaje
     inv viajandoOenCiudad:
     let currentTime : Integer = self.coche.clock.NOW in  -- Accede al tiempo actual
     (currentTime - self.fechaLlegada) < 0 implies
-    if (currentTime - self.fechaLlegada) = null then self.coche.oclIsUndefined() -- El coche no existe
-    else not(self.coche.oclIsUndefined()) -- and self.coche.estaEn->notEmpty() -- El coche existe en una ubicacion valida
+    self.coche.ciudad.oclIsUndefined() -- and self.coche.estaEn->notEmpty() -- El coche existe en una ubicacion valida
     endif
 -- V2: PARA MODELADO DINAMICO
 -- inv viajandoOenCiudad:
