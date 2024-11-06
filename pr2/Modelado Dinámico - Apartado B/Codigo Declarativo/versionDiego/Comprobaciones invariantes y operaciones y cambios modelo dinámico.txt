@@ -1,3 +1,10 @@
+Derivados:
+
+
+
+
+
+
 Inviariantes:
 #context Recorrido
     inv minimo5Km --> CHECK
@@ -55,5 +62,10 @@ Dos viajes solapados por estar en curso, fin a null
 
 Operaciones:
 inciarViaje(recorrido : Recorrido) -> Funciona
+avanzar() ->
+--Se ha verificado el comportamiento definiendo una velocidad y haciendo que el coche llegue al destino.
+
+Al tener un viaje en curso el atributo derivado de los km realizados por el coche debe ser la suma de los recorridos de los viajes terminados más los que lleve recorridos del el viaje en curso, si lo hubiera.
+
 
 
