@@ -85,7 +85,7 @@ end
 
 class Ciudad
 attributes
-    nombre : String                           -- Nombre de la ciudad
+    nombre : String     -- Nombre de la ciudad
 end
 
 
@@ -94,8 +94,8 @@ end
 -- =====================================================================
 
 associationclass Recorrido between
-    Ciudad [1..*] role origen
-    Ciudad [1..*] role destino
+    Ciudad [1] role origen  -- Un recorrido concreto tiene un solo origen
+    Ciudad [1] role destino -- Un recorrido concreto tiene un solo destino
 attributes
     distancia : Real                    -- Define el camino de separación entre dos Ciudades distintas
 end 

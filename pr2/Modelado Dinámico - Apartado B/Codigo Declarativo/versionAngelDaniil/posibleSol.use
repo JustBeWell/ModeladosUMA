@@ -74,6 +74,13 @@ operations
     pre sumandoValido : n > 0
     post sumaCorrecta : self.velocidad = self.velocidad@pre + n
 
+    decelerar(n : Integer)
+    begin
+        self.velocidad := self.velocidad - n;
+    end
+    pre sumandoValido : n > 0 and self.velocidad > n
+    post sumaCorrecta : self.velocidad = self.velocidad@pre - n
+
     avanzar()
     begin    
     if self.kmViajeActual + self.velocidad >= (self.viaje -> asOrderedSet() -> sortedBy(v | v.fechaSalida) -> last()).recorrido.distancia then

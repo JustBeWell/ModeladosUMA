@@ -58,7 +58,7 @@ operations
     pre estaEnCiudad : self.ciudad = Recorrido.origen
     pre viajeNoEnCurso : self.viaje -> isEmpty() or self.viaje -> asOrderedSet() -> sortedBy(fechaFin) -> last().fechaFin < (self.clock -> asOrderedSet() -> first()).NOW
     let fechaActual : Integer = (self.clock -> asOrderedSet() -> first()).NOW
-    let nuevoViaje = Viaje(fechaSalida:= fechaActual, kmViaje := 0) in
+    let nuevoViaje : Viaje = Viaje(fechaSalida:= fechaActual, kmViaje := 0) in
     self.viaje -> including(nuevoViaje);
     nuevoViaje.recorrido := recorrido;
     self.ciudad := null;
