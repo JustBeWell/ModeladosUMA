@@ -43,7 +43,8 @@ class Coche < ActiveObject
     attributes
         velocidad : Real init : 0
         kmRecorridos : Real derive :              -- Registro de todos los km que ha recorrido el coche entre ciudades en sus viajes
-            self.viaje.recorrido -> collect(dist | dist.distancia) -> sum()
+            let ultimoViaje : Viaje = self.viaje -> sortedBy(v|v.fechaSalida) -> last() in
+                self.viaje -> excluding(ultimoViaje).recorrido -> collect(dist | dist.distancia) -> sum() + ultimoViaje.kmViaje
         fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
         necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
             -- razones de necesitaMantenimiento

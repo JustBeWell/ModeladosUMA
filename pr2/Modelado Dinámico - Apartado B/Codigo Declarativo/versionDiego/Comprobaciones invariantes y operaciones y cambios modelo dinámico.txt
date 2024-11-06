@@ -1,6 +1,6 @@
 Derivados:
-
-
+Derivado1: KmRecorridos: Ha sido modificado para que se puedan sumar de manera dinamica todo comprobado y en funcionamiento
+Hemos creado un viaje dinamicamente y hemos ido moviendo el coche poco a poco para comprobar que la suma es dinamica y concurrente
 
 
 
@@ -68,7 +68,7 @@ decelerar() -> Funciona
 --Se ha verificado el comportamiento definiendo una velocidad y haciendo que el coche llegue al destino.
 -- Para acelerar y frenar hemos comprobado que las restas no den valores negativos ni valores fuera de los rangos permitidos y que los cambios de velocidad efectivamente funcionen en el metodo avanza()
 
-Al tener un viaje en curso el atributo derivado de los km realizados por el coche debe ser la suma de los recorridos de los viajes terminados más los que lleve recorridos del el viaje en curso, si lo hubiera.
+Al tener un viaje en curso el atributo derivado de los km realizados por el coche debe ser la suma de los recorridos de los viajes terminados más los que lleve recorridos del el viaje en curso, si lo hubiera. -- ESTO ESTA YA HECHO CARAJOOOO
 
 
 
