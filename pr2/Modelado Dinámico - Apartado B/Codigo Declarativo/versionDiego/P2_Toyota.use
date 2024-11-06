@@ -52,20 +52,23 @@ attributes
         (revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> last()).taller.oclAsType(Oficial).garantia
         
         --self.revision->select(revisionEn | revisionEn.taller.oclIsKindOf(Oficial))->
-        --collect(revisionEn | revisionEn.taller.validezGarantia)->last()
+
+        --collect(revisionEn | revisionEn.taller.validezGarantia)->last() 
 operations
     iniciarViaje(recorrido : Recorrido)
-    pre estaEnCiudad : self.ciudad = Recorrido.origen
-    pre viajeNoEnCurso : self.viaje -> isEmpty() or self.viaje -> asOrderedSet() -> sortedBy(fechaFin) -> last().fechaFin < (self.clock -> asOrderedSet() -> first()).NOW
-    let fechaActual : Integer = (self.clock -> asOrderedSet() -> first()).NOW
-    let nuevoViaje : Viaje = Viaje(fechaSalida:= fechaActual, kmViaje := 0) in
-    self.viaje -> including(nuevoViaje);
-    nuevoViaje.recorrido := recorrido;
-    self.ciudad := null;
-    end
-    post viajeIniciado: self.viaje -> includes(nuevoViaje)
-    post noEstaEnCiudad : self.ciudad = null
-end 
+        begin
+            declare nuevoViaje : Viaje;
+            nuevoViaje.fechaSalida := self.clock.NOW;
+            nuevoViaje.kmViaje := 0;
+            insert(self, nuevoViaje) into realiza;
+            insert(nuevoViaje, recorrido) into recorre;
+            delete(self, self.ciudad) from estaEn;
+        end
+        pre estaEnCiudad : self.ciudad = recorrido.origen
+        pre viajeNoEnCurso : self.viaje -> isEmpty() or self.viaje -> asOrderedSet() -> sortedBy( v | v.fechaSalida) -> last().oclIsUndefined()
+        post noEstaEnCiudad : self.ciudad.oclIsUndefined()  
+end
+
 
 class Viaje
 attributes
