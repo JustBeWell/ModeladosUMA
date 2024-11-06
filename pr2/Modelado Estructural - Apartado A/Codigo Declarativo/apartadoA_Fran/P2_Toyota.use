@@ -19,21 +19,9 @@ class Clock
 attributes
     NOW : Integer --init = 0                    -- Nos dice el dia actual en el que se encuentra el sistema
     resolution : Integer --init = 1
-operations
-    tick()
-    begin
-    end
-
-    run(n : Integer)
-    begin
-    end
 end
 
 abstract class ActiveObject
-operations
-    tick()
-    begin
-    end
 end
 
 class Coche < ActiveObject
@@ -43,17 +31,20 @@ attributes
     fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
     necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
         -- razones de necesitaMantenimiento
-        not (((self.clock -> asOrderedSet() -> first()).NOW  - fechaMatriculacion) < 400) or 
-        not (((self.clock -> asOrderedSet() -> first()).NOW - (self.revision -> collect(rev | revision.fechaFin) -> max())) < 100) 
+        if self.revision -> size() <= 0 then not ((self.clock.NOW  - fechaMatriculacion) < 400)  -- Esta  es la alternativa equivalente a size() >= 0 : -> collect(rev | rev.fechaFin) -> max().oclIsUndefined()
+        else not ((self.clock.NOW - (self.revision -> collect(rev | rev.fechaFin) -> max())) < 100) --
+        endif
         
     enGarantia : Boolean derive :             -- Flag que indica que el coche tiene una garantia activa
         -- razones por estar enGarantia
-        (((self.clock -> asOrderedSet() -> first()).NOW  - fechaMatriculacion) < 400) or
+        ((self.clock.NOW  - fechaMatriculacion) < 400) or
         (validezDeGarantia > 0)
+
     validezDeGarantia : Integer derive :      -- Días por los que la garantia proporcionada por un tallerOficial esta activa
-        let revOrdenadas : Sequence(Revision) = self.revision -> sortedBy(fechaFin) in
-        (revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> last()).taller.oclAsType(Oficial).garantia
-        
+        let revOrdenadas : OrderedSet(Revision) = self.revision -> sortedBy(fechaFin) in
+        if revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() <= 0 then revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() --
+        else (revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> last()).taller.oclAsType(Oficial).garantia
+        endif
         --self.revision->select(revisionEn | revisionEn.taller.oclIsKindOf(Oficial))->
         --collect(revisionEn | revisionEn.taller.validezGarantia)->last()
 end 
@@ -61,7 +52,7 @@ end
 class Viaje
 attributes
     fechaSalida : Integer                     -- Dia en el que el coche comienza en viaje
-    fechaLlegada : Integer               -- Dia en el que el coche finaliza el viaje ESTO EN EL APARTADO B SERA UN DERIVED
+    fechaLlegada : Integer                    -- Dia en el que el coche finaliza el viaje ESTO EN EL APARTADO B SERA UN DERIVED
         --fechaSalida + ((self.recorrido -> asOrderedSet() -> first()).distancia/self.coche.velocidad)
 end
 
@@ -94,10 +85,10 @@ end
 -- =====================================================================
 
 associationclass Recorrido between
-    Ciudad [1..*] role destino
-    Ciudad [1..*] role origen
+    Ciudad [1] role destino
+    Ciudad [1] role origen
 attributes
-    distancia : Real                    -- Define el camino de separación entre dos Ciudades distintas
+    distancia : Real                         -- Define el camino de separación entre dos Ciudades distintas
 end 
 
 -- =====================================================================
@@ -173,7 +164,7 @@ context Coche
     --Versión context Revision
 context Revision
     inv mismaCiudadqueTallerEnRevision:
-    let currentTime : Integer = self.coche.clock.NOW in
+    let currentTime : Integer = self.coche.clock.NOW in   -- Accede al tiempo actual
     (currentTime - self.fechaFin) < 0 implies
     (self.taller.oclIsKindOf(Oficial) and self.taller.oclAsType(Oficial).ciudad = self.coche.ciudad) or (self.taller.oclIsKindOf(NoOficial) and self.taller.oclAsType(NoOficial).ciudad = self.coche.ciudad)
     --Toda esta comprobación y casting se debe a la desción de modelar la multiplicidad de tallerOFicial en ciudad mediante composiciones específicas para cada tipo de taller
@@ -189,7 +180,7 @@ context Revision
     --Versión context Revision
 context Viaje
     inv viajandoOenCiudad:
-    let currentTime : Integer = self.coche.clock.NOW in
+    let currentTime : Integer = self.coche.clock.NOW in  -- Accede al tiempo actual
     (currentTime - self.fechaLlegada) < 0 implies
     if (currentTime - self.fechaLlegada) = null then self.coche.oclIsUndefined() -- El coche no existe
     else not(self.coche.oclIsUndefined()) -- and self.coche.estaEn->notEmpty() -- El coche existe en una ubicacion valida
@@ -211,13 +202,12 @@ context Coche
 -- Invariante 7: No pueden haber dos viajes solapados.
 context Coche
     inv viajeUnico:
-    self.viaje -> forAll(v1,v2 | v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida))
+    self.viaje -> forAll(v1,v2 | not(v1 <> v2) or v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida))
 
 -- Invariante 8: Un coche debe de empezar el siguiente viaje en la ciudad destino del anterior.
     inv destinoComoOrigen:
-    let viajesOrdenados : Sequence(Viaje)  = self.viaje -> sortedBy(v | v.fechaSalida) in 
-    viajesOrdenados -> forAll(v1, v2 | viajesOrdenados->indexOf(v1) = viajesOrdenados->indexOf(v2) + 1 implies v1.recorrido.destino 
-    = v2.recorrido.origen)
+    let viajesOrdenados : OrderedSet(Viaje)  = self.viaje -> sortedBy(v | v.fechaSalida) in 
+    viajesOrdenados -> forAll(v1, v2 | viajesOrdenados->indexOf(v1) = viajesOrdenados->indexOf(v2) + 1 implies v1.recorrido.destino = v2.recorrido.origen)
 --Las siguientes invariantes ya han sido definidas como argumentos derivados
     -- Invariante 9: Un coche esta en garantia si no pasaron 4 años desde su matriculacion.
         --inv enGarantiaMatriculacion:
@@ -240,3 +230,12 @@ context Coche
 context Ciudad
     inv hayRecorridos:
     self.origen -> notEmpty() and self.destino -> notEmpty()
+
+    -- Invariante 11 (antigua 14): Un coche debe de estar en la ciudad origen de un recorrido antes de iniciar un viaje
+context Coche
+    inv empiezaViajeEnOrigen:
+    (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.origen = self.ciudad
+
+-- Invariante 12 (antigua 15): Cada coche debe de pasar revision despues de matricularse y no antes.
+    inv viajeDespuesdeMatriculacion:
+    self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
