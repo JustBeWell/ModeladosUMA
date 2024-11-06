@@ -1,0 +1,51 @@
+reset
+
+--=============================================================================
+--                               OBJETOS
+--=============================================================================
+!new Clock('Clock')
+!Clock.NOW := 450                   -- Día actual, más de 400 días desde la fecha de matriculación
+!Clock.resolution := 1
+
+!new Coche('Coche1')
+!Coche1.fechaMatriculacion := 1
+!new Coche('Coche2')
+!Coche2.fechaMatriculacion := 2
+
+!new Ciudad('Ciudad1')
+!Ciudad1.nombre := 'Malaga'
+
+!new Oficial('TOficial1')
+!TOficial1.garantia := 2
+
+!new NoOficial('TNoOficial1')
+
+!new Revision('Revision1')
+!Revision1.tipo := #Mantenimiento  -- Tipo que concede 100 días de no necesitar mantenimiento
+!Revision1.fechaInicio := 401      
+!Revision1.fechaFin := 410         
+
+!new Revision('Revision2')
+!Revision2.tipo := #Reparacion   -- Tipo que NO concede 100 días de no necesitar mantenimiento
+!Revision2.fechaInicio := 401    -- Fecha de inicio de la revisión
+!Revision2.fechaFin := 420       -- Fecha de finalización de la revisión
+
+--=============================================================================
+--                               INSERTS
+--=============================================================================
+
+
+!insert(Coche1, Ciudad1) into estaEn
+!insert(Coche1, Revision1) into esSometido
+!insert(TOficial1, Revision1) into esRealizada
+
+!insert(Coche2, Ciudad1) into estaEn
+!insert(Coche2, Revision2) into esSometido
+!insert(TNoOficial1, Revision2) into esRealizada
+
+!insert(Ciudad1, TOficial1) into existeOficial     
+!insert(Ciudad1, TNoOficial1) into existeNoOficial 
+
+
+!insert(Clock, Coche1) into time
+!insert(Clock, Coche2) into time
