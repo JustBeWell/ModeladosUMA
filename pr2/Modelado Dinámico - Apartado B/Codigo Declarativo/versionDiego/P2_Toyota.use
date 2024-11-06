@@ -42,15 +42,36 @@ end
 class Coche < ActiveObject
     attributes
         velocidad : Real init : 0
+        --Derivado 1:
+        --Para comprobar que el derivado kmRecorridos funciona correctamente:
+        --Se han desarrollado 3 archivos .soil:
+        ---El primero comprueba 
+
+
         kmRecorridos : Real derive :              -- Registro de todos los km que ha recorrido el coche entre ciudades en sus viajes
-            let ultimoViaje : Viaje = self.viaje -> sortedBy(v|v.fechaSalida) -> last() in
+        
+        if self.viaje -> size() = 0 then 0 else
+        let ultimoViaje : Viaje = self.viaje -> sortedBy(v|v.fechaSalida) -> last() in
                 self.viaje -> excluding(ultimoViaje).recorrido -> collect(dist | dist.distancia) -> sum() + ultimoViaje.kmViaje
+        endif
+        
         fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
         necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
             -- razones de necesitaMantenimiento
-            if self.revision -> size() <= 0 then not ((self.clock.NOW  - fechaMatriculacion) < 400)  -- Esta  es la alternativa equivalente a size() >= 0 : -> collect(rev | rev.fechaFin) -> max().oclIsUndefined()
-            else not ((self.clock.NOW - (self.revision -> collect(rev | rev.fechaFin) -> max())) < 100) --
+           -- if self.revision -> size() <= 0 then not ((self.clock.NOW  - fechaMatriculacion) < 400)  -- Esta  es la alternativa equivalente a size() >= 0 : -> collect(rev | rev.fechaFin) -> max().oclIsUndefined()
+           -- else not ((self.clock.NOW - (self.revision -> collect(rev | rev.fechaFin) -> max())) < 100) endif
+           if self.revision -> size() = 0 then not ((self.clock.NOW  - fechaMatriculacion) < 400) 
+           else 
+                let ultimaRevision : Revision = self.revision -> sortedBy(r | r.fechaInicio) -> last() in
+                if ultimaRevision.fechaFin = null 
+                then 
+                    true 
+                else 
+                    (self.clock.NOW - ultimaRevision.fechaFin) > 100
+                endif
             endif
+
+            
             
         enGarantia : Boolean derive :             -- Flag que indica que el coche tiene una garantia activa
             -- razones por estar enGarantia
@@ -58,12 +79,24 @@ class Coche < ActiveObject
             (validezDeGarantia > 0)
 
         validezDeGarantia : Integer derive :      -- Días por los que la garantia proporcionada por un tallerOficial esta activa
-            let revOrdenadas : OrderedSet(Revision) = self.revision -> sortedBy(fechaFin) in
-            if revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() <= 0 then revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() --
-            else (revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> last()).taller.oclAsType(Oficial).garantia
-            endif
+            --let revOrdenadas : OrderedSet(Revision) = self.revision -> sortedBy(fechaFin) in
+            --if revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() <= 0 then revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() --
+            --else (revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> last()).taller.oclAsType(Oficial).garantia
+            --endif
             --self.revision->select(revisionEn | revisionEn.taller.oclIsKindOf(Oficial))->
             --collect(revisionEn | revisionEn.taller.validezGarantia)->last()
+        if self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() = 0 and  (self.clock.NOW  - fechaMatriculacion) < 400 
+            then 
+                400 -- El coche tiene garantía durante primeros 4 años 
+            else
+                let revisionesOficiales : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(rev | rev.fechaInicio) in
+                    if revisionesOficiales->size() > 0 and (revisionesOficiales -> last()).fechaFin <> null 
+                        then
+                            (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
+                        else
+                            0
+                    endif          
+        endif               
     operations
         iniciarViaje(recorrido : Recorrido)
         begin
