@@ -392,21 +392,21 @@ La herramienta USE nos permite llevar a cabo un diagrama de clases, el cual se m
 
 Todas las relaciones entre las entidades del modelo tienen su significado y están definidas de la siguiente manera:
 \begin{itemize}
-\item \textbf{esSometido (Coche-Revisión)}: ...
+\item \textbf{esSometido (Coche-Revisión)}:  Esta relación indica que cada coche en el sistema puede estar asociado a múltiples revisiones a lo largo de su vida útil. Cada revisión se registra cuando el coche necesita mantenimiento o reparación.
   
-\item \textbf{realiza (Coche-Viaje))}: ...
+\item \textbf{realiza (Coche-Viaje))}: Relación que representa el hecho de que un coche puede realizar varios viajes. Un viaje es un desplazamiento que inicia en una ciudad y concluye en otra, y se registra en el sistema para hacer seguimiento del historial de movimientos del coche.
 
-\item \textbf{estaEn (Coche-Ciudad)}: ...
+\item \textbf{estaEn (Coche-Ciudad)}: Esta relación representa la ubicación actual del coche en una ciudad. Cada coche estará siempre en una ciudad específica, ya sea de origen o destino de algún viaje.
 
-\item \textbf{esRealizada (Revisión-Taller)}: ...
+\item \textbf{esRealizada (Revisión-Taller)}: Define que toda revisión de un coche debe realizarse en un taller. Esto significa que las revisiones de mantenimiento y reparación se registran con el taller en el que se realizan.
 
-\item \textbf{existeOficial (Oficial-Ciudad)}: ...
+\item \textbf{existeOficial (Oficial-Ciudad)}: Relación que establece la existencia de un único taller oficial en cada ciudad. El taller oficial ofrece revisiones con garantía, lo cual beneficia a los coches que pasan por él.
 
-\item \textbf{existeNoOficial (NoOficial-Ciudad)}: ...
+\item \textbf{existeNoOficial (NoOficial-Ciudad)}: Representa la existencia de uno o varios talleres no oficiales en cada ciudad. Estos talleres pueden realizar revisiones de mantenimiento y reparación, pero no otorgan garantía a los coches.
 
-\item \textbf{Recorrido (Ciudad-Ciudad)}: ...
+\item \textbf{Recorrido (Ciudad-Ciudad)}: Relación de asociación entre dos ciudades, que define la distancia entre ellas. Esto permite modelar la distancia que un coche debe recorrer al viajar de una ciudad a otra.
 
-\item \textbf{time (Clock-ActiveObject)}: ...
+\item \textbf{time (Clock-ActiveObject)}: Esta relación conecta la instancia única de Clock con cada objeto activo (ActiveObject) del sistema, como los coches. A través de esta relación, el sistema puede realizar el seguimiento del paso del tiempo y cómo afecta a cada coche o entidad que depende del tiempo para su funcionamiento o estado.
 \end{itemize}
 
 \vspace{1.0cm}
@@ -496,120 +496,63 @@ Para poder comprobar las restricciones de nuestro sistema, primero es necesario 
     inv hayRecorridos:
     not (self.origen -> notEmpty() and self.destino -> notEmpty())
     \end{lstlisting}
+
+    \item \textbf{10.}: Un coche debe de estar en la ciudad origen de un recorrido antes de iniciar un viaje
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+  context Coche
+    inv empiezaViajeEnOrigen:
+    (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.origen = self.ciudad
+    \end{lstlisting}
+
+    \item \textbf{11.}: Cada coche debe de pasar revision despues de matricularse y no antes.
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+    inv viajeDespuesdeMatriculacion:
+    self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
+    \end{lstlisting}
+
+    
 \end{itemize}
 \vspace{1.0 cm}
 A partir de aqui podemos desarrollar los archivos de prueba que respaldaran el funcionamiento de nuestras restricciones, hemos usado los siguientes casos de prueba:\\\\
-\textbf{Restricciones 1,3,4,5,6 y 7}\\\\
-
+\textbf{ESPERAR A CUANDO TENGAMOS LOS SOILS BUENOS}\\\\
 Para poder comprobar estas restricciones se proporciona el siguiente .soil para los casos verdaderos y falsos:
 
-\vspace{2.0 cm}
+\vspace{1.0 cm}
 \begin{lstlisting}[style = useNormal,language=SQL, caption={Codigo de pruebas 1}] 
-
-    Creacion de Objetos
-    
-!new Aeropuerto('AeropuertoMalaga')
-!new Hangar('HangarMain')
-    !HangarMain.capacidadMaxima := 1
-!new Desguace('DesguaceMain')
-    !DesguaceMain.capacidadMaxima := 1
-!new Avion('F23')
-!new Avion('F24')
-!new Vuelo('VueloMalagaRoma')
-    !VueloMalagaRoma.vueloID := 1234
-    !VueloMalagaRoma.kmRecorridos := 232.00
-!new Vuelo('VueloMalagaMadrid')
-    !VueloMalagaMadrid.vueloID := 4321
-    !VueloMalagaMadrid.kmRecorridos := 323.00
-!new Vuelo('VueloMalagaBarcelona')
-    !VueloMalagaBarcelona.vueloID := 2341
-    !VueloMalagaBarcelona.kmRecorridos := 2323.00
-    
-    Inserciones en relaciones
-    
-!insert(AeropuertoMalaga, HangarMain) into tiene
-!insert(AeropuertoMalaga, DesguaceMain) into almenos_tiene
-!insert(F23, DesguaceMain) into es_relegado
-!insert(F23, HangarMain) into se_encuentra
-!insert(F24, DesguaceMain) into es_relegado
-!insert(F24, HangarMain) into se_encuentra
-!insert(VueloMalagaRoma, F23) into realizan
-!insert(VueloMalagaMadrid, F23) into realizan
-!insert(VueloMalagaBarcelona, F23) into realizan
-
+WIP - INSERTAR .SOIL
 \end{lstlisting}
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{caso1.jpeg}
+     \includegraphics[width=1\linewidth]{DIAGRAMADEOBJETOS1.jpeg}
      \caption{Diagrama para el caso de pruebas 1}
-     \label{Diagrama del sistema de aviacion}
-\end{figure}
-\vspace{0.5 cm}
-\textbf{Restricciones 2 y 8}
-\begin{lstlisting}[style = useNormal,language=SQL, caption={Codigo de pruebas 2}] 
-    Creacion de Objetos
-    
-!new Piloto('Piloto1')
-    !Piloto1.nombre := 'Sigfri'
-    !Piloto1.edad := 19
-!new Vuelo('VueloMalagaRoma')
-    !VueloMalagaRoma.vueloID := 1234
-    !VueloMalagaRoma.kmRecorridos := 232.00
-!new Vuelo('VueloMalagaRoma2')
-    !VueloMalagaRoma2.vueloID := 12343
-    !VueloMalagaRoma2.kmRecorridos := 231.00
-!new Vuelo('VueloMalagaRoma3')
-    !VueloMalagaRoma3.vueloID := 123411
-    !VueloMalagaRoma3.kmRecorridos := 2322.00
-!new Avion('F23')
-!new Aerolinea('Aerolinea1')
-    !Aerolinea1.nombre := 'Emirates'
-!new Aerolinea('Aerolinea2')
-    !Aerolinea2.nombre := 'Rayanair'
-!new Aerolinea('Aerolinea3')
-    !Aerolinea3.nombre := 'Japan Airlines'
-
-    Inserciones en relaciones
-    
-!insert (VueloMalagaRoma, Piloto1) into vuela_en
-!insert (VueloMalagaRoma, F23) into realizan
-!insert (VueloMalagaRoma, Piloto1) into participa
-!insert (VueloMalagaRoma2, Piloto1) into vuela_en
-!insert (VueloMalagaRoma2, F23) into realizan
-!insert (VueloMalagaRoma3, Piloto1) into vuela_en
-!insert (VueloMalagaRoma3, F23) into realizan
-!insert (VueloMalagaRoma, Aerolinea1) into aerolineaRealizaVuelo
-!insert (VueloMalagaRoma2, Aerolinea2) into aerolineaRealizaVuelo
-!insert (VueloMalagaRoma3, Aerolinea2) into aerolineaRealizaVuelo
-!insert (F23, Aerolinea1) into Contrato -- Contrato1
-    !Contrato1.mesesContrato := 12
-    !Contrato1.precioPorMes := 200
-!insert (F23, Aerolinea2) into Contrato -- Contrato2
-    !Contrato2.mesesContrato := 6
-    !Contrato2.precioPorMes := 250
-!insert (F23, Aerolinea3) into Contrato -- Contrato3
-    !Contrato3.mesesContrato := 8
-    !Contrato3.precioPorMes := 300
-\end{lstlisting}
-\begin{figure}[H]
-     \includegraphics[width=1\linewidth]{caso2.jpeg}
-     \caption{Diagrama para el caso de pruebas 2}
      \label{Diagrama del sistema de aviacion}
 \end{figure}
 
 De esta manera podemos comprobar que todas las restricciones se cumplen, para ver el caso contrario basta con modificar atributos dentro de los archivos suministrados anteriormente.\\\\
 
 \newpage
-\section{Modelado Dinámico}
+\section{Modelado Dinámico - NO SEGUIR HASTA ASEGURADO}
 En este apartado, se debe entregar la imagen del diagrama de clases y el código USE desarrollado (al ser este apartado un incremento respecto del anterior, hay que entregar únicamente el código USE nuevo). En las operaciones añadidas, especificar las pre- y post- condiciones.
 
-\subsection{b1}
-Un coche comienza un viaje desde la ciudad en la que se encuentra. Esta operación debe recibir como parámetro el recorrido entre dos ciudades que debe realizar en su viaje.
+\subsection{Diagrama de clases}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{diagramas/DiagramaVPP_apartadoB.png}
+     \caption{Diagrama del sistema de coches para el modelo dinámico}
+     \label{Diagrama del sistema de coches}
+\end{figure}
 
-\subsection{b2}
-Una operación avanzar que se ejecuta sobre los coches, y que no recibe ningún parámetro. Esta operación debe hacer avanzar el coche el número de kilómetros indicados en su velocidad si el coche está realizando algún viaje.
+A diferencia del diagrama del modelo estructural, en este modelo hemos añadido dos atributos nuevos en las clases Coche y Viaje. Con estos atributos adicionales, el modelo puede ofrecer una representación más completa y precisa de los trayectos y los coches involucrados.
+
+\subsection{Nuevas adiciones al sistema para el modelo dinámico}
+\subsubsection{Atributo 'Velocidad' en la clase Coche}
+\textbf{Descripción}:  Este atributo ha sido incluido para capturar la capacidad de desplazamiento de cada coche y permitir el cálculo de tiempos de viaje en función de la velocidad específica de cada instancia.
+
+\subsubsection{Atributo 'kmViaje' en la clase Viaje}
+\textbf{Descripción}:  
+Se ha añadido para representar la distancia de cada viaje en kilómetros.
 
 \subsection{b3}
-Se debe modelar el paso del tiempo, de modo que un tic del reloj representa el paso de un día, lo cual se debe tener en cuenta a la hora de que los coches puedan avanzar en el viaje que estén realizando.
+Un coche comienza un viaje desde la ciudad en la que se encuentra. Esta operación debe recibir como parámetro el recorrido entre dos ciudades que debe realizar en su viaje.
+Una operación avanzar que se ejecuta sobre los coches, y que no recibe ningún parámetro. Esta operación debe hacer avanzar el coche el número de kilómetros indicados en su velocidad si el coche está realizando algún viaje. Se debe modelar el paso del tiempo, de modo que un tic del reloj representa el paso de un día, lo cual se debe tener en cuenta a la hora de que los coches puedan avanzar en el viaje que estén realizando.
 
 \newpage
 \section{Caso Particular}
