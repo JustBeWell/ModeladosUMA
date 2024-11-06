@@ -229,7 +229,7 @@ context Coche
     --Versión context Revision
 context Revision
     inv mismaCiudadqueTallerEnRevision:
-    ((self.coche.clock -> asOrderedSet() -> first()).NOW - self.fechaFin) < 0 implies
+    self.fechaFin = null implies
     (self.taller.oclIsKindOf(Oficial) and self.taller.oclAsType(Oficial).ciudad = self.coche.ciudad) or (self.taller.oclIsKindOf(No_Oficial) and self.taller.oclAsType(No_Oficial).ciudad = self.coche.ciudad)
     --Toda esta comprobación y casting se debe a la desción de modelar la multiplicidad de tallerOFicial en ciudad mediante composiciones específicas para cada tipo de taller
 
@@ -244,7 +244,7 @@ context Revision
     --Versión context Revision
 context Viaje
     inv viajandoOenCiudad:
-    ((self.coche.clock -> asOrderedSet() -> first()).NOW - self.fechaLlegada) < 0 implies
+    self.fechaLlegada = null implies
     self.coche.oclIsUndefined()
     
 -- V2: PARA MODELADO DINAMICO
