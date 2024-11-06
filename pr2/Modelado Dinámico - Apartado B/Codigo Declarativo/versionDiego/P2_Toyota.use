@@ -77,13 +77,13 @@ class Coche < ActiveObject
         pre viajeNoEnCurso : self.viaje->isEmpty() or (self.viaje->asOrderedSet()->sortedBy(v | v.fechaLlegada)->last().fechaLlegada < self.clock.NOW)
         post noEstaEnCiudad : self.ciudad.oclIsUndefined()
         
-        avanzar()
-        begin
-        declare viajeEnCurso : Viaje;
-        viajeEnCurso = self.viaje -> asOrderedSet() -> sortedBy(v | v.fechaSalida) -> last();
-        viajeEnCurso.kmViaje := viajeEnCurso.kmViaje + self.velocidad 
-        end
-        pre estaEnViaje: (self.viaje -> asOrderedSet() -> sortedBy( v| v.fechaSalida) -> last()).fechaLlegada = null and self.ciudad.oclIsUndefined()
+        --avanzar()
+        --begin
+        --declare viajeEnCurso : Viaje;
+        --viajeEnCurso = self.viaje -> asOrderedSet() -> sortedBy(v | v.fechaSalida) -> last();
+        --viajeEnCurso.kmViaje := viajeEnCurso.kmViaje + self.velocidad 
+       -- end
+     --   pre estaEnViaje: (self.viaje -> asOrderedSet() -> sortedBy( v| v.fechaSalida) -> last()).fechaLlegada = null and self.ciudad.oclIsUndefined()
 end 
 
 class Viaje
@@ -218,7 +218,7 @@ context Revision
 context Viaje
     inv viajandoOenCiudad:
     self.fechaLlegada = null implies-- El coche no existe
-    self.coche.ciudad -> size() = 0 -- and self.coche.estaEn->notEmpty() -- El coche existe en una ubicacion valida
+    self.coche.ciudad.oclIsUndefined() -- and self.coche.estaEn->notEmpty() -- El coche existe en una ubicacion valida
 -- V2: PARA MODELADO DINAMICO
 -- inv viajandoOenCiudad:
 --    if self.viaje -> exists(v | v.fechLlegada = 0) then self.ciudad.oclIsUndefined()
