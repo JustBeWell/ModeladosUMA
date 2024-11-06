@@ -41,7 +41,7 @@
 \vspace{2cm}
 \begin{figure}[H]
     \centering
-     \includegraphics[width=0.25\linewidth]{Assets/umaLogo.png}
+     \includegraphics[width=0.25\linewidth]{assets/umaLogo.png}
      \label{Diagrama del sistema de aviacion}
 \end{figure}
 \vfill
@@ -94,7 +94,7 @@ Finalmente, se incluye un conjunto de pruebas definidas en el archivo \texttt{.s
 En primer lugar veremos el diagrama de clase que hemos creado en VisualParadigm para la primera parte de la práctica, la cual pide el modelado conceptual de la estructura del sistema. Cuenta con una clase \emph{Clock} de la cual hay una única instancia y las siguientes entidades con sus respectivas relaciones entre si:
 
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{Diagrama VPP apartado a).png}
+     \includegraphics[width=1\linewidth]{diagramas/DiagramaVPP_apartadoA.jpg}
      \caption{Diagrama del sistema de coches}
      \label{Diagrama del sistema de coches}
 \end{figure}
@@ -104,7 +104,7 @@ En primer lugar veremos el diagrama de clase que hemos creado en VisualParadigm 
 
 \subsubsection{TipoRevision}
 \textbf{Descripción}:  
-Distingue entre las los tipos de revisión a los que un coche se puede someter.
+Distingue entre los tipos de revisión a los que un coche se puede someter.
 \begin{itemize}
     \item \textbf{Literales}:
     \begin{enumerate}
@@ -117,7 +117,7 @@ Distingue entre las los tipos de revisión a los que un coche se puede someter.
 
 \subsubsection{Clock}
 \textbf{Descripción}:  
-Representa el elemento que lleva conteo del instante actual en el que se encuentre el sistema y el valor los saltos que cada tick avanza en el tiempo. Se definió que cada unidad de tiempo equivale a un día y un año se representa con 100 días.
+Representa el elemento que lleva el conteo del instante actual en el que se encuentre el sistema y el valor los saltos que cada tick avanza en el tiempo. Se definió que cada unidad de tiempo equivale a un día y un año se representa con 100 días.
 \begin{itemize}
     \item \textbf{Atributos}:
     \begin{itemize}
@@ -157,62 +157,59 @@ Representa un coche en el sistema. Cada coche puede realizar viajes entre ciudad
 \end{itemize}
 
 \subsubsection{Revision}
-\textbf{Descripción}:  
-...
+\textbf{Descripción}: Representa la revisión que se le realizan a los coches en el sistema. Un coche puede realizar varias revisiones a lo largo del tiempo cuando esté obligado a hacerlo o lo necesite.
 \begin{itemize}
     \item \textbf{Atributos}:
     \begin{itemize}
-        \item \texttt{fechaInicio: Integer}: ...
-        \item \texttt{fechaFin: Integer}: ...
-        \item \texttt{tipo: TipoRevisión}: ...
+        \item \texttt{fechaInicio: Integer}: La fecha en la que se empezó la revisión del coche.
+        \item \texttt{fechaFin: Integer}: La fecha en la que se finalizó la revisión del coche.
+        \item \texttt{tipo: TipoRevisión}: Es el tipo de revisión que se le ha realizado al coche, que puede ser un mantenimiento o una reparación.
     \end{itemize}
 \end{itemize}
 
 \subsubsection{Taller} (Clase abstracta)
-\textbf{Descripción}:  
-...
+\textbf{Descripción}:  Representa un taller en el sistema y es la clase base para los diferentes tipos de taller. Las revisiones, independientemente del tipo, se realizan en un taller. 
 
 \subsubsection{Oficial} (Subclase de \texttt{Taller})
-\textbf{Descripción}:  
-...
+\textbf{Descripción}:  Hereda de la clase Taller. Al realizar una revisión en este tipo de taller, el coche obtiene una garantía. Solo existe un taller oficial por ciudad.
 \begin{itemize}
     \item \textbf{Atributos}:
     \begin{itemize}
-        \item \texttt{garantía: Integer}: ...
+        \item \texttt{garantía: Integer}: Duración de la garantía que ofrece el taller oficial.
     \end{itemize}
 \end{itemize}
 
 \subsubsection{No\texttt{\_}Oficial} (Subclase de \texttt{Taller})
-\textbf{Descripción}:  
+\textbf{Descripción}:  Hereda de la clase Taller. A diferencia del taller oficial, si se realiza un mantenimiento en ese taller, no se da una garantía al coche. Pueden existir varios talleres no oficiales en una ciudad.
 
 \subsubsection{Ciudad} (Clase abstracta)
-\textbf{Descripción}:  
-...
+\textbf{Descripción}: Representa una ciudad en el sistema en el que un coche viaja hacia esta.
+
 \begin{itemize}
     \item \textbf{Atributos}:
     \begin{itemize}
-        \item \texttt{nombre: String}:...
+        \item \texttt{nombre: String}: Nombre de la ciudad.
     \end{itemize}
 \end{itemize}
 
 \subsubsection{Recorrido} (Clase de Asociación entre Ciudad y Viaje)
-\textbf{Descripción}:  
-...
+\textbf{Descripción}: Representa el recorrido que se realiza durante un viaje para ir de una ciudad a otra en el sistema.
+
 \begin{itemize}
     \item \textbf{Atributos}:
     \begin{itemize}
-        \item \texttt{distancia: Double}:...
+        \item \texttt{distancia: Double}: La distancia que hay entre la ciudad de origen y la de destino.
     \end{itemize}
 \end{itemize}
 
 \subsubsection{Viaje}
-\textbf{Descripción}:  
-...
+\textbf{Descripción}:  Representa los viajes en el sistema. 
+
 \begin{itemize}
     \item \textbf{Atributos}:
     \begin{itemize}
-        \item \texttt{fechaSalida: Integer}:...
-        \item \texttt{fechaLlegada: Integer}:...
+        \item \texttt{fechaSalida: Integer}: La fecha de salida de la ciudad de origen del coche.
+        \item \texttt{fechaLlegada: Integer}: La fecha de llegada a la ciudad de destino del coche.
     \end{itemize}
 \end{itemize}
 
@@ -259,171 +256,135 @@ A continuación mostraremos todo el código desarrollado con el lenguaje USE, es
 Todo el código suministrado ha sido realizado en VSCode y
 todas las secciones están separadas por sus respectivos títulos tabulados en mayúsculas.
 \vspace{3cm}
-\begin{lstlisting}[style = useNormal,language=SQL, caption={Modelo de Sistema de Aviación en USE}] 
+\begin{lstlisting}[style = useNormal,language=SQL, caption={Modelo de Sistema de Coches en USE}] 
 
-    CLASES
+ENUMERACIONES
 
-class Aerolinea
-    attributes
-        nombre : String
+enum TipoRevision{Mantenimiento, Reparacion}
+
+CLASES 
+
+class Clock
+attributes
+    NOW : Integer
+    resolution : Integer
+operations
+    tick()
+    begin
+    end
+
+    run(n : Integer)
+    begin
+    end
 end
 
-class Avion
-    attributes
-        numVuelos : Integer derive :
-            self.vuelos -> size()
-        kmRecorridosTotal : Real derive : 
-            self.vuelos->collect(v | v.kmRecorridos)->sum()
-        estaVolando : Boolean derive :
-            self.alojados->size() = 0 and self.relegados->size() = 0
+abstract class ActiveObject
+operations
+    tick()
+    begin
+    end
 end
 
-associationclass Contrato between
-    Avion [0..*] role cliente
-    Aerolinea [*] role contratador
-    attributes
-        mesesContrato : Integer
-        precioPorMes : Real
-        precioTotal : Real derive :
-            self.mesesContrato * self.precioPorMes
+class Coche < ActiveObject
+attributes
+    kmRecorridos : Real derive :              
+        self.viaje.recorrido -> collect(dist | dist.distancia) -> sum()
+    fechaMatriculacion : Integer              
+    necesitaMantenimiento : Boolean derive :
+        not (((self.clock -> asOrderedSet() -> first()).NOW  - fechaMatriculacion) < 400) or 
+        not (((self.clock -> asOrderedSet() -> first()).NOW - (self.revision -> collect(rev | revision.fechaFin) -> max())) < 100) 
+        
+    enGarantia : Boolean derive :             
+        (((self.clock -> asOrderedSet() -> first()).NOW  - fechaMatriculacion) < 400) or
+        (validezDeGarantia > 0)
+    validezDeGarantia : Integer derive :      
+        let revOrdenadas : OrderedSet(Revision) = self.revision -> sortedBy(fechaFin) in
+        (revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> last()).taller.oclAsType(Oficial).garantia
+end 
+
+class Viaje
+attributes
+    fechaSalida : Integer                     
+    fechaLlegada : Integer
 end
 
-class Vuelo
-    attributes
-        vueloID : Integer
-        kmRecorridos : Real
+class Revision
+attributes
+    tipo : TipoRevision                       
+    fechaInicio : Integer                     
+    fechaFin : Integer
 end
 
-class Persona
-    attributes
-        nombre : String
-        edad : Integer
+abstract class Taller
 end
 
-class Piloto < Persona
-    attributes
-        pro : Boolean derive : 
-            self.vuelosPrin->size() >= 1000 and self.vuelosSec->size() >= 2000
-        totalKmRecorridos : Real derive : 
-            self.vuelosPrin->collect(v | v.kmRecorridos)->sum() + self.vuelosSec->collect(v | v.kmRecorridos)->sum()
+class Oficial < Taller
+    garantia : Integer
 end
 
-abstract class Almacen
-    attributes
-        capacidadMaxima : Integer
-end
-
-class Hangar < Almacen
-end
-
-class Desguace < Almacen
-end
-
-class Aeropuerto
-end
+class No_Oficial < Taller
+end 
 
 class Ciudad
-    attributes
-        nombre : String
+attributes
+    nombre : String
 end
 
-    RELACIONES
-                               
-association realizan between
-    Vuelo [0..*] role vuelos
-    Avion [1] role aviones
+associationclass Recorrido between
+    Ciudad [1..*] role origen
+    Ciudad [1..*] role destino
+attributes
+    distancia : Real
+end 
+
+ASOCIACIONES
+
+association time between
+Clock [1] role clock
+ActiveObject [*] role ao
 end
 
-association viaja_en between
-    Persona [0..*] role pasajero
-    Vuelo [0..*] role vuelo
+association realiza between
+Coche [1] role coche
+Viaje [*] role viaje
 end
 
-association vuela_en between
-    Vuelo [0..*] role vuelosPrin
-    Piloto [1] role pilotoPrin
+association recorre between
+Viaje [*] role viaje
+Recorrido [1] role recorrido
 end
 
-association participa between
-    Vuelo [0..*] role vuelosSec
-    Piloto [0..1] role pilotoSec
+association estaEn between
+Coche [*] role coche
+Ciudad [1] role ciudad
 end
 
-association se_encuentra between
-    Avion [*] role activo
-    Hangar [0..1] role alojados
+association esSometido between
+Coche [1] role coche
+Revision [*] role revision
 end
 
-association es_relegado between
-    Avion [*] role desgastado
-    Desguace [0..1] role relegados
+composition esRealizada between
+Revision [*] role revision
+Taller [1] role taller
 end
 
-association aerolineaRealizaVuelo between
-    Vuelo [0..*] role vueloPara
-    Aerolinea [1] role conAerolinea
+composition existeOficial between
+Ciudad [1] role ciudad
+Oficial [0..1] role oficial
 end
 
-composition tiene between
-    Aeropuerto [1] role ubicacion
-    Hangar [0..*] role hangar
+composition existeNoOficial between
+Ciudad [1] role ciudad
+No_Oficial [*] role  noOficial
 end
 
-composition almenos_tiene between
-    Aeropuerto [1] role ubicacion
-    Desguace [0..1] role desguace
-end
-
-composition existe between
-    Ciudad [1] role nombre
-    Aeropuerto [0..1] role aeropuerto
-end
-
-    INVARIANTES
-        
-constraints
-
-context Avion
-    inv enviarAlDesguace :
-    self.numVuelos >= 1000 implies self.relegados -> size() > 0
-
-context Piloto
-    inv maxDosAerolineas:
-    self.vuelosPrin -> union(self.vuelosSec) -> collect(it | it.conAerolinea) -> asSet()-> size() <= 2
-
-context Avion
-    inv avionVolando:        
-        if not self.estaVolando then
-            (self.alojados->size() = 1 xor self.relegados->size() = 1)
-        else self.estaVolando
-        endif
-
-context Aerolinea
-    inv nombreUnico: 
-        Aerolinea.allInstances() -> isUnique(a | a.nombre)
-
-context Vuelo
-    inv vueloIDUnico: 
-        Vuelo.allInstances()->isUnique(v | v.vueloID)
-
-context Hangar
-    inv capacidadMaximaNoSobrepasadaHangar: 
-        self.activo->size() <= self.capacidadMaxima
-
-context Desguace
-    inv capacidadMaximaNoSobrepasadaDesguace:
-        self.desgastado->size() <= self.capacidadMaxima
-
-context Vuelo
-    inv pilotoNoDuplicado: 
-        self.pilotoPrin <> self.pilotoSec
 \end{lstlisting}
-\vspace{5cm}
 
 \subsection{Diagrama de Clases en USE}
 La herramienta USE nos permite llevar a cabo un diagrama de clases, el cual se muestra a continuación:
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{use del apartado a).jpeg}
+     \includegraphics[width=1\linewidth]{diagramas/DiagramaUSE_apartadoA.png}
      \caption{Diagrama del sistema de coches en USE}
      \label{Diagrama del sistema de coches en USE}
 \end{figure}
@@ -431,28 +392,21 @@ La herramienta USE nos permite llevar a cabo un diagrama de clases, el cual se m
 
 Todas las relaciones entre las entidades del modelo tienen su significado y están definidas de la siguiente manera:
 \begin{itemize}
-\item \textbf{realizan (Vuelo-Avión)}: Un vuelo está asociado a un único avión (\(1\)), pero un avión puede realizar 0 o muchos vuelos a lo largo del tiempo (\(0..*\)). Esta relación modela las interacciones entre vuelos y los aviones que los llevan a cabo.
+\item \textbf{esSometido (Coche-Revisión)}: ...
   
-\item \textbf{viaja en (Persona-Vuelo)}: Representa la relación de una persona que viaja en un vuelo. Una persona puede haber viajado en 0 o más vuelos (\(0..*\)), y un vuelo puede tener 0 o más pasajeros (\(0..*\)). Esta relación nos permite obtener la lista de pasajeros de cada vuelo sin tener una clase separada para los pasajeros.
+\item \textbf{realiza (Coche-Viaje))}: ...
 
-\item \textbf{vuela en (Vuelo-Piloto)}: Define que un piloto principal pilota un vuelo. Cada vuelo tiene un único piloto principal (\(1\)), mientras que un piloto puede haber sido el piloto principal de 0 o más vuelos (\(0..*\)).
+\item \textbf{estaEn (Coche-Ciudad)}: ...
 
-\item \textbf{participa (Vuelo-Piloto)}: Representa que un piloto secundario participa en un vuelo. Un vuelo puede tener 0 o 1 piloto secundario (\(0..1\)), y un piloto puede haber participado como piloto secundario en 0 o más vuelos.
+\item \textbf{esRealizada (Revisión-Taller)}: ...
 
-\item \textbf{se encuentra (Avión-Hangar)}: Modela la situación en la que un avión está estacionado en un hangar. Un avión puede estar alojado en 0 o 1 hangar (\(0..1\)), y un hangar puede alojar múltiples aviones (\(*\)).
+\item \textbf{existeOficial (Oficial-Ciudad)}: ...
 
-\item \textbf{es relegado (Avión-Desguace)}: Representa la situación en la que un avión ha sido enviado al desguace. Un avión puede estar en 0 o 1 desguace (\(0..1\)), y un desguace puede albergar múltiples aviones relegados (\(*\)).
+\item \textbf{existeNoOficial (NoOficial-Ciudad)}: ...
 
-\item \textbf{contrato (Avión-Aerolínea)}: Define una relación contractual entre un avión y una aerolínea. Un avión puede estar contratado por varias aerolíneas a lo largo de su vida (\(0..*\)), y una aerolínea puede tener contratos con múltiples aviones (\(0..*\)). La relación incluye una clase de asociación \textit{Contrato}, que almacena detalles como la duración del contrato, el precio mensual y el precio total calculado a partir de los otros dos atributos.
+\item \textbf{Recorrido (Ciudad-Ciudad)}: ...
 
-\item \textbf{tiene (Aeropuerto-Hangar)}: Esta relación indica mediante una composición que un aeropuerto puede tener varios hangares (\(0..*\)), pero un hangar solo puede pertenecer a un único aeropuerto (\(1\)).
-
-\item \textbf{almenos tiene (Aeropuerto-Desguace)}: Representa mediante una composición que un aeropuerto puede tener o no un desguace (\(0..1\)), y cada desguace está asociado a un único aeropuerto (\(1\)).
-
-\item \textbf{existe (Ciudad-Aeropuerto)}: Relaciona mediante una composición una ciudad con su aeropuerto. Una ciudad puede tener 0 o 1 aeropuerto (\(0..1\)), y un aeropuerto debe estar ubicado en una única ciudad (\(1\)).
-
-\item \textbf{aerolineaRealizaVuelo (Vuelo-Aerolínea)}: 
-Es necesario añadir esta relación para determinar con precisión para qué aerolínea trabaja cada piloto en un vuelo específico. Aunque la relación entre `Avion` y `Aerolinea` podría sugerir esta información, en realidad solo indica los contratos que un avión tiene con diversas aerolíneas, sin especificar para cuál de ellas el piloto está volando en ese momento. Esta asociación asegura que podemos vincular directamente cada vuelo a una aerolínea, evitando ciclos, ya que las relaciones son distintas. Un vuelo puede estar asociado a una única aerolínea (\(1\)), mientras que una aerolínea puede realizar múltiples vuelos (\(0..*\)).
+\item \textbf{time (Clock-ActiveObject)}: ...
 \end{itemize}
 
 \vspace{1.0cm}
@@ -477,64 +431,70 @@ Ademas al crear instancias reales de las entidades podemos desarrollar un diagra
 Para poder comprobar las restricciones de nuestro sistema, primero es necesario definir las reglas que aseguran su correcto funcionamiento. Las restricciones o invariantes que se han definido son las siguientes:
 
 \begin{itemize}
-    \item \textbf{1.}: Un avión debe ser enviado al desguace cuando haya realizado 1000 o más vuelos. Esta restricción asegura que un avión no sigue en operación después de haber completado su ciclo de vida útil.
+    \item \textbf{1.}: Cada ciudad debe tener una distancia minima de 5 km de la otra .
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-    context Avion
-    inv enviarAlDesguace :
-    self.numVuelos >= 1000 implies self.relegados -> size() > 0
+    context Recorrido
+      inv minimo5Km :
+      self . distancia >= 5
     \end{lstlisting}
     
-    \item \textbf{2.}: Un piloto no puede trabajar ni haber trabajado para más de dos aerolíneas. Esta invariante restringe que los pilotos se asocien con más de dos aerolíneas a lo largo de su carrera.
+    \item \textbf{2.}: Cada coche debe de pasar revision despues de matricularse y no antes.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-   context Piloto
-    inv maxDosAerolineas:
-    self.vuelosPrin -> union(self.vuelosSec) -> collect(it | it.conAerolinea) -> asSet()-> size() <= 2
+   context Coche
+     inv revisionDespuesdeMatriculacion:
+     self.revision -> forAll(rev | rev.fechaInicio > self.fechaMatriculacion)
     \end{lstlisting}
     
-    \item \textbf{3.}: Un avión que está volando no puede estar simultáneamente en un hangar o en un desguace. Esta invariante asegura que un avión solo pueda estar en una de estas tres situaciones: volando, en un hangar, o en un desguace.
+    \item \textbf{3.}: Todos los coches han de ser revisados como máximo en un momento dado.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-   context Avion
-    inv avionVolando:        
-        if not self.estaVolando then
-            (self.alojados->size() = 1 xor self.relegados->size() = 1)
-        else self.estaVolando
-        endif
+    inv revisadoUnaVez:
+      self.revision -> forAll(rev1, rev2 | rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin))
     \end{lstlisting}
     
-    \item \textbf{4.}: El nombre de cada aerolínea debe ser único. Esta restricción garantiza que no haya dos aerolíneas con el mismo nombre dentro del sistema.
+    \item \textbf{4.}: Si un coche esta en revision, debe de estar en la misma ciudad que el taller.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-  context Aerolinea
-    inv nombreUnico: 
-        Aerolinea.allInstances() -> isUnique(a | a.nombre)
+  context Revision
+    inv mismaCiudadqueTallerEnRevision:
+    ((self.coche.clock -> asOrderedSet() -> first()).NOW - self.fechaFin) < 0 implies
+    (self.taller.oclIsKindOf(Oficial) and self.taller.oclAsType(Oficial).ciudad = self.coche.ciudad) or (self.taller.oclIsKindOf(No_Oficial) and self.taller.oclAsType(No_Oficial).ciudad = self.coche.ciudad)
     \end{lstlisting}
     
-    \item \textbf{5.}: El número de identificación (ID) de cada vuelo debe ser único. Esta invariante asegura que no haya dos vuelos con el mismo identificador.
+    \item \textbf{5.}: Un coche tiene que estar o viajando o en una ciudad.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-  context Vuelo
-    inv vueloIDUnico: 
-        Vuelo.allInstances()->isUnique(v | v.vueloID)
+  context Viaje
+    inv viajandoOenCiudad:
+    ((self.coche.clock -> asOrderedSet() -> first()).NOW - self.fechaLlegada) < 0 implies
+    self.coche.oclIsUndefined()
     \end{lstlisting}
     
-    \item \textbf{6.}: No puede sobrepasarse la capacidad máxima de los hangares. Esta invariante controla que los hangares no alojen más aviones de los que su capacidad permite.
+    \item \textbf{6.}: Un coche después de su viaje tiene que encontrarse en su ciudad destino.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-  context Hangar
-    inv capacidadMaximaNoSobrepasadaHangar: 
-        self.activo->size() <= self.capacidadMaxima
+  context Coche
+    inv enCiudadDestino:
+    let ultimoViaje : Viaje = self.viaje -> asOrderedSet() -> sortedBy(fechaLlegada) -> last() in
+    ultimoViaje.recorrido.destino = self.ciudad
     \end{lstlisting}
     
-    \item \textbf{7.}: No puede sobrepasarse la capacidad máxima del desguace. Al igual que con los hangares, esta invariante garantiza que los desguaces no alberguen más aviones de lo que su capacidad permite.
+    \item \textbf{7.}: No pueden haber dos viajes solapados.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-  context Desguace
-    inv capacidadMaximaNoSobrepasadaDesguace:
-        self.desgastado->size() <= self.capacidadMaxima
+  context Coche
+    inv viajeUnico:
+    self.viaje -> forAll(v1,v2 | v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida))
     \end{lstlisting}
     
-    \vspace{1 cm}
-    \item \textbf{8.}: Un mismo piloto no puede ser asignado simultáneamente como piloto principal y secundario en el mismo vuelo. Esta invariante asegura que los roles de piloto principal y secundario sean ocupados por personas distintas.
+    \item \textbf{8.}: Un coche debe de empezar el siguiente viaje en la ciudad destino del anterior.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-  context Vuelo
-    inv pilotoNoDuplicado: 
-        self.pilotoPrin <> self.pilotoSec
+    inv destinoComoOrigen:
+    let viajesOrdenados : OrderedSet(Viaje)  = self.viaje -> sortedBy(v | v.fechaSalida) in 
+    viajesOrdenados -> forAll(v1, v2 | viajesOrdenados->indexOf(v1) = viajesOrdenados->indexOf(v2) + 1 implies v1.recorrido.destino 
+    = v2.recorrido.origen)
+    \end{lstlisting}
+
+    \item \textbf{9.}: Una ciudad tiene que tener un recorrido con otra ciudad de manera obligatoria
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+  context Ciudad
+    inv hayRecorridos:
+    not (self.origen -> notEmpty() and self.destino -> notEmpty())
     \end{lstlisting}
 \end{itemize}
 \vspace{1.0 cm}

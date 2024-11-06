@@ -1,0 +1,63 @@
+reset
+
+-- Este archivo configura las entidades y asociaciones de Ciudad, Coche, Taller, Viaje, y otros elementos necesarios.
+
+--=============================================================================
+--                               OBJETOS
+--=============================================================================
+
+enum TipoRevision { Reparacion, Mantenimiento }
+
+--Creamos reloj, ahora mismo han pasado 50 dias (medio año)
+!new Clock('clockA')
+!clockA.NOW := 110
+!clockA.resolution := 1
+
+
+-- Crear instancias de las ciudades
+!new Ciudad('C1')
+!C1.nombre := 'Malaga'
+!new Ciudad('C2')
+!C2.nombre := 'Madrid'
+!new Ciudad('C3')
+!C3.nombre := 'Bilbao'
+
+--Crear distancia entre ciudades con una clase asociacion
+!insert (C1, C2) into Recorrido
+!Recorrido1.distancia := 550.0  // Málaga a Madrid
+!insert (C1, C3) into Recorrido
+!Recorrido2.distancia := 800.0  // Málaga a Bilbao
+!insert (C2, C3) into Recorrido
+!Recorrido3.distancia := 400.0  // Madrid a Bilbao
+
+
+--Creamos coches
+!new Coche('Coche1')
+!Coche1.fechaMatriculacion := 105
+!new Coche('Coche2')
+!Coche2.fechaMatriculacion := 90
+!new Coche('Coche3')
+!Coche3.fechaMatriculacion := 50
+!new Coche('Coche4')
+!Coche4.fechaMatriculacion := 1
+
+!new Oficial('TallerOficialMalaga')
+!TallerOficialMalaga.garantia := 150
+!new Oficial('TallerOficialBilbao')
+!TallerOficialBilbao.garantia := 75
+!new No_Oficial('TallerNoOficialMalaga')
+!new No_Oficial('TallerNoOficialMadrid')
+
+!new Viaje('ViajeMalagaMadrid')
+!ViajeMalagaMadrid.fechaSalida := 25
+!ViajeMalagaMadrid.fechaLlegada := 30
+
+!insert(ViajeMalagaMadrid, Recorrido1) into recorre
+!insert(Coche1, ViajeMalagaMadrid) into realiza
+
+!new Revision('Revision1')
+!Revision1.tipo := TipoRevision::Reparacion
+!Revision1.fechaInicio:=23
+!Revision1.fechaFin:=33
+
+!insert(Revision1, TallerOficialBilbao) into esRealizada
