@@ -90,7 +90,20 @@ class Coche < ActiveObject
             end;
         end
         pre estaEnViaje: (self.viaje -> asOrderedSet() -> sortedBy( v| v.fechaSalida) -> last()).fechaLlegada = null and self.ciudad.oclIsUndefined()
-        
+
+        acelerar(n : Integer)
+        begin
+            self.velocidad := self.velocidad + n;
+        end
+        pre sumandoValido : n > 0
+        post sumaCorrecta : self.velocidad = self.velocidad@pre + n
+
+        decelerar(n : Integer)
+        begin
+            self.velocidad := self.velocidad - n;
+        end 
+        pre sumandoValido : n > 0 and self.velocidad >= n
+        post restaCorrecta : self.velocidad = self.velocidad@pre - n
 end     
 
 class Viaje
