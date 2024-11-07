@@ -1,0 +1,14 @@
+Invariante 1: Cada cuidad debe tener una distancia minima de 5 km de la otra
+    Hay dos ciudades con dos recorridos y uno de ellos es menor a 5 km incumpliendo la invariante.
+
+Invariante 2: Cada coche debe de pasar revision despues de matricularse y no antes.
+    Hay un coche que hace una revision en un taller oficial cuya fecha de matriculacion es igual a la revision, incumple la invariante.
+    La condicion es estrictamente mayor.
+    
+Invariante 3: Todos los coches han de ser revisados como máximo en un momento dado.
+    Hay que hacer 3 revisiones: 
+    Invariante3:   Cuando un coche no tiene revisiones, la invariante se cumple.
+    Invariante3v2: Cuando las fechas de inicio de 2 revisiones coinciden se incumple la invariante, 
+    Invariante3v3: Cuando las fechas de finalizacion de 2 revisiones coinciden se incumple la invariante, 
+    Invariante3v4: Cuando la fecha de inicio de una revision es anterior a la fecha de finalizacion de otra, se incumple la invariante 
+    Las Invariantes acabadas en 3v_ tiene el layaout generico "Invariante3v.olt"
