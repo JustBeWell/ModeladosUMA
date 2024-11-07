@@ -22,6 +22,9 @@ reset
 --!new Ciudad('Ciudad2')
 --!Ciudad2.nombre := 'Cadiz'
 
+--!new Ciudad('Ciudad2')
+--!Ciudad2.nombre := 'Cadiz'
+
 
 --!new Viaje('Viaje1')
 --!Viaje1.fechaSalida := 2
@@ -88,9 +91,6 @@ reset
 
 !insert(Coche1, Revision1) into esSometido
 !insert(TOficial1, Revision1) into esRealizada     -- El coche1 se revisa  en el taller oficial que está en la ciudad donde reposa
-!insert(Coche1, Revision2) into esSometido
-!insert(TOficial1, Revision2) into esRealizada     -- El coche1 se revisa  en el taller oficial que está en la ciudad donde reposa
-
 
 
 -- Relaacionamos cada ActiveObject con el clock

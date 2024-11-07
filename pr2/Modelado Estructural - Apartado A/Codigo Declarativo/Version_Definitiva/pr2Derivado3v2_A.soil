@@ -11,6 +11,9 @@ reset
 !new Coche('Coche1')
 !Coche1.fechaMatriculacion := 1  
 
+!new Coche('Coche2') --Para este coche, enGarantia debe de estar false porque necesita que pasar por una revision de mantenimiento
+!Coche2.fechaMatriculacion := 50
+
 !new Ciudad('Ciudad1')
 !Ciudad1.nombre := 'Malaga'
 
@@ -32,3 +35,4 @@ reset
 !insert(TOficial1, Revision1) into esRealizada
 !insert(Ciudad1, TOficial1) into existeOficial
 !insert(Clock, Coche1) into time
+!insert(Clock, Coche2) into time
