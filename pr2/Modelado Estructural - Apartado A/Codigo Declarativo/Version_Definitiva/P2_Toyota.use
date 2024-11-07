@@ -38,7 +38,7 @@ attributes
             if ultimaRevision.tipo = TipoRevision::Mantenimiento then
                 not (self.clock.NOW - ultimaRevision.fechaFin < 100)
             else                                                       
-                not (self.clock.NOW - fechaMatriculacion < 400)        -- Es redundante, pero hay que poner algo para que no de error
+                true   -- Indicando que el coche necesita manetenimiento
             endif
         endif
 
@@ -49,12 +49,14 @@ attributes
         (validezDeGarantia > 0)
 
     validezDeGarantia : Integer derive :      -- Días por los que la garantia proporcionada por un tallerOficial esta activa
-        let revOrdenadas : OrderedSet(Revision) = self.revision -> sortedBy(fechaFin) in
-        if revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() <= 0 then revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() --
-        else (revOrdenadas -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> last()).taller.oclAsType(Oficial).garantia
+        let revOrdenadas : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(fechaFin) in
+        let ultimaRevision : Revision = revOrdenadas -> last() in
+        if revOrdenadas -> size() <= 0 then revOrdenadas -> size() --
+        else 
+            if (self.clock.NOW - ultimaRevision.fechaFin) > ultimaRevision.taller.oclAsType(Oficial).garantia then 0
+            else ultimaRevision.taller.oclAsType(Oficial).garantia
+            endif
         endif
-        --self.revision->select(revisionEn | revisionEn.taller.oclIsKindOf(Oficial))->
-        --collect(revisionEn | revisionEn.taller.validezGarantia)->last()
 end 
 
 class Viaje

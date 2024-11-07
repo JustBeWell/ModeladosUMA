@@ -1,0 +1,6 @@
+Arreglar en los .soil que el coche después de realizar un recorrido SOLO tenga una relación con la ciudad destino final, no con todas las demás como esta implementado actualmente.
+
+
+
+DUDA
+validezDeGarantia que es? Yo interpreto que son los días que te da un taller oficial tras una revisión en el, entonces hasta que un coche no se haga su revisión no tendrá un valor definido. Daniil interpreta que son los días que el coche tiene garantía: cuando se matricula un coche tiene 400 días de garantía, y después de una revisión en un taller oficial, se le añade esa garantía a la validez del coche.
