@@ -1,0 +1,24 @@
+Primero se generan las ciudades Málaga, Sevilla y Granada como se indica en el enunciado.
+Con recorridos entre Málaga Y Sevilla de 210 km y entre Sevilla y Granada de 250km.
+Se genera un Coche con fecha de matriculación en el día 0 que se encuentra en Málaga con una velocidad de 27km/h.
+
+-En este Contexto se realiza la foto del instante0.
+
+Tras realizar la foto, se hacen pasar 5 días con !Clock.run(5) como indica el enunciado, donde se iniciará un viaje para el Coche1 desde Málaga hasta Sevilla con, !Coche.inciarViaje(Recorrido1).
+
+
+La siguiente foto tiene que realizarse cuando el coche llegue a Sevilla, en el día 13, ya que si empieza el viaje en el 5 y tiene que recorrer 210 a 27 por día tarda 7,7 días, luego hay que hacer pasar 8.
+
+Se hace !Clock.run(7) y !Clock.tick().
+
+En nuestro sistema se ha considerado que el coche tenga velocidad 0 una vez termine un viaje.
+
+-En este Contexto se realiza la foto del instante1.
+
+Se ha restablecido el atributo de velocidad nuevamente a 27, con !Coche1.velocidad := 27 para que pueda continuar su nuevo viaje a Granada.
+
+Para llegar a Granada tiene que hacer 250km, 250 a 27 por día tarda 9,26, luego hago pasar 10 días con !Clock.run(10)
+
+-En este Contexto se realiza la foto del instante2.
+
+Y la simulación termina.

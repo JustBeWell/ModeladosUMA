@@ -20,7 +20,7 @@ reset
 
 --=============================================================================
 !new Clock('Clock')               -- Solo puede existir una única instancia
-!Clock.NOW := 10                  -- Día actual
+!Clock.NOW := 0                 -- Día actual
 !Clock.resolution := 1            -- Saltos cada tick
 
 
