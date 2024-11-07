@@ -32,17 +32,30 @@ attributes
     fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
 
     necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
-        -- razones de necesitaMantenimiento
-        let ultimaRevision = self.revision -> sortedBy(rev | rev.fechaFin) -> last() in
-        if self.revision -> isEmpty() then                             -- Si self no tiene revisiones asociadas, vemos si pasaron +400 días desde la matriculación
-            not (self.clock.NOW - fechaMatriculacion < 400)
-        else                                                           -- Si no, ver si tipo de la última revisión y la cantidad de días desde entonces
-            if ultimaRevision.tipo = TipoRevision::Mantenimiento then
-                not (self.clock.NOW - ultimaRevision.fechaFin < 100)
-            else                                                       
-                true   -- Indicando que el coche necesita manetenimiento
-            endif
+        if self.clock.NOW  - fechaMatriculacion < 400 
+            then
+                false
+            else
+                let ultimaRevision : Revision = self.revision -> select(rev | rev.tipo = TipoRevision::Mantenimiento) -> sortedBy(r | r.fechaInicio) -> last() in
+                if ultimaRevision <> null
+                then
+                    (self.clock.NOW - ultimaRevision.fechaFin) > 100
+                else
+                    true
+                endif
         endif
+        
+        -- razones de necesitaMantenimiento
+        --let ultimaRevision = self.revision -> sortedBy(rev | rev.fechaFin) -> last() in
+        --if self.revision -> isEmpty() then                             -- Si self no tiene revisiones asociadas, vemos si pasaron +400 días desde la matriculación
+            --not (self.clock.NOW - fechaMatriculacion < 400)
+        --else                                                           -- Si no, ver si tipo de la última revisión y la cantidad de días desde entonces
+            --if ultimaRevision.tipo = TipoRevision::Mantenimiento then
+                --not (self.clock.NOW - ultimaRevision.fechaFin < 100)
+            --else                                                       
+                --true   -- Indicando que el coche necesita manetenimiento
+            --endif
+        --endif
 
     enGarantia : Boolean derive :             -- Flag que indica que el coche tiene una garantia activa
         -- razones para estar enGarantia
@@ -155,7 +168,7 @@ end
 -- =====================================================================
 
 constraints
--- Invariante 1: Cada cuidad debe tener una distancia minima de 5 km de la otra.
+-- Invariante 1: Cada cuidad debe tener una distancia minima de 5 km para cada recorrido.
 context Recorrido
     inv minimo5Km:
     self.distancia >= 5
@@ -167,9 +180,8 @@ context Coche
 
 -- Invariante 3: Todos los coches han de ser revisados como máximo en un momento dado.
     inv revisadoUnaVez:
-    if self.revision -> size() = 0 then false
-    else self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin) and (not(rev1.fechaFin = null and rev2.fechaFin = null)))
-    endif
+    self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin))
+
 
 -- Invariante 4: Si un coche esta en revision, debe de estar en la misma ciudad que el taller.
     --Versión context Coche
@@ -218,7 +230,7 @@ context Coche
 -- Invariante 7: No pueden haber dos viajes solapados.
 context Coche
     inv viajeUnico:
-    self.viaje -> forAll(v1,v2 | not(v1 <> v2) or v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida) and (not(v1.fechaLlegada = null and v2.fechaLlegada = null)))
+    self.viaje -> forAll(v1,v2 | not(v1 <> v2) or v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida))
 
 -- Invariante 8: Un coche debe de empezar el siguiente viaje en la ciudad destino del anterior.
     inv destinoComoOrigen:

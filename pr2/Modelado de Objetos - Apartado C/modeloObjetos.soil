@@ -1,0 +1,51 @@
+reset
+
+--=============================================================================
+--                               OBJETOS
+
+
+--Primero se deben considerar las siguientes tres ciudades:  Málaga, Sevilla y Granada
+
+!new Ciudad('Ciudad1')
+!Ciudad1.nombre := 'Malaga'
+
+!new Ciudad('Ciudad2')
+!Ciudad2.nombre := 'Sevilla'
+
+!new Ciudad('Ciudad3')
+!Ciudad3.nombre := 'Granada'
+
+
+
+
+--=============================================================================
+!new Clock('Clock')               -- Solo puede existir una única instancia
+!Clock.NOW := 10                  -- Día actual
+!Clock.resolution := 1            -- Saltos cada tick
+
+
+--Consideramos un coche que se ha matriculado en el instante 0
+!new Coche('Coche1')
+!Coche1.fechaMatriculacion := 0   -- Día en el que el coche comenzó a existir en el sistema
+!Coche1.velocidad := 27
+
+--=============================================================================
+--                               INSERTS
+--=============================================================================
+
+--Se deben considerar dos recorridos: entre Málaga y Sevilla con 210 km y entre Sevilla y Granada con 250
+
+!insert (Coche1, Ciudad1) into estaEn
+     
+
+!insert(Ciudad2, Ciudad1) into Recorrido
+!Recorrido1.distancia := 210 
+
+!insert(Ciudad3, Ciudad2) into Recorrido
+!Recorrido2.distancia := 250
+
+
+
+
+-- Relaacionamos cada ActiveObject con el clock
+!insert(Clock, Coche1) into time
