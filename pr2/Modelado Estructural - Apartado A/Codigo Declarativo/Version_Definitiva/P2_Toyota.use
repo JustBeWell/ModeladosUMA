@@ -162,8 +162,8 @@ context Coche
     self.revision -> forAll(rev | rev.fechaInicio > self.fechaMatriculacion)
 
 -- Invariante 3: Todos los coches han de ser revisados como máximo en un momento dado.
-    inv revisadoUnaVez:
-    if self.revision -> size() = 0 then false
+    inv unaRevisionAlaVez:
+    if self.revision -> size() = 0 then true
     else self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin) and (not(rev1.fechaFin = null and rev2.fechaFin = null)))
     endif
 

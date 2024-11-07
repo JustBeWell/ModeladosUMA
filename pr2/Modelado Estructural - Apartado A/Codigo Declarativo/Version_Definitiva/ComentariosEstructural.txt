@@ -1,0 +1,3 @@
+Creemos que hay un problema con la logica de la invariante 3: "Todos los coches han de ser revisados como máximo en un momento dado."
+Porque cuando un coche aun no ha hecho una revision la invariante se incumple lo que no debería ocurrir ya que un coche no es obligatorio que tenga una revision (Confirmado por la profesora).
+Hemos cambiado un poco la logica y el nombre para que tenga coherencia.
