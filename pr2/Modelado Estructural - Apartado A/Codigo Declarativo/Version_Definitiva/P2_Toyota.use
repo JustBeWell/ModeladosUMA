@@ -28,7 +28,9 @@ class Coche < ActiveObject
 attributes
     kmRecorridos : Real derive :              -- Registro de todos los km que ha recorrido el coche entre ciudades en sus viajes
         self.viaje.recorrido -> collect(dist | dist.distancia) -> sum()
+        
     fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
+
     necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
         -- razones de necesitaMantenimiento
         let ultimaRevision = self.revision -> sortedBy(rev | rev.fechaFin) -> last() in
@@ -42,9 +44,8 @@ attributes
             endif
         endif
 
-        
     enGarantia : Boolean derive :             -- Flag que indica que el coche tiene una garantia activa
-        -- razones por estar enGarantia
+        -- razones para estar enGarantia
         ((self.clock.NOW  - fechaMatriculacion) < 400) or
         (validezDeGarantia > 0)
 
@@ -54,7 +55,7 @@ attributes
         if revOrdenadas -> size() <= 0 then revOrdenadas -> size() --
         else 
             if (self.clock.NOW - ultimaRevision.fechaFin) > ultimaRevision.taller.oclAsType(Oficial).garantia then 0
-            else ultimaRevision.taller.oclAsType(Oficial).garantia
+            else ultimaRevision.taller.oclAsType(Oficial).garantia - (self.clock.NOW - ultimaRevision.fechaFin)
             endif
         endif
 end 
