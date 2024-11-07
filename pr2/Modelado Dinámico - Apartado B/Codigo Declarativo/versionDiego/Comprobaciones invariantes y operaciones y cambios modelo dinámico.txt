@@ -1,6 +1,50 @@
-Derivados:
-Derivado1: KmRecorridos: Ha sido modificado para que se puedan sumar de manera dinamica todo comprobado y en funcionamiento
-Hemos creado un viaje dinamicamente y hemos ido moviendo el coche poco a poco para comprobar que la suma es dinamica y concurrente
+Derivado1: kmRcorridos, clase Coche  => CHECK
+
+Para comprobar que el derivado kmRecorridos funciona correctamente se ha desarrollado el archivo p2Derivado1.soil.
+Sequencia de operaciones:
+
+-!Coche1.iniciarViaje(Recorrido1)
+Se crea Viaje1 que relaciona el Recorrido 3 y el Coche. El valor de la velocidad del coche sigue en cero, dado que no ha partido
+-!Coche1.acelerar(5)
+El coche gana 5 km/dia de velocidad
+-!Coche1.avanzar()
+El coche avanza 5 km en el Viaje uno. Se actualizan los valores de kmViaje y kmRecorridos
+- !Coche1.acelerar(5)
+El coche gana otros 5 kms de velocidad
+-!Coche1.acelerar(400)
+El valor del atributo velocidad en el coche aumenta 400
+-!Coche1.avanzar()
+El coche avanza y llega hasta la ciudad destino. El objeto Coche1 forma parte de la relación estaEn, junto con la Ciudad2. KmRecorridos se iguala a la distancia del recorrido. Finalmente, la velocidad se pone a cerodado que el coche deja de realizar.
+
+Se repite la misma sequencia de acciones tanto para el Recorrido2 como para el Recorrido3.
+
+Al final el valor de kmRecorridos se iguala a 1200 que coincide con la suma de las distancias de todos los recorridos que ha atravesado el coche.
+
+Derivado2: necesitaMantenimiento, clase Coche  
+
+Para comprobar que el derivado necesitaMantenimiento funciona de forma correcta se ha procedido a crear varios archivos .soil para comprobar que el atributo se comporta correctamente en las siguientes situaciones:
+
+- No han pasado 4 años desde la fecha de matriculación : CHECK (p2Drivado2_1.soil)
+- No han pasado 4 años y ha realizado alguna revisión en un taller oficial: CHECK(p2Derivado2_2.soil)
+- Han pasado más de 4 años desde la matriculación, se ha realizado una revisión en un taller oficial, pero ha pasado más de 1 año: CHECK(p2Derivado2_3.soil)
+- Han pasado más de 4 años desde la matriculación, se ha realizado una revisión en un taller oficial y no ha pasado más de 1 año: CHECK(p2Derivado2_4.soil)
+- Han pasado más de 4 años desde la matriculación y se ha realizado una revisión en un taller no oficial: CHECK(p2Derivado2_5.soil)
+
+Derivado3: enGarantia, clase Coche  
+
+Para comprobar que el derivado enGarantia funciona de forma correcta se ha procedido a crear varios archivos .soil para comprobar que el atributo se comporta correctamente en las siguientes situaciones:
+
+- No han pasado 4 años desde la fecha de matriculación y el atributo enGarantía debería estar en true :CHECK (p2Drivado3_1.soil)
+- Han pasado 4 años desde la fecha de matriculación y no se ha realizado ninguna revision, el atributo de enGarantia debería estar en false :CHECK (p2Drivado3_2.soil)
+
+Derivado4: validezDeGarantia, clase Coche
+
+Se han comprobado las siguientes situaciones
+
+- No han pasado 4 años desde la fecha de matriculación y el atributo de validezDeGrantia debería valer 400 dado que el coche está en garantía durante primeros 400 días desde la fecha de su matriculación  :CHECK (p2Drivado4_1.soil)
+- Han pasado 4 años desde la fecha de matriculación. El atributo validezDeGarantia debería guardar 0: CHECK(p2Derivado4_2.soil)  
+- Han pasado 4 años desde la fecha de matriculación y se ha realizado una revisión en un taller oficial. El atributo validezDeGarantia debería guardar la garantía que ofrece el taller: CHECK(p2Derivado4_3.soil)
+- Han pasado 4 años desde la fecha de matriculación y se ha realizado una revisión en un taller NO oficial. El atributo validezDeGarantia debería guardar 0: CHECK(p2Derivado4_4.soil)  
 
 
 
@@ -63,12 +107,10 @@ Dos viajes solapados por estar en curso, fin a null
 Operaciones:
 inciarViaje(recorrido : Recorrido) -> Funciona
 avanzar() -> Funciona
-acelerar() -> Funciona 
 decelerar() -> Funciona
 --Se ha verificado el comportamiento definiendo una velocidad y haciendo que el coche llegue al destino.
--- Para acelerar y frenar hemos comprobado que las restas no den valores negativos ni valores fuera de los rangos permitidos y que los cambios de velocidad efectivamente funcionen en el metodo avanza()
 
-Al tener un viaje en curso el atributo derivado de los km realizados por el coche debe ser la suma de los recorridos de los viajes terminados más los que lleve recorridos del el viaje en curso, si lo hubiera. -- ESTO ESTA YA HECHO CARAJOOOO
+Al tener un viaje en curso el atributo derivado de los km realizados por el coche debe ser la suma de los recorridos de los viajes terminados más los que lleve recorridos del el viaje en curso, si lo hubiera.
 
 
 

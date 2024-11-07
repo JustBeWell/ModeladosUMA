@@ -63,11 +63,11 @@ class Coche < ActiveObject
            if self.revision -> size() = 0 then not ((self.clock.NOW  - fechaMatriculacion) < 400) 
            else 
                 let ultimaRevision : Revision = self.revision -> sortedBy(r | r.fechaInicio) -> last() in
-                if ultimaRevision.fechaFin = null 
+                if ultimaRevision.tipo = TipoRevision::Mantenimiento
                 then 
-                    true 
+                    (self.clock.NOW - ultimaRevision.fechaFin) > 100 
                 else 
-                    (self.clock.NOW - ultimaRevision.fechaFin) > 100
+                    true
                 endif
             endif
 
@@ -87,13 +87,13 @@ class Coche < ActiveObject
             --collect(revisionEn | revisionEn.taller.validezGarantia)->last()
         if self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() = 0 and  (self.clock.NOW  - fechaMatriculacion) < 400 
             then 
-                400 -- El coche tiene garantía durante primeros 4 años 
+                0 
             else
                 let revisionesOficiales : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(rev | rev.fechaInicio) in
-                    if revisionesOficiales->size() > 0 and (revisionesOficiales -> last()).fechaFin <> null 
+                    if revisionesOficiales->size() > 0 and (revisionesOficiales -> last()).fechaFin <> null and (self.clock.NOW - (revisionesOficiales -> last()).fechaFin) < (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
                         then
                             (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
-                        else
+                        else 
                             0
                     endif          
         endif               

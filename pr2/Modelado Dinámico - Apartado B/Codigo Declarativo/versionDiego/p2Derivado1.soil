@@ -23,14 +23,8 @@ reset
 
 
 
-!new Revision('Revision1')
-!Revision1.tipo := #Reparacion   -- Hay que declararlo con # por que cada item de la enumeration es un número
-!Revision1.fechaInicio := 16
-!Revision1.fechaFin := 19
 
 
-!new Oficial('TOficial1')
-!TOficial1.garantia := 2
 
 
 
@@ -59,9 +53,7 @@ reset
 
 
 --!insert(Coche2, Viaje2) into realiza     -- coche2 ya realizó el viaje,
-!insert(Ciudad1, TOficial1) into existeOficial
 
-!insert(TOficial1, Revision1) into esRealizada
 
 -- Relaacionamos cada ActiveObject con el clock
 !insert(Clock, Coche1) into time

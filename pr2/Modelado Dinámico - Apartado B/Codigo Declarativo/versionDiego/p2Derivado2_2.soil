@@ -20,7 +20,7 @@ reset
 
 
 !new Oficial('TOficial1')
-!TOficial1.garantia := 2
+!TOficial1.garantia := 2000
 
 
 --=============================================================================
@@ -32,6 +32,8 @@ reset
 !insert(Coche1, Ciudad1) into estaEn               -- coche1 esta en Málaga y va a realizar un viaje a Cádiz:
 !insert(Ciudad1, TOficial1) into existeOficial     -- En Málaga existe un taller oficial
 !insert(TOficial1, Revision1) into esRealizada     -- El coche1 se revisa  en el taller oficial que está en la ciudad donde reposa
+!insert(Coche1, Revision1) into esSometido
+
 
 -- Relacionamos cada ActiveObject con el clock
 !insert(Clock, Coche1) into time
