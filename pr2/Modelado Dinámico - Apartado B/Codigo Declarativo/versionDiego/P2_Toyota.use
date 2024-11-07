@@ -92,7 +92,7 @@ class Coche < ActiveObject
                 let revisionesOficiales : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(rev | rev.fechaInicio) in
                     if revisionesOficiales->size() > 0 and (revisionesOficiales -> last()).fechaFin <> null and (self.clock.NOW - (revisionesOficiales -> last()).fechaFin) < (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
                         then
-                            (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
+                            (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia - (self.clock.NOW - (revisionesOficiales -> last()).fechaFin)
                         else 
                             0
                     endif          

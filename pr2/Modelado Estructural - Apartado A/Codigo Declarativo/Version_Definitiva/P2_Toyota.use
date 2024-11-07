@@ -33,11 +33,11 @@ attributes
 
     necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
         -- razones de necesitaMantenimiento
-        let ultimaRevision = self.revision -> sortedBy(rev | rev.fechaFin) -> last() in
+        let ultimaRevision = self.revision -> select(rev | rev.tipo = TipoRevision::Mantenimiento)-> sortedBy(rev | rev.fechaFin) -> last() in
         if self.revision -> isEmpty() then                             -- Si self no tiene revisiones asociadas, vemos si pasaron +400 días desde la matriculación
             not (self.clock.NOW - fechaMatriculacion < 400)
         else                                                           -- Si no, ver si tipo de la última revisión y la cantidad de días desde entonces
-            if ultimaRevision.tipo = TipoRevision::Mantenimiento then
+            if ultimaRevision <> null then
                 not (self.clock.NOW - ultimaRevision.fechaFin < 100)
             else                                                       
                 true   -- Indicando que el coche necesita manetenimiento
@@ -50,14 +50,20 @@ attributes
         (validezDeGarantia > 0)
 
     validezDeGarantia : Integer derive :      -- Días por los que la garantia proporcionada por un tallerOficial esta activa
+    if self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() = 0 and  (self.clock.NOW  - fechaMatriculacion) < 400 
+      then 
+           400 
+      else    
         let revOrdenadas : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(fechaFin) in
         let ultimaRevision : Revision = revOrdenadas -> last() in
         if revOrdenadas -> size() <= 0 then revOrdenadas -> size() --
         else 
             if (self.clock.NOW - ultimaRevision.fechaFin) > ultimaRevision.taller.oclAsType(Oficial).garantia then 0
-            else ultimaRevision.taller.oclAsType(Oficial).garantia - (self.clock.NOW - ultimaRevision.fechaFin)
+            else 
+                ultimaRevision.taller.oclAsType(Oficial).garantia - (self.clock.NOW - ultimaRevision.fechaFin)
             endif
         endif
+    endif
 end 
 
 class Viaje
