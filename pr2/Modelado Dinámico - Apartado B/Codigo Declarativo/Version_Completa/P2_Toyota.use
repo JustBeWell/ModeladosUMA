@@ -335,7 +335,6 @@ context Coche
     (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.destino = self.ciudad
 
 -- Invariante 12 (antigua 15): Cada coche debe de pasar revision despues de matricularse y no antes.
-
 --Un coche no puede viajar antes de su fecha de matriculación
     inv viajeDespuesdeMatriculacion:
     self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
@@ -347,4 +346,4 @@ context Coche
     -- Invariante 14 (antigua 17): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
 context Viaje
     inv fechaViajeBienDefinida:
-    (self.fechaLlegada <> null) or (self.fechaLlegada >= self.fechaInicio) 
+    (self.fechaLlegada <> null) or (self.fechaLlegada >= self.fechaSalida)

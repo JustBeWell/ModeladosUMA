@@ -1,0 +1,6 @@
+Cambios Estructural:
+
+El derive de validezDeGarantia se modifico de forma equivalente después de las discusiones con la profesora y en clase.
+
+
+Se añadieron las nuevas invariantes definidas ajustadas al modelo estructural. De nuevo, su funcionamiento se comprobó con pr2.soil.

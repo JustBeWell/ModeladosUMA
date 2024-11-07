@@ -33,11 +33,11 @@ attributes
 
     necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revisión Tipo: Mantenimiento
         -- razones de necesitaMantenimiento
-        let ultimaRevision = self.revision -> select(rev | rev.tipo = TipoRevision::Mantenimiento)-> sortedBy(rev | rev.fechaFin) -> last() in
+        let ultimaRevision = self.revision -> sortedBy(rev | rev.fechaFin) -> last() in
         if self.revision -> isEmpty() then                             -- Si self no tiene revisiones asociadas, vemos si pasaron +400 días desde la matriculación
             not (self.clock.NOW - fechaMatriculacion < 400)
         else                                                           -- Si no, ver si tipo de la última revisión y la cantidad de días desde entonces
-            if ultimaRevision <> null then
+            if ultimaRevision.tipo = TipoRevision::Mantenimiento then
                 not (self.clock.NOW - ultimaRevision.fechaFin < 100)
             else                                                       
                 true   -- Indicando que el coche necesita manetenimiento
@@ -50,20 +50,18 @@ attributes
         (validezDeGarantia > 0)
 
     validezDeGarantia : Integer derive :      -- Días por los que la garantia proporcionada por un tallerOficial esta activa
-    if self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> size() = 0 and  (self.clock.NOW  - fechaMatriculacion) < 400 
-      then 
-           400 
-      else    
-        let revOrdenadas : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(fechaFin) in
-        let ultimaRevision : Revision = revOrdenadas -> last() in
-        if revOrdenadas -> size() <= 0 then revOrdenadas -> size() --
-        else 
-            if (self.clock.NOW - ultimaRevision.fechaFin) > ultimaRevision.taller.oclAsType(Oficial).garantia then 0
-            else 
-                ultimaRevision.taller.oclAsType(Oficial).garantia - (self.clock.NOW - ultimaRevision.fechaFin)
-            endif
-        endif
-    endif
+        if (self.clock.NOW - fechaMatriculacion) < 400 
+            then 
+                400 - (self.clock.NOW  - fechaMatriculacion) -- Asignamos el valor de la validez restante
+            else
+                let revisionesOficiales : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(rev | rev.fechaInicio) in
+                    if (self.clock.NOW - (revisionesOficiales -> last()).fechaFin) < (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
+                        then
+                            (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia - (self.clock.NOW - (revisionesOficiales -> last()).fechaFin)
+                        else 
+                            0
+                    endif          
+        endif 
 end 
 
 class Viaje
@@ -168,8 +166,8 @@ context Coche
     self.revision -> forAll(rev | rev.fechaInicio > self.fechaMatriculacion)
 
 -- Invariante 3: Todos los coches han de ser revisados como máximo en un momento dado.
-    inv unaRevisionAlaVez:
-    if self.revision -> size() = 0 then true
+    inv revisadoUnaVez:
+    if self.revision -> size() = 0 then false
     else self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin) and (not(rev1.fechaFin = null and rev2.fechaFin = null)))
     endif
 
@@ -255,7 +253,15 @@ context Coche
     (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.destino = self.ciudad
 
 -- Invariante 12 (antigua 15): Cada coche debe de pasar revision despues de matricularse y no antes.
-
 --Un coche no puede viajar antes de su fecha de matriculación
     inv viajeDespuesdeMatriculacion:
     self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
+
+-- Invariante 13 (antigua 16): Un coche no debe poder comenzar un viaje con la alerta de mantenimiento en true
+    inv noViajeEnMantenimiento:
+    self.necesitaMantenimiento implies self.viaje -> forAll(v | v.fechaLlegada < self.clock.NOW)
+
+    -- Invariante 14 (antigua 17): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
+context Viaje
+    inv fechaViajeBienDefinida:
+    self.fechaLlegada >= self.fechaSalida
