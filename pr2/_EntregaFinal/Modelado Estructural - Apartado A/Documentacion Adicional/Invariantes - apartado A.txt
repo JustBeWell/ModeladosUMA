@@ -1,0 +1,31 @@
+Invariantes - apartado A:
+
+Todos los .soil definidos para el apartado B comprueban las invariantes de ambos modelos a excepción de las que se presentan a continuación por la forma en la que están definidas las fechas de llegada. Me explico:
+
+En nuestro modelo estructural donde no hay paso del tiempo, las fechas de finalización para un viaje y una revisión son puestas manualmente (no tomamos en cuenta el "proceso de") y luego comprobamos si el día actual está antes o después de dicha fecha para deducir si seguimos en una Revisión/Viaje o ya ha terminado.
+
+
+En el modelo dinámico, las fechas de finalización de un Viaje o una Revisión estarán indefinidas (null) hasta el momento de fin realmente. En otras palabras, no sabemos cuando es la fecha fin, hasta que ya no estamos esa acción.
+
+Invariante 4
+# context Revision
+    inv mismaCiudadqueTallerEnRevision --> CHECK
+
+	-- He definido dos .soil donde presento el caso de la invariante a true y false. Ambos modelos dan mismaCiudadqueTallerEnRevision = true ya que el coche tiene la revisión en el taller de la ciudad donde fue creado. A efectos prácticos este caso NO es válido ya que es sometido a una revisión sin haber pasado los 4 años desde su fecha de matriculación pero no importa porque estoy intentando mostrar como en el modelo estructural sabemos si el coche ESTÁ en revisión o ya ha finalizado. 
+	-- pr2Invariante4_A.soil: (currentTime - self.fechaFin) da mayor que 0, ese numero son los días que han pasado desde que el coche SALIÓ de revisión.
+	-- pr2Invariante4v2_A.soil: (currentTime - self.fechaFin) da menor que 0, entonces el coche aun NO ha salido de revisión y este número refleja los días que le quedan en el taller.
+	-- Consideraciones para leer la sintaxis de esta invariante: 
+		-- self.taller.oclIsKindOf(Oficial) comprueba si el taller asociado a la revisión es de Oficial
+		-- oclAsType hace casting de Taller a Oficial, pero solo si el Taller recuperado es realmente es de ese tipo
+		-- Entonces primero verificamos si el Taller seleccionado es de tipo Oficial, luego hacemos casting (porque ya hemos comprobado que lo es) del Taller (abstracto) a Oficial (de esta manera accedemos a sus atributos y podemos referenciar la subclase en la clase padre que es abstracta) y comprobamos si el coche esta en la misma ciudad que ESE taller.
+
+
+Invariante 5
+# context Viaje
+    inv viajandoOenCiudad:  --> CHECK
+
+	-- He definido dos .soil donde presento el caso de la invariante a true y false. 
+	-- CASO TRUE -> pr2Invariante5_A.soil: (currentTime - self.fechaLlegada) da mayor que 0, ese numero son los días que faltan para que el coche termine su viaje (en este momento "se encuentra" viajando). self.coche.ciudad.isUndefined() = true implica que el coche NO esta definido en una ciudad (no existe su instancia en la relación estaEn).
+	-- CASO FALSE -> pr2Invariante5v2_A.soil: (currentTime - self.fechaLlegada) da menor que 0, entonces el coche aun NO ha terminado su viaje y ese número representa los días que faltan para que el coche llegue a ciudad destino. self.coche.ciudad.isUndefined() = false implica que el coche "sigue definido en estaEn" (recordemos que no hay transiciones en el tiempo, entonces esta descripción para modelo estructural es válida).	
+
+

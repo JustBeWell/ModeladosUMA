@@ -1,0 +1,228 @@
+-- =====================================================================
+--                             MODELO
+-- =====================================================================
+
+model P2_Toyota
+
+-- =====================================================================
+--                           ENUMERATIONS
+-- =====================================================================
+
+enum TipoRevision{Mantenimiento, Reparacion}
+
+
+-- =====================================================================
+--                             CLASES
+-- =====================================================================
+
+class Clock
+attributes
+    NOW : Integer                  
+    resolution : Integer 
+end
+
+abstract class ActiveObject
+end
+
+class Coche < ActiveObject
+attributes
+    kmRecorridos : Real derive :              
+        self.viaje.recorrido -> collect(dist | dist.distancia) -> sum()
+        
+    fechaMatriculacion : Integer              
+
+    necesitaMantenimiento : Boolean derive :  
+        if self.clock.NOW  - fechaMatriculacion < 400 
+            then
+                false
+            else
+                let ultimaRevision : Revision = self.revision -> select(rev | rev.tipo = TipoRevision::Mantenimiento) -> sortedBy(r | r.fechaInicio) -> last() in
+                if ultimaRevision <> null
+                then
+                    (self.clock.NOW - ultimaRevision.fechaFin) > 100
+                else
+                    true
+                endif
+        endif
+        
+        
+
+    enGarantia : Boolean derive :             
+        
+        ((self.clock.NOW  - fechaMatriculacion) < 400) or
+        (validezDeGarantia > 0)
+
+    validezDeGarantia : Integer derive :      
+        if (self.clock.NOW - fechaMatriculacion) < 400 
+            then 
+                400 - (self.clock.NOW  - fechaMatriculacion) 
+            else
+                let revisionesOficiales : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(rev | rev.fechaInicio) in
+                    if (self.clock.NOW - (revisionesOficiales -> last()).fechaFin) < (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
+                        then
+                            (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia - (self.clock.NOW - (revisionesOficiales -> last()).fechaFin)
+                        else 
+                            0
+                    endif          
+        endif 
+end 
+
+class Viaje
+attributes
+    fechaSalida : Integer                     
+    fechaLlegada : Integer                    
+        
+end
+
+class Revision
+attributes
+    tipo : TipoRevision                       
+    fechaInicio : Integer                     
+    fechaFin : Integer                        
+end
+
+abstract class Taller                         
+end
+
+class Oficial < Taller                       
+attributes
+    garantia : Integer                        
+end
+
+class NoOficial < Taller                     
+end 
+
+class Ciudad
+attributes
+    nombre : String                           
+end
+
+
+-- =====================================================================
+--                       CLASES DE ASOCIACIÓN
+-- =====================================================================
+
+associationclass Recorrido between
+    Ciudad [1] role destino Ciudad [1] role origen
+attributes
+    distancia : Real                         
+end 
+
+-- =====================================================================
+--                         ASOCIACIONES 
+-- =====================================================================
+
+association time between
+Clock [1] role clock
+ActiveObject [*] role ao
+end
+
+association realiza between
+Coche [1] role coche
+Viaje [*] role viaje
+end
+
+association recorre between
+Viaje [*] role viaje
+Recorrido [1] role recorrido
+end
+
+association estaEn between
+Coche [*] role coche
+Ciudad [1] role ciudad
+end
+
+association esSometido between
+Coche [1] role coche
+Revision [*] role revision
+end
+
+composition esRealizada between
+Taller [1] role taller
+Revision [*] role revision
+end
+
+composition existeOficial between
+Ciudad [1] role ciudad
+Oficial [0..1] role oficial
+end
+
+composition existeNoOficial between
+Ciudad [1] role ciudad
+NoOficial [*] role  NoOficial
+end
+
+
+-- =====================================================================
+--                         INVARIANTES
+-- =====================================================================
+
+constraints
+
+context Recorrido
+    inv minimo5Km:
+    self.distancia >= 5
+
+
+context Coche
+    inv revisionDespuesdeMatriculacion:
+    self.revision -> forAll(rev | rev.fechaInicio > self.fechaMatriculacion)
+
+
+    inv revisadoUnaVez:
+    self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin))
+
+
+context Revision
+    inv mismaCiudadqueTallerEnRevision :
+    let currentTime : Integer = self.coche.clock.NOW in   -- Accede al tiempo actual
+    (currentTime - self.fechaFin) < 0 implies
+    (self.taller.oclIsKindOf(Oficial) and self.taller.oclAsType(Oficial).ciudad = self.coche.ciudad) --
+    or 
+    (self.taller.oclIsKindOf(NoOficial) and self.taller.oclAsType(NoOficial).ciudad = self.coche.ciudad) --
+    
+
+context Viaje
+    inv viajandoOenCiudad:
+    let currentTime : Integer = self.coche.clock.NOW in  -- Accede al tiempo actual
+    (currentTime - self.fechaLlegada) < 0 implies
+    self.coche.ciudad.oclIsUndefined() -- and self.coche.estaEn->notEmpty() -- El coche existe en una ubicacion valida
+
+
+context Coche
+    inv enCiudadDestino:
+    let ultimoViaje : Viaje = self.viaje -> asOrderedSet() -> sortedBy(fechaLlegada) -> last() in
+    ultimoViaje.oclIsUndefined() or ultimoViaje.recorrido.destino = self.ciudad
+    
+
+
+context Coche
+    inv viajeUnico:
+    self.viaje -> forAll(v1,v2 | not(v1 <> v2) or v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida))
+
+
+    inv destinoComoOrigen:
+    let viajesOrdenados : OrderedSet(Viaje)  = self.viaje -> sortedBy(v | v.fechaSalida) in 
+    viajesOrdenados -> forAll(v1, v2 | viajesOrdenados->indexOf(v1) = viajesOrdenados->indexOf(v2) + 1 implies v1.recorrido.destino = v2.recorrido.origen)
+
+context Ciudad
+    inv hayRecorridos:
+    self.origen -> notEmpty() and self.destino -> notEmpty()
+
+   
+context Coche
+    inv empiezaViajeEnDestino:
+    (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.destino = self.ciudad
+
+
+    inv viajeDespuesdeMatriculacion:
+    self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
+
+
+    inv noViajeEnMantenimiento:
+    self.necesitaMantenimiento implies self.viaje -> forAll(v | v.fechaLlegada < self.clock.NOW)
+
+
+context Viaje
+    inv fechaViajeBienDefinida:
+    self.fechaLlegada > self.fechaSalida

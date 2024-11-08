@@ -1,0 +1,26 @@
+Invariantes - apartado A:
+
+Definimos .soil para visualizar cómodamente en un test asilado que los derivados efectivamente hacen lo que se espera que hagan en el sistema.
+
+Clase Coche:
+# Derivado1 - kmRecorridos : Real
+	-- Definimos nada un Coche que realiza tres Recorridos entre ciudades. El resultado es que se ve que efectivamente, los km recorridos por el coche es la suma de cada uno de los viajes que hizo entre ciudades.
+
+
+# Derivado2 - necesitaMantenimiento : Boolean 
+	-- Definimos dos .soil con un caso de True y otro de False que se ven a la par entre pr2Derivado2_A.soil y pr2Derivado2v2_A.soil
+	-- CASO TRUE: El coche necesita mantenimiento si no se ha sometido una revision de mantenimiento o han pasado 400 dias desde su fecha de matriculacion
+	-- CASO FALSE: El coche no necesita mantenimiento si estamos antes de los 400 dias o si despues de ellos, se relizo una revision de mantenimiento. En este caso Tambien se considero el caso que despues de los 400 dias, la revision hecha no fue de tipo mantenimiento y por consecuencia no recibe el "go" para seguir viajando.
+	-- Se redefinió el derivado para que estuviera acorde con estas comprobaciones y se modificó Invariante 3 - revisadoUnaVez para que se viera correctamente cuando un coche ha tenido revision, independientemente del tipo (sujeto a cambios si se desea especificar revisadoUnaVezMantenimiento)
+
+
+# Derivado3 - enGarantia : Boolean
+	-- Definimos dos .soil con un caso de True y otro de False.
+	-- CASO TRUE: El coche tiene garantia si han pasado menos de 400 dias desde su matrculacion o si un TallerOficial se la otorga por tener una revision en el (independientemente del tipo de revision).
+	-- CASO FALSE: Lo contrario al true, el los .soil queda explicado visualmente. Notese como mostramos aqui un caso muy especial donde el coche tiene garantia por revision en un TallerOficial pero igual necesita mantenimiento porque la revision fue de tipo Reparación y han pasado mas de 400 dias.
+		-- Aprovecho para dejar en claro: Si un coche tiene una Garantia activa, no necesitara ir a reparación durante esos dias, pero si a manteniento. APLICABLE SOLO cuando han pasado mas de 400 dias en el sistema; Garantia no implica noNecesitarMantenimiento.
+
+
+# Derivado4 - validezDeGarantia : Integer
+	-- Practicamente igual al Derivado3. Un coche no tiene validez de garantia si no ha tenido revision en un taller oficial y si tendrá cuando la tenga.
+	-- En el pr2Derivado4_A.soil se ve el caso donde un coche con garantia no necesita mentenimeinto por el tipo de revision Mantenimiento que recibió en un TallerOficial, y asi hemos cubierto todos los casos.

@@ -1,0 +1,38 @@
+reset
+
+--=============================================================================
+--                               OBJETOS
+--=============================================================================
+!new Clock('Clock')               -- Solo puede existir una única instancia
+!Clock.NOW := 10                  -- Día actual
+!Clock.resolution := 1            -- Saltos cada tick
+
+!new Coche('Coche1')
+!Coche1.fechaMatriculacion := 5   
+
+!new Ciudad('Ciudad1')
+!Ciudad1.nombre := 'Malaga'
+
+!new Revision('Revision1') 
+!Revision1.tipo := #Reparacion   
+!Revision1.fechaInicio := 2
+!Revision1.fechaFin := 3
+
+!new Oficial('TOficial1')
+!TOficial1.garantia := 2
+
+--=============================================================================
+--                               INSERTS
+--=============================================================================
+
+-- Modelamos para un caso en particular donde no hay paso del tiempo ni cambio de estado
+
+!insert(Coche1, Ciudad1) into estaEn
+!insert(Ciudad1, TOficial1) into existeOficial
+
+!insert(Coche1, Revision1) into esSometido
+!insert(TOficial1, Revision1) into esRealizada
+
+-- Relaacionamos cada ActiveObject con el clock
+!insert(Clock, Coche1) into time
+

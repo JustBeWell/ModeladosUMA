@@ -1,0 +1,17 @@
+reset
+
+--=============================================================================
+--                               OBJETOS
+--=============================================================================
+!new Ciudad('Ciudad1')
+!Ciudad1.nombre := 'Malaga'
+
+
+--=============================================================================
+--                               INSERTS
+--=============================================================================
+
+-- Modelamos para un caso en particular donde no hay paso del tiempo ni cambio de estado
+
+!insert(Ciudad1, Ciudad1) into Recorrido 
+!Recorrido1.distancia := 10            

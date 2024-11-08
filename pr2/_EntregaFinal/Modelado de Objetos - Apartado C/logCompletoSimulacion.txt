@@ -1,0 +1,61 @@
+use> open modeloObjetos.soil
+modeloObjetos.soil> reset
+modeloObjetos.soil>
+modeloObjetos.soil> --=============================================================================
+modeloObjetos.soil> --                               OBJETOS
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil> --Primero se deben considerar las siguientes tres ciudades:  M├ílaga, Sevilla y Granada
+modeloObjetos.soil>
+modeloObjetos.soil> !new Ciudad('Ciudad1')
+modeloObjetos.soil> !Ciudad1.nombre := 'Malaga'
+modeloObjetos.soil>
+modeloObjetos.soil> !new Ciudad('Ciudad2')
+modeloObjetos.soil> !Ciudad2.nombre := 'Sevilla'
+modeloObjetos.soil>
+modeloObjetos.soil> !new Ciudad('Ciudad3')
+modeloObjetos.soil> !Ciudad3.nombre := 'Granada'
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil> --=============================================================================
+modeloObjetos.soil> !new Clock('Clock')               -- Solo puede existir una ├║nica instancia
+modeloObjetos.soil> !Clock.NOW := 0                 -- D├¡a actual
+modeloObjetos.soil> !Clock.resolution := 1            -- Saltos cada tick
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil> --Consideramos un coche que se ha matriculado en el instante 0
+modeloObjetos.soil> !new Coche('Coche1')
+modeloObjetos.soil> !Coche1.fechaMatriculacion := 0   -- D├¡a en el que el coche comenz├│ a existir en el sistema
+modeloObjetos.soil> !Coche1.velocidad := 27
+modeloObjetos.soil>
+modeloObjetos.soil> --=============================================================================
+modeloObjetos.soil> --                               INSERTS
+modeloObjetos.soil> --=============================================================================
+modeloObjetos.soil>
+modeloObjetos.soil> --Se deben considerar dos recorridos: entre M├ílaga y Sevilla con 210 km y entre Sevilla y Granada con 250
+modeloObjetos.soil>
+modeloObjetos.soil> !insert (Coche1, Ciudad1) into estaEn
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil> !insert(Ciudad2, Ciudad1) into Recorrido
+modeloObjetos.soil> !Recorrido1.distancia := 210
+modeloObjetos.soil>
+modeloObjetos.soil> !insert(Ciudad3, Ciudad2) into Recorrido
+modeloObjetos.soil> !Recorrido2.distancia := 250
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil>
+modeloObjetos.soil> -- Relaacionamos cada ActiveObject con el clock
+modeloObjetos.soil> !insert(Clock, Coche1) into time
+modeloObjetos.soil>
+use> !Clock.run(5)
+use> !Coche1.iniciarViaje(Recorrido1)
+use> !Clock.run(7)
+use> !Clock.tick()
+use> !Coche1.iniciarViaje(Recorrido2)
+use> !Coche1.acelerar(27)
+use> !Clock.run(10)
+use>

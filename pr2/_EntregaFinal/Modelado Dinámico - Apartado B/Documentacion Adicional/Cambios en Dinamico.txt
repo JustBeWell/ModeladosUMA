@@ -1,0 +1,26 @@
+Cambios en Dinámico:
+
+Linea 91 - Se elimino la condición de verificar si el coche no ha tenido alguna revisión en un taller oficial por que estamos planteando el caso donde un coche tuvo revisión de reparación antes de los 400 días de su matriculación (el sistema permite esto) y evitar que los días de garntia restantes (de los primeros 4 años) se sobreescriban con la garantía proporcionada por el taller oficial.
+
+Linea 93 - Se modifico validezDeGarantia para que se asigne el valor de la validez restante de forma dinámica. 
+
+
+Creamos el nuevo .soil para Derivado4 - validezDeGarantia llamado p2Derivado4_5.soil donde se comprueba que el necesitaMantenimiento se pone a false cuando el tipo de revisión es de Mantenimiento. Este es el contraejemplo para p2Derivado4_3.soil
+
+
+Se implementó el paso del tiempo en el sistema. 
+Linea 26 for para los ao
+Linea 45 tick() para los ao
+Linea 153 definimos la accion que hace un coche con cada tick() del clock asegurándonos que solo pueda avanzar si hay un viaje activo. 
+
+Comprobando este funcionamiento nos percatamos que no hay una invariante que cubra el caso que un coche necesitando mantenimiento no pueda realizar viaje.
+
+Nueva Invariante1 - noViajeEnMantenimiento
+Comprobamos que todos los viajes asociados al coche no puedan iniciarse si necesita mantenimiento
+
+
+Nueva Invariante2 - fechaViajeBienDefinida
+Permitimos que un viaje pueda realizarse y completarse en un mismo dia. Estamos verificando que la fecha de llegada no sea superior a la fecha de inicio para cualquier viaje y que su fecha de llegada no sea null ya que eso implica que esta viajando (en el modelo dinámico). 
+
+Ambas invariantes se verifican con pr2.soil
+
