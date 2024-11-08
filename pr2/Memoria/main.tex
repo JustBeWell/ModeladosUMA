@@ -399,7 +399,7 @@ Todas las relaciones entre las entidades del modelo tienen su significado y est�
 \begin{itemize}
 \item \textbf{esSometido (Coche-Revisión)}:  Esta relación indica que cada coche en el sistema puede estar asociado a múltiples revisiones a lo largo de su vida útil. Cada revisión se registra cuando el coche necesita mantenimiento o reparación.
   
-\item \textbf{realiza (Coche-Viaje))}: Relación que representa el hecho de que un coche puede realizar varios viajes. Un viaje es un desplazamiento que inicia en una ciudad y concluye en otra, y se registra en el sistema para hacer seguimiento del historial de movimientos del coche.
+\item \textbf{realiza (Coche-Viaje)}: Relación que representa el hecho de que un coche puede realizar varios viajes. Un viaje es un desplazamiento que inicia en una ciudad y concluye en otra, y se registra en el sistema para hacer seguimiento del historial de movimientos del coche.
 
 \item \textbf{estaEn (Coche-Ciudad)}: Esta relación representa la ubicación actual del coche en una ciudad. Cada coche estará siempre en una ciudad específica, ya sea de origen o destino de algún viaje.
 
@@ -530,7 +530,7 @@ Para poder comprobar las restricciones de nuestro sistema, primero es necesario 
     \begin{lstlisting}[style = useEspecifico,language=SQL]
 context Viaje
     inv fechaViajeBienDefinida:
-    self.fechaLlegada >= self.fechaSalida  
+    self.fechaLlegada > self.fechaSalida  
     \end{lstlisting}
     Asegura que la fecha de salida de un viaje sea anterior o igual a su fecha de llegada, previniendo datos inconsistentes en los registros de viaje.
 \end{itemize}
@@ -902,7 +902,7 @@ A diferencia del diagrama del modelo estructural, en este modelo hemos añadido 
     \item \textbf{Operaciones:}
     \begin{itemize}
         \item \texttt{iniciarViaje(recorrido : Recorrido)}: Esta operación inicia un nuevo viaje para el coche. Se crea un objeto Viaje, se establece la fecha de salida como el tiempo actual y se relaciona al coche con el viaje y el recorrido correspondiente. También actualiza la ciudad en la que se encuentra el coche, eliminándola de la relación estaEn.
-        \item \texttt{avanzar())}: Esta operación actualiza el kilometraje del coche durante su viaje, sumando su velocidad actual al kilometraje recorrido. Si el coche ha alcanzado la distancia total del recorrido, la operación finaliza el viaje, marca la fecha de llegada y actualiza la ciudad en la que el coche termina su viaje.
+        \item \texttt{avanzar()}: Esta operación actualiza el kilometraje del coche durante su viaje, sumando su velocidad actual al kilometraje recorrido. Si el coche ha alcanzado la distancia total del recorrido, la operación finaliza el viaje, marca la fecha de llegada y actualiza la ciudad en la que el coche termina su viaje.
         \item \texttt{acelerar(n : Integer)}: Permite incrementar la velocidad del coche en n unidades. La operación ajusta la velocidad del coche sumando el valor n a la velocidad actual.
         \item \texttt{decelerar(n : Integer)}: Reduce la velocidad del coche en n unidades, siempre que la velocidad actual sea mayor o igual al valor n. Esto disminuye la velocidad del coche de acuerdo al valor especificado.
         \item \texttt{tick()}: Actualiza el estado del coche en función del tiempo. Si el coche está en un viaje en curso, avanza en su trayecto según la velocidad y distancia recorrida. Esta operación depende del reloj del sistema para actualizar el tiempo y garantizar el progreso del coche en su viaje.
@@ -928,7 +928,321 @@ La herramienta USE nos permite llevar a cabo un diagrama de clases para el model
 \end{figure}
 
 Las relaciones en el modelo dinámico se mantienen igual que en el modelo estructural que ya se han descrito anteriormente.
+\subsection{Codigo Use del apartado B}
+\begin{lstlisting}[style = useNormal,language=SQL, caption={Codigo Use del apartado B}] 
 
+    -- =====================================================================
+    --                             MODELO
+    -- =====================================================================
+    
+    model P2_Toyota
+    
+    -- =====================================================================
+    --                           ENUMERATIONS
+    -- =====================================================================
+    
+    enum TipoRevision{Mantenimiento, Reparacion}
+    
+    
+    -- =====================================================================
+    --                             CLASES
+    -- =====================================================================
+    
+    class Clock
+    attributes
+        NOW : Integer init : 0                    -- Nos dice el dia actual en el que se encuentra el sistema
+        resolution : Integer init : 1
+    operations
+        tick()
+        begin
+            self.NOW := self.NOW + self.resolution;
+            for o in self.ao do
+                o.tick()
+            end;
+        end
+        post sumaTiempo: self.NOW = self.NOW@pre + self.resolution
+    
+        run(n : Integer)
+        begin
+            for i in Sequence{1..n} do
+                self.tick()
+            end;
+        end
+        pre esPositivo: n > 0
+        post sumaCorrecta: self.NOW = self.NOW@pre + n
+    end
+    
+    abstract class ActiveObject
+    operations
+        tick()
+        begin
+            self.clock.tick()
+        end
+    end
+    
+    class Coche < ActiveObject
+        attributes
+            velocidad : Real init : 0
+            --Derivado 1:
+            --Para comprobar que el derivado kmRecorridos funciona correctamente:
+            --Se han desarrollado 3 archivos .soil:
+            ---El primero comprueba 
+            kmRecorridos : Real derive :              -- Registro de todos los km que ha recorrido el coche entre ciudades en sus viajes
+            
+            if self.viaje -> size() = 0 then 0 else
+            let ultimoViaje : Viaje = self.viaje -> sortedBy(v|v.fechaSalida) -> last() in
+                    self.viaje -> excluding(ultimoViaje).recorrido -> collect(dist | dist.distancia) -> sum() + ultimoViaje.kmViaje
+            endif
+            
+            fechaMatriculacion : Integer              -- Fecha en la que el coche se puso en funcionamiento en nuestro sistema
+    
+            necesitaMantenimiento : Boolean derive :  -- Flag que indica que el coche necesita ir a revision Tipo: Mantenimiento
+                -- razones de necesitaMantenimiento
+               if  self.clock.NOW  - fechaMatriculacion < 400 
+                then 
+                    false
+                else 
+                    let ultimaRevision : Revision = self.revision -> select(rev | rev.tipo = TipoRevision::Mantenimiento) -> sortedBy(r | r.fechaInicio) -> last() in
+                    if ultimaRevision <> null
+                    then 
+                        (self.clock.NOW - ultimaRevision.fechaFin) > 100 
+                    else 
+                        true
+                    endif
+                endif
+                
+            enGarantia : Boolean derive :             -- Flag que indica que el coche tiene una garantia activa
+                -- razones por estar enGarantia
+                ((self.clock.NOW  - fechaMatriculacion) < 400) or
+                (validezDeGarantia > 0)
+    
+            validezDeGarantia : Integer derive :      -- Dias por los que la garantia proporcionada por un tallerOficial esta activa
+            if (self.clock.NOW - fechaMatriculacion) < 400 
+                then 
+                    400 - (self.clock.NOW  - fechaMatriculacion) -- Asignamos el valor de la validez restante
+                else
+                    let revisionesOficiales : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(rev | rev.fechaInicio) in
+                        if revisionesOficiales->size() > 0 and (revisionesOficiales -> last()).fechaFin <> null and (self.clock.NOW - (revisionesOficiales -> last()).fechaFin) < (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
+                            then
+                                (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia - (self.clock.NOW - (revisionesOficiales -> last()).fechaFin)
+                            else 
+                                0
+                        endif          
+            endif               
+        operations
+            iniciarViaje(recorrido : Recorrido)
+            begin
+                declare nuevoViaje : Viaje;
+                nuevoViaje := new Viaje;
+                nuevoViaje.fechaSalida := self.clock.NOW;
+                insert(self, nuevoViaje) into realiza;
+                insert(nuevoViaje, recorrido) into recorre;
+                delete(self, self.ciudad) from estaEn;
+            end
+            pre estaEnCiudad : self.ciudad = recorrido.origen
+            pre viajeNoEnCurso : self.viaje->isEmpty() or not (self.viaje->asOrderedSet()->sortedBy(v | v.fechaSalida)->last().fechaLlegada = null)
+            pre noNecesitaMantenimiento : self.necesitaMantenimiento implies self.viaje -> forAll(v | v.fechaLlegada <> null)
+            post noEstaEnCiudad : self.ciudad.oclIsUndefined()
+            
+            avanzar()
+            begin
+                declare viajeEnCurso : Viaje;
+                viajeEnCurso := self.viaje -> asOrderedSet() -> sortedBy(v | v.fechaSalida) -> last();
+                viajeEnCurso.kmViaje := viajeEnCurso.kmViaje + self.velocidad;
+                if viajeEnCurso.kmViaje > viajeEnCurso.recorrido.distancia then 
+                    viajeEnCurso.kmViaje := viajeEnCurso.recorrido.distancia;       
+                    self.velocidad := 0;
+                    viajeEnCurso.fechaLlegada := self.clock.NOW;
+                    insert(self, viajeEnCurso.recorrido.destino) into estaEn;
+                end;
+            end
+            pre estaEnViaje: (self.viaje -> asOrderedSet() -> sortedBy( v | v.fechaSalida) -> last()).fechaLlegada = null and self.ciudad.oclIsUndefined()
+    
+            acelerar(n : Integer)
+            begin
+                self.velocidad := self.velocidad + n;
+            end
+            pre sumandoValido : n > 0
+            post sumaCorrecta : self.velocidad = self.velocidad@pre + n
+    
+            decelerar(n : Integer)
+            begin
+                self.velocidad := self.velocidad - n;
+            end 
+            pre sumandoValido : n > 0 and self.velocidad >= n
+            post restaCorrecta : self.velocidad = self.velocidad@pre - n
+    
+            tick()
+            begin
+                -- Verificamos que el coche esta realizando un viaje para llamar la operacion de avanzar
+                if (self.viaje -> asOrderedSet() -> sortedBy( v | v.fechaSalida) -> last()).fechaLlegada = null and self.ciudad.oclIsUndefined()
+                then
+                    self.avanzar();
+                end;
+            end
+    end     
+    
+    class Viaje
+    attributes
+        kmViaje : Real init : 0
+        fechaSalida : Integer                     -- Dia en el que el coche comienza en viaje
+        fechaLlegada : Integer                    -- Dia en el que el coche finaliza el viaje 
+    end
+    
+    class Revision
+    attributes
+        tipo : TipoRevision                       -- Selecciona el tipo de revision del enumeration definido
+        fechaInicio : Integer                     -- Guarda el registro de cuando inicio la revision del coche
+        fechaFin : Integer                        -- Guarda el registro de cuando el coche sale de revision
+    end
+    
+    abstract class Taller                         -- Clase abstracta Taller. No debe tener instancias, solo sus subclases tienen
+    end
+    
+    class Oficial < Taller                        -- Taller Oficial hereda de Taller
+    attributes
+        garantia : Integer                        -- Total del dias en lo que el coche estara enGarantia
+    end
+    
+    class NoOficial < Taller                     -- Taller No Oficial hereda de Taller
+    end 
+    
+    class Ciudad
+    attributes
+        nombre : String                           -- Nombre de la ciudad
+    end
+    
+    
+    -- =====================================================================
+     --                       CLASES DE ASOCIACION
+    -- =====================================================================
+    
+    associationclass Recorrido between
+        Ciudad [1] role destino
+        Ciudad [1] role origen
+    attributes
+        distancia : Real                         
+    end 
+    
+    -- =====================================================================
+    --                         ASOCIACIONES 
+    -- =====================================================================
+    
+    association time between
+    Clock [1] role clock
+    ActiveObject [*] role ao
+    end
+    
+    association realiza between
+    Coche [1] role coche
+    Viaje [*] role viaje
+    end
+    
+    association recorre between
+    Viaje [*] role viaje
+    Recorrido [1] role recorrido
+    end
+    
+    association estaEn between
+    Coche [*] role coche
+    Ciudad [1] role ciudad
+    end
+    
+    association esSometido between
+    Coche [1] role coche
+    Revision [*] role revision
+    end
+    
+    composition esRealizada between
+    Taller [1] role taller
+    Revision [*] role revision
+    end
+    
+    composition existeOficial between
+    Ciudad [1] role ciudad
+    Oficial [0..1] role oficial
+    end
+    
+    composition existeNoOficial between
+    Ciudad [1] role ciudad
+    NoOficial [*] role  NoOficial
+    end
+    
+    
+    -- =====================================================================
+    --                         INVARIANTES
+    -- =====================================================================
+    
+    constraints
+    -- Invariante 1: Cada cuidad debe tener una distancia minima de 5 km de la otra.
+    context Recorrido
+        inv minimo5Km:
+        self.distancia >= 5
+    
+    -- Invariante 2: Cada coche debe de pasar revision despues de matricularse y no antes.
+    context Coche
+        inv revisionDespuesdeMatriculacion:
+        self.revision -> forAll(rev | rev.fechaInicio > self.fechaMatriculacion)
+    
+
+        inv revisadoUnaVez:
+        self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin) and (not(rev1.fechaFin = null and rev2.fechaFin = null)))
+    
+    -- Invariante 4: Si un coche esta en revision, debe de estar en la misma ciudad que el taller.
+    context Revision
+        inv mismaCiudadqueTallerEnRevision :
+        self.fechaFin = null implies 
+        (self.taller.oclIsKindOf(Oficial) and self.taller.oclAsType(Oficial).ciudad = self.coche.ciudad)
+        or
+        (self.taller.oclIsKindOf(NoOficial) and self.taller.oclAsType(NoOficial).ciudad = self.coche.ciudad)
+
+    -- Invariante 5: Un coche tiene que estar o viajando o en una ciudad.
+    context Viaje
+        inv viajandoOenCiudad:
+        self.fechaLlegada = null implies-- El coche no existe
+        self.coche.ciudad.oclIsUndefined() -- and self.coche.estaEn->notEmpty() -- El coche existe en una ubicacion valida
+
+    -- Invariante 6: Un coche despues de su viaje tiene que encontrarse en su ciudad destino.
+    context Coche
+        inv enCiudadDestino:
+        let ultimoViaje : Viaje = self.viaje -> asOrderedSet() -> sortedBy(fechaLlegada) -> last() in
+        ultimoViaje.oclIsUndefined() or ultimoViaje.recorrido.destino = self.ciudad
+        
+    -- Invariante 7: No pueden haber dos viajes solapados.
+    context Coche
+        inv viajeUnico:
+        self.viaje -> forAll(v1,v2 | not(v1 <> v2) or v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida) and (not(v1.fechaLlegada = null and v2.fechaLlegada = null)))
+    
+    -- Invariante 8: Un coche debe de empezar el siguiente viaje en la ciudad destino del anterior.
+        inv destinoComoOrigen:
+        let viajesOrdenados : OrderedSet(Viaje)  = self.viaje -> sortedBy(v | v.fechaSalida) in 
+        viajesOrdenados -> forAll(v1, v2 | viajesOrdenados->indexOf(v1) = viajesOrdenados->indexOf(v2) + 1 implies v1.recorrido.destino = v2.recorrido.origen)
+            
+        -- Invariante 9 (antigua 13): Una ciudad tiene que tener un recorrido con otra ciudad de manera obligatoria
+    context Ciudad
+        inv hayRecorridos:
+        self.origen -> notEmpty() and self.destino -> notEmpty()
+    
+
+    context Coche
+        inv empiezaViajeEnDestino:
+        (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.destino = self.ciudad
+    
+    -- Invariante 11 (antigua 15): Cada coche debe de pasar revision despues de matricularse y no antes.
+    --Un coche no puede viajar antes de su fecha de matriculacion
+        inv viajeDespuesdeMatriculacion:
+        self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
+    
+    -- Invariante 12 (antigua 16): Un coche no debe poder comenzar un viaje con la alerta de mantenimiento en true
+        inv noViajeEnMantenimiento:
+        self.necesitaMantenimiento implies self.viaje -> forAll(v | v.fechaLlegada <> null)
+    
+        -- Invariante 13 (antigua 17): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
+    context Viaje
+        inv fechaViajeBienDefinida:
+        (self.fechaLlegada = null) xor (self.fechaLlegada > self.fechaSalida)
+    
+\end{lstlisting}
 
 \subsection{Modificaciones de las invariantes en el modelo dinámico}
 \subsubsection{Inv4: Si un coche está en revisión, debe de estar en la misma ciudad que el taller}
@@ -956,7 +1270,7 @@ context Viaje
     \begin{lstlisting}[style = useEspecifico,language=SQL]
 context Viaje
     inv fechaViajeBienDefinida:
-    (self.fechaLlegada <> null) or (self.fechaLlegada >= self.fechaSalida)
+    (self.fechaLlegada = null) xor (self.fechaLlegada > self.fechaSalida)
     \end{lstlisting}
     En esta invariante añadimos la primera parte del or con el null para ya que al estar en el viaje dicho atributo se encuentra en null por lo que si no lo añadieramos daría fallo el modelo.
 
@@ -966,15 +1280,88 @@ context Viaje
 Un coche comienza un viaje desde la ciudad en la que se encuentra. Esta operación debe recibir como parámetro el recorrido entre dos ciudades que debe realizar en su viaje.
 Una operación avanzar que se ejecuta sobre los coches, y que no recibe ningún parámetro. Esta operación debe hacer avanzar el coche el número de kilómetros indicados en su velocidad si el coche está realizando algún viaje. Se debe modelar el paso del tiempo, de modo que un tic del reloj representa el paso de un día, lo cual se debe tener en cuenta a la hora de que los coches puedan avanzar en el viaje que estén realizando.
 
-\newpage
-\section{Caso Particular}
-Ahora se debe desarrollar un modelo de objetos y simularlo. Vamos a considerar tres ciudades: Málaga, Sevilla y Granada. Tendremos dos recorridos: entre Málaga y Sevilla con 210 kilómetros, y entre Sevilla y Granada con 250 kilómetros. Supondremos un coche matriculado en el instante 0 (día 0) y que viaja a una velocidad de 27. El coche comienza en Málaga y continúa en Málaga hasta el día 5, día en que comienza un viaje haciendo el recorrido de Málaga a Sevilla. Los días van pasando y el coche va avanzando hasta que llega a Sevilla. El mismo día que llega a Sevilla, el coche comienza otro viaje haciendo el recorrido entre Sevilla y Granada. Los días van pasando y el coche continúa realizando el viaje. Una vez llega a Granada, la simulación termina.
-Se debe mostrar 3 imágenes del diagrama conceptual: una en el instante 0, otra cuando el coche llega a Sevilla y otra cuando el coche lleva a Granada. Entregar también el código SOIL necesario para reproducir el modelo conceptual y la simulación.
+\section{Modelo de Objetos}
+Ahora se debe desarrollar un modelo de objetos y simularlo.
 
 
-\newpage
-\section{Conclusión}
-\lipsum[]
+\subsection{Instante 0}
+Primero se generan las ciudades Málaga, Sevilla y Granada como se indica en el enunciado. Con recorridos entre Málaga y Sevilla de 210 km y entre Sevilla y Granada de 250 km. Se genera un coche con fecha de matriculación en el día 0 que se encuentra en Málaga con una velocidad de 27 km/h.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fotosInstantes/Instante0.png}
+    \caption{Diagrama en el instante 0}
+\end{figure}
+
+\subsection{Instante 1}
+Tras realizar la foto, se hacen pasar 5 días con el comando \texttt{!Clock.run(5)} como indica el enunciado, donde se iniciará un viaje para el coche desde Málaga hasta Sevilla con \texttt{!Coche1.inciarViaje(Recorrido1)}.
+
+La siguiente foto se toma cuando el coche llega a Sevilla, en el día 13, ya que si empieza el viaje en el día 5 y tiene que recorrer 210 km a 27 km por día, tarda 7,7 días. Luego, hay que hacer pasar 8 días usando \texttt{!Clock.run(7)} seguido de un \texttt{!Clock.tick()}.
+
+En nuestro sistema, se ha considerado que el coche tenga velocidad 0 una vez termine un viaje.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fotosInstantes/Instante1.png}
+    \caption{Diagrama en el instante 1 (llegada a Sevilla)}
+\end{figure}
+
+\subsection{Instante 2}
+Se ha restablecido el atributo de velocidad nuevamente a 27, con el comando \texttt{!Coche1.acelerar(27)}, para que pueda continuar su nuevo viaje a Granada.
+
+Para llegar a Granada, el coche tiene que recorrer 250 km. A 27 km por día, esto toma 9,26 días. Así que se hacen pasar 10 días con \texttt{!Clock.run(10)}.
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fotosInstantes/Instante2.png}
+    \caption{Diagrama en el instante 2 (llegada a Granada)}
+\end{figure}
+
+\subsection{Código SOIL para la Simulación}
+A continuación se presenta el código SOIL necesario para reproducir el modelo conceptual y la simulación descrita:
+
+\begin{verbatim}
+!new Clock('Clock')
+!Clock.resolution := 1
+
+!new Ciudad('Ciudad1')
+!Ciudad1.nombre := 'Málaga'
+!new Ciudad('Ciudad2')
+!Ciudad2.nombre := 'Sevilla'
+!new Ciudad('Ciudad3')
+!Ciudad3.nombre := 'Granada'
+
+!new Recorrido('Recorrido1')
+!Recorrido1.origen := Ciudad1
+!Recorrido1.destino := Ciudad2
+!Recorrido1.distancia := 210
+
+!new Recorrido('Recorrido2')
+!Recorrido2.origen := Ciudad2
+!Recorrido2.destino := Ciudad3
+!Recorrido2.distancia := 250
+
+!new Coche('Coche1')
+!Coche1.fechaMatriculacion := 0
+!Coche1.velocidad := 27
+!Coche1.ciudad := Ciudad1
+
+-- Instante 0
+
+!Clock.run(5)
+!Coche1.iniciarViaje(Recorrido1)
+
+-- Instante 1 (Sevilla)
+-- !Clock.run(7)
+-- !Clock.tick()
+
+-- Se reestablece la velocidad
+-- !Coche1.acelerar(27)
+-- !Clock.run(10)
+
+-- Instante 2 (Granada)
+
+\end{verbatim}
 
 
 \end{document}

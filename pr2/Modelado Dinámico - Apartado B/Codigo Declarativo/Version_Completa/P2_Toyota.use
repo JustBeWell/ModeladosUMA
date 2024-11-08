@@ -348,4 +348,4 @@ context Coche
     -- Invariante 14 (antigua 17): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
 context Viaje
     inv fechaViajeBienDefinida:
-    (self.fechaLlegada = null) or (self.fechaLlegada > self.fechaSalida)
+    (self.fechaLlegada = null) xor (self.fechaLlegada > self.fechaSalida)
