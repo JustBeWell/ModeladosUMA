@@ -16,39 +16,39 @@
 \contentsline {subsubsection}{\numberline {2.3.9}Recorrido}{7}{subsubsection.2.3.9}%
 \contentsline {subsubsection}{\numberline {2.3.10}Viaje}{7}{subsubsection.2.3.10}%
 \contentsline {subsection}{\numberline {2.4}Código USE}{7}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Diagrama de Clases en USE}{10}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Invariantes y .SOIL}{12}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}Diagramas de objetos para cada restricción}{14}{subsection.2.7}%
-\contentsline {subsubsection}{\numberline {2.7.1}Invariante 1: mínimo5Km}{15}{subsubsection.2.7.1}%
-\contentsline {subsubsection}{\numberline {2.7.2}Invariante 2: revisionDespuesdeMatriculacion}{16}{subsubsection.2.7.2}%
-\contentsline {subsubsection}{\numberline {2.7.3}Invariante 3: revisadoUnaVez}{17}{subsubsection.2.7.3}%
-\contentsline {subsubsection}{\numberline {2.7.4}Invariante 4: mismaCiudadqueTallerEnRevision}{18}{subsubsection.2.7.4}%
-\contentsline {subsubsection}{\numberline {2.7.5}Invariante 5: viajandoOenCiudad}{19}{subsubsection.2.7.5}%
-\contentsline {subsubsection}{\numberline {2.7.6}Invariante 6: enCiudadDestino}{20}{subsubsection.2.7.6}%
-\contentsline {subsubsection}{\numberline {2.7.7}Invariante 7: viajeUnico}{20}{subsubsection.2.7.7}%
-\contentsline {subsubsection}{\numberline {2.7.8}Invariante 8: destinoComoOrigen}{21}{subsubsection.2.7.8}%
-\contentsline {subsubsection}{\numberline {2.7.9}Invariante 9: hayRecorridos}{22}{subsubsection.2.7.9}%
-\contentsline {subsubsection}{\numberline {2.7.10}Invariante 10: empiezaViajeEnDestino}{23}{subsubsection.2.7.10}%
-\contentsline {subsubsection}{\numberline {2.7.11}Invariante 11: viajeDespuesdeMatriculacion}{24}{subsubsection.2.7.11}%
-\contentsline {subsubsection}{\numberline {2.7.12}Invariante 12: noViajeEnMantenimiento}{25}{subsubsection.2.7.12}%
-\contentsline {subsubsection}{\numberline {2.7.13}Invariante 13: fechaViajeBienDefinida}{26}{subsubsection.2.7.13}%
-\contentsline {section}{\numberline {3}Modelado Dinámico}{27}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Diagrama de clases}{27}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Novedades y modificaciones en las clases del sistema dinámico}{27}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Clock}{27}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}ActiveObject}{27}{subsubsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.3}Coche}{28}{subsubsection.3.2.3}%
-\contentsline {subsubsection}{\numberline {3.2.4}Coche}{28}{subsubsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.3}Diagrama de Clases del modelo dinámico en USE}{28}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Codigo Use del apartado B}{29}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Modificaciones de las invariantes en el modelo dinámico}{36}{subsection.3.5}%
-\contentsline {subsubsection}{\numberline {3.5.1}Inv4: Si un coche está en revisión, debe de estar en la misma ciudad que el taller}{36}{subsubsection.3.5.1}%
-\contentsline {subsubsection}{\numberline {3.5.2}Inv5: Un coche tiene que estar o viajando o en una ciudad}{36}{subsubsection.3.5.2}%
-\contentsline {subsubsection}{\numberline {3.5.3}Inv13: Un viaje no puede tener una fecha de inicio superior a su fecha de llegada}{36}{subsubsection.3.5.3}%
-\contentsline {subsection}{\numberline {3.6}Añadimos soils???}{37}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}b3}{37}{subsection.3.7}%
-\contentsline {section}{\numberline {4}Modelo de Objetos}{37}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Instante 0}{37}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Instante 1}{37}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Instante 2}{38}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Código SOIL para la Simulación}{39}{subsection.4.4}%
+\contentsline {subsection}{\numberline {2.5}Diagrama de Clases en USE}{12}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Invariantes y .SOIL}{14}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Diagramas de objetos para cada restricción}{16}{subsection.2.7}%
+\contentsline {subsubsection}{\numberline {2.7.1}Invariante 1: mínimo5Km}{17}{subsubsection.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.7.2}Invariante 2: revisionDespuesdeMatriculacion}{18}{subsubsection.2.7.2}%
+\contentsline {subsubsection}{\numberline {2.7.3}Invariante 3: revisadoUnaVez}{19}{subsubsection.2.7.3}%
+\contentsline {subsubsection}{\numberline {2.7.4}Invariante 4: mismaCiudadqueTallerEnRevision}{20}{subsubsection.2.7.4}%
+\contentsline {subsubsection}{\numberline {2.7.5}Invariante 5: viajandoOenCiudad}{21}{subsubsection.2.7.5}%
+\contentsline {subsubsection}{\numberline {2.7.6}Invariante 6: enCiudadDestino}{22}{subsubsection.2.7.6}%
+\contentsline {subsubsection}{\numberline {2.7.7}Invariante 7: viajeUnico}{22}{subsubsection.2.7.7}%
+\contentsline {subsubsection}{\numberline {2.7.8}Invariante 8: destinoComoOrigen}{23}{subsubsection.2.7.8}%
+\contentsline {subsubsection}{\numberline {2.7.9}Invariante 9: hayRecorridos}{24}{subsubsection.2.7.9}%
+\contentsline {subsubsection}{\numberline {2.7.10}Invariante 10: empiezaViajeEnDestino}{25}{subsubsection.2.7.10}%
+\contentsline {subsubsection}{\numberline {2.7.11}Invariante 11: viajeDespuesdeMatriculacion}{26}{subsubsection.2.7.11}%
+\contentsline {subsubsection}{\numberline {2.7.12}Invariante 12: noViajeEnMantenimiento}{27}{subsubsection.2.7.12}%
+\contentsline {subsubsection}{\numberline {2.7.13}Invariante 13: fechaViajeBienDefinida}{28}{subsubsection.2.7.13}%
+\contentsline {section}{\numberline {3}Modelado Dinámico}{29}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Diagrama de clases}{29}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Novedades y modificaciones en las clases del sistema dinámico}{29}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Clock}{29}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}ActiveObject}{29}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Coche}{30}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Viaje}{30}{subsubsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.3}Diagrama de Clases del modelo dinámico en USE}{30}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Codigo Use del apartado B}{31}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Modificaciones de las invariantes en el modelo dinámico}{38}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Inv4: Si un coche está en revisión, debe de estar en la misma ciudad que el taller}{38}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Inv5: Un coche tiene que estar o viajando o en una ciudad}{38}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.3}Inv13: Un viaje no puede tener una fecha de inicio superior a su fecha de llegada}{38}{subsubsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.6}Añadimos soils???}{39}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}b3}{39}{subsection.3.7}%
+\contentsline {section}{\numberline {4}Modelo de Objetos}{39}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Instante 0}{39}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Instante 1}{39}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Instante 2}{40}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Código SOIL para la Simulación}{41}{subsection.4.4}%

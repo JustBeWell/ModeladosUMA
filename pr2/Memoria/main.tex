@@ -76,7 +76,7 @@
 El presente proyecto tiene como objetivo el modelado de un sistema de coches que puedan viajar entre ciudades y se sometan a revisiones utilizando la herramienta USE (UML-based Specification Environment), que permite la especificación y verificación formal de sistemas mediante el lenguaje OCL (Object Constraint Language). El sistema desarrollado gestiona la información relacionada con coches, ciudades, viajes, recorridos, revisiones, y talleres ya sean oficiales o no. A través de la implementación de este modelo, se puede asegurar el cumplimiento de reglas como cada cuanto tiempo a un coche le deben realizar una revisión o que no haya más de un taller oficial por ciudad.
 \vspace{0.5cm} 
 
-El sistema está compuesto por varias clases fundamentales para el comportamiento dinámico de los coches. La nueva clase \emph{Clock} discretiza el tiempo en el sistema. Su operación \emph{tick()} avanza en el tiempo y los \emph{tick()} asociados a cada \emph{ActiveObject} representa la acción síncrona que cada subclase que herede realiza en cada llamada; esto implica que cada coche, el \emph{ActiveObject} del modelo, implementará cambios en su estado actual. Además, el uso de restricciones e invariantes considerando estos nuevos elementos garantizan el comportamiento dinámico que se  busca por la descripción proporcionada del sistema.
+El sistema está compuesto por varias clases fundamentales para el comportamiento estructural y dinámico de los coches. La nueva clase \emph{Clock} discretiza el tiempo en el sistema. Su operación \emph{tick()} avanza en el tiempo y los \emph{tick()} asociados a cada \emph{ActiveObject} representa la acción síncrona que cada subclase que herede realiza en cada llamada; esto implica que cada coche, el \emph{ActiveObject} del modelo, implementará cambios en su estado actual. Además, el uso de restricciones e invariantes considerando estos nuevos elementos garantizan el comportamiento dinámico que se  busca por la descripción proporcionada del sistema.
 \vspace{0.5cm} 
 
 A lo largo de este documento, se presentarán las especificaciones detalladas de cada clase, junto con los atributos y las invariantes que aseguran la consistencia del sistema. También se describirá cómo se gestionan las relaciones entre las diferentes entidades del modelo, desde los recorridos que hay entre dos ciudades hasta saber si el coche esta en garantía o no.
@@ -247,141 +247,235 @@ todas las secciones están separadas por sus respectivos títulos tabulados en m
 \vspace{1cm}
 \begin{lstlisting}[style = useNormal,language=SQL, caption={Modelo de Sistema de Coches en USE}] 
 
-ENUMERACIONES
-
-enum TipoRevision{Mantenimiento, Reparacion}
-
-CLASES 
-
-class Clock
-attributes
-    NOW : Integer --init = 0            
-    resolution : Integer --init = 1
-end
-
-abstract class ActiveObject
-end
-
-class Coche < ActiveObject
-attributes
-    kmRecorridos : Real derive :        
-        self.viaje.recorrido -> collect(dist | dist.distancia) -> sum()
-        
-    fechaMatriculacion : Integer            
-
-    necesitaMantenimiento : Boolean derive : 
-        if self.clock.NOW  - fechaMatriculacion < 400 
-            then
-                false
-            else
-                let ultimaRevision : Revision = self.revision -> select(rev | rev.tipo = TipoRevision::Mantenimiento) -> sortedBy(r | r.fechaInicio) -> last() in
-                if ultimaRevision <> null
+    -- =====================================================================
+    --                             MODELO
+    -- =====================================================================
+    
+    model P2_Toyota
+    
+    -- =====================================================================
+    --                           ENUMERATIONS
+    -- =====================================================================
+    
+    enum TipoRevision{Mantenimiento, Reparacion}
+    
+    
+    -- =====================================================================
+    --                             CLASES
+    -- =====================================================================
+    
+    class Clock
+    attributes
+        NOW : Integer                  
+        resolution : Integer 
+    end
+    
+    abstract class ActiveObject
+    end
+    
+    class Coche < ActiveObject
+    attributes
+        kmRecorridos : Real derive :              
+            self.viaje.recorrido -> collect(dist | dist.distancia) -> sum()
+            
+        fechaMatriculacion : Integer              
+    
+        necesitaMantenimiento : Boolean derive :  
+            if self.clock.NOW  - fechaMatriculacion < 400 
                 then
-                    (self.clock.NOW - ultimaRevision.fechaFin) > 100
+                    false
                 else
-                    true
-                endif
-        endif
-
-    enGarantia : Boolean derive :             
-        ((self.clock.NOW  - fechaMatriculacion) < 400) or
-        (validezDeGarantia > 0)
-
-    validezDeGarantia : Integer derive :   
-        if (self.clock.NOW - fechaMatriculacion) < 400 
-            then 
-                400 - (self.clock.NOW  - fechaMatriculacion) 
-            else
-                let revisionesOficiales : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(rev | rev.fechaInicio) in
-                    if (self.clock.NOW - (revisionesOficiales -> last()).fechaFin) < (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
-                        then
-                            (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia - (self.clock.NOW - (revisionesOficiales -> last()).fechaFin)
-                        else 
-                            0
-                    endif          
-        endif 
-end 
-
-class Viaje
-attributes
-    fechaSalida : Integer                     
-    fechaLlegada : Integer 
-end
-
-class Revision
-attributes
-    tipo : TipoRevision                   
-    fechaInicio : Integer                     
-    fechaFin : Integer                      
-end
-
-abstract class Taller                        
-end
-
-class Oficial < Taller                      
-    garantia : Integer                      
-end
-
-class NoOficial < Taller                     
-end 
-
-class Ciudad
-attributes
-    nombre : String                          
-end
-
-
-CLASE DE ASOCIACION
-
-associationclass Recorrido between
-    Ciudad [1] role destino Ciudad [1] role origen
-attributes
-    distancia : Real                    
-end 
-
-
-RELACIONES
-
-association time between
-Clock [1] role clock
-ActiveObject [*] role ao
-end
-
-association realiza between
-Coche [1] role coche
-Viaje [*] role viaje
-end
-
-association recorre between
-Viaje [*] role viaje
-Recorrido [1] role recorrido
-end
-
-association estaEn between
-Coche [*] role coche
-Ciudad [1] role ciudad
-end
-
-association esSometido between
-Coche [1] role coche
-Revision [*] role revision
-end
-
-composition esRealizada between
-Taller [1] role taller
-Revision [*] role revision
-end
-
-composition existeOficial between
-Ciudad [1] role ciudad
-Oficial [0..1] role oficial
-end
-
-composition existeNoOficial between
-Ciudad [1] role ciudad
-NoOficial [*] role  NoOficial
-end
-
+                    let ultimaRevision : Revision = self.revision -> select(rev | rev.tipo = TipoRevision::Mantenimiento) -> sortedBy(r | r.fechaInicio) -> last() in
+                    if ultimaRevision <> null
+                    then
+                        (self.clock.NOW - ultimaRevision.fechaFin) > 100
+                    else
+                        true
+                    endif
+            endif
+            
+            
+    
+        enGarantia : Boolean derive :             
+            
+            ((self.clock.NOW  - fechaMatriculacion) < 400) or
+            (validezDeGarantia > 0)
+    
+        validezDeGarantia : Integer derive :      
+            if (self.clock.NOW - fechaMatriculacion) < 400 
+                then 
+                    400 - (self.clock.NOW  - fechaMatriculacion) 
+                else
+                    let revisionesOficiales : OrderedSet(Revision) = self.revision -> select(rev | rev.taller.oclIsKindOf(Oficial)) -> sortedBy(rev | rev.fechaInicio) in
+                        if (self.clock.NOW - (revisionesOficiales -> last()).fechaFin) < (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia
+                            then
+                                (revisionesOficiales -> last()).taller.oclAsType(Oficial).garantia - (self.clock.NOW - (revisionesOficiales -> last()).fechaFin)
+                            else 
+                                0
+                        endif          
+            endif 
+    end 
+    
+    class Viaje
+    attributes
+        fechaSalida : Integer                     
+        fechaLlegada : Integer                    
+            
+    end
+    
+    class Revision
+    attributes
+        tipo : TipoRevision                       
+        fechaInicio : Integer                     
+        fechaFin : Integer                        
+    end
+    
+    abstract class Taller                         
+    end
+    
+    class Oficial < Taller                       
+    attributes
+        garantia : Integer                        
+    end
+    
+    class NoOficial < Taller                     
+    end 
+    
+    class Ciudad
+    attributes
+        nombre : String                           
+    end
+    
+    
+    -- =====================================================================
+    --                       CLASES DE ASOCIACION
+    -- =====================================================================
+    
+    associationclass Recorrido between
+        Ciudad [1] role destino Ciudad [1] role origen
+    attributes
+        distancia : Real                         
+    end 
+    
+    -- =====================================================================
+    --                         ASOCIACIONES 
+    -- =====================================================================
+    
+    association time between
+    Clock [1] role clock
+    ActiveObject [*] role ao
+    end
+    
+    association realiza between
+    Coche [1] role coche
+    Viaje [*] role viaje
+    end
+    
+    association recorre between
+    Viaje [*] role viaje
+    Recorrido [1] role recorrido
+    end
+    
+    association estaEn between
+    Coche [*] role coche
+    Ciudad [1] role ciudad
+    end
+    
+    association esSometido between
+    Coche [1] role coche
+    Revision [*] role revision
+    end
+    
+    composition esRealizada between
+    Taller [1] role taller
+    Revision [*] role revision
+    end
+    
+    composition existeOficial between
+    Ciudad [1] role ciudad
+    Oficial [0..1] role oficial
+    end
+    
+    composition existeNoOficial between
+    Ciudad [1] role ciudad
+    NoOficial [*] role  NoOficial
+    end
+    
+    
+    -- =====================================================================
+    --                         INVARIANTES
+    -- =====================================================================
+    
+    constraints
+    
+    context Recorrido
+        inv minimo5Km:
+        self.distancia >= 5
+    
+    
+    context Coche
+        inv revisionDespuesdeMatriculacion:
+        self.revision -> forAll(rev | rev.fechaInicio > self.fechaMatriculacion)
+    
+    
+        inv revisadoUnaVez:
+        self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin))
+    
+    
+    context Revision
+        inv mismaCiudadqueTallerEnRevision :
+        let currentTime : Integer = self.coche.clock.NOW in   -- Accede al tiempo actual
+        (currentTime - self.fechaFin) < 0 implies
+        (self.taller.oclIsKindOf(Oficial) and self.taller.oclAsType(Oficial).ciudad = self.coche.ciudad) --
+        or 
+        (self.taller.oclIsKindOf(NoOficial) and self.taller.oclAsType(NoOficial).ciudad = self.coche.ciudad) --
+        
+    
+    context Viaje
+        inv viajandoOenCiudad:
+        let currentTime : Integer = self.coche.clock.NOW in  -- Accede al tiempo actual
+        (currentTime - self.fechaLlegada) < 0 implies
+        self.coche.ciudad.oclIsUndefined() -- and self.coche.estaEn->notEmpty() -- El coche existe en una ubicacion valida
+    
+    
+    context Coche
+        inv enCiudadDestino:
+        let ultimoViaje : Viaje = self.viaje -> asOrderedSet() -> sortedBy(fechaLlegada) -> last() in
+        ultimoViaje.oclIsUndefined() or ultimoViaje.recorrido.destino = self.ciudad
+        
+    
+    
+    context Coche
+        inv viajeUnico:
+        self.viaje -> forAll(v1,v2 | not(v1 <> v2) or v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida))
+    
+    
+        inv destinoComoOrigen:
+        let viajesOrdenados : OrderedSet(Viaje)  = self.viaje -> sortedBy(v | v.fechaSalida) in 
+        viajesOrdenados -> forAll(v1, v2 | viajesOrdenados->indexOf(v1) = viajesOrdenados->indexOf(v2) + 1 implies v1.recorrido.destino = v2.recorrido.origen)
+    
+    context Ciudad
+        inv hayRecorridos:
+        self.origen -> notEmpty() and self.destino -> notEmpty()
+    
+       
+    context Coche
+        inv empiezaViajeEnDestino:
+        (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.destino = self.ciudad
+    
+    
+        inv viajeDespuesdeMatriculacion:
+        self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
+    
+    
+        inv noViajeEnMantenimiento:
+        self.necesitaMantenimiento implies self.viaje -> forAll(v | v.fechaLlegada < self.clock.NOW)
+    
+    
+    context Viaje
+        inv fechaViajeBienDefinida:
+        self.fechaLlegada > self.fechaSalida
+    
 
 
 \end{lstlisting}
@@ -424,7 +518,7 @@ Para poder comprobar las restricciones de nuestro sistema, primero es necesario 
       inv minimo5Km :
       self . distancia >= 5
     \end{lstlisting}
-    Asegura que cada recorrido tenga una distancia mínima de 5 km. Esto podría ser para evitar registrar viajes demasiado cortos que no sean relevantes en el contexto del sistema. Además hemos decidido que si hay un recorrido entre una misma ciudad dicho recorrido debe ser mayor a 5 kilometros también.
+    Asegura que cada recorrido tenga una distancia mínima de 5 km. Esto evita que haya ciudades a menos de 5km. Además hemos decidido que si hay un recorrido entre una misma ciudad dicho recorrido debe ser mayor a 5 kilometros también.
     
     \item \textbf{2.}: Cada coche debe de pasar revision despues de matricularse y no antes.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
@@ -445,11 +539,16 @@ Para poder comprobar las restricciones de nuestro sistema, primero es necesario 
     
     \item \textbf{4.}: Si un coche esta en revision, debe de estar en la misma ciudad que el taller.
     \begin{lstlisting}[style = useEspecifico,language=SQL]
-  context Revision
-    inv mismaCiudadqueTallerEnRevision:
-    ((self.coche.clock -> asOrderedSet() -> first()).NOW - self.fechaFin) < 0 implies
-    (self.taller.oclIsKindOf(Oficial) and self.taller.oclAsType(Oficial).ciudad = self.coche.ciudad) or (self.taller.oclIsKindOf(No_Oficial) and self.taller.oclAsType(No_Oficial).ciudad = self.coche.ciudad)
-    \end{lstlisting}
+    context Revision
+    inv mismaCiudadqueTallerEnRevision :
+    let currentTime : Integer = self.coche.clock.NOW in   
+    (currentTime - self.fechaFin) < 0 implies
+    (self.taller.oclIsKindOf(Oficial) and self.taller.oclAsType(Oficial).ciudad = self.coche.ciudad) 
+    or 
+    (self.taller.oclIsKindOf(NoOficial) and self.taller.oclAsType(NoOficial).ciudad = self.coche.ciudad) 
+        
+    
+\end{lstlisting}
     Asegura que un coche en revisión se encuentre en la misma ciudad que el taller donde se realiza la revisión. Esto garantiza que el coche y el taller están físicamente en el mismo lugar cuando se realiza el mantenimiento.
     Verifica la ciudad asociada al taller y la compara con la ciudad en la que se encuentra el coche en ese momento.
     
@@ -459,7 +558,7 @@ Para poder comprobar las restricciones de nuestro sistema, primero es necesario 
     inv viajandoOenCiudad:
     let currentTime : Integer = self.coche.clock.NOW in
     (currentTime - self.fechaLlegada) < 0 implies
-    self.coche.ciudad.oclIsUndefined() -- and self.coche.estaEn->notEmpty()
+    self.coche.ciudad.oclIsUndefined() 
     \end{lstlisting}
     Asegura que un coche se encuentre en una ciudad o esté realizando un viaje, pero no ambas cosas a la vez. Esto previene conflictos de ubicación, indicando que un coche en movimiento no está en una ciudad específica hasta que llegue a su destino.
     Evalúa si el coche está en un viaje actualmente (determinando que su fecha de llegada es futura) y, si es así, asegura que el coche no tenga una ciudad asignada hasta que termine el viaje.
@@ -902,7 +1001,7 @@ A diferencia del diagrama del modelo estructural, en este modelo hemos añadido 
     \item \textbf{Operaciones:}
     \begin{itemize}
         \item \texttt{iniciarViaje(recorrido : Recorrido)}: Esta operación inicia un nuevo viaje para el coche. Se crea un objeto Viaje, se establece la fecha de salida como el tiempo actual y se relaciona al coche con el viaje y el recorrido correspondiente. También actualiza la ciudad en la que se encuentra el coche, eliminándola de la relación estaEn.
-        \item \texttt{avanzar()}: Esta operación actualiza el kilometraje del coche durante su viaje, sumando su velocidad actual al kilometraje recorrido. Si el coche ha alcanzado la distancia total del recorrido, la operación finaliza el viaje, marca la fecha de llegada y actualiza la ciudad en la que el coche termina su viaje.
+        \item \texttt{avanzar()}: Esta operación actualiza el kilometraje del coche durante su viaje, sumando su velocidad actual al kilometraje recorrido. Si el coche ha alcanzado la distancia total del recorrido, la operación finaliza el viaje, marca la fecha de llegada a la actual, establece la velocidad a 0 y actualiza la ciudad en la que el coche termina su viaje.
         \item \texttt{acelerar(n : Integer)}: Permite incrementar la velocidad del coche en n unidades. La operación ajusta la velocidad del coche sumando el valor n a la velocidad actual.
         \item \texttt{decelerar(n : Integer)}: Reduce la velocidad del coche en n unidades, siempre que la velocidad actual sea mayor o igual al valor n. Esto disminuye la velocidad del coche de acuerdo al valor especificado.
         \item \texttt{tick()}: Actualiza el estado del coche en función del tiempo. Si el coche está en un viaje en curso, avanza en su trayecto según la velocidad y distancia recorrida. Esta operación depende del reloj del sistema para actualizar el tiempo y garantizar el progreso del coche en su viaje.
@@ -910,7 +1009,7 @@ A diferencia del diagrama del modelo estructural, en este modelo hemos añadido 
 \end{itemize}
 
 
-\subsubsection{Coche}
+\subsubsection{Viaje}
 \textbf{Descripción}:  Hemos añadido el atributo "kmViaje" que en un inicio vale 0.
 \begin{itemize}
     \item \textbf{Atributos:}
@@ -1320,12 +1419,12 @@ Para llegar a Granada, el coche tiene que recorrer 250 km. A 27 km por día, est
 \subsection{Código SOIL para la Simulación}
 A continuación se presenta el código SOIL necesario para reproducir el modelo conceptual y la simulación descrita:
 
-\begin{verbatim}
+\begin{lstlisting}[style = useNormal,language=SQL, caption={Codigo SOIL Modelo Objetos}] 
 !new Clock('Clock')
 !Clock.resolution := 1
 
 !new Ciudad('Ciudad1')
-!Ciudad1.nombre := 'Málaga'
+!Ciudad1.nombre := 'Malaga'
 !new Ciudad('Ciudad2')
 !Ciudad2.nombre := 'Sevilla'
 !new Ciudad('Ciudad3')
@@ -1361,7 +1460,7 @@ A continuación se presenta el código SOIL necesario para reproducir el modelo 
 
 -- Instante 2 (Granada)
 
-\end{verbatim}
+\end{lstlisting}
 
 
 \end{document}
