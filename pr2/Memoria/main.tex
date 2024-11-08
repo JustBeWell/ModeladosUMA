@@ -94,7 +94,7 @@ Finalmente, se incluye un conjunto de pruebas definidas en el archivo \texttt{.s
 En primer lugar veremos el diagrama de clase que hemos creado en VisualParadigm para la primera parte de la práctica, la cual pide el modelado conceptual de la estructura del sistema. Cuenta con una clase \emph{Clock} de la cual hay una única instancia y las siguientes entidades con sus respectivas relaciones entre si:
 
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{diagramas/DiagramaVPP_apartadoA.jpg}
+     \includegraphics[width=1\linewidth]{diagramas/VPP_A.png}
      \caption{Diagrama del sistema de coches}
      \label{Diagrama del sistema de coches}
 \end{figure}
@@ -244,7 +244,7 @@ A continuación mostraremos todo el código desarrollado con el lenguaje USE, es
 \end{itemize}
 Todo el código suministrado ha sido realizado en VSCode y
 todas las secciones están separadas por sus respectivos títulos tabulados en mayúsculas.
-\vspace{3cm}
+\vspace{1cm}
 \begin{lstlisting}[style = useNormal,language=SQL, caption={Modelo de Sistema de Coches en USE}] 
 
 ENUMERACIONES
@@ -331,7 +331,7 @@ attributes
 end
 
 
-CLASE DE ASOCIACIÓN
+CLASE DE ASOCIACION
 
 associationclass Recorrido between
     Ciudad [1] role destino Ciudad [1] role origen
@@ -385,11 +385,11 @@ end
 
 
 \end{lstlisting}
-
+\vspace{1cm}
 \subsection{Diagrama de Clases en USE}
 La herramienta USE nos permite llevar a cabo un diagrama de clases, el cual se muestra a continuación:
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{diagramas/DiagramaUSE_apartadoA.png}
+     \includegraphics[width=1\linewidth]{diagramas/USE_A.png}
      \caption{Diagrama del sistema de coches en USE}
      \label{Diagrama del sistema de coches en USE}
 \end{figure}
@@ -413,24 +413,6 @@ Todas las relaciones entre las entidades del modelo tienen su significado y est�
 
 \item \textbf{time (Clock-ActiveObject)}: Esta relación conecta la instancia única de Clock con cada objeto activo (ActiveObject) del sistema, como los coches. A través de esta relación, el sistema puede realizar el seguimiento del paso del tiempo y cómo afecta a cada coche o entidad que depende del tiempo para su funcionamiento o estado.
 \end{itemize}
-
-\vspace{1.0cm}
-
-\subsection{Diagrama de Objetos en USE}
-Ademas al crear instancias reales de las entidades podemos desarrollar un diagrama que estructure tanto los objetos como las relaciones directas entre estos:
-\vspace{1.0cm}
-\begin{figure}[H]
-º     \includegraphics[width=1\linewidth]{soil1 del apartado a).jpeg}
-     \caption{Diagrama de Objetos 1 en USE}
-     \label{Diagrama de Objetos 1 en USE}
-\end{figure}
-
-\begin{figure}[H]
-     \includegraphics[width=1\linewidth]{comprobante.png}
-     \caption{Tabla de invariantes en USE para Diagrama de Objetos 1}
-     \label{Tabla de invariantes en USE para Diagrama de Objetos 1}
-\end{figure}
-\vspace{1.0cm}
 
 \subsection{Invariantes y .SOIL}
 Para poder comprobar las restricciones de nuestro sistema, primero es necesario definir las reglas que aseguran su correcto funcionamiento. Las restricciones o invariantes que se han definido son las siguientes:
@@ -551,24 +533,330 @@ context Viaje
     self.fechaLlegada >= self.fechaSalida  
     \end{lstlisting}
     Asegura que la fecha de salida de un viaje sea anterior o igual a su fecha de llegada, previniendo datos inconsistentes en los registros de viaje.
-    
 \end{itemize}
-\vspace{1.0 cm}
-A partir de aqui podemos desarrollar los archivos de prueba que respaldaran el funcionamiento de nuestras restricciones, hemos usado los siguientes casos de prueba:\\\\
-\textbf{ESPERAR A CUANDO TENGAMOS LOS SOILS BUENOS}\\\\
-Para poder comprobar estas restricciones se proporciona el siguiente .soil para los casos verdaderos y falsos:
+
+\subsection{Diagramas de objetos para cada restricción}
+A partir de aqui podemos desarrollar los archivos de prueba que respaldaran el funcionamiento de nuestro sistema. Vamos a comprobar restricción por restricción, comprobando cada caso con un ejemplo y un contraejemplo.
+
+Hemos considerado, por las peticiones de concisión y brevedad, que la inclusión del código soil de cada uno de los modelos de objetos que comprueban invariantes y derivados enturbia y  entorpece la lectura y comprensión del documento. A continuación se muestran los diagramas resultantes de dichos códigos, junto a sus comprobaciones. Los códigos fuente se han adjuntado con la entrega.
+
+\subsubsection{Invariante 1: mínimo5Km}
 
 \vspace{1.0 cm}
-\begin{lstlisting}[style = useNormal,language=SQL, caption={Codigo de pruebas 1}] 
-WIP - INSERTAR .SOIL
-\end{lstlisting}
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{DIAGRAMADEOBJETOS1.jpeg}
-     \caption{Diagrama para el caso de pruebas 1}
+     \includegraphics[width=1\linewidth]{Soils/1_v2.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
      \label{Diagrama del sistema de aviacion}
 \end{figure}
 
-De esta manera podemos comprobar que todas las restricciones se cumplen, para ver el caso contrario basta con modificar atributos dentro de los archivos suministrados anteriormente.\\\\
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/1.jpg}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+La invariante 1 garantiza que cada recorrido entre ciudades tenga una distancia mínima de 5 km. Se considera cumplida si la distancia del recorrido es igual o superior a 5 km, y no cumplida si el recorrido es menor a esa distancia.
+
+\subsubsection{Invariante 2: revisionDespuesdeMatriculacion}
+\begin{figure}[H]
+    \centering
+     \includegraphics[width=0.75\linewidth]{Soils/2_v2.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/2.jpg}
+        \label{fig:diagrama1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/2_v3.png}
+        \label{fig:diagrama2}
+    \end{minipage}
+    \caption{Diagramas de objetos para la invariante al incumplirse}
+    \label{fig:diagrama_invariante}
+\end{figure}
+
+
+La invariante 2 garantiza que cada coche pase su revisión después de la matriculación. Se considera cumplida si las revisiones ocurren después de esta fecha y no cumplida si la revisión se realiza el mismo día o antes de la matriculación.
+
+\subsubsection{Invariante 3: revisadoUnaVez}
+    \begin{figure}[H]
+         \centering
+         \includegraphics[width=1\linewidth]{Soils/3.png}
+         \caption{Diagrama de objetos para la invariante al cumplirse}
+         \label{Diagrama_cumplimiento}
+    \end{figure}
+
+    
+   \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Soils/3_v2.png}
+        \label{fig:diagrama1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Soils/3_v3.png}
+        \label{fig:diagrama2}
+    \end{minipage}
+    \hfill
+        \centering
+        \includegraphics[width=0.7\linewidth]{Soils/3_v4.png}
+        \label{fig:diagrama3}
+    \caption{Diagramas de objetos para la invariante al incumplirse}
+    \label{fig:Diagrama_incumplimiento}
+\end{figure}
+
+
+La invariante 3 garantiza que cada coche sea revisado como máximo en un único momento dado. Se considera cumplida si no existen revisiones que se solapen, ya sea por fecha de inicio, fecha de finalización o si una revisión empieza antes de que termine otra. No se cumple cuando dos revisiones a un coche coinciden en sus fechas de inicio, finalización o si una comienza antes de que termine la otra.
+
+\subsubsection{Invariante 4: mismaCiudadqueTallerEnRevision}
+    \begin{figure}[H]
+         \centering
+         \includegraphics[width=1\linewidth]{Soils/4.png}
+         \caption{Diagrama de objetos para la invariante al cumplirse}
+         \label{Diagrama_cumplimiento}
+    \end{figure}
+
+    
+ \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/4_v2.png}
+        \label{fig:diagrama1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/4_v3png.png}
+        \label{fig:diagrama2}
+    \end{minipage}
+    \caption{Diagramas de objetos para la invariante al incumplirse}
+    \label{fig:diagrama_invariante}
+\end{figure}
+
+La invariante 4 establece que un coche en revisión debe encontrarse en la misma ciudad que el taller donde se realiza la revisión. Se considera cumplida si el coche está en la misma ciudad que el taller. No se cumple cuando el coche no está en ninguna ciudad o si se encuentra en una ciudad distinta a la del taller.
+
+\subsubsection{Invariante 5: viajandoOenCiudad}
+
+\vspace{1.0 cm}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/5.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/5_v2.png}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+La invariante 5 establece que un coche debe estar exclusivamente viajando o en una ciudad en un momento dado. Se considera cumplida si el coche se encuentra en una de estas dos condiciones. No se cumple cuando el coche está simultáneamente viajando y en una ciudad.
+
+\subsubsection{Invariante 6: enCiudadDestino}
+    \begin{figure}[H]
+         \centering
+         \includegraphics[width=1\linewidth]{Soils/6.png}
+         \caption{Diagrama de objetos para la invariante al cumplirse}
+         \label{Diagrama_cumplimiento}
+    \end{figure}
+
+    
+ \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/6_v2.png}
+        \label{fig:diagrama1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/6_v3.png}
+        \label{fig:diagrama2}
+    \end{minipage}
+    \caption{Diagramas de objetos para la invariante al incumplirse}
+    \label{fig:diagrama_invariante}
+\end{figure}
+
+La invariante 6 establece que un coche, después de completar su viaje, debe encontrarse en su ciudad destino. Se cumple cuando el coche está en la ciudad de destino al finalizar el viaje. No se cumple si, al finalizar el viaje, el coche no se encuentra en ninguna ciudad o si está en una ciudad diferente a la de destino.
+
+\subsubsection{Invariante 7: viajeUnico}
+    \begin{figure}[H]
+         \centering
+         \includegraphics[width=1\linewidth]{Soils/7.png}
+         \caption{Diagrama de objetos para la invariante al cumplirse}
+         \label{Diagrama_cumplimiento}
+    \end{figure}
+
+  \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Soils/7_v2.png}
+        \label{fig:diagrama1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Soils/7_v3.png}
+        \label{fig:diagrama2}
+    \end{minipage}
+    \hfill
+        \centering
+        \includegraphics[width=0.7\linewidth]{Soils/7_v4.png}
+        \label{fig:diagrama3}
+    \caption{Diagramas de objetos para la invariante al incumplirse}
+    \label{fig:Diagrama_incumplimiento}
+\end{figure}
+
+La invariante 7 establece que no pueden existir dos viajes solapados. Se considera cumplida cuando las fechas de inicio y finalización de los viajes no coinciden. No se cumple si las fechas de inicio o finalización de dos viajes coinciden o si un viaje comienza antes de que termine otro viaje del mismo coche.
+
+\subsubsection{Invariante 8: destinoComoOrigen}
+
+\vspace{1.0 cm}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/8.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/8_v2.png}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+La invariante 8 exige que un coche comience su siguiente viaje en la ciudad de destino del anterior. Se cumple cuando el coche inicia su viaje en la ciudad de destino del viaje anterior. No se cumple si el coche comienza el siguiente viaje en una ciudad diferente.
+
+\subsubsection{Invariante 9: hayRecorridos}
+    \begin{figure}[H]
+         \centering
+         \includegraphics[width=1\linewidth]{Soils/9.png}
+         \caption{Diagrama de objetos para la invariante al cumplirse}
+         \label{Diagrama_cumplimiento}
+    \end{figure}
+
+  \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Soils/9_v2.png}
+        \label{fig:diagrama1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Soils/9_v3.png}
+        \label{fig:diagrama2}
+    \end{minipage}
+    \hfill
+        \centering
+        \includegraphics[width=0.7\linewidth]{Soils/9_v4.png}
+        \label{fig:diagrama3}
+    \caption{Diagramas de objetos para la invariante al incumplirse}
+    \label{fig:Diagrama_incumplimiento}
+\end{figure}
+
+La invariante 9 establece que cada ciudad debe tener al menos un recorrido con otra ciudad. Se cumple si una ciudad tiene al menos un recorrido hacia otra ciudad. También se cumple si una ciudad tiene un recorrido consigo misma. No se cumple si una ciudad no tiene ningún recorrido asociado o si tiene recorridos pero no es el origen de ninguno.
+
+\subsubsection{Invariante 10: empiezaViajeEnDestino}
+
+\vspace{1.0 cm}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/10.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/10_v2.png}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+La invariante 10 establece que un coche debe encontrarse en la ciudad destino de su último viaje antes de iniciar uno nuevo. Se cumple cuando el coche está en la ciudad de destino de su último viaje. No se cumple si el coche no está en esta ciudad antes de iniciar un nuevo viaje.
+
+\subsubsection{Invariante 11: viajeDespuesdeMatriculacion}
+    \begin{figure}[H]
+         \centering
+         \includegraphics[width=1\linewidth]{Soils/11.png}
+         \caption{Diagrama de objetos para la invariante al cumplirse}
+         \label{Diagrama_cumplimiento}
+    \end{figure}
+
+    
+ \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/11_v2.png}
+        \label{fig:diagrama1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/11_v3.png}
+        \label{fig:diagrama2}
+    \end{minipage}
+    \caption{Diagramas de objetos para la invariante al incumplirse}
+    \label{fig:diagrama_invariante}
+\end{figure}
+
+La invariante 11 prohíbe que un coche viaje antes de su fecha de matriculación. Se cumple cuando el coche viaja después de la fecha de matriculación. No se cumple si el viaje se realiza antes de esa fecha.
+
+\subsubsection{Invariante 12: noViajeEnMantenimiento}
+
+\vspace{1.0 cm}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/12.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/12_v2.png}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+La invariante 12 asegura que un coche no puede comenzar un viaje con la flag de necesitaMantenimiento activa. Se cumple cuando el coche no tiene la alerta de mantenimiento activa al iniciar un viaje. No se cumple si el coche inicia un viaje con la alerta de mantenimiento en true.
+
+\subsubsection{Invariante 13: fechaViajeBienDefinida}
+\begin{figure}[H]
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=1\linewidth]{Soils/13.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{Soils/13_v2.png}
+        \label{fig:diagrama2}
+    \end{minipage}
+            \caption{Diagrama de objetos para la invariante al cumplirse}
+         \label{Diagrama_cumplimiento}
+\end{figure}
+
+    
+ \begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/13_v3.png}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+     \label{Diagrama del sistema de aviacion}
+\end{figure}
+
+La invariante 13 establece que un viaje no puede tener una fecha de inicio posterior a su fecha de llegada. Se cumple cuando la fecha de inicio es anterior o igual a la fecha de llegada. No se cumple si la fecha de inicio es posterior a la de llegada.\\\\
+De esta manera podemos comprobar que todas las restricciones se cumplen.
 
 \newpage
 \section{Modelado Dinámico}
@@ -576,7 +864,7 @@ En este apartado, se debe entregar la imagen del diagrama de clases y el código
 
 \subsection{Diagrama de clases}
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{diagramas/DiagramaVPP_apartadoB.png}
+     \includegraphics[width=1\linewidth]{diagramas/VPP_B.png}
      \caption{Diagrama del sistema de coches para el modelo dinámico}
      \label{Diagrama del sistema de coches}
 \end{figure}
@@ -613,11 +901,11 @@ A diferencia del diagrama del modelo estructural, en este modelo hemos añadido 
     \end{itemize}
     \item \textbf{Operaciones:}
     \begin{itemize}
-        \item \texttt{iniciarViaje(recorrido : Recorrido)}: ...
-        \item \texttt{avanzar())}:
-        \item \texttt{acelerar(n : Integer)}:
-        \item \texttt{(decelerar(n : Integer)}:
-        \item \texttt{tick()}: ...
+        \item \texttt{iniciarViaje(recorrido : Recorrido)}: Esta operación inicia un nuevo viaje para el coche. Se crea un objeto Viaje, se establece la fecha de salida como el tiempo actual y se relaciona al coche con el viaje y el recorrido correspondiente. También actualiza la ciudad en la que se encuentra el coche, eliminándola de la relación estaEn.
+        \item \texttt{avanzar())}: Esta operación actualiza el kilometraje del coche durante su viaje, sumando su velocidad actual al kilometraje recorrido. Si el coche ha alcanzado la distancia total del recorrido, la operación finaliza el viaje, marca la fecha de llegada y actualiza la ciudad en la que el coche termina su viaje.
+        \item \texttt{acelerar(n : Integer)}: Permite incrementar la velocidad del coche en n unidades. La operación ajusta la velocidad del coche sumando el valor n a la velocidad actual.
+        \item \texttt{decelerar(n : Integer)}: Reduce la velocidad del coche en n unidades, siempre que la velocidad actual sea mayor o igual al valor n. Esto disminuye la velocidad del coche de acuerdo al valor especificado.
+        \item \texttt{tick()}: Actualiza el estado del coche en función del tiempo. Si el coche está en un viaje en curso, avanza en su trayecto según la velocidad y distancia recorrida. Esta operación depende del reloj del sistema para actualizar el tiempo y garantizar el progreso del coche en su viaje.
     \end{itemize}
 \end{itemize}
 
@@ -634,25 +922,16 @@ A diferencia del diagrama del modelo estructural, en este modelo hemos añadido 
 \subsection{Diagrama de Clases del modelo dinámico en USE}
 La herramienta USE nos permite llevar a cabo un diagrama de clases para el modelo dinámico, el cual se muestra a continuación:
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{diagramas/DiagramaUSE_apartadoB.png}
+     \includegraphics[width=1\linewidth]{diagramas/USE_B.png}
      \caption{Diagrama del sistema de coches en USE}
      \label{Diagrama del sistema de coches en USE}
 \end{figure}
 
 Las relaciones en el modelo dinámico se mantienen igual que en el modelo estructural que ya se han descrito anteriormente.
 
-\subsection{Diagrama de Objetos en USE}
-
-\vspace{2.0cm}
-
-\begin{figure}[H]
-     \includegraphics[width=1\linewidth]{diagramas/DiagramaObjetos_apartadoB.png}
-     \caption{Diagrama del sistema de coches en USE}
-     \label{Diagrama del sistema de coches en USE}
-\end{figure}
 
 \subsection{Modificaciones de las invariantes en el modelo dinámico}
-\subsubsection{Inv4: Si un coche esta en revision, debe de estar en la misma ciudad que el taller}
+\subsubsection{Inv4: Si un coche está en revisión, debe de estar en la misma ciudad que el taller}
     \begin{lstlisting}[style = useEspecifico,language=SQL]
 context Revision
     inv mismaCiudadqueTallerEnRevision :
@@ -681,7 +960,7 @@ context Viaje
     \end{lstlisting}
     En esta invariante añadimos la primera parte del or con el null para ya que al estar en el viaje dicho atributo se encuentra en null por lo que si no lo añadieramos daría fallo el modelo.
 
-\subsection{SOILS}
+\subsection{Añadimos soils???}
     
 \subsection{b3}
 Un coche comienza un viaje desde la ciudad en la que se encuentra. Esta operación debe recibir como parámetro el recorrido entre dos ciudades que debe realizar en su viaje.
