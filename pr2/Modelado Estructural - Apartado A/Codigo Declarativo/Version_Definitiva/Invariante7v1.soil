@@ -8,26 +8,21 @@ reset
 !Clock.resolution := 1            -- Saltos cada tick
 
 !new Coche('Coche1')
-!Coche1.fechaMatriculacion := 1   
+!Coche1.fechaMatriculacion := 1
 
 !new Ciudad('Ciudad1')
 !Ciudad1.nombre := 'Malaga'
 
-!new Oficial('TOficial1')
-!TOficial1.garantia := 2
+!new Ciudad('Ciudad2')
+!Ciudad2.nombre := 'Cadiz'
 
-!new NoOficial('TNoOficial1')
+!new Viaje('Viaje1')
+!Viaje1.fechaSalida := 4
+!Viaje1.fechaLlegada := 6
 
-!new Revision('Revision1')
-!Revision1.tipo := #Mantenimiento   
-!Revision1.fechaInicio := 10
-!Revision1.fechaFin := 13
-
-!new Revision('Revision2')
-!Revision2.tipo := #Reparacion 
-!Revision2.fechaInicio := 10
-!Revision2.fechaFin := 14
-
+!new Viaje('Viaje2')
+!Viaje2.fechaSalida := 6
+!Viaje2.fechaLlegada := 8
 
 --=============================================================================
 --                               INSERTS
@@ -36,14 +31,12 @@ reset
 -- Modelamos para un caso en particular donde no hay paso del tiempo ni cambio de estado
 
 !insert(Coche1, Ciudad1) into estaEn
-
-!insert(Ciudad1, TOficial1) into existeOficial     
-!insert(Ciudad1, TNoOficial1) into existeNoOficial 
-
-!insert(Coche1, Revision1) into esSometido
-!insert(TOficial1, Revision1) into esRealizada     
-!insert(Coche1, Revision2) into esSometido
-!insert(TNoOficial1, Revision2) into esRealizada     
+!insert(Coche1, Viaje1) into realiza 
+!insert(Coche1,Viaje2) into realiza
+!insert(Ciudad2, Ciudad1) into Recorrido
+!Recorrido1.distancia := 300          
+!insert(Viaje1, Recorrido1) into recorre  
+!insert(Viaje2, Recorrido1) into recorre
 
 -- Relaacionamos cada ActiveObject con el clock
 !insert(Clock, Coche1) into time

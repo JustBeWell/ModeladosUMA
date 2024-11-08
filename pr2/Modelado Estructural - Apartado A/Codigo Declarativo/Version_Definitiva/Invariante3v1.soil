@@ -25,7 +25,7 @@ reset
 
 !new Revision('Revision2')
 !Revision2.tipo := #Reparacion 
-!Revision2.fechaInicio := 10
+!Revision2.fechaInicio := 13
 !Revision2.fechaFin := 14
 
 

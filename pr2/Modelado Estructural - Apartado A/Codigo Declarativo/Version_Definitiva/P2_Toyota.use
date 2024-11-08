@@ -254,26 +254,25 @@ context Coche
         --inv mantenimientoRevision:
         --(self.clock -> asOrderedSet() -> first()).NOW - (self.revision -> asOrderedSet() -> sortedBy(fechaFin) -> last()).fechaFin < 100 implies not self.necesitaMantenimiento 
         
-    -- Invariante 10 (antigua 13): Una ciudad tiene que tener un recorrido con otra ciudad de manera obligatoria
+    -- Invariante 9 (antigua 13): Una ciudad tiene que tener un recorrido con otra ciudad de manera obligatoria
 context Ciudad
     inv hayRecorridos:
     self.origen -> notEmpty() and self.destino -> notEmpty()
 
-    -- Invariante 11 (antigua 14): Un coche debe de estar en la ciudad destino de su último viaje antes de iniciar un viaje
+    -- Invariante 10 (antigua 14): Un coche debe de estar en la ciudad destino de su último viaje antes de iniciar un viaje
 context Coche
     inv empiezaViajeEnDestino:
     (self.viaje -> asOrderedSet() -> sortedBy(fechaSalida) -> last()).recorrido.destino = self.ciudad
 
--- Invariante 12 (antigua 15): Cada coche debe de pasar revision despues de matricularse y no antes.
---Un coche no puede viajar antes de su fecha de matriculación
+-- Invariante 11 (antigua 15): Un coche no puede viajar antes de su fecha de matriculación
     inv viajeDespuesdeMatriculacion:
     self.viaje -> forAll(viaje | viaje.fechaSalida > self.fechaMatriculacion)    
 
--- Invariante 13 (antigua 16): Un coche no debe poder comenzar un viaje con la alerta de mantenimiento en true
+-- Invariante 12 (antigua 16): Un coche no debe poder comenzar un viaje con la alerta de mantenimiento en true
     inv noViajeEnMantenimiento:
     self.necesitaMantenimiento implies self.viaje -> forAll(v | v.fechaLlegada < self.clock.NOW)
 
-    -- Invariante 14 (antigua 17): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
+    -- Invariante 13 (antigua 17): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
 context Viaje
     inv fechaViajeBienDefinida:
     self.fechaLlegada >= self.fechaSalida

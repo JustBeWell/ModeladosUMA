@@ -1,14 +1,76 @@
-Invariante 1: Cada cuidad debe tener una distancia minima de 5 km de la otra
-    Hay dos ciudades con dos recorridos y uno de ellos es menor a 5 km incumpliendo la invariante.
+Completadas:1,2,3,4,6,7,8,9,10,11,12,13
+Con dudas: 5,
+**IMP CAMBIOS: 
+    En la Invariante 5 debería fallar cuando un coche no esta ni en una ciudad ni en un viaje.
 
-Invariante 2: Cada coche debe de pasar revision despues de matricularse y no antes.
-    Hay un coche que hace una revision en un taller oficial cuya fecha de matriculacion es igual a la revision, incumple la invariante.
-    La condicion es estrictamente mayor.
-    
-Invariante 3: Todos los coches han de ser revisados como máximo en un momento dado.
-    Hay que hacer 3 revisiones: 
-    Invariante3:   Cuando un coche no tiene revisiones, la invariante se cumple.
-    Invariante3v2: Cuando las fechas de inicio de 2 revisiones coinciden se incumple la invariante, 
-    Invariante3v3: Cuando las fechas de finalizacion de 2 revisiones coinciden se incumple la invariante, 
-    Invariante3v4: Cuando la fecha de inicio de una revision es anterior a la fecha de finalizacion de otra, se incumple la invariante 
-    Las Invariantes acabadas en 3v_ tiene el layaout generico "Invariante3v.olt"
+Invariante 1 (minimo5Km): Cada cuidad debe tener una distancia minima de 5 km de la otra (esta puede ser si misma) en un recorrido.
+    Invariante1v1: Cuando se cumple la invariante.
+    Invariante1v2: Uno de los recorridos es menor a 5 km, no se cumple la invariante.
+    *IMP Puede sobre la misma ciudad MAlaga->Malaga.
+    *El layaout Invariante1.olt sirve para las dos versiones.
+Invariante 2 (revisionDespuesdeMatriculacion): Cada coche debe de pasar revision despues de matricularse y no antes.
+    Invariante2v1: Cuando se cumple la invariante.
+    Invariante2v2: Hay un coche que hace una revision en un taller oficial cuya fecha de matriculacion es igual a la revision, no se cumple la invariante.
+    Invariante2v3; Cuando un coche hace una revision en un taller oficial cuya fecha de matriculacion es mayor que la de revision, no se cumple la invariante.
+    **IMP La condicion es estrictamente mayor.
+    *El layaout Invariante2.olt sirve para las tres versiones.
+Invariante 3 (revisadoUnaVez): Todos los coches han de ser revisados como máximo en un momento dado.
+    Invariante3v1: Cuando se cumple la invariante. 
+    Invariante3v2: Cuando las fechas de inicio de 2 revisiones coinciden no se cumple la invariante.
+    Invariante3v3: Cuando las fechas de finalizacion de 2 revisiones coinciden no se cumple la invariante.
+    Invariante3v4: Cuando la revision de un coche empieza antes de que otra revision a ese mismo coche termine no se cumple la invariante.
+    *El layaout Invariante3.olt sirve para las cuatro versiones.
+Invariante 4 (mismaCiudadqueTallerEnRevision): Si un coche esta en revision, debe de estar en la misma ciudad que el taller.
+    Invariante4v1: Cuando se cumple la invariante.
+    Invariante4v2: Cuando el coche no esta en ninguna ciudad no se cumple la invariante.
+    Invariante4v3: Cuando el coche esta en otra ciudad no se cumple la invariante. 
+    *El layaout Invariante4.olt sirve para las tres versiones.
+Invariante 5 (viajandoOenCiudad): Un coche tiene que estar o viajando o en una ciudad.
+    Invariante5v1: Cuando se cumple la invariante.
+    Invariante5v2: Cuando un coche esta viajando y a la vez en una ciudad no se cumple la invariante.
+    Invariante5v3: Cuando un choche no esta ni viajando ni en una ciudad no se cumple la invariante.
+    **IMP Error en la Invariante5v3 debería fallar pero da true.
+    *El layaout Invariante5.olt sirve para las dos versiones.
+Invariante 6 (enCiudadDestino): Un coche después de su viaje tiene que encontrarse en su ciudad destino.
+    Invariante6v1: Cuando se cumple la invariante.
+    Invariante6v2: Cuando ha terminado el viaje y no esta en ninguna ciudad no se cumple la invariante.
+    Invariante6v3: Cuando ha terminado el viaje y esta en otra ciudad no se cumple la invariante. 
+    *El layaout Invariante6.olt sirve para las tres versiones.
+Invariante 7 (viajeUnico): No pueden haber dos viajes solapados.
+    Invariante7v1: Cuando se cumple la invariante. 
+    Invariante7v2: Cuando las fechas de inicio de 2 viajes coinciden no se cumple la invariante.
+    Invariante7v3: Cuando las fechas de finalizacion de 2 viajes coinciden no se cumple la invariante.
+    Invariante7v4: Cuando el viaje de un coche empieza antes de que otro viaje de ese mismo coche termine no se cumple la invariante.
+    *El layaout Invariante7.olt sirve para las cuatro versiones.
+Invariante 8 (destinoComoOrigen): Un coche debe de empezar el siguiente viaje en la ciudad destino del anterior.
+    Invariante8v1: Cuando se cumple la invariante. 
+    Invariante8v2: Cuando el coche termina un viaje en una ciudad y comienza otro viaje desde otra ciudad entonces no se cumple la invariante. 
+    *El layaout Invariante8.olt sirve para las dos versiones.
+Invariante 9 (hayRecorridos):  Una ciudad tiene que tener un recorrido con otra ciudad de manera obligatoria.
+    Invariante9v1: Cuando se cumple la invariante.
+    Invariante9v2: Cuando una ciudad no tiene ningun recorrido asociado con otra ciudad no se cumple la invariante.
+    Invariante9v3: Cuando una ciudad tiene recorridos pero en ninguno de ellos es el origen no se cumple la invariante.
+    Invariante9v4: Cuando una ciudad tiene un recorrido consigo misma se cumple la invariante. 
+    **IMP hay que considerar que si una ciudad es el destino de un recorrido pero no es el origen de ningun otro recorrido la invariante no se cumple. 
+    *El layaout Invariante9.olt sirve para las cuatro versiones.
+Invariante 10 (empiezaViajeEnDestino): Un coche debe de estar en la ciudad destino de su último viaje antes de iniciar un viaje
+    Invariante10v1: Cuando se cumple la invariante. 
+    Invariante10v2: Cuando el coche no se encuentra en el destino de su ultimo viaje antes de comenzar uno nuevo no se cumple la invariante. 
+    *El layaout Invariante10.olt sirve para las dos versiones.
+Invariante 11 (viajeDespuesdeMatriculacion): Un coche no puede viajar antes de su fecha de matriculación
+    Invariante11v1: Cuando se cumple la invariante.
+    Invariante11v2: Cuando hay un coche que hace una revision en un taller oficial cuya fecha de matriculacion es igual a la revision, no se cumple la invariante.
+    Invariante11v3; Cuando un coche hace una revision en un taller oficial cuya fecha de matriculacion es mayor que la de revision, no se cumple la invariante.
+    **IMP La condicion es estrictamente mayor.
+    *El layaout Invariante11.olt sirve para las tres versiones.
+Invariante 12 (noViajeEnMantenimiento): Un coche no debe poder comenzar un viaje con la alerta de mantenimiento en true
+    Invariante12v1: Cuando se cumple la invariante.
+    Invariante12v2: Cuando un coche realiza un viaje cuando necesita mantenimiento no se cumple la invariante.
+    *El layaout Invariante12.olt sirve para las dos versiones.
+Invariante 13 (fechaViajeBienDefinida): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
+    Invariante13v1: Cuando se cumple la invariante.
+    Invariante13v2: Cuando un viaje tiene la fecha de inicio y de llegada coincidentes se cumple la invariante.
+    Invariante13v3; Cuando un viaje tiene la fecha de inicio superior a la de llegada no se cumple la invariante.
+    **IMP La condicion permite que el mismo dia salga y llegue a su destino.
+    *El layaout Invariante13.olt sirve para las tres versiones.
+

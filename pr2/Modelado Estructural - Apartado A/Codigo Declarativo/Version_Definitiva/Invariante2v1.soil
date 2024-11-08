@@ -13,21 +13,13 @@ reset
 !new Ciudad('Ciudad1')
 !Ciudad1.nombre := 'Malaga'
 
+!new Revision('Revision1') 
+!Revision1.tipo := #Reparacion
+!Revision1.fechaInicio := 2
+!Revision1.fechaFin := 3
+
 !new Oficial('TOficial1')
 !TOficial1.garantia := 2
-
-!new NoOficial('TNoOficial1')
-
-!new Revision('Revision1')
-!Revision1.tipo := #Mantenimiento   
-!Revision1.fechaInicio := 10
-!Revision1.fechaFin := 13
-
-!new Revision('Revision2')
-!Revision2.tipo := #Reparacion 
-!Revision2.fechaInicio := 10
-!Revision2.fechaFin := 14
-
 
 --=============================================================================
 --                               INSERTS
@@ -35,15 +27,11 @@ reset
 
 -- Modelamos para un caso en particular donde no hay paso del tiempo ni cambio de estado
 
-!insert(Coche1, Ciudad1) into estaEn
-
-!insert(Ciudad1, TOficial1) into existeOficial     
-!insert(Ciudad1, TNoOficial1) into existeNoOficial 
+!insert(Coche1, Ciudad1) into estaEn     
+!insert(Ciudad1, TOficial1) into existeOficial 
 
 !insert(Coche1, Revision1) into esSometido
-!insert(TOficial1, Revision1) into esRealizada     
-!insert(Coche1, Revision2) into esSometido
-!insert(TNoOficial1, Revision2) into esRealizada     
+!insert(TOficial1, Revision1) into esRealizada 
 
 -- Relaacionamos cada ActiveObject con el clock
 !insert(Clock, Coche1) into time

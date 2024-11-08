@@ -45,4 +45,5 @@ reset
 !insert(Coche1, Revision2) into esSometido
 !insert(TNoOficial1, Revision2) into esRealizada     
 
+-- Relaacionamos cada ActiveObject con el clock
 !insert(Clock, Coche1) into time
