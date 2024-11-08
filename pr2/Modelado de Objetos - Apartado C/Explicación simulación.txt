@@ -4,7 +4,7 @@ Se genera un Coche con fecha de matriculación en el día 0 que se encuentra en 
 
 -En este Contexto se realiza la foto del instante0.
 
-Tras realizar la foto, se hacen pasar 5 días con !Clock.run(5) como indica el enunciado, donde se iniciará un viaje para el Coche1 desde Málaga hasta Sevilla con, !Coche.inciarViaje(Recorrido1).
+Tras realizar la foto, se hacen pasar 5 días con !Clock.run(5) como indica el enunciado, donde se iniciará un viaje para el Coche1 desde Málaga hasta Sevilla con, !Coche1.inciarViaje(Recorrido1).
 
 
 La siguiente foto tiene que realizarse cuando el coche llegue a Sevilla, en el día 13, ya que si empieza el viaje en el 5 y tiene que recorrer 210km a 27km por día tarda 7,7 días, luego hay que hacer pasar 8.
