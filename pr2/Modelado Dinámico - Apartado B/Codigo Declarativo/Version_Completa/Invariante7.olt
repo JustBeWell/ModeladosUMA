@@ -14,16 +14,16 @@
     <node id="Coche1" sizeCalculated="true" type="Object">
         <name>Coche1</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>38.61108072049757</x>
-            <y>176.1045514865042</y>
+            <x>47.572746402802665</x>
+            <y>191.45260155561692</y>
         </strategy>
         <hidden>false</hidden>
     </node>
     <node id="Recorrido1" sizeCalculated="true" type="Object">
         <name>Recorrido1</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
-            <userOffsetX>0.0</userOffsetX>
-            <userOffsetY>-124.0</userOffsetY>
+            <userOffsetX>-1.0</userOffsetX>
+            <userOffsetY>165.0</userOffsetY>
             <basisDeltaX>ABSOLUTE</basisDeltaX>
             <deltaX>0.0</deltaX>
             <maxDeltaX>1.7976931348623157E308</maxDeltaX>
@@ -38,32 +38,40 @@
     <node id="Ciudad2" sizeCalculated="true" type="Object">
         <name>Ciudad2</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>611.7417330869553</x>
-            <y>209.57634908737262</y>
+            <x>781.6564366258352</x>
+            <y>122.56985732347158</y>
         </strategy>
         <hidden>false</hidden>
     </node>
     <node id="Ciudad1" sizeCalculated="true" type="Object">
         <name>Ciudad1</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>320.31970528307545</x>
-            <y>209.27370621466588</y>
+            <x>484.91611827504084</x>
+            <y>124.71438982274935</y>
         </strategy>
         <hidden>false</hidden>
     </node>
     <node id="Clock" sizeCalculated="true" type="Object">
         <name>Clock</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>80.9396294969614</x>
-            <y>65.45054753228362</y>
+            <x>93.74142137267961</x>
+            <y>103.92322418847806</y>
         </strategy>
         <hidden>false</hidden>
     </node>
     <node id="Viaje1" sizeCalculated="true" type="Object">
         <name>Viaje1</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-            <x>264.78989075072195</x>
-            <y>109.85069875897369</y>
+            <x>361.5295114706787</x>
+            <y>237.97051826404174</y>
+        </strategy>
+        <hidden>false</hidden>
+    </node>
+    <node id="Viaje2" sizeCalculated="true" type="Object">
+        <name>Viaje2</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+            <x>357.0743370959102</x>
+            <y>336.35723685975006</y>
         </strategy>
         <hidden>false</hidden>
     </node>
@@ -72,20 +80,6 @@
         <target>Viaje1</target>
         <name>realiza</name>
         <properties>
-            <edgeproperty
-                id="[realiza : (coche:Coche1, viaje:Viaje1)]::source::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>coche</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>-1.0</userOffsetX>
-                    <userOffsetY>-1.0</userOffsetY>
-                    <attached>[realiza : (coche:Coche1, viaje:Viaje1)]::WayPoint::0</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
             <edgeproperty
                 id="[realiza : (coche:Coche1, viaje:Viaje1)]::source::multiplicity"
                 sizeCalculated="true" type="multiplicity"
@@ -102,6 +96,34 @@
                 <hidden>false</hidden>
             </edgeproperty>
             <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje1)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>coche</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>-12.0</userOffsetY>
+                    <attached>[realiza : (coche:Coche1, viaje:Viaje1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>viaje</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>-9.0</userOffsetY>
+                    <attached>[realiza : (coche:Coche1, viaje:Viaje1)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
                 id="[realiza : (coche:Coche1, viaje:Viaje1)]::target::multiplicity"
                 sizeCalculated="true" type="multiplicity"
                 userDefined="false" visible="true">
@@ -113,20 +135,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[realiza : (coche:Coche1, viaje:Viaje1)]::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>viaje</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>4.0</userOffsetX>
-                    <userOffsetY>-4.0</userOffsetY>
-                    <attached>[realiza : (coche:Coche1, viaje:Viaje1)]::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -318,8 +326,8 @@
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>coche</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>-9.0</userOffsetY>
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>-5.0</userOffsetY>
                     <attached>[estaEn : (ciudad:Ciudad1, coche:Coche1)]::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
@@ -332,8 +340,8 @@
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>ciudad</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>7.0</userOffsetX>
-                    <userOffsetY>-10.0</userOffsetY>
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>-9.0</userOffsetY>
                     <attached>[estaEn : (ciudad:Ciudad1, coche:Coche1)]::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
@@ -430,9 +438,23 @@
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>viaje</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>1.0</userOffsetX>
-                    <userOffsetY>-7.0</userOffsetY>
+                    <userOffsetX>3.0</userOffsetX>
+                    <userOffsetY>-15.0</userOffsetY>
                     <attached>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje1)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje1)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>recorrido</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>6.0</userOffsetX>
+                    <userOffsetY>-19.0</userOffsetY>
+                    <attached>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje1)]::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>TOP</placement>
@@ -451,20 +473,6 @@
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
                     <placement>BOTTOM</placement>
-                </strategy>
-                <hidden>false</hidden>
-            </edgeproperty>
-            <edgeproperty
-                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje1)]::target::rolename"
-                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
-                <name>recorrido</name>
-                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>6.0</userOffsetX>
-                    <userOffsetY>-9.0</userOffsetY>
-                    <attached>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje1)]::WayPoint::1</attached>
-                    <offset_x>8</offset_x>
-                    <offset_y>8</offset_y>
-                    <placement>TOP</placement>
                 </strategy>
                 <hidden>false</hidden>
             </edgeproperty>
@@ -517,6 +525,232 @@
         <hidden>false</hidden>
         <linkValue>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje1)]</linkValue>
     </edge>
+    <edge type="BinaryEdge">
+        <source>Viaje2</source>
+        <target>Recorrido1</target>
+        <name>recorre</name>
+        <properties>
+            <edgeproperty
+                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::source::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>viaje</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>-7.0</userOffsetY>
+                    <attached>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::target::rolename"
+                sizeCalculated="true" type="rolename" userDefined="true" visible="true">
+                <name>recorrido</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>-3.0</userOffsetX>
+                    <userOffsetY>-8.0</userOffsetY>
+                    <attached>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>recorre</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::WayPoint::0</related0>
+                        <related1>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty
+                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+        <linkValue>[recorre : (recorrido:Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)], viaje:Viaje2)]</linkValue>
+    </edge>
+    <edge type="BinaryEdge">
+        <source>Coche1</source>
+        <target>Viaje2</target>
+        <name>realiza</name>
+        <properties>
+            <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje2)]::source::rolename"
+                sizeCalculated="true" type="rolename"
+                userDefined="false" visible="true">
+                <name>coche</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[realiza : (coche:Coche1, viaje:Viaje2)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje2)]::source::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[realiza : (coche:Coche1, viaje:Viaje2)]::WayPoint::0</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje2)]::target::rolename"
+                sizeCalculated="true" type="rolename"
+                userDefined="false" visible="true">
+                <name>viaje</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[realiza : (coche:Coche1, viaje:Viaje2)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>TOP</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje2)]::target::multiplicity"
+                sizeCalculated="true" type="multiplicity"
+                userDefined="false" visible="true">
+                <name>*</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <attached>[realiza : (coche:Coche1, viaje:Viaje2)]::WayPoint::1</attached>
+                    <offset_x>8</offset_x>
+                    <offset_y>8</offset_y>
+                    <placement>BOTTOM</placement>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje2)]::AssociationName"
+                sizeCalculated="true" type="associationName"
+                userDefined="false" visible="true">
+                <name>realiza</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                    <offsetX>0.0</offsetX>
+                    <offsetY>-10.0</offsetY>
+                    <related length="2">
+                        <related0>[realiza : (coche:Coche1, viaje:Viaje2)]::WayPoint::0</related0>
+                        <related1>[realiza : (coche:Coche1, viaje:Viaje2)]::WayPoint::1</related1>
+                    </related>
+                </strategy>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </properties>
+        <waypoints>
+            <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje2)]::WayPoint::0"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>0</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>0</id>
+                <specialid>1</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+            <edgeproperty
+                id="[realiza : (coche:Coche1, viaje:Viaje2)]::WayPoint::1"
+                sizeCalculated="true" type="WayPoint"
+                userDefined="false" visible="true">
+                <name>1</name>
+                <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+                    <userOffsetX>0.0</userOffsetX>
+                    <userOffsetY>0.0</userOffsetY>
+                </strategy>
+                <id>1</id>
+                <specialid>2</specialid>
+                <hidden>false</hidden>
+            </edgeproperty>
+        </waypoints>
+        <hidden>false</hidden>
+        <linkValue>[realiza : (coche:Coche1, viaje:Viaje2)]</linkValue>
+    </edge>
     <edge type="NodeEdge">
         <source>Ciudad2</source>
         <target>Ciudad1</target>
@@ -527,8 +761,8 @@
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>destino</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>1.0</userOffsetX>
-                    <userOffsetY>-9.0</userOffsetY>
+                    <userOffsetX>4.0</userOffsetX>
+                    <userOffsetY>-13.0</userOffsetY>
                     <attached>Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)]::WayPoint::0</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
@@ -556,8 +790,8 @@
                 sizeCalculated="true" type="rolename" userDefined="true" visible="true">
                 <name>origen</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>-8.0</userOffsetY>
+                    <userOffsetX>2.0</userOffsetX>
+                    <userOffsetY>-10.0</userOffsetY>
                     <attached>Recorrido1 [Recorrido : (destino:Ciudad2, origen:Ciudad1)]::WayPoint::1</attached>
                     <offset_x>8</offset_x>
                     <offset_y>8</offset_y>
@@ -652,8 +886,8 @@
             <node id="Recorrido1" sizeCalculated="true" type="Object">
                 <name>Recorrido1</name>
                 <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
-                    <userOffsetX>0.0</userOffsetX>
-                    <userOffsetY>-124.0</userOffsetY>
+                    <userOffsetX>-1.0</userOffsetX>
+                    <userOffsetY>165.0</userOffsetY>
                     <basisDeltaX>ABSOLUTE</basisDeltaX>
                     <deltaX>0.0</deltaX>
                     <maxDeltaX>1.7976931348623157E308</maxDeltaX>

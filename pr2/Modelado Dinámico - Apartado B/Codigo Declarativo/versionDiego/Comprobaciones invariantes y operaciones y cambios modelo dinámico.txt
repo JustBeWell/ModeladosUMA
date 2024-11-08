@@ -30,6 +30,8 @@ Para comprobar que el derivado necesitaMantenimiento funciona de forma correcta 
 - Han pasado más de 4 años desde la matriculación, se ha realizado una revisión en un taller oficial y no ha pasado más de 1 año: CHECK(p2Derivado2_4.soil)
 - Han pasado más de 4 años desde la matriculación y se ha realizado una revisión en un taller no oficial: CHECK(p2Derivado2_5.soil)
 
+Puede realizar el caso 
+
 Derivado3: enGarantia, clase Coche  
 
 Para comprobar que el derivado enGarantia funciona de forma correcta se ha procedido a crear varios archivos .soil para comprobar que el atributo se comporta correctamente en las siguientes situaciones:
@@ -44,7 +46,13 @@ Se han comprobado las siguientes situaciones
 - No han pasado 4 años desde la fecha de matriculación y el atributo de validezDeGrantia debería valer 400 dado que el coche está en garantía durante primeros 400 días desde la fecha de su matriculación  :CHECK (p2Drivado4_1.soil)
 - Han pasado 4 años desde la fecha de matriculación. El atributo validezDeGarantia debería guardar 0: CHECK(p2Derivado4_2.soil)  
 - Han pasado 4 años desde la fecha de matriculación y se ha realizado una revisión en un taller oficial. El atributo validezDeGarantia debería guardar la garantía que ofrece el taller: CHECK(p2Derivado4_3.soil)
-- Han pasado 4 años desde la fecha de matriculación y se ha realizado una revisión en un taller NO oficial. El atributo validezDeGarantia debería guardar 0: CHECK(p2Derivado4_4.soil)  
+- Han pasado 4 años desde la fecha de matriculación y se ha realizado una revisión en un taller NO oficial. El atributo validezDeGarantia debería guardar 0: CHECK(p2Derivado4_4.soil) 
+
+Proposiciones:
+
+- Guardar la fecha hasta la que la garantía es válida (ultimaRev.fechaFin + ultimaRev.taller.oclAsType(Oficial).garantia) (SIN el paso de tiempo) 
+- Guardar la garantía que ofrece el taller oficial e ir decrementando el valor en cada tick 
+(if validezDeGarantia > 0 then validezDeGarantia := validezDeGarantia - 1 endif) (CON el paso de tiempo)
 
 
 

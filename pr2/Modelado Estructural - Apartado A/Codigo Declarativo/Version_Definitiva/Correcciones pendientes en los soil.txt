@@ -1,0 +1,21 @@
+Arreglar en los .soil que el coche después de realizar un recorrido SOLO tenga una relación con la ciudad destino final, no con todas las demás como esta implementado actualmente.
+
+
+
+DUDA
+validezDeGarantia que es? Yo interpreto que son los días que te da un taller oficial tras una revisión en el, entonces hasta que un coche no se haga su revisión no tendrá un valor definido. Daniil interpreta que son los días que el coche tiene garantía: cuando se matricula un coche tiene 400 días de garantía, y después de una revisión en un taller oficial, se le añade esa garantía a la validez del coche.
+
+Una pregunta:
+
+validezDeGarantia que es? Yo interpreto que son los días que te da un taller oficial tras una revisión en el, entonces hasta que un coche no se haga su revisión no tendrá un valor definido. Daniil interpreta que son los días que el coche tiene garantía: cuando se matricula un coche tiene 400 días de garantía, y después de una revisión en un taller oficial, se le añade esa garantía a la validez del coche.
+
+- Lo ha escrito Fran
+
+También podríamos considerar las siguientes opciones:
+
+- Guardar la fecha hasta la que la garantía es válida (ultimaRev.fechaFin + ultimaRev.taller.oclAsType(Oficial).garantia) (SIN el paso de tiempo) 
+- Guardar la garantía que ofrece el taller oficial e ir decrementando el valor en cada tick 
+(if validezDeGarantia > 0 then validezDeGarantia := validezDeGarantia - 1 endif) (CON el paso de tiempo)
+
+
+Dijo que la garantía no tenía nada que ver con el mantenimiento. Pero la validezDeGarantia depende tanto de las revisiones oficiales como de la fecha de matriculación. Así que me parece oportuno guardar en validezDeGarantia el tiempo que nos queda antes de que se caduque la garantía. Por ejemplo, cuando el coche se matricula automáticamente se le asignan 4 años de garantía, por eso podríamos guardar 400 e ir decrementando este valor cada día. Y lo mismo pasa con la garantía que nos ofrece un taller oficial. Se lo expliqué a la profesora y le dio visto bueno. 
