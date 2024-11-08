@@ -345,7 +345,7 @@ context Coche
     inv noViajeEnMantenimiento:
     self.necesitaMantenimiento implies self.viaje -> forAll(v | v.fechaLlegada <> null)
 
-    -- Invariante 14 (antigua 17): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
+-- Invariante 14 (antigua 17): Un viaje no puede tener una fecha de inicio superior a su fecha de llegada
 context Viaje
     inv fechaViajeBienDefinida:
     (self.fechaLlegada = null) xor (self.fechaLlegada > self.fechaSalida)

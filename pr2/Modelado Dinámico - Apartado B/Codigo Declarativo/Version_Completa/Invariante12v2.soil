@@ -4,12 +4,11 @@ reset
 --                               OBJETOS
 --=============================================================================
 !new Clock('Clock')               -- Solo puede existir una única instancia
-!Clock.NOW := 20                  -- Día actual
+!Clock.NOW := 500                  -- Día actual
 !Clock.resolution := 1            -- Saltos cada tick
 
-
 !new Coche('Coche1')
-!Coche1.fechaMatriculacion := 1   -- Día en el que el coche comenzó a existir en el sistema
+!Coche1.fechaMatriculacion := 8   
 
 !new Ciudad('Ciudad1')
 !Ciudad1.nombre := 'Malaga'
@@ -18,7 +17,7 @@ reset
 !Ciudad2.nombre := 'Cadiz'
 
 !new Viaje('Viaje1')
-!Viaje1.fechaSalida := 2
+!Viaje1.fechaSalida := 500
 !Viaje1.fechaLlegada := null
 
 --=============================================================================
@@ -27,12 +26,14 @@ reset
 
 -- Modelamos para un caso en particular donde no hay paso del tiempo ni cambio de estado
 
+   
 
-!insert(Coche1, Viaje1) into realiza 
+!insert(Ciudad2, Ciudad1) into Recorrido 
+!Recorrido1.distancia := 300            
 
-!insert(Ciudad2, Ciudad1) into Recorrido
-!Recorrido1.distancia := 300          
-!insert(Viaje1, Recorrido1) into recorre
+!insert(Coche1, Viaje1) into realiza    
+!insert(Viaje1, Recorrido1) into recorre 
 
 -- Relaacionamos cada ActiveObject con el clock
 !insert(Clock, Coche1) into time
+

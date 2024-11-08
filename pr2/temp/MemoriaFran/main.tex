@@ -491,21 +491,23 @@ La herramienta USE nos permite llevar a cabo un diagrama de clases, el cual se m
 
 Todas las relaciones entre las entidades del modelo tienen su significado y están definidas de la siguiente manera:
 \begin{itemize}
-\item \textbf{esSometido (Coche-Revisión)}:  Esta relación indica que cada coche en el sistema puede estar asociado a múltiples revisiones a lo largo de su vida útil. Cada revisión se registra cuando el coche necesita mantenimiento o reparación.
+\item \textbf{esSometido (Coche-Revisión)}:  Esta relación indica que cada coche en el sistema puede estar asociado a múltiples revisiones a lo largo de su vida útil. Cada revisión se registra cuando el coche necesita mantenimiento o reparación.Cada revision es realizada a un unico coche a la vez a lo sumo mientras que un coche puede ser revisado muchas veces en distintos instantes de tiempo.
   
-\item \textbf{realiza (Coche-Viaje)}: Relación que representa el hecho de que un coche puede realizar varios viajes. Un viaje es un desplazamiento que inicia en una ciudad y concluye en otra, y se registra en el sistema para hacer seguimiento del historial de movimientos del coche.
+\item \textbf{realiza (Coche-Viaje)}: Relación que representa el hecho de que un coche puede realizar varios viajes. Un viaje es un desplazamiento que inicia en una ciudad y concluye en otra, y se registra en el sistema para hacer seguimiento del historial de movimientos del coche.Cada viaje es recorrido por un solo coche a la vez mientras que un coche es capaz de recorrer muchos viajes en distintos instantes de tiempo
 
-\item \textbf{estaEn (Coche-Ciudad)}: Esta relación representa la ubicación actual del coche en una ciudad. Cada coche estará siempre en una ciudad específica, ya sea de origen o destino de algún viaje.
+\item \textbf{estaEn (Coche-Ciudad)}: Esta relación representa la ubicación actual del coche en una ciudad. Cada coche estará siempre en una ciudad específica, ya sea de origen o destino de algún viaje, pero una ciudad puede tener muchos coches.
 
-\item \textbf{esRealizada (Revisión-Taller)}: Define que toda revisión de un coche debe realizarse en un taller. Esto significa que las revisiones de mantenimiento y reparación se registran con el taller en el que se realizan.
+\item \textbf{esRealizada (Revisión-Taller)}: Define que toda revisión de un coche debe realizarse en un taller. Esto significa que las revisiones de mantenimiento y reparación se registran con el taller en el que se realizan.Una revision solo se puede llevar a cabo en un taller mientras que un taller pueden realizar muchas revisiones en instantes de tiempo diferentes
 
-\item \textbf{existeOficial (Oficial-Ciudad)}: Relación que establece la existencia de un único taller oficial en cada ciudad. El taller oficial ofrece revisiones con garantía, lo cual beneficia a los coches que pasan por él.
+\item \textbf{existeOficial (Oficial-Ciudad)}: Relación que establece la existencia de un único taller oficial en cada ciudad. El taller oficial ofrece revisiones con garantía, lo cual beneficia a los coches que pasan por él.En una ciudad puede haber a lo sumo un taller oficial y un taller Oficial solo puede pertenecer a una ciudad en concreto.
 
-\item \textbf{existeNoOficial (NoOficial-Ciudad)}: Representa la existencia de uno o varios talleres no oficiales en cada ciudad. Estos talleres pueden realizar revisiones de mantenimiento y reparación, pero no otorgan garantía a los coches.
 
-\item \textbf{Recorrido (Ciudad-Ciudad)}: Relación de asociación entre dos ciudades, que define la distancia entre ellas. Esto permite modelar la distancia que un coche debe recorrer al viajar de una ciudad a otra.
+\item \textbf{existeNoOficial (NoOficial-Ciudad)}: Representa la existencia de uno o varios talleres no oficiales en cada ciudad. Estos talleres pueden realizar revisiones de mantenimiento y reparación, pero no otorgan garantía a los coches.En una ciudad pueden haber muchos talleres NoOficiales mientras que un taller NoOficial solo puede pertenecer a una ciudad en concreto.
 
-\item \textbf{time (Clock-ActiveObject)}: Esta relación conecta la instancia única de Clock con cada objeto activo (ActiveObject) del sistema, como los coches. A través de esta relación, el sistema puede realizar el seguimiento del paso del tiempo y cómo afecta a cada coche o entidad que depende del tiempo para su funcionamiento o estado.
+\item \textbf{Recorrido (Ciudad-Ciudad)}: Relación de asociación entre dos ciudades, que define la distancia entre ellas. Esto permite modelar la distancia que un coche debe recorrer al viajar de una ciudad a otra. Para cada recorrido existe un solo destino y un solo origen.
+
+
+\item \textbf{time (Clock-ActiveObject)}: Esta relación conecta la instancia única de Clock con cada objeto activo (ActiveObject) del sistema, como los coches. A través de esta relación, el sistema puede realizar el seguimiento del paso del tiempo y cómo afecta a cada coche o entidad que depende del tiempo para su funcionamiento o estado.Un Clock tiene asociados todos los AO del sistema mientras que un AO solo es controlado por un reloj en especifico.
 \end{itemize}
 
 \subsection{Invariantes y .SOIL}
@@ -1344,6 +1346,14 @@ Las relaciones en el modelo dinámico se mantienen igual que en el modelo estruc
 \end{lstlisting}
 
 \subsection{Modificaciones de las invariantes en el modelo dinámico}
+
+\subsubsection{Inv3: Todos los coches han de ser revisados como máximo en un momento dado.}
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+context Coche    
+    inv revisadoUnaVez:
+    self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin) and (not(rev1.fechaFin = null and rev2.fechaFin = null)))
+    \end{lstlisting}
+    La única modificación con respecto al estructural consiste en comprobar que para cada par de invariantes escogidas como mucho una de ellas va a estar en proceso porque su fecha fin no está definida.
 \subsubsection{Inv4: Si un coche está en revisión, debe de estar en la misma ciudad que el taller}
     \begin{lstlisting}[style = useEspecifico,language=SQL]
 context Revision
@@ -1353,7 +1363,8 @@ context Revision
     or
     (self.taller.oclIsKindOf(NoOficial) and self.taller.oclAsType(NoOficial).ciudad = self.coche.ciudad)
     \end{lstlisting}
-    Es una modificacioón con respecto al modelo estático ya que en dicho modelo se comparaba el tiempo del clock con la fecha final ya que al ser estático estaba prefijada antes de empezar la revisión, y en el dinámico tenemos la fecha de final a null mientras este en la revisión con eso podemos comprobar si esta en un taller o no y ya con dicha información sabemos si se encuentran en la misma ciudad.
+    Es una modificación con respecto al modelo estático ya que en dicho modelo se comparaba el tiempo del clock con la fecha final ya que al ser estático estaba prefijada antes de empezar la revisión, y en el dinámico tenemos la fecha de final a null mientras este en la revisión con eso podemos comprobar si esta en un taller o no y ya con dicha información sabemos si se encuentran en la misma ciudad.
+
 
 \subsubsection{Inv5: Un coche tiene que estar o viajando o en una ciudad}
     \begin{lstlisting}[style = useEspecifico,language=SQL]
@@ -1363,7 +1374,22 @@ context Viaje
     self.coche.ciudad.oclIsUndefined() and self.coche.estaEn->notEmpty()
     \end{lstlisting}
     Es una modificación con respecto al modelo estático ya que en dicho modelo se comparaba el tiempo del clock con la fecha final ya que al ser estático estaba prefijada antes de empezar el viaje, mientras que en el dinámico la fecha de llegada es null ya que esta de viaje, y esta es igual al tiempo del clock cuando ha terminado dicho recorrido.
-
+    
+ \subsubsection{Inv7: No pueden haber dos viajes solapados.}
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+context Coche
+    inv viajeUnico:
+    self.viaje -> forAll(v1,v2 | not(v1 <> v2) or v1.fechaSalida <> v2.fechaSalida and (v1.fechaLlegada <= v2.fechaSalida or v2.fechaLlegada <= v1.fechaSalida) and (not(v1.fechaLlegada = null and v2.fechaLlegada = null)))
+    \end{lstlisting}
+La única modificación de esta invariante con respecto a su versión en el modelado estructural consiste en comprobar que como mucho uno viaje de los asociados al coche no tienen la fecha de llegada asociada.
+    
+\subsubsection{Inv12: Un coche no debe poder comenzar un viaje con la alerta de mantenimiento en true}
+    \begin{lstlisting}[style = useEspecifico,language=SQL]
+context Coche    
+    inv noViajeEnMantenimiento:
+    self.necesitaMantenimiento implies self.viaje -> forAll(v | v.fechaLlegada <> null)
+    \end{lstlisting}
+En esta invariante cambia la forma de comprobar que un viaje no se realiza si el coche necesita mantenimiento. Comprobamos que no tiene ningún viaje cuya fecha de llegada no este definida. 
 
 \subsubsection{Inv13: Un viaje no puede tener una fecha de inicio superior a su fecha de llegada}
     \begin{lstlisting}[style = useEspecifico,language=SQL]
@@ -1374,17 +1400,32 @@ context Viaje
     En esta invariante añadimos la primera parte del or con el null para ya que al estar en el viaje dicho atributo se encuentra en null por lo que si no lo añadieramos daría fallo el modelo.
 
 \subsection{Diagramas de objetos para cada restricción modificada}
+\subsubsection{Invariante 3: revisadoUnaVez}
+\vspace{1.0 cm}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/dinamicoInv3_true.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
+\end{figure}
+
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/dinamicoInv3_false.png}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+\end{figure}
+
+La invariante se cumple y no se cumple en las mismas condiciones que la invarinate 3 del estructural. Sin embargo, también hace falta considerar las revisiones que están en proceso, es decir aquellas que tengan la fecha fin null.
+
 \subsubsection{Invariante 4: mismaCiudadqueTallerEnRevision}
 \vspace{1.0 cm}
 \begin{figure}[H]
      \includegraphics[width=1\linewidth]{Soils/dinamico_inv4_bien.png}
      \caption{Diagrama de objetos para la invariante al cumplirse}
 \end{figure}
-
 \begin{figure}[H]
      \includegraphics[width=1\linewidth]{Soils/dinamico_inv4_false.png}
      \caption{Diagrama de objetos para la invariante al incumplirse}
 \end{figure}
+
+La invariante 4 comprueba que la revsisión se realiza en la misma ciudad que la que donde está ubicado el taller. Se cumple y no se cumple en las mismas situaciones que la invariante 4 del modelado estructural. La única diferencia consiste en que consideramos las revisiones sin la fecha en la que acaban, las que están en proceso.
 
 \subsubsection{Invariante 5: viajandoOenCiudad}
 \vspace{1.0 cm}
@@ -1398,7 +1439,34 @@ context Viaje
      \caption{Diagrama de objetos para la invariante al incumplirse}
 \end{figure}
 
-\subsubsection{Invariante 13: noViajeEnManteniento}
+La invariante 5 comprueba que el coche está, bien realizando un viaje o bien está ubicado en una cidudad. Se cumple e incumple en los mismos casos que su versión en el modelado estructural, pero ahora consideramos los viajes sin fecha de llegada.
+
+\subsubsection{Invariante 7: viajeUnico}
+\vspace{1.0 cm}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/dinamicoInv7_true.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
+\end{figure}
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/dinamicoInv7_false.png}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+\end{figure}
+La invariante 7 comprueba que el coche está, bien realizando un viaje o bien está ubicado en una cidudad. Se cumple e incumple en los mismos casos que su versión en el modelado estructural, pero ahora consideramos los viajes sin fecha de llegada.
+
+\subsubsection{Invariante 12: noViajeEnManteniento}
+\vspace{1.0 cm}
+\begin{figure}[H]
+     \includegraphics[width=0.80\linewidth]{Soils/dinamico_inv12_true.png}
+     \caption{Diagrama de objetos para la invariante al cumplirse}
+\end{figure}
+La invariante 12 comprueba que el coche está realizando un viaje cuando necesita mantenimiento.Se cumple e incumple en los mismos casos que su versión en el modelado estructural, considerando los viajes con la fecha de llegada nula
+
+\begin{figure}[H]
+     \includegraphics[width=1\linewidth]{Soils/dinamico_inv12_false.png}
+     \caption{Diagrama de objetos para la invariante al incumplirse}
+\end{figure}
+
+\subsubsection{Invariante 13: fechaViajeBienDefinida}
 \vspace{1.0 cm}
 \begin{figure}[H]
      \includegraphics[width=0.80\linewidth]{Soils/dinamico_inv13_true.png}
@@ -1406,9 +1474,12 @@ context Viaje
 \end{figure}
 
 \begin{figure}[H]
-     \includegraphics[width=1\linewidth]{Soils/dinamico_inv5_false.png}
+     \includegraphics[width=1\linewidth]{Soils/dinamico_inv13_false.png}
      \caption{Diagrama de objetos para la invariante al incumplirse}
 \end{figure}
+
+La invariante 13 comprueba que para todos los viajes, su fecha de llegada no está definida, o bien que su fecha de llegada es mayor que la de salida. Se cumple en los mismos casos que la invariante 13 del modelado estructural.
+
     
 \subsection{b3}
 Un coche comienza un viaje desde la ciudad en la que se encuentra. Esta operación debe recibir como parámetro el recorrido entre dos ciudades que debe realizar en su viaje.

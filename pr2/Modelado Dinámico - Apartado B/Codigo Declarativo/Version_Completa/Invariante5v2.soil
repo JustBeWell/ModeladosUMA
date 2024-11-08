@@ -19,7 +19,7 @@ reset
 
 !new Viaje('Viaje1')
 !Viaje1.fechaSalida := 2
-!Viaje1.fechaLlegada := 30
+!Viaje1.fechaLlegada := null
 
 --=============================================================================
 --                               INSERTS
