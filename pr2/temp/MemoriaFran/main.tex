@@ -160,7 +160,7 @@ Representa un coche en el sistema. Cada coche puede realizar viajes entre ciudad
 \textbf{Descripción}:  Representa un taller en el sistema y es la clase base para los diferentes tipos de taller. Las revisiones, independientemente del tipo, se realizan en un taller. 
 
 \subsubsection{Oficial} (Subclase de \texttt{Taller})
-\textbf{Descripción}:  Hereda de la clase Taller. Al realizar una revisión en este tipo de taller, el coche obtiene una garantía. Solo existe un taller oficial por ciudad.
+\textbf{Descripción}:  Hereda de la clase Taller. Al realizar una revisión en este tipo de taller, el coche obtiene una garantía. A lo sumo, puede haber un taller oficial en una ciudad.
 \begin{itemize}
     \item \textbf{Atributos}:
     \begin{itemize}
@@ -168,11 +168,11 @@ Representa un coche en el sistema. Cada coche puede realizar viajes entre ciudad
     \end{itemize}
 \end{itemize}
 
-\subsubsection{No\texttt{\_}Oficial} (Subclase de \texttt{Taller})
+\subsubsection{NoOficial} (Subclase de \texttt{Taller})
 \textbf{Descripción}:  Hereda de la clase Taller. A diferencia del taller oficial, si se realiza un mantenimiento en ese taller, no se da una garantía al coche. Pueden existir varios talleres no oficiales en una ciudad.
 
-\subsubsection{Ciudad} (Clase abstracta)
-\textbf{Descripción}: Representa una ciudad en el sistema en el que un coche viaja hacia esta.
+\subsubsection{Ciudad}
+\textbf{Descripción}: Representa una ciudad en el sistema. Un coche puede realizar viajes a estas.
 
 \begin{itemize}
     \item \textbf{Atributos}:
@@ -182,7 +182,7 @@ Representa un coche en el sistema. Cada coche puede realizar viajes entre ciudad
 \end{itemize}
 
 \subsubsection{Recorrido} (Clase de Asociación entre Ciudad y Viaje)
-\textbf{Descripción}: Representa el recorrido que se realiza durante un viaje para ir de una ciudad a otra en el sistema.
+\textbf{Descripción}: Representa el recorrido que se realiza durante un viaje para ir de una ciudad a otra en el sistema o el recorrido en una misma ciudad.
 
 \begin{itemize}
     \item \textbf{Atributos}:
@@ -202,7 +202,7 @@ Representa un coche en el sistema. Cada coche puede realizar viajes entre ciudad
     \end{itemize}
 \end{itemize}
 
-\vspace{2.0cm} % Espacio vertical de 2.0 cm
+\newpage
 
 \subsection{Código USE}
 \lstdefinestyle{useNormal}{
@@ -479,7 +479,9 @@ todas las secciones están separadas por sus respectivos títulos tabulados en m
 
 
 \end{lstlisting}
-\vspace{1cm}
+
+\newpage
+
 \subsection{Diagrama de Clases en USE}
 La herramienta USE nos permite llevar a cabo un diagrama de clases, el cual se muestra a continuación:
 \begin{figure}[H]
@@ -491,18 +493,18 @@ La herramienta USE nos permite llevar a cabo un diagrama de clases, el cual se m
 
 Todas las relaciones entre las entidades del modelo tienen su significado y están definidas de la siguiente manera:
 \begin{itemize}
-\item \textbf{esSometido (Coche-Revisión)}:  Esta relación indica que cada coche en el sistema puede estar asociado a múltiples revisiones a lo largo de su vida útil. Cada revisión se registra cuando el coche necesita mantenimiento o reparación.Cada revision es realizada a un unico coche a la vez a lo sumo mientras que un coche puede ser revisado muchas veces en distintos instantes de tiempo.
+\item \textbf{esSometido (Coche-Revision)}:  Esta relación indica que cada coche en el sistema puede estar asociado a múltiples revisiones a lo largo de su vida útil. Cada revisión se registra cuando el coche necesita mantenimiento o reparación. Cada revisión es realizada a un único coche a la vez a lo sumo mientras que un coche puede ser revisado muchas veces en distintos instantes de tiempo.
   
-\item \textbf{realiza (Coche-Viaje)}: Relación que representa el hecho de que un coche puede realizar varios viajes. Un viaje es un desplazamiento que inicia en una ciudad y concluye en otra, y se registra en el sistema para hacer seguimiento del historial de movimientos del coche.Cada viaje es recorrido por un solo coche a la vez mientras que un coche es capaz de recorrer muchos viajes en distintos instantes de tiempo
+\item \textbf{realiza (Coche-Viaje)}: Relación que representa el hecho de que un coche puede realizar varios viajes. Un viaje es un desplazamiento que inicia en una ciudad y concluye en otra, y se registra en el sistema para hacer seguimiento del historial de movimientos del coche. Cada viaje es recorrido por un solo coche a la vez mientras que un coche es capaz de recorrer muchos viajes en distintos instantes de tiempo.
 
-\item \textbf{estaEn (Coche-Ciudad)}: Esta relación representa la ubicación actual del coche en una ciudad. Cada coche estará siempre en una ciudad específica, ya sea de origen o destino de algún viaje, pero una ciudad puede tener muchos coches.
+\item \textbf{estaEn (Coche-Ciudad)}: Esta relación representa la ubicación actual del coche en una ciudad. Cada coche estará siempre en una ciudad específica, ya sea de origen o destino de algún viaje. Una ciudad puede tener muchos coches o ninguno en un momento dado.
 
-\item \textbf{esRealizada (Revisión-Taller)}: Define que toda revisión de un coche debe realizarse en un taller. Esto significa que las revisiones de mantenimiento y reparación se registran con el taller en el que se realizan.Una revision solo se puede llevar a cabo en un taller mientras que un taller pueden realizar muchas revisiones en instantes de tiempo diferentes
+\item \textbf{esRealizada (Revision-Taller)}: Define que toda revisión de un coche debe realizarse en un taller. Esto significa que las revisiones de mantenimiento y reparación se registran con el taller en el que se realizan. Una revision solo se puede llevar a cabo en un taller mientras que un taller pueden realizar muchas revisiones en instantes de tiempo diferentes
 
-\item \textbf{existeOficial (Oficial-Ciudad)}: Relación que establece la existencia de un único taller oficial en cada ciudad. El taller oficial ofrece revisiones con garantía, lo cual beneficia a los coches que pasan por él.En una ciudad puede haber a lo sumo un taller oficial y un taller Oficial solo puede pertenecer a una ciudad en concreto.
+\item \textbf{existeOficial (Oficial-Ciudad)}: Relación que establece la existencia de un único taller oficial en cada ciudad. El taller oficial ofrece revisiones con garantía, lo cual beneficia a los coches que pasan por él. En una ciudad puede haber a lo sumo un taller oficial y un taller Oficial solo puede pertenecer a una ciudad en concreto.
 
 
-\item \textbf{existeNoOficial (NoOficial-Ciudad)}: Representa la existencia de uno o varios talleres no oficiales en cada ciudad. Estos talleres pueden realizar revisiones de mantenimiento y reparación, pero no otorgan garantía a los coches.En una ciudad pueden haber muchos talleres NoOficiales mientras que un taller NoOficial solo puede pertenecer a una ciudad en concreto.
+\item \textbf{existeNoOficial (NoOficial-Ciudad)}: Representa la existencia de uno o varios talleres no oficiales en cada ciudad. Estos talleres pueden realizar revisiones de mantenimiento y reparación, pero no otorgan garantía a los coches. En una ciudad pueden haber muchos talleres NoOficiales mientras que un taller NoOficial solo puede pertenecer a una ciudad en concreto.
 
 \item \textbf{Recorrido (Ciudad-Ciudad)}: Relación de asociación entre dos ciudades, que define la distancia entre ellas. Esto permite modelar la distancia que un coche debe recorrer al viajar de una ciudad a otra. Para cada recorrido existe un solo destino y un solo origen.
 
@@ -1285,7 +1287,8 @@ Las relaciones en el modelo dinámico se mantienen igual que en el modelo estruc
         inv revisionDespuesdeMatriculacion:
         self.revision -> forAll(rev | rev.fechaInicio > self.fechaMatriculacion)
     
-
+    -- Invariante 3: Todos los coches han de ser revisados como maximo en un momento dado.
+    context Coche
         inv revisadoUnaVez:
         self.revision -> forAll(rev1, rev2 | not(rev1 <> rev2) or rev1.fechaInicio <> rev2.fechaInicio and (rev1.fechaInicio >= rev2.fechaFin or rev2.fechaInicio >= rev1.fechaFin) and (not(rev1.fechaFin = null and rev2.fechaFin = null)))
     
@@ -1481,11 +1484,11 @@ La invariante 12 comprueba que el coche está realizando un viaje cuando necesit
 La invariante 13 comprueba que para todos los viajes, su fecha de llegada no está definida, o bien que su fecha de llegada es mayor que la de salida. Se cumple en los mismos casos que la invariante 13 del modelado estructural.
 
     
-\subsection{b3}
+\subsection{Implementación del paso del tiempo en el modelo dinámico}
 Un coche comienza un viaje desde la ciudad en la que se encuentra. Esta operación debe recibir como parámetro el recorrido entre dos ciudades que debe realizar en su viaje.
 Una operación avanzar que se ejecuta sobre los coches, y que no recibe ningún parámetro. Esta operación debe hacer avanzar el coche el número de kilómetros indicados en su velocidad si el coche está realizando algún viaje. Se debe modelar el paso del tiempo, de modo que un tic del reloj representa el paso de un día, lo cual se debe tener en cuenta a la hora de que los coches puedan avanzar en el viaje que estén realizando.
 
-\section{Modelo de Objetos}
+\section{Modelo de Objetos para un caso en concreto}
 Ahora se debe desarrollar un modelo de objetos y simularlo.
 
 
