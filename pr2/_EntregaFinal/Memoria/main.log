@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.8)  8 NOV 2024 19:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.8)  8 NOV 2024 22:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/franc/Documents/Escuela/UMA/5toSemestre/Modelado y Diseño/Github/ModeladosUMA/pr2/temp/MemoriaFran/main.tex"
-(c:/Users/franc/Documents/Escuela/UMA/5toSemestre/Modelado y Diseño/Github/ModeladosUMA/pr2/temp/MemoriaFran/main.tex
+**"c:/Users/franc/Documents/Escuela/UMA/5toSemestre/Modelado y Diseño/Github/ModeladosUMA/pr2/_EntregaFinal/Memoria/main.tex"
+(c:/Users/franc/Documents/Escuela/UMA/5toSemestre/Modelado y Diseño/Github/ModeladosUMA/pr2/_EntregaFinal/Memoria/main.tex
 LaTeX2e <2024-11-01>
 L3 programming layer <2024-10-09>
 (C:\MikTeX\tex/latex/base\article.cls
@@ -275,124 +275,6 @@ LaTeX Warning: Unused global option(s):
 (main.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama1' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama2' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama_cumplimiento' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama1' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama2' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama_invariante' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama_cumplimiento' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama1' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama2' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama_invariante' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama_cumplimiento' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama1' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama2' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama3' multiply defined.
-
-
-LaTeX Warning: Label `fig:Diagrama_incumplimiento' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama_cumplimiento' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama1' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama2' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama3' multiply defined.
-
-
-LaTeX Warning: Label `fig:Diagrama_incumplimiento' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama_cumplimiento' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama1' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama2' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama_invariante' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `fig:diagrama2' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama_cumplimiento' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de aviacion' multiply defined.
-
-
-LaTeX Warning: Label `Diagrama del sistema de coches' multiply defined.
-
 )
 \openout1 = `main.aux'.
 
@@ -498,7 +380,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.50 ...fecha de llegada}{40}{subsubsection.3.5.6}
+l.50 ...fecha de llegada}{39}{subsubsection.3.5.6}
                                                   % [1])
 \tf@toc=\write4
 \openout4 = `main.toc'.
@@ -520,7 +402,7 @@ LaTeX Info: Redefining \% on input line 1.
 <diagramas/VPP_A.png, id=433, 770.3982pt x 396.7623pt>
 File: diagramas/VPP_A.png Graphic file (type png)
 <use diagramas/VPP_A.png>
-Package pdftex.def Info: diagramas/VPP_A.png  used on input line 97.
+Package pdftex.def Info: diagramas/VPP_A.png  used on input line 96.
 (pdftex.def)             Requested size: 472.03123pt x 243.10226pt.
 
 
@@ -531,7 +413,7 @@ Package pdftex.def Info: diagramas/VPP_A.png  used on input line 97.
 [7] (C:\MikTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 248.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 246.
 
 
 [8]
@@ -546,7 +428,7 @@ Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on in
 <diagramas/USE_A.png, id=704, 703.87968pt x 381.67593pt>
 File: diagramas/USE_A.png Graphic file (type png)
 <use diagramas/USE_A.png>
-Package pdftex.def Info: diagramas/USE_A.png  used on input line 488.
+Package pdftex.def Info: diagramas/USE_A.png  used on input line 486.
 (pdftex.def)             Requested size: 472.03123pt x 255.9545pt.
 
 
@@ -560,12 +442,12 @@ Package pdftex.def Info: diagramas/USE_A.png  used on input line 488.
 <Soils/1_v2.png, id=773, 546.54187pt x 236.38312pt>
 File: Soils/1_v2.png Graphic file (type png)
 <use Soils/1_v2.png>
-Package pdftex.def Info: Soils/1_v2.png  used on input line 650.
+Package pdftex.def Info: Soils/1_v2.png  used on input line 647.
 (pdftex.def)             Requested size: 472.03123pt x 204.15839pt.
 <Soils/1.jpg, id=774, 580.41844pt x 239.39438pt>
 File: Soils/1.jpg Graphic file (type jpg)
 <use Soils/1.jpg>
-Package pdftex.def Info: Soils/1.jpg  used on input line 656.
+Package pdftex.def Info: Soils/1.jpg  used on input line 652.
 (pdftex.def)             Requested size: 472.03123pt x 194.69008pt.
 
 
@@ -573,17 +455,17 @@ Package pdftex.def Info: Soils/1.jpg  used on input line 656.
 <Soils/2_v2.png, id=783, 510.40688pt x 271.0125pt>
 File: Soils/2_v2.png Graphic file (type png)
 <use Soils/2_v2.png>
-Package pdftex.def Info: Soils/2_v2.png  used on input line 666.
+Package pdftex.def Info: Soils/2_v2.png  used on input line 661.
 (pdftex.def)             Requested size: 354.02342pt x 187.98715pt.
 <Soils/2.jpg, id=784, 576.65437pt x 240.9pt>
 File: Soils/2.jpg Graphic file (type jpg)
 <use Soils/2.jpg>
-Package pdftex.def Info: Soils/2.jpg  used on input line 675.
+Package pdftex.def Info: Soils/2.jpg  used on input line 669.
 (pdftex.def)             Requested size: 231.2979pt x 96.62662pt.
 <Soils/2_v3.png, id=785, 518.6878pt x 269.50688pt>
 File: Soils/2_v3.png Graphic file (type png)
 <use Soils/2_v3.png>
-Package pdftex.def Info: Soils/2_v3.png  used on input line 681.
+Package pdftex.def Info: Soils/2_v3.png  used on input line 674.
 (pdftex.def)             Requested size: 231.2979pt x 120.18307pt.
 
 
@@ -591,22 +473,22 @@ Package pdftex.def Info: Soils/2_v3.png  used on input line 681.
 <Soils/3.png, id=791, 746.79pt x 274.77657pt>
 File: Soils/3.png Graphic file (type png)
 <use Soils/3.png>
-Package pdftex.def Info: Soils/3.png  used on input line 694.
+Package pdftex.def Info: Soils/3.png  used on input line 685.
 (pdftex.def)             Requested size: 472.03123pt x 173.68036pt.
 <Soils/3_v2.png, id=792, 768.62157pt x 269.50688pt>
 File: Soils/3_v2.png Graphic file (type png)
 <use Soils/3_v2.png>
-Package pdftex.def Info: Soils/3_v2.png  used on input line 704.
+Package pdftex.def Info: Soils/3_v2.png  used on input line 694.
 (pdftex.def)             Requested size: 231.2979pt x 81.09941pt.
 <Soils/3_v3.png, id=793, 767.86874pt x 266.49562pt>
 File: Soils/3_v3.png Graphic file (type png)
 <use Soils/3_v3.png>
-Package pdftex.def Info: Soils/3_v3.png  used on input line 710.
+Package pdftex.def Info: Soils/3_v3.png  used on input line 699.
 (pdftex.def)             Requested size: 231.2979pt x 80.27461pt.
 <Soils/3_v4.png, id=794, 767.11594pt x 269.50688pt>
 File: Soils/3_v4.png Graphic file (type png)
 <use Soils/3_v4.png>
-Package pdftex.def Info: Soils/3_v4.png  used on input line 715.
+Package pdftex.def Info: Soils/3_v4.png  used on input line 703.
 (pdftex.def)             Requested size: 330.42041pt x 116.08719pt.
 
 
@@ -614,17 +496,17 @@ Package pdftex.def Info: Soils/3_v4.png  used on input line 715.
 <Soils/4.png, id=799, 699.36281pt x 231.11343pt>
 File: Soils/4.png Graphic file (type png)
 <use Soils/4.png>
-Package pdftex.def Info: Soils/4.png  used on input line 727.
+Package pdftex.def Info: Soils/4.png  used on input line 713.
 (pdftex.def)             Requested size: 472.03123pt x 155.9913pt.
 <Soils/4_v2.png, id=800, 680.5425pt x 221.32687pt>
 File: Soils/4_v2.png Graphic file (type png)
 <use Soils/4_v2.png>
-Package pdftex.def Info: Soils/4_v2.png  used on input line 737.
+Package pdftex.def Info: Soils/4_v2.png  used on input line 722.
 (pdftex.def)             Requested size: 231.2979pt x 75.22311pt.
 <Soils/4_v3png.png, id=801, 681.29532pt x 228.10219pt>
 File: Soils/4_v3png.png Graphic file (type png)
 <use Soils/4_v3png.png>
-Package pdftex.def Info: Soils/4_v3png.png  used on input line 743.
+Package pdftex.def Info: Soils/4_v3png.png  used on input line 727.
 (pdftex.def)             Requested size: 231.2979pt x 77.43884pt.
 
 
@@ -632,12 +514,12 @@ Package pdftex.def Info: Soils/4_v3png.png  used on input line 743.
 <Soils/5.png, id=806, 693.34032pt x 208.52907pt>
 File: Soils/5.png Graphic file (type png)
 <use Soils/5.png>
-Package pdftex.def Info: Soils/5.png  used on input line 756.
+Package pdftex.def Info: Soils/5.png  used on input line 738.
 (pdftex.def)             Requested size: 472.03123pt x 141.97289pt.
 <Soils/5_v2.png, id=807, 709.90219pt x 243.91125pt>
 File: Soils/5_v2.png Graphic file (type png)
 <use Soils/5_v2.png>
-Package pdftex.def Info: Soils/5_v2.png  used on input line 762.
+Package pdftex.def Info: Soils/5_v2.png  used on input line 743.
 (pdftex.def)             Requested size: 472.03123pt x 162.18777pt.
 
 
@@ -645,22 +527,22 @@ Package pdftex.def Info: Soils/5_v2.png  used on input line 762.
 <Soils/6.png, id=812, 738.50906pt x 210.03468pt>
 File: Soils/6.png Graphic file (type png)
 <use Soils/6.png>
-Package pdftex.def Info: Soils/6.png  used on input line 772.
+Package pdftex.def Info: Soils/6.png  used on input line 752.
 (pdftex.def)             Requested size: 472.03123pt x 134.24867pt.
 <Soils/6_v2.png, id=813, 764.10469pt x 213.79875pt>
 File: Soils/6_v2.png Graphic file (type png)
 <use Soils/6_v2.png>
-Package pdftex.def Info: Soils/6_v2.png  used on input line 782.
+Package pdftex.def Info: Soils/6_v2.png  used on input line 761.
 (pdftex.def)             Requested size: 231.2979pt x 64.71754pt.
 <Soils/6_v3.png, id=814, 748.29562pt x 263.48438pt>
 File: Soils/6_v3.png Graphic file (type png)
 <use Soils/6_v3.png>
-Package pdftex.def Info: Soils/6_v3.png  used on input line 788.
+Package pdftex.def Info: Soils/6_v3.png  used on input line 766.
 (pdftex.def)             Requested size: 231.2979pt x 81.4421pt.
 <Soils/7.png, id=815, 828.09375pt x 268.00125pt>
 File: Soils/7.png Graphic file (type png)
 <use Soils/7.png>
-Package pdftex.def Info: Soils/7.png  used on input line 800.
+Package pdftex.def Info: Soils/7.png  used on input line 776.
 (pdftex.def)             Requested size: 472.03123pt x 152.77046pt.
 
 
@@ -668,22 +550,22 @@ Package pdftex.def Info: Soils/7.png  used on input line 800.
 <Soils/7_v2.png, id=820, 836.3747pt x 249.18094pt>
 File: Soils/7_v2.png Graphic file (type png)
 <use Soils/7_v2.png>
-Package pdftex.def Info: Soils/7_v2.png  used on input line 809.
+Package pdftex.def Info: Soils/7_v2.png  used on input line 784.
 (pdftex.def)             Requested size: 231.2979pt x 68.91087pt.
 <Soils/7_v3.png, id=821, 824.32968pt x 257.46187pt>
 File: Soils/7_v3.png Graphic file (type png)
 <use Soils/7_v3.png>
-Package pdftex.def Info: Soils/7_v3.png  used on input line 815.
+Package pdftex.def Info: Soils/7_v3.png  used on input line 789.
 (pdftex.def)             Requested size: 231.2979pt x 72.24203pt.
 <Soils/7_v4.png, id=822, 825.83531pt x 269.50688pt>
 File: Soils/7_v4.png Graphic file (type png)
 <use Soils/7_v4.png>
-Package pdftex.def Info: Soils/7_v4.png  used on input line 820.
+Package pdftex.def Info: Soils/7_v4.png  used on input line 793.
 (pdftex.def)             Requested size: 330.42041pt x 107.82962pt.
 <Soils/8.png, id=823, 842.39719pt x 289.83281pt>
 File: Soils/8.png Graphic file (type png)
 <use Soils/8.png>
-Package pdftex.def Info: Soils/8.png  used on input line 832.
+Package pdftex.def Info: Soils/8.png  used on input line 803.
 (pdftex.def)             Requested size: 472.03123pt x 162.40697pt.
 
 
@@ -691,12 +573,12 @@ Package pdftex.def Info: Soils/8.png  used on input line 832.
 <Soils/8_v2.png, id=828, 849.1725pt x 292.09125pt>
 File: Soils/8_v2.png Graphic file (type png)
 <use Soils/8_v2.png>
-Package pdftex.def Info: Soils/8_v2.png  used on input line 838.
+Package pdftex.def Info: Soils/8_v2.png  used on input line 808.
 (pdftex.def)             Requested size: 472.03123pt x 162.3666pt.
 <Soils/9.png, id=829, 618.05907pt x 155.07938pt>
 File: Soils/9.png Graphic file (type png)
 <use Soils/9.png>
-Package pdftex.def Info: Soils/9.png  used on input line 848.
+Package pdftex.def Info: Soils/9.png  used on input line 817.
 (pdftex.def)             Requested size: 472.03123pt x 118.44365pt.
 
 
@@ -704,22 +586,22 @@ Package pdftex.def Info: Soils/9.png  used on input line 848.
 <Soils/9_v2.png, id=835, 615.0478pt x 168.63pt>
 File: Soils/9_v2.png Graphic file (type png)
 <use Soils/9_v2.png>
-Package pdftex.def Info: Soils/9_v2.png  used on input line 857.
+Package pdftex.def Info: Soils/9_v2.png  used on input line 825.
 (pdftex.def)             Requested size: 231.2979pt x 63.4162pt.
 <Soils/9_v3.png, id=836, 612.78937pt x 176.91093pt>
 File: Soils/9_v3.png Graphic file (type png)
 <use Soils/9_v3.png>
-Package pdftex.def Info: Soils/9_v3.png  used on input line 863.
+Package pdftex.def Info: Soils/9_v3.png  used on input line 830.
 (pdftex.def)             Requested size: 231.2979pt x 66.77333pt.
 <Soils/9_v4.png, id=837, 544.28343pt x 170.88844pt>
 File: Soils/9_v4.png Graphic file (type png)
 <use Soils/9_v4.png>
-Package pdftex.def Info: Soils/9_v4.png  used on input line 868.
+Package pdftex.def Info: Soils/9_v4.png  used on input line 834.
 (pdftex.def)             Requested size: 330.42041pt x 103.74113pt.
 <Soils/10.png, id=838, 768.62157pt x 255.95625pt>
 File: Soils/10.png Graphic file (type png)
 <use Soils/10.png>
-Package pdftex.def Info: Soils/10.png  used on input line 880.
+Package pdftex.def Info: Soils/10.png  used on input line 844.
 (pdftex.def)             Requested size: 472.03123pt x 157.19148pt.
 
 
@@ -727,12 +609,12 @@ Package pdftex.def Info: Soils/10.png  used on input line 880.
 <Soils/10_v2.png, id=843, 776.9025pt x 286.82156pt>
 File: Soils/10_v2.png Graphic file (type png)
 <use Soils/10_v2.png>
-Package pdftex.def Info: Soils/10_v2.png  used on input line 886.
+Package pdftex.def Info: Soils/10_v2.png  used on input line 849.
 (pdftex.def)             Requested size: 472.03123pt x 174.2694pt.
 <Soils/11.png, id=844, 724.20563pt x 233.37187pt>
 File: Soils/11.png Graphic file (type png)
 <use Soils/11.png>
-Package pdftex.def Info: Soils/11.png  used on input line 896.
+Package pdftex.def Info: Soils/11.png  used on input line 858.
 (pdftex.def)             Requested size: 472.03123pt x 152.1101pt.
 
 
@@ -740,22 +622,22 @@ Package pdftex.def Info: Soils/11.png  used on input line 896.
 <Soils/11_v2.png, id=849, 697.10437pt x 228.855pt>
 File: Soils/11_v2.png Graphic file (type png)
 <use Soils/11_v2.png>
-Package pdftex.def Info: Soils/11_v2.png  used on input line 906.
+Package pdftex.def Info: Soils/11_v2.png  used on input line 867.
 (pdftex.def)             Requested size: 231.2979pt x 75.93443pt.
 <Soils/11_v3.png, id=850, 737.00343pt x 244.66406pt>
 File: Soils/11_v3.png Graphic file (type png)
 <use Soils/11_v3.png>
-Package pdftex.def Info: Soils/11_v3.png  used on input line 912.
+Package pdftex.def Info: Soils/11_v3.png  used on input line 872.
 (pdftex.def)             Requested size: 231.2979pt x 76.78212pt.
 <Soils/12.png, id=851, 758.08218pt x 222.8325pt>
 File: Soils/12.png Graphic file (type png)
 <use Soils/12.png>
-Package pdftex.def Info: Soils/12.png  used on input line 925.
+Package pdftex.def Info: Soils/12.png  used on input line 883.
 (pdftex.def)             Requested size: 472.03123pt x 138.75314pt.
 <Soils/12_v2.png, id=852, 786.68906pt x 229.60782pt>
 File: Soils/12_v2.png Graphic file (type png)
 <use Soils/12_v2.png>
-Package pdftex.def Info: Soils/12_v2.png  used on input line 931.
+Package pdftex.def Info: Soils/12_v2.png  used on input line 888.
 (pdftex.def)             Requested size: 472.03123pt x 137.77275pt.
 
 
@@ -763,46 +645,46 @@ Package pdftex.def Info: Soils/12_v2.png  used on input line 931.
 <Soils/13.png, id=857, 722.7pt x 201.00093pt>
 File: Soils/13.png Graphic file (type png)
 <use Soils/13.png>
-Package pdftex.def Info: Soils/13.png  used on input line 942.
+Package pdftex.def Info: Soils/13.png  used on input line 898.
 (pdftex.def)             Requested size: 231.2979pt x 64.32773pt.
 <Soils/13_v2.png, id=858, 590.95781pt x 228.855pt>
 File: Soils/13_v2.png Graphic file (type png)
 <use Soils/13_v2.png>
-Package pdftex.def Info: Soils/13_v2.png  used on input line 947.
+Package pdftex.def Info: Soils/13_v2.png  used on input line 903.
 (pdftex.def)             Requested size: 231.2979pt x 89.57086pt.
 <Soils/13_v3.png, id=859, 706.13812pt x 211.54031pt>
 File: Soils/13_v3.png Graphic file (type png)
 <use Soils/13_v3.png>
-Package pdftex.def Info: Soils/13_v3.png  used on input line 956.
+Package pdftex.def Info: Soils/13_v3.png  used on input line 910.
 (pdftex.def)             Requested size: 472.03123pt x 141.40848pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 961--963
+Underfull \hbox (badness 10000) in paragraph at lines 914--916
 
  []
 
 
 
 [28 <./Soils/12_v2.png> <./Soils/13.png> <./Soils/13_v2.png> <./Soils/13_v3.png>]
-
-[29]
-<diagramas/VPP_B.png, id=869, 770.3982pt x 396.7623pt>
+<diagramas/VPP_B.png, id=865, 770.3982pt x 396.7623pt>
 File: diagramas/VPP_B.png Graphic file (type png)
 <use diagramas/VPP_B.png>
-Package pdftex.def Info: diagramas/VPP_B.png  used on input line 970.
+Package pdftex.def Info: diagramas/VPP_B.png  used on input line 923.
 (pdftex.def)             Requested size: 472.03123pt x 243.10226pt.
 
 
-[30 <./diagramas/VPP_B.png>]
-<diagramas/USE_B.png, id=876, 758.835pt x 367.80267pt>
+[29 <./diagramas/VPP_B.png>]
+<diagramas/USE_B.png, id=871, 758.835pt x 367.80267pt>
 File: diagramas/USE_B.png Graphic file (type png)
 <use diagramas/USE_B.png>
-Package pdftex.def Info: diagramas/USE_B.png  used on input line 1028.
+Package pdftex.def Info: diagramas/USE_B.png  used on input line 980.
 (pdftex.def)             Requested size: 472.03123pt x 228.79294pt.
 
 
-[31]
+[30]
 
-[32 <./diagramas/USE_B.png>]
+[31 <./diagramas/USE_B.png>]
+
+[32]
 
 [33]
 
@@ -815,112 +697,109 @@ Package pdftex.def Info: diagramas/USE_B.png  used on input line 1028.
 [37]
 
 [38]
-
-[39]
-<Soils/dinamicoInv3_true.png, id=1244, 754.017pt x 248.72925pt>
+<Soils/dinamicoInv3_true.png, id=1240, 754.017pt x 248.72925pt>
 File: Soils/dinamicoInv3_true.png Graphic file (type png)
 <use Soils/dinamicoInv3_true.png>
-Package pdftex.def Info: Soils/dinamicoInv3_true.png  used on input line 1409.
+Package pdftex.def Info: Soils/dinamicoInv3_true.png  used on input line 1360.
 (pdftex.def)             Requested size: 472.03123pt x 155.70967pt.
-<Soils/dinamicoInv3_false.png, id=1245, 777.50475pt x 263.7855pt>
+<Soils/dinamicoInv3_false.png, id=1241, 777.50475pt x 263.7855pt>
 File: Soils/dinamicoInv3_false.png Graphic file (type png)
 <use Soils/dinamicoInv3_false.png>
-Package pdftex.def Info: Soils/dinamicoInv3_false.png  used on input line 1414.
+Package pdftex.def Info: Soils/dinamicoInv3_false.png  used on input line 1365.
 (pdftex.def)             Requested size: 472.03123pt x 160.14415pt.
 
 
-[40 <./Soils/dinamicoInv3_true.png>]
-<Soils/dinamico_inv4_bien.png, id=1263, 817.55438pt x 398.23781pt>
+[39 <./Soils/dinamicoInv3_true.png>]
+<Soils/dinamico_inv4_bien.png, id=1259, 817.55438pt x 398.23781pt>
 File: Soils/dinamico_inv4_bien.png Graphic file (type png)
 <use Soils/dinamico_inv4_bien.png>
-Package pdftex.def Info: Soils/dinamico_inv4_bien.png  used on input line 1423.
+Package pdftex.def Info: Soils/dinamico_inv4_bien.png  used on input line 1374.
 (pdftex.def)             Requested size: 472.03123pt x 229.9329pt.
-<Soils/dinamico_inv4_false.png, id=1264, 892.83563pt x 383.18156pt>
+<Soils/dinamico_inv4_false.png, id=1260, 892.83563pt x 383.18156pt>
 File: Soils/dinamico_inv4_false.png Graphic file (type png)
 <use Soils/dinamico_inv4_false.png>
-Package pdftex.def Info: Soils/dinamico_inv4_false.png  used on input line 1427.
+Package pdftex.def Info: Soils/dinamico_inv4_false.png  used on input line 1378.
 (pdftex.def)             Requested size: 472.03123pt x 202.58243pt.
 
 
-[41 <./Soils/dinamicoInv3_false.png> <./Soils/dinamico_inv4_bien.png>]
-<Soils/dinamico_inv5_true.png, id=1270, 620.3175pt x 215.00325pt>
+[40 <./Soils/dinamicoInv3_false.png> <./Soils/dinamico_inv4_bien.png>]
+<Soils/dinamico_inv5_true.png, id=1266, 620.3175pt x 215.00325pt>
 File: Soils/dinamico_inv5_true.png Graphic file (type png)
 <use Soils/dinamico_inv5_true.png>
-Package pdftex.def Info: Soils/dinamico_inv5_true.png  used on input line 1436.
+Package pdftex.def Info: Soils/dinamico_inv5_true.png  used on input line 1387.
 (pdftex.def)             Requested size: 472.03123pt x 163.60756pt.
-<Soils/dinamico_inv5_false.png, id=1271, 687.16725pt x 233.07076pt>
+<Soils/dinamico_inv5_false.png, id=1267, 687.16725pt x 233.07076pt>
 File: Soils/dinamico_inv5_false.png Graphic file (type png)
 <use Soils/dinamico_inv5_false.png>
-Package pdftex.def Info: Soils/dinamico_inv5_false.png  used on input line 1441.
+Package pdftex.def Info: Soils/dinamico_inv5_false.png  used on input line 1392.
 (pdftex.def)             Requested size: 472.03123pt x 160.1006pt.
 
 
-[42 <./Soils/dinamico_inv4_false.png> <./Soils/dinamico_inv5_true.png>]
-<Soils/dinamicoInv7_true.png, id=1278, 638.385pt x 347.49825pt>
+[41 <./Soils/dinamico_inv4_false.png> <./Soils/dinamico_inv5_true.png>]
+<Soils/dinamicoInv7_true.png, id=1273, 638.385pt x 347.49825pt>
 File: Soils/dinamicoInv7_true.png Graphic file (type png)
 <use Soils/dinamicoInv7_true.png>
-Package pdftex.def Info: Soils/dinamicoInv7_true.png  used on input line 1450.
+Package pdftex.def Info: Soils/dinamicoInv7_true.png  used on input line 1401.
 (pdftex.def)             Requested size: 472.03123pt x 256.94847pt.
-<Soils/dinamicoInv7_false.png, id=1279, 703.428pt x 296.307pt>
+<Soils/dinamicoInv7_false.png, id=1274, 703.428pt x 296.307pt>
 File: Soils/dinamicoInv7_false.png Graphic file (type png)
 <use Soils/dinamicoInv7_false.png>
-Package pdftex.def Info: Soils/dinamicoInv7_false.png  used on input line 1454.
+Package pdftex.def Info: Soils/dinamicoInv7_false.png  used on input line 1405.
 (pdftex.def)             Requested size: 472.03123pt x 198.83662pt.
 
 
-[43 <./Soils/dinamico_inv5_false.png> <./Soils/dinamicoInv7_true.png>]
-<Soils/dinamico_inv12_true.png, id=1286, 623.32875pt x 217.41225pt>
+[42 <./Soils/dinamico_inv5_false.png> <./Soils/dinamicoInv7_true.png>]
+<Soils/dinamico_inv12_true.png, id=1282, 623.32875pt x 217.41225pt>
 File: Soils/dinamico_inv12_true.png Graphic file (type png)
 <use Soils/dinamico_inv12_true.png>
-Package pdftex.def Info: Soils/dinamico_inv12_true.png  used on input line 1462.
+Package pdftex.def Info: Soils/dinamico_inv12_true.png  used on input line 1413.
 (pdftex.def)             Requested size: 377.62642pt x 131.7156pt.
-<Soils/dinamico_inv12_false.png, id=1287, 604.05675pt x 211.992pt>
+<Soils/dinamico_inv12_false.png, id=1283, 604.05675pt x 211.992pt>
 File: Soils/dinamico_inv12_false.png Graphic file (type png)
 <use Soils/dinamico_inv12_false.png>
-Package pdftex.def Info: Soils/dinamico_inv12_false.png  used on input line 1468.
+Package pdftex.def Info: Soils/dinamico_inv12_false.png  used on input line 1419.
 (pdftex.def)             Requested size: 472.03123pt x 165.66362pt.
 
 
-[44 <./Soils/dinamicoInv7_false.png> <./Soils/dinamico_inv12_true.png>]
-<Soils/dinamico_inv13_true.png, id=1294, 512.34268pt x 223.26268pt>
+[43 <./Soils/dinamicoInv7_false.png> <./Soils/dinamico_inv12_true.png>]
+<Soils/dinamico_inv13_true.png, id=1290, 512.34268pt x 223.26268pt>
 File: Soils/dinamico_inv13_true.png Graphic file (type png)
 <use Soils/dinamico_inv13_true.png>
-Package pdftex.def Info: Soils/dinamico_inv13_true.png  used on input line 1475.
+Package pdftex.def Info: Soils/dinamico_inv13_true.png  used on input line 1426.
 (pdftex.def)             Requested size: 377.62642pt x 164.5645pt.
-<Soils/dinamico_inv13_false.png, id=1295, 829.59938pt x 315.42844pt>
+<Soils/dinamico_inv13_false.png, id=1291, 829.59938pt x 315.42844pt>
 File: Soils/dinamico_inv13_false.png Graphic file (type png)
 <use Soils/dinamico_inv13_false.png>
-Package pdftex.def Info: Soils/dinamico_inv13_false.png  used on input line 1480.
+Package pdftex.def Info: Soils/dinamico_inv13_false.png  used on input line 1431.
 (pdftex.def)             Requested size: 472.03123pt x 179.47359pt.
 
 
-[45 <./Soils/dinamico_inv12_false.png> <./Soils/dinamico_inv13_true.png>]
-<fotosInstantes/Instante0.png, id=1302, 1012.5328pt x 523.9575pt>
+[44 <./Soils/dinamico_inv12_false.png> <./Soils/dinamico_inv13_true.png>]
+<fotosInstantes/Instante0.png, id=1298, 629.78143pt x 206.9159pt>
 File: fotosInstantes/Instante0.png Graphic file (type png)
 <use fotosInstantes/Instante0.png>
-Package pdftex.def Info: fotosInstantes/Instante0.png  used on input line 1500.
-(pdftex.def)             Requested size: 472.03123pt x 244.26932pt.
+Package pdftex.def Info: fotosInstantes/Instante0.png  used on input line 1451.
+(pdftex.def)             Requested size: 472.03123pt x 155.09181pt.
 
 
-[46 <./Soils/dinamico_inv13_false.png>]
-<fotosInstantes/Instante1.png, id=1307, 1012.5328pt x 518.6878pt>
+[45 <./Soils/dinamico_inv13_false.png>]
+<fotosInstantes/Instante1.png, id=1303, 631.50214pt x 301.125pt>
 File: fotosInstantes/Instante1.png Graphic file (type png)
 <use fotosInstantes/Instante1.png>
-Package pdftex.def Info: fotosInstantes/Instante1.png  used on input line 1513.
-(pdftex.def)             Requested size: 472.03123pt x 241.81258pt.
-
-
-[47 <./fotosInstantes/Instante0.png>]
-<fotosInstantes/Instante2.png, id=1312, 1103.62312pt x 527.72156pt>
+Package pdftex.def Info: fotosInstantes/Instante1.png  used on input line 1464.
+(pdftex.def)             Requested size: 472.03123pt x 225.08044pt.
+<fotosInstantes/Instante2.png, id=1304, 655.59215pt x 325.64517pt>
 File: fotosInstantes/Instante2.png Graphic file (type png)
 <use fotosInstantes/Instante2.png>
-Package pdftex.def Info: fotosInstantes/Instante2.png  used on input line 1524.
-(pdftex.def)             Requested size: 472.03123pt x 225.71605pt.
+Package pdftex.def Info: fotosInstantes/Instante2.png  used on input line 1475.
+(pdftex.def)             Requested size: 472.03123pt x 234.47427pt.
 
 
-[48 <./fotosInstantes/Instante1.png> <./fotosInstantes/Instante2.png>]
+[46 <./fotosInstantes/Instante0.png> <./fotosInstantes/Instante1.png>]
 
-[49] (main.aux
+[47 <./fotosInstantes/Instante2.png>]
+
+[48] (main.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -928,25 +807,21 @@ LaTeX Info: Redefining \% on input line 11.
 LaTeX2e <2024-11-01>
 L3 programming layer <2024-10-09>
  ***********
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: FA3715EF2BFF0E61C21E7F3BCB8639E6;13494.
  ) 
 Here is how much of TeX's memory you used:
- 14992 strings out of 473702
- 233750 string characters out of 5735993
- 1224683 words of memory out of 5000000
- 37080 multiletter control sequences out of 15000+600000
+ 14982 strings out of 473702
+ 233523 string characters out of 5735993
+ 1223905 words of memory out of 5000000
+ 37070 multiletter control sequences out of 15000+600000
  562112 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,8n,93p,827b,2259s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,8n,93p,832b,2259s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\franc\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (50 pages, 1746790 bytes).
+Output written on main.pdf (49 pages, 1762419 bytes).
 PDF statistics:
- 1571 PDF objects out of 1728 (max. 8388607)
+ 1570 PDF objects out of 1728 (max. 8388607)
  826 named destinations out of 1000 (max. 500000)
  782 words of extra memory for PDF output out of 10000 (max. 10000000)
 
