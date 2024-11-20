@@ -5,6 +5,11 @@ abstract class Socio {
     private String nombre;
     private Date registro;
 
+
+    public Socio(int ID,String nombre,Date registro){
+
+    }
+
     public void setID(int ID){
         this.ID = ID;
     }

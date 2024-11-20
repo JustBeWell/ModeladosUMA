@@ -11,6 +11,9 @@ public class Refugio{
     public void setLiquidez(double liquidez){
         this.liquidez = liquidez;
     }
-    
+
+    public double getLiquidez(double liquidez){
+        return liquidez;
+    }
     
 }

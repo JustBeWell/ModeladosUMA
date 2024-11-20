@@ -1,4 +1,10 @@
+import java.util.Date;
+
 public class Adoptante extends Socio{
+
+    public Adoptante(int ID, String nombre, Date registro) {
+        super(ID, nombre, registro);
+    }
 
     public void adoptar(Animal a){
         

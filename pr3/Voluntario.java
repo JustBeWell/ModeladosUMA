@@ -1,6 +1,10 @@
 import java.util.*;
 
 public class Voluntario extends Socio{
+    public Voluntario(int ID, String nombre, Date registro) {
+        super(ID, nombre, registro);
+    }
+
     public void tramitarAdopcion(Animal a, Adoptante ad){
         
     }
