@@ -1,3 +1,4 @@
+import java.util.*;
 public class Adopcion{
 
     private Date fecha;

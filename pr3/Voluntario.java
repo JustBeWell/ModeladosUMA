@@ -13,7 +13,7 @@ public class Voluntario extends Socio{
     }
 
     public int getID(){
-        super.getID();
+         return super.getID();
     }
 
     public void setNombre(String nombre){
@@ -21,7 +21,7 @@ public class Voluntario extends Socio{
     }
 
     public String getNombre(){
-        super.getNombre();
+        return super.getNombre();
     }
 
     

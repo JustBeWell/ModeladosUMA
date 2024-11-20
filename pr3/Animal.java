@@ -23,11 +23,11 @@ public class Animal{
         return nacimiento;
     }
     
-    public void setEstado(String estado){
+    public void setEstado(EstadoAnimal estado){
         this.estado = estado;
     }
 
-    public String getEstado(){
+    public EstadoAnimal getEstado(){
         return estado;
     }
 

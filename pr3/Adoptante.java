@@ -4,11 +4,11 @@ public class Adoptante extends Socio{
         
     }
     public void setID(int ID){
-        super.setID();
+        super.setID(ID);
     }
 
     public int getID(){
-        super.getID();
+        return super.getID();
     }
 
     public void setNombre(String nombre){
@@ -16,6 +16,6 @@ public class Adoptante extends Socio{
     }
 
     public String getNombre(){
-        super.getNombre();
+        return super.getNombre();
     }
 }

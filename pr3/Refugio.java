@@ -5,7 +5,7 @@ public class Refugio{
     private List<Animal> animales = new LinkedList<Animal>(); // Composición con clase Animal
     
     public void registrar(Animal a){
-        animales.append(a);
+        animales.add(a);
     }
     
     public void setLiquidez(double liquidez){
