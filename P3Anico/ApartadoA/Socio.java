@@ -7,25 +7,23 @@
  *
  * @author byani
  */
+
 import  java.util.Date;
 
 public abstract class Socio {
-    private Date date;
+    private Date fecha;
     private Refugio r;
-    public Socio(Date date, Refugio r) {
-        this.date = date;
+    public Socio(Date fecha, Refugio r) {
+        this.fecha = fecha;
         this.r = r;
     }
-
     public Date getDate() {
-        return date;
+        return this.fecha;
     }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(Date fecha) {
+        this.fecha = fecha;
     }
-
-    public Refugio getR() {
+    public Refugio getRefugio() {
         return this.r;
     }
     

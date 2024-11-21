@@ -1,39 +1,34 @@
+import java.util.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
-import java.util.Date;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author byani
  */
 public class Voluntario extends Socio{
-    private Refugio r;
+    List<Adopcion> tramites;
     public Voluntario(Date date,Refugio r) {
         super(date,r);
-        this.r = super.getR();
+        tramites = new ArrayList<>();
     }
-
     public void tramitarAdopcion(Animal a, Adoptante ad){
-        if(!r.getAnimalesRegistrados().contains(a)){
-            registrar(a);
-            if(!r.getAdoptantes().contains(ad)) r.añadirAdoptante(ad);
-            r.añadirAnimalesRefugiados(a);
-        }
+         ad.addAnimal(a);
+         LocalDate fechaAdopcion = LocalDate.now();
+         // Añadimos una nuevo tramite del animal al adoptante con la fecha actual.
+         tramites.add(new Adopcion(a, ad, Date.from(fechaAdopcion.atStartOfDay(ZoneId.systemDefault()).toInstant())));
     }
-
     public void registrar(Animal a){
-        if(!r.getAnimalesRegistrados().contains(a)){
-            r.registrar(a);
-            a.setRefugio(r);
-            if(!(r.getVoluntarios().contains(this))) r.añadirVoluntario(this);
-            r.añadirAnimalesRegistrados(a);
-        }
+            Refugio r = super.getRefugio();
+            // Un animal se añade al refugio con el estado disponible
+            a.setEstadoAnimal(EstadoAnimal.DISPONIBLE);
+            r.addAnimalesRefugiados(a);
     }
-
     @Override
     public String toString() {
         return "Voluntario{}";

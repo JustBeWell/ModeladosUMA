@@ -4,6 +4,8 @@
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -34,44 +36,74 @@ public class Refugio {
         this.liquidez = liquidez;
     }
 
-    public List<Adoptante> getAdoptantes() {
-        return adoptantes;
+    public Enumeration<Adoptante> getAdoptantes() {
+        return Collections.enumeration(adoptantes);
     }
 
-    public List<Voluntario> getVoluntarios() {
-        return voluntarios;
+    public Enumeration<Voluntario> getVoluntarios() {
+        return Collections.enumeration(voluntarios);
     }
 
-    public List<Donante> getDonantes() {
-        return donantes;
+    public Enumeration<Donante> getDonantes() {
+        return Collections.enumeration(donantes);
     }
     
-    public List<Animal> getAnimalesRegistrados() {
-        return animalesRegistrados;
+    public Enumeration<Animal> getAnimalesRegistrados() {
+        return Collections.enumeration(animalesRegistrados);
+    }
+    public Enumeration<Animal> getAnimalesRefugiados() {
+        return Collections.enumeration(animalesRefugiados);
     }
 
     public void registrar(Animal a){
         a.setEstadoAnimal(EstadoAnimal.DISPONIBLE);
     }
-    public void añadirAdoptante(Adoptante a){
+    public void addAdoptante(Adoptante a){
         adoptantes.add(a);
     }
-    public void añadirVoluntario(Voluntario v){
-        voluntarios.add(v);
+    public void removeAddoptante(Adoptante a){
+        if(adoptantes.contains(a))    adoptantes.remove(a);
+        else System.out.println("El adoptante no está asociado al refugio");
+
     }
-    public void añadirDonante(Donante d){
-        donantes.add(d);
+    public void addVoluntario(Voluntario v){
+        if(!voluntarios.contains(v)) voluntarios.add(v);
+        else System.out.println("El voluntario ya está asociado al refugio");
     }
-    public void añadirAnimalesRefugiados(Animal a){
-        animalesRefugiados.add(a);
+    public void removeVoluntario(Voluntario v){
+        if(voluntarios.contains(v))    adoptantes.remove(v);
+        else System.out.println("El voluntario no está asociado al refugio");
+
     }
-    public void añadirAnimalesRegistrados(Animal a){
+    public void addDonante(Donante d){
+        if(!donantes.contains(d)) donantes.add(d);
+        else System.out.println("Este donante ya está asociado al refugio");
+    }
+    public void removeDonante(Donante d){
+        if(donantes.contains(d))    donantes.remove(d);
+        else System.out.println("Este donante no ha realizado ninguna doncación al refugio");
+    }
+    public void addAnimalesRefugiados(Animal a){
+        if(!animalesRefugiados.contains(a)){
+            animalesRefugiados.add(a);
+            this.addAnimalesRegistrados(a);
+        }else System.out.println("Este animal ya está refugiado");
+    }
+    public void removeAnimalesRefugiados(Animal a){
+        if(animalesRefugiados.contains(a))    animalesRefugiados.remove(a);
+        else System.out.println("Este animal no está refugiado");
+    }
+    public void addAnimalesRegistrados(Animal a){
         animalesRegistrados.add(a);
     }
+//    public void removeAnimalesRegistrados(Animal a){
+//        if(animalesRegistrados.contains(a))    animalesRegistrados.remove(a);
+//        else System.out.println("Este animal no está refugiado");
+//    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("AnimalesRegistrados: ").append(animalesRegistrados).append("\n");
+        sb.append("Animales Registrados: ").append(animalesRegistrados).append("\n");
         sb.append("Animales Refugiados: ").append(animalesRefugiados).append("\n");
         sb.append("Adoptantes: ").append(adoptantes).append("\n");
         sb.append("Voluntarios: ").append(voluntarios).append("\n");

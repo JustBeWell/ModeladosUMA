@@ -15,8 +15,8 @@ public class Test {
         Voluntario v = new Voluntario(new Date(), r);
         Donante d = new Donante(new Date(), r);
         Adoptante ad = new Adoptante(new Date(),r);
-        Animal a = new Animal(new Date(), null, null);
-        Animal b = new Animal(new Date(),null,null);
+        Animal a = new Animal(1, new Date(), null, null);
+        Animal b = new Animal(2, new Date(),null,null);
 
         d.donar(100.00);
         v.registrar(a);

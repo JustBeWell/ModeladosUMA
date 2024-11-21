@@ -11,10 +11,13 @@ import java.util.Date;
  * @author byani
  */
 public class Animal {
+    private int ID;
     private Date nacimiento;
     private EstadoAnimal estadoAnimal;
     private Refugio refugio;
-    public Animal(Date nacimiento, EstadoAnimal estadoAnimal,Refugio refugio) {
+    private Adopcion adopcion;
+    public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal,Refugio refugio) {
+        this.ID = ID;
         this.nacimiento = nacimiento;
         this.estadoAnimal = estadoAnimal;
         this.refugio = refugio;

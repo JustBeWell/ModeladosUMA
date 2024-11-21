@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Collections;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -18,15 +19,14 @@ public class Donante extends Socio{
     public Donante(Date date,Refugio r) {
         super(date,r);
         donaciones = new ArrayList<>();
-        this.r = super.getR();
+        this.r = super.getRefugio();
     }
 
-    public void donar(Double amount){
-        Donacion d = new Donacion(amount,new Date());
+    public void donar(Double cantidad){
+        Donacion d = new Donacion(cantidad,new Date());
         donaciones.add(d);
-        r.setLiquidez(r.getLiquidez() + amount);
-        if(!r.getDonantes().contains(this)) r.añadirDonante(this);
-        System.out.println(d.toString());
+        r.setLiquidez(r.getLiquidez() + cantidad);
+        if(!Collections.list(r.getDonantes()).contains(d)) r.addDonante(this);
     }
 
     @Override
