@@ -14,7 +14,7 @@ public class Animal {
     private int ID;
     private Date nacimiento;
     private EstadoAnimal estadoAnimal;
-    private Refugio refugio;
+    final private Refugio refugio;
     private Adopcion adopcion;
     public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal,Refugio refugio) {
         this.ID = ID;
@@ -37,9 +37,7 @@ public class Animal {
     public Refugio getRefugio() {
         return refugio;
     }
-    public void setRefugio(Refugio refugio) {
-        this.refugio = refugio;
-    }
+    //public void setRefugio(Refugio refugio) {     this.refugio = refugio;   }
     @Override
     public String toString() {
         return "Animal{" + "nacimiento=" + nacimiento + ", estadoAnimal=" + estadoAnimal + '}';

@@ -12,11 +12,11 @@ import java.util.*;
  */
 public class Adoptante extends Socio {
     //private Refugio r;
-    List<Animal> animales;
+    List<Adopcion> adopciones;
 
     public Adoptante(Date date, Refugio r) {
         super(date,r);
-        animales = new ArrayList<>();
+        adopciones = new ArrayList<>();
         //this.r = super.getR();
     }
 
@@ -24,13 +24,13 @@ public class Adoptante extends Socio {
         v.tramitarAdopcion(a, this);
     }
 
-    public void addAnimal(Animal a){
-        if (!animales.contains(a)) animales.add(a);
+    public void addAdopcion(Adopcion a){
+        if (!adopciones.contains(a)) adopciones.add(a);
         else System.out.println("Este animal ya está adoptado");
     }
 
-    public void removeAnimal(Animal a){
-        if (!animales.contains(a)) animales.add(a);
+    public void removeAdopcion(Adopcion a){
+        if (!adopciones.contains(a)) adopciones.add(a);
         else System.out.println("Este animal ya no está asociado al adoptante");
     }
 

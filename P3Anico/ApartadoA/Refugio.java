@@ -14,11 +14,14 @@ import java.util.List;
  */
 public class Refugio {
     private double liquidez;
+
     private List<Animal> animalesRegistrados;
     private List<Animal> animalesRefugiados;
+
     private List<Adoptante> adoptantes;
     private List<Voluntario> voluntarios;
     private List<Donante> donantes;
+
     public Refugio(double liquidez) {
         this.liquidez = liquidez;
         animalesRefugiados = new ArrayList<>();

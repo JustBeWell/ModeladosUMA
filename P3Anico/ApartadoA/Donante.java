@@ -15,16 +15,17 @@ import java.util.Collections;
  */
 public class Donante extends Socio{
     private List<Donacion> donaciones;
-    Refugio r;
+    //Refugio r;
     public Donante(Date date,Refugio r) {
         super(date,r);
         donaciones = new ArrayList<>();
-        this.r = super.getRefugio();
     }
 
     public void donar(Double cantidad){
-        Donacion d = new Donacion(cantidad,new Date());
+        Donacion d = new Donacion(cantidad,new Date(), this);
         donaciones.add(d);
+
+        Refugio r = super.getRefugio();
         r.setLiquidez(r.getLiquidez() + cantidad);
         if(!Collections.list(r.getDonantes()).contains(d)) r.addDonante(this);
     }

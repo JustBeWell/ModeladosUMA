@@ -18,10 +18,12 @@ public class Voluntario extends Socio{
         tramites = new ArrayList<>();
     }
     public void tramitarAdopcion(Animal a, Adoptante ad){
-         ad.addAnimal(a);
+
          LocalDate fechaAdopcion = LocalDate.now();
          // Añadimos una nuevo tramite del animal al adoptante con la fecha actual.
-         tramites.add(new Adopcion(a, ad, Date.from(fechaAdopcion.atStartOfDay(ZoneId.systemDefault()).toInstant())));
+         Adopcion adopcion = new Adopcion(a, ad, Date.from(fechaAdopcion.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+         tramites.add(adopcion);
+         ad.addAdopcion(adopcion);
     }
     public void registrar(Animal a){
             Refugio r = super.getRefugio();

@@ -12,7 +12,7 @@ import  java.util.Date;
 
 public abstract class Socio {
     private Date fecha;
-    private Refugio r;
+    private final Refugio r;
     public Socio(Date fecha, Refugio r) {
         this.fecha = fecha;
         this.r = r;

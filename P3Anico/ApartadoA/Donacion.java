@@ -11,10 +11,12 @@ import java.util.Date;
 public class Donacion {
     private Double cantidad;
     private Date date;
+    private final Donante donante;
 
-    public Donacion(Double cantidad, Date date) {
+    public Donacion(Double cantidad, Date date, Donante donante) {
         this.cantidad = cantidad;
         this.date = date;
+        this.donante = donante;
     }
 
     public Double getCantidad() {
