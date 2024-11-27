@@ -14,8 +14,8 @@ public class Adoptante extends Socio {
     //private Refugio r;
     List<Adopcion> adopciones;
 
-    public Adoptante(Date date, Refugio r) {
-        super(date,r);
+    public Adoptante(int ID, Date date, Refugio r) {
+        super(ID, date,r);
         adopciones = new ArrayList<>();
         //this.r = super.getR();
     }
@@ -32,6 +32,9 @@ public class Adoptante extends Socio {
     public void removeAdopcion(Adopcion a){
         if (!adopciones.contains(a)) adopciones.add(a);
         else System.out.println("Este animal ya no está asociado al adoptante");
+    }
+    public Enumeration<Adopcion> getAdopciones(){
+        return Collections.enumeration(adopciones);
     }
 
     @Override

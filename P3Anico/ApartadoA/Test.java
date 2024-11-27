@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class Test {
     public static void main(String[] args) {
-        Refugio r = new Refugio(0);
+     /*   Refugio r = new Refugio(0);
         Voluntario v = new Voluntario(new Date(), r);
         Donante d = new Donante(new Date(), r);
         Adoptante ad = new Adoptante(new Date(),r);
@@ -25,5 +25,7 @@ public class Test {
         d.donar(200.00);
         ad.adoptar(a, v);
         System.out.println(r.toString());
+
+      */
     }
 }

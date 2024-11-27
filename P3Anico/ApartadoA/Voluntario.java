@@ -13,16 +13,15 @@ import java.time.ZoneId;
  */
 public class Voluntario extends Socio{
     List<Adopcion> tramites;
-    public Voluntario(Date date,Refugio r) {
-        super(date,r);
+    public Voluntario(int ID, Date date,Refugio r) {
+        super(ID, date,r);
         tramites = new ArrayList<>();
     }
     public void tramitarAdopcion(Animal a, Adoptante ad){
-
          LocalDate fechaAdopcion = LocalDate.now();
          // Añadimos una nuevo tramite del animal al adoptante con la fecha actual.
-         Adopcion adopcion = new Adopcion(a, ad, Date.from(fechaAdopcion.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-         tramites.add(adopcion);
+         Adopcion adopcion = new Adopcion(a, ad, this, Date.from(fechaAdopcion.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+         this.addTramite(adopcion);
          ad.addAdopcion(adopcion);
     }
     public void registrar(Animal a){
@@ -31,6 +30,21 @@ public class Voluntario extends Socio{
             a.setEstadoAnimal(EstadoAnimal.DISPONIBLE);
             r.addAnimalesRefugiados(a);
     }
+    public Enumeration<Adopcion> getTramites(){
+        return Collections.enumeration(tramites);
+    }
+    private void addTramite(Adopcion d){
+        if(!tramites.contains(d)){
+            tramites.add(d);
+        }else System.out.println("Este voluntario ya ha realizado este trámite");
+    }
+    /*public void removeTramite(Adopcion d){
+        if(tramites.contains(d))    tramites.remove(d);
+        else System.out.println("Este voluntario no ha realizado este trámite");
+    }
+
+     */
+
     @Override
     public String toString() {
         return "Voluntario{}";

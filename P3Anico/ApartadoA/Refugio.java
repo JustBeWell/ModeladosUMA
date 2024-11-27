@@ -13,22 +13,32 @@ import java.util.List;
  * @author byani
  */
 public class Refugio {
+    //Guarda la cantidad total de los animales
     private double liquidez;
-
+    //Lista para guardar a los animales registrados
     private List<Animal> animalesRegistrados;
+    //Lista para guardar los animales refugiados
     private List<Animal> animalesRefugiados;
-
+    // Lista para guardar a los adoptantes
     private List<Adoptante> adoptantes;
+    // Lista para guardar a los voluntarios
     private List<Voluntario> voluntarios;
+    //Lista para guardar a los donantes
     private List<Donante> donantes;
 
-    public Refugio(double liquidez) {
+    public Refugio(double liquidez, Animal a) {
         this.liquidez = liquidez;
         animalesRefugiados = new ArrayList<>();
         animalesRegistrados = new ArrayList<>();
         adoptantes = new ArrayList<>();
         voluntarios = new ArrayList<>();
         donantes = new ArrayList<>();
+
+        //Añadimos un animal a la lista de los registrados.
+        registrar(a);
+
+        //Añadimos un animal a la lista de los refugiados
+
     }
 
     public double getLiquidez() {
@@ -59,11 +69,13 @@ public class Refugio {
     }
 
     public void registrar(Animal a){
-        a.setEstadoAnimal(EstadoAnimal.DISPONIBLE);
+        this.addAnimalesRegistrados(a);
     }
+
     public void addAdoptante(Adoptante a){
         adoptantes.add(a);
     }
+
     public void removeAddoptante(Adoptante a){
         if(adoptantes.contains(a))    adoptantes.remove(a);
         else System.out.println("El adoptante no está asociado al refugio");
@@ -96,7 +108,7 @@ public class Refugio {
         if(animalesRefugiados.contains(a))    animalesRefugiados.remove(a);
         else System.out.println("Este animal no está refugiado");
     }
-    public void addAnimalesRegistrados(Animal a){
+    private void addAnimalesRegistrados(Animal a){
         animalesRegistrados.add(a);
     }
 //    public void removeAnimalesRegistrados(Animal a){

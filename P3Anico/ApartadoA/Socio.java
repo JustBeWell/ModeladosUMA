@@ -11,11 +11,17 @@
 import  java.util.Date;
 
 public abstract class Socio {
+    private int ID;        // Un socio se va a identificar a través de un ID
     private Date fecha;
     private final Refugio r;
-    public Socio(Date fecha, Refugio r) {
+    public Socio(int ID, Date fecha, Refugio r) {
+        this.ID = ID;
         this.fecha = fecha;
         this.r = r;
+    }
+    public int getID(){ return ID;}
+    private void setID(int ID){
+        this.ID = ID;
     }
     public Date getDate() {
         return this.fecha;

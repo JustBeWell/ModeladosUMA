@@ -22,10 +22,10 @@ public class Donacion {
     public Double getCantidad() {
         return cantidad;
     }
-
     public Date getDate() {
         return date;
     }
+    public Donante getDonante(){ return this.donante;}
     public void setDate(Date date) {
         this.date = date;
     }

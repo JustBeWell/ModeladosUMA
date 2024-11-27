@@ -11,32 +11,45 @@ import java.util.Date;
  * @author byani
  */
 public class Animal {
-    private int ID;
+    private int ID;    // Identificaión
     private Date nacimiento;
     private EstadoAnimal estadoAnimal;
     final private Refugio refugio;
     private Adopcion adopcion;
-    public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal,Refugio refugio) {
+
+    public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal,Refugio refugio, Adopcion adopcion) {
         this.ID = ID;
         this.nacimiento = nacimiento;
         this.estadoAnimal = estadoAnimal;
         this.refugio = refugio;
+        this.adopcion = adopcion;
     }
+
+    // Los getters para todos los atributos
     public EstadoAnimal getEstadoAnimal() {
         return estadoAnimal;
     }
     public Date getNacimiento() {
         return nacimiento;
     }
+    public Refugio getRefugio() {
+        return refugio;
+    }
+    public Adopcion getAdopcion() {
+        return this.adopcion;
+    }
+
+    //Los setters para todos los atributos
     public void setEstadoAnimal(EstadoAnimal estadoAnimal) {
         this.estadoAnimal = estadoAnimal;
     }
     public void setNacimiento(Date nacimiento) {
         this.nacimiento = nacimiento;
     }
-    public Refugio getRefugio() {
-        return refugio;
+    public void setAdopcion(Adopcion adopcion){
+        this.adopcion = adopcion;
     }
+
     //public void setRefugio(Refugio refugio) {     this.refugio = refugio;   }
     @Override
     public String toString() {

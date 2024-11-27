@@ -8,24 +8,35 @@
  * @author byani
  */
 import java.util.Date;
+
+
 public class Adopcion {
     private Date fecha;
     final private Animal animal;
     final private Adoptante adoptante;
+    final private Voluntario voluntario;
 
-    public Adopcion(Animal a, Adoptante ad, Date fecha) {
+    public Adopcion(Animal a, Adoptante ad, Voluntario voluntario, Date fecha) {
         this.animal = a;
         this.adoptante = ad;
+        this.voluntario = voluntario;
         this.fecha = fecha;
     }
-    public Date getDate() {
+    public Date getFecha() {
         return this.fecha;
     }
     public Animal getAnimal(){
         return this.animal;
     }
+    public Voluntario getVoluntario(){
+        return this.voluntario;
+    }
     public Adoptante getAdoptante(){
         return this.adoptante;
+    }
+
+    public void setFecha(Date fecha){
+        this.fecha = fecha;
     }
     @Override
     public String toString() {
