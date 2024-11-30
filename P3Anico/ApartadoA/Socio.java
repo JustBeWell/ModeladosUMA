@@ -8,18 +8,22 @@
  * @author byani
  */
 
-import  java.util.Date;
+import java.util.Date;
 
 public abstract class Socio {
-    private int ID;        // Un socio se va a identificar a través de un ID
+    private int ID;
     private Date fecha;
     private final Refugio r;
     public Socio(int ID, Date fecha, Refugio r) {
+        assert ID > 0 : "El ID del socio debe ser válido.";
+        assert fecha != null : "La fecha de registro no puede ser nula.";
         this.ID = ID;
         this.fecha = fecha;
         this.r = r;
     }
-    public int getID(){ return ID;}
+    public int getID(){
+        return ID;
+    }
     private void setID(int ID){
         this.ID = ID;
     }

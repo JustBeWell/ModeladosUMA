@@ -1,26 +1,16 @@
 
 import java.util.*;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author byani
- */
 public class Adoptante extends Socio {
-    //private Refugio r;
     List<Adopcion> adopciones;
 
     public Adoptante(int ID, Date date, Refugio r) {
         super(ID, date,r);
         adopciones = new ArrayList<>();
-        //this.r = super.getR();
     }
 
     public void adoptar(Animal a, Voluntario v) {
+        assert !adopciones.stream().anyMatch(ad -> ad.getAnimal().equals(a)) : "El adoptante ya tiene registrado este animal";
         v.tramitarAdopcion(a, this);
     }
 

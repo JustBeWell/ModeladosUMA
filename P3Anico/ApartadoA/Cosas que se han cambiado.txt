@@ -1,8 +1,11 @@
-- En Adoptante sobra Refugio r porque este atributo se hereda de la clase padre Socio.
-- En Socio hay que cambiar getR() por getRefugio()
-- El atributo date en la clase Socio se ha cambiado por el atributo fecha
-- Las comprobaciones de que un animal pertenece al refugio, o no,se realizan dentro de la propios métodos add y remove.
-- En la clase Voluntario el método tramitrarAdopcion(Animal a, Adoptante ad) no debería llamar registrar(Animal a), ya que este método registra al animal en el refugio
-y  tramitrarAdopcion(...) debería registrar la adopción en sí.
-- La clase de asociación se va a convertir en una clase intermedia entre Animal y Adoptante. Como una Adopción debe estar asociada a un único Adoptante
-y a un único Animal entonces se crean dos constante que cogen los nombres de sus clases y solo pueden ser consultadas, pero no modifciadas.
+- Se añadieron invariantes (assert) en constructores y métodos que comprueban que los datos
+instroducidos sean válidos.
+- Se revisó que el código cumple con relaciones bidireccionales. Es decir, cambios de add/remove
+se reflejan en ambas clases manteniendolas sincronizadas. Algo asi como el drop en cascada por ejemplo.
+en concreto, en la clase Adopcion que conecta con Animal, Adoptante y Voluntario.
+- En Refugio, los métodos de add/remove ahora están más completos
+- Se generó con ChatGPT un Tester para comprobar cada caso en el sistema.
+- Modificaciones de estética como mover métodos de sitio para que vayan acorde con el formato general
+del proyecto asi como añadir/quitar algunos comentarios.
+
+** Esta versión debería estar lista para documentar

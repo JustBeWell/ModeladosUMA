@@ -1,23 +1,20 @@
 
 import java.util.Date;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author byani
- */
 public class Animal {
-    private int ID;    // Identificaión
+    private int ID;
     private Date nacimiento;
     private EstadoAnimal estadoAnimal;
+    // Declaramos el Refugio como final porque estamos seguros que solo existirá una instancia de él
     final private Refugio refugio;
     private Adopcion adopcion;
 
-    public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal,Refugio refugio, Adopcion adopcion) {
+    public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal, Refugio refugio, Adopcion adopcion) {
+        assert ID > 0 : "El ID del animal debe ser válido.";
+        assert nacimiento != null : "La fecha de nacimiento no puede ser nula.";
+        assert estadoAnimal != null : "El estado del animal debe estar definido.";
+        assert refugio != null : "El refugio debe existir.";
+
         this.ID = ID;
         this.nacimiento = nacimiento;
         this.estadoAnimal = estadoAnimal;
@@ -25,12 +22,19 @@ public class Animal {
         this.adopcion = adopcion;
     }
 
-    // Los getters para todos los atributos
     public EstadoAnimal getEstadoAnimal() {
         return estadoAnimal;
     }
+    public void setEstadoAnimal(EstadoAnimal estadoAnimal) {
+        assert estadoAnimal != null : "El estado del animal debe estar definido.";
+        this.estadoAnimal = estadoAnimal;
+    }
     public Date getNacimiento() {
         return nacimiento;
+    }
+    public void setNacimiento(Date nacimiento) {
+        assert nacimiento != null : "La fecha de nacimiento no puede ser nula";
+        this.nacimiento = nacimiento;
     }
     public Refugio getRefugio() {
         return refugio;
@@ -38,23 +42,13 @@ public class Animal {
     public Adopcion getAdopcion() {
         return this.adopcion;
     }
-
-    //Los setters para todos los atributos
-    public void setEstadoAnimal(EstadoAnimal estadoAnimal) {
-        this.estadoAnimal = estadoAnimal;
-    }
-    public void setNacimiento(Date nacimiento) {
-        this.nacimiento = nacimiento;
-    }
     public void setAdopcion(Adopcion adopcion){
         this.adopcion = adopcion;
     }
 
-    //public void setRefugio(Refugio refugio) {     this.refugio = refugio;   }
     @Override
     public String toString() {
-        return "Animal{" + "nacimiento=" + nacimiento + ", estadoAnimal=" + estadoAnimal + '}';
+        return String.format("Animal: ID=%d, nacimiento=%tF, estado=%s", ID, nacimiento, estadoAnimal);
     }
 
-    
 }
