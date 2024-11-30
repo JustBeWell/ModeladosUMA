@@ -13,10 +13,10 @@ import java.util.Date;
 public class Adopcion {
     private Date fecha;
     final private Animal animal;
-    final private Adoptante adoptante;
-    final private Voluntario voluntario;
+    final private Socio adoptante;
+    final private Socio voluntario;
 
-    public Adopcion(Animal a, Adoptante ad, Voluntario voluntario, Date fecha) {
+    public Adopcion(Animal a, Socio ad, Socio voluntario, Date fecha) {
         this.animal = a;
         this.adoptante = ad;
         this.voluntario = voluntario;
@@ -28,10 +28,10 @@ public class Adopcion {
     public Animal getAnimal(){
         return this.animal;
     }
-    public Voluntario getVoluntario(){
+    public Socio getVoluntario(){
         return this.voluntario;
     }
-    public Adoptante getAdoptante(){
+    public Socio getAdoptante(){
         return this.adoptante;
     }
 

@@ -11,21 +11,24 @@ import java.util.Date;
  */
 public class Test {
     public static void main(String[] args) {
-     /* Refugio r = new Refugio(0);
-        Voluntario v = new Voluntario(new Date(), r);
-        Donante d = new Donante(new Date(), r);
-        Adoptante ad = new Adoptante(new Date(),r);
-        Animal a = new Animal(1, new Date(), null, null);
-        Animal b = new Animal(2, new Date(),null,null);
+        Animal a = new Animal(1, new Date(), null, null, null);
+        Animal b = new Animal(2, new Date(),null,null, null);
+        Refugio r = new Refugio(0, a);
+        Socio Pepe = new Socio(1, new Date(), r, true, true);
+        Socio Mavi = new Socio(1, new Date(), r, false, true);
+        Socio Tolo = new Socio(1, new Date(), r, true, false);
+        Socio Paco = new Socio(1, new Date(), r, false, false);
 
-        d.donar(100.00);
-        v.registrar(a);
-        ad.adoptar(b, v);
         System.out.println(r.toString());
-        d.donar(200.00);
-        ad.adoptar(a, v);
+        System.out.println("///////// ------- ////////");
+        Paco.donar(100.00);
+        Pepe.adoptar(a, Pepe);
         System.out.println(r.toString());
-
-      */
+        System.out.println(Pepe.esDonante());
+        System.out.println("///////// ------- ////////");
+        Mavi.donar(200.00);
+        Pepe.registrar(b);
+        Mavi.adoptar(b, Pepe);
+        System.out.println(r.toString());
     }
 }

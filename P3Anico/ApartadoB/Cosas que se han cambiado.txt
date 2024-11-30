@@ -1,8 +1,12 @@
-- En Adoptante sobra Refugio r porque este atributo se hereda de la clase padre Socio.
-- En Socio hay que cambiar getR() por getRefugio()
-- El atributo date en la clase Socio se ha cambiado por el atributo fecha
-- Las comprobaciones de que un animal pertenece al refugio, o no,se realizan dentro de la propios métodos add y remove.
-- En la clase Voluntario el método tramitrarAdopcion(Animal a, Adoptante ad) no debería llamar registrar(Animal a), ya que este método registra al animal en el refugio
-y  tramitrarAdopcion(...) debería registrar la adopción en sí.
-- La clase de asociación se va a convertir en una clase intermedia entre Animal y Adoptante. Como una Adopción debe estar asociada a un único Adoptante
-y a un único Animal entonces se crean dos constante que cogen los nombres de sus clases y solo pueden ser consultadas, pero no modifciadas.
+-Eliminadas las clases Donante, Voluntario y Adoptante.
+-Socio tiene 3 booleanos: esDonante, esVoluntario, esAdoptante.
+-Todos los métodos que estaban en cada clase hija, se ha puesto en la clase Socio y se ha añadido un if de comprobación para que el método de cada clase hija compruebe si su booleano está en true.
+-El booleano de esDonante SÓLO puede cambiar cuando haga una donación.
+
+Problemas:
+Cuando se llama un Socio.donar(cantidad), se realiza la donación y DEBERÍA de cambiar su estado de esDonante de false a true (está implementado en el método donar).
+	Sin embargo, en los tests que he hecho Socio.esDonante siempre me sale false aunque haya hecho una donación.
+
+
+Dudas:
+-Se pueden crear socios que tengan esVoluntario y esAdoptante en false. O sea, que es socio pero no tiene ningún rol al crearse.

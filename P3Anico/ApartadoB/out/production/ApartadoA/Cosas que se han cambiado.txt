@@ -1,0 +1,6 @@
+-Eliminadas las clases Donante, Voluntario y Adoptante.
+-Socio tiene 3 booleanos: esDonante, esVoluntario, esAdoptante.
+-El booleano de esDonante SÓLO puede cambiar cuando haga una donación.
+
+Dudas:
+-Se pueden crear socios que tengan esVoluntario y esAdoptante en false. O sea, que es socio pero no tiene ningún rol al crearse.

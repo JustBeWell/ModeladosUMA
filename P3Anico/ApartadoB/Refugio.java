@@ -20,11 +20,11 @@ public class Refugio {
     //Lista para guardar los animales refugiados
     private List<Animal> animalesRefugiados;
     // Lista para guardar a los adoptantes
-    private List<Adoptante> adoptantes;
+    private List<Socio> adoptantes;
     // Lista para guardar a los voluntarios
-    private List<Voluntario> voluntarios;
+    private List<Socio> voluntarios;
     //Lista para guardar a los donantes
-    private List<Donante> donantes;
+    private List<Socio> donantes;
 
     public Refugio(double liquidez, Animal a) {
         this.liquidez = liquidez;
@@ -49,15 +49,13 @@ public class Refugio {
         this.liquidez = liquidez;
     }
 
-    public Enumeration<Adoptante> getAdoptantes() {
-        return Collections.enumeration(adoptantes);
-    }
+    public Enumeration<Socio> getAdoptantes() {return Collections.enumeration(adoptantes);}
 
-    public Enumeration<Voluntario> getVoluntarios() {
+    public Enumeration<Socio> getVoluntarios() {
         return Collections.enumeration(voluntarios);
     }
 
-    public Enumeration<Donante> getDonantes() {
+    public Enumeration<Socio> getDonantes() {
         return Collections.enumeration(donantes);
     }
     
@@ -72,30 +70,31 @@ public class Refugio {
         this.addAnimalesRegistrados(a);
     }
 
-    public void addAdoptante(Adoptante a){
-        adoptantes.add(a);
+    public void addAdoptante(Socio a){
+        if(a.esAdoptante() && !adoptantes.contains(a)){
+            adoptantes.add(a);
+        }
     }
 
-    public void removeAddoptante(Adoptante a){
-        if(adoptantes.contains(a))    adoptantes.remove(a);
-        else System.out.println("El adoptante no está asociado al refugio");
+    public void removeAdoptante(Socio a){
+        if(a.esAdoptante() && adoptantes.contains(a))    adoptantes.remove(a);
+        else System.out.println("El socio no está asociado al refugio");
 
     }
-    public void addVoluntario(Voluntario v){
-        if(!voluntarios.contains(v)) voluntarios.add(v);
+    public void addVoluntario(Socio v){
+        if(v.esVoluntario() && !voluntarios.contains(v)) voluntarios.add(v);
         else System.out.println("El voluntario ya está asociado al refugio");
     }
-    public void removeVoluntario(Voluntario v){
-        if(voluntarios.contains(v))    adoptantes.remove(v);
+    public void removeVoluntario(Socio v){
+        if(v.esVoluntario() && voluntarios.contains(v))    adoptantes.remove(v);
         else System.out.println("El voluntario no está asociado al refugio");
-
     }
-    public void addDonante(Donante d){
-        if(!donantes.contains(d)) donantes.add(d);
+    public void addDonante(Socio d){
+        if(d.esDonante() && !donantes.contains(d) && d.esDonante()) donantes.add(d);
         else System.out.println("Este donante ya está asociado al refugio");
     }
-    public void removeDonante(Donante d){
-        if(donantes.contains(d))    donantes.remove(d);
+    public void removeDonante(Socio d){
+        if(d.esDonante() && donantes.contains(d))    donantes.remove(d);
         else System.out.println("Este donante no ha realizado ninguna doncación al refugio");
     }
     public void addAnimalesRefugiados(Animal a){

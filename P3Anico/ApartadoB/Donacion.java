@@ -11,9 +11,9 @@ import java.util.Date;
 public class Donacion {
     private Double cantidad;
     private Date date;
-    private final Donante donante;
+    private final Socio donante;
 
-    public Donacion(Double cantidad, Date date, Donante donante) {
+    public Donacion(Double cantidad, Date date, Socio donante) {
         this.cantidad = cantidad;
         this.date = date;
         this.donante = donante;
@@ -25,7 +25,7 @@ public class Donacion {
     public Date getDate() {
         return date;
     }
-    public Donante getDonante(){ return this.donante;}
+    public Socio getDonante(){ return this.donante;}
     public void setDate(Date date) {
         this.date = date;
     }
