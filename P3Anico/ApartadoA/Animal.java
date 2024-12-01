@@ -45,7 +45,22 @@ public class Animal {
     public void setAdopcion(Adopcion adopcion){
         this.adopcion = adopcion;
     }
+    
 
+    @Override
+    public boolean equals(Object obj) {
+        if( this == obj ) return true;
+        if(obj instanceof Animal ){
+            Animal animal = (Animal) obj;
+            return this.ID == animal.ID;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(ID);
+    }
     @Override
     public String toString() {
         return String.format("Animal: ID=%d, nacimiento=%tF, estado=%s", ID, nacimiento, estadoAnimal);

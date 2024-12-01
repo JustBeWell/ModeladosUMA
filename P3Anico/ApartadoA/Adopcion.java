@@ -49,6 +49,23 @@ public class Adopcion {
     public Adoptante getAdoptante(){
         return this.adoptante;
     }
+    
+
+    @Override
+    public boolean equals(Object obj) {
+        if( this == obj ) return true;
+        if(obj instanceof Adopcion ){
+            Adopcion adopcion = (Adopcion) obj;
+            boolean ok = this.adoptante.equals(adopcion.adoptante) && animal.equals(adopcion.animal);
+            return ok;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return adoptante.hashCode() + animal.hashCode();
+    }
 
     @Override
     public String toString() {

@@ -27,6 +27,19 @@ public class Adoptante extends Socio {
     public Enumeration<Adopcion> getAdopciones(){
         return Collections.enumeration(adopciones);
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        Adoptante adoptante = (Adoptante) obj;
+        if(obj instanceof Adoptante ){
+            return adoptante.getID() == this.getID();
+        }
+        return false;
+    }
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(this.getID());
+    }
 
     @Override
     public String toString() {
