@@ -3,34 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 public class Refugio {
     // Representa el capital financiero del refugio
     private double liquidez;
     //Lista para guardar a los animales registrados
-    private List<Animal> animalesRegistrados;
+    private Set<Animal> animalesRegistrados;
     //Lista para guardar los animales refugiados
-    private List<Animal> animalesRefugiados;
+    private Set<Animal> animalesRefugiados;
     // Lista para guardar a los adoptantes
-    private List<Adoptante> adoptantesEnRefugio;
-    // Lista para guardar a los voluntarios
-    private List<Voluntario> voluntariosEnRefugio;
-    //Lista para guardar a los donantes
-    private List<Donante> donantesEnRefugio;
-
+    private Set<Socio> socios;
     public Refugio(double liquidez) {
         assert liquidez >= 0 : "La liquidez debe ser no negativa.";
 
         this.liquidez = liquidez;
-        animalesRefugiados = new ArrayList<>();
-        animalesRegistrados = new ArrayList<>();
-        adoptantesEnRefugio = new ArrayList<>();
-        voluntariosEnRefugio = new ArrayList<>();
-        donantesEnRefugio = new ArrayList<>();
+        animalesRefugiados = new HashSet<>();
+        animalesRegistrados = new HashSet<>();
+        socios = new HashSet<>();
+
     }
 
     public double getLiquidez() {
@@ -39,6 +30,20 @@ public class Refugio {
     public void setLiquidez(double liquidez) {
         assert liquidez >= 0 : "La liquidez debe ser no negativa";
         this.liquidez = liquidez;
+    }
+    public void addSocio(Socio s) {
+        assert s != null : "El socio no puede ser nulo.";
+            socios.add(s);
+
+    }
+
+    public void removeSocio(Socio s) {
+        assert s != null : "El socio no puede ser nulo.";
+        if (socios.contains(s)) {
+            socios.remove(s);
+        } else {
+            System.out.println("Este socio no está registrado en el refugio.");
+        }
     }
 
     /** CREACIÓN DE LAS LISTAS DE OBJETOS */
@@ -49,24 +54,44 @@ public class Refugio {
     public Enumeration<Animal> getAnimalesRefugiados() {
         return Collections.enumeration(animalesRefugiados);
     }
-    public Enumeration<Adoptante> getAdoptantesEnRefugio() {
-        return Collections.enumeration(adoptantesEnRefugio);
+    public Enumeration<Socio> getSocios() {
+        return Collections.enumeration(socios);
     }
-    public Enumeration<Voluntario> getVoluntariosEnRefugio() {
-        return Collections.enumeration(voluntariosEnRefugio);
-    }
-    public Enumeration<Donante> getDonantesEnRefugio() {
-        return Collections.enumeration(donantesEnRefugio);
-    }
-
     /** MÉTODOS PARA AÑADIR OBJETOS AL REFUGIO */
+    public List<Adoptante> getAdoptantes() {
+        List<Adoptante> adoptantes = new ArrayList<>();
+        for (Socio s : socios) {
+            if (s instanceof Adoptante) {
+                adoptantes.add((Adoptante) s);
+            }
+        }
+        return adoptantes;
+    }
 
-    /*
-     * Este método no lo veo necesario ya que la función la cumple addAnimalesRegistrados
+    public List<Voluntario> getVoluntarios() {
+        List<Voluntario> voluntarios = new ArrayList<>();
+        for (Socio s : socios) {
+            if (s instanceof Voluntario) {
+                voluntarios.add((Voluntario) s);
+            }
+        }
+        return voluntarios;
+    }
+
+    public List<Donante> getDonantes() {
+        List<Donante> donantes = new ArrayList<>();
+        for (Socio s : socios) {
+            if (s instanceof Donante) {
+                donantes.add((Donante) s);
+            }
+        }
+        return donantes;
+    }
+
     public void registrar(Animal a){
         this.addAnimalesRegistrados(a);
     }
-    */
+
 
     public void addAnimalesRefugiados(Animal a){
         assert a != null : "El animal no puede ser nulo.";
@@ -84,30 +109,7 @@ public class Refugio {
             System.out.println("El animal ya está registrado.");
         }
     }
-    public void addAdoptante(Adoptante a){
-        assert a != null : "El adoptante no puede ser nulo.";
-        if (!adoptantesEnRefugio.contains(a)) {
-            adoptantesEnRefugio.add(a);
-        } else {
-            System.out.println("El adoptante ya está registrado.");
-        }
-    }
-    public void addVoluntario(Voluntario v){
-        assert v != null : "El voluntario no puede ser nulo.";
-        if (!voluntariosEnRefugio.contains(v)) {
-            voluntariosEnRefugio.add(v);
-        } else {
-            System.out.println("El voluntario ya está registrado.");
-        }
-    }
-    public void addDonante(Donante d){
-        assert d != null : "El donante no puede ser nulo.";
-        if (!donantesEnRefugio.contains(d)) {
-            donantesEnRefugio.add(d);
-        } else {
-            System.out.println("El donante ya está registrado.");
-        }
-    }
+
 
     /** MÉTODOS PARA ELIMINAR OBJETOS DEL REFUGIO */
 
@@ -119,30 +121,7 @@ public class Refugio {
             System.out.println("El animal ya fue eliminado de este refugio.");
         }
     }
-    public void removeAddoptante(Adoptante a){
-        assert a != null : "El adoptante no puede ser nulo.";
-        if (adoptantesEnRefugio.contains(a)) {
-            adoptantesEnRefugio.remove(a);
-        } else {
-            System.out.println("Este adoptante no está registrado en el refugio.");
-        }
-    }
-    public void removeVoluntario(Voluntario v){
-        assert v != null : "El voluntario no puede ser nulo.";
-        if (voluntariosEnRefugio.contains(v)) {
-            voluntariosEnRefugio.remove(v);
-        } else {
-            System.out.println("Este voluntario ya no está registrado en el refugio.");
-        }
-    }
-    public void removeDonante(Donante d){
-        assert d != null : "El donante no puede ser nulo.";
-        if (donantesEnRefugio.contains(d)) {
-            donantesEnRefugio.remove(d);
-        } else {
-            System.out.println("Este donante ya no está registrado en este refugio.");
-        }
-    }
+
 
     /** MÉTODOS AUXILIARES PARA MOSTRAR DATOS EN CONCRETO */
     public void mostrarAnimalesRefugiados(){
@@ -151,14 +130,16 @@ public class Refugio {
     public void mostrarAnimalesRegistrados(){
         System.out.println(animalesRegistrados.toString());
     }
-    public void mostrarAdoptantes(){
-        System.out.println(adoptantesEnRefugio.toString());
+    public void mostrarSocios() {
+        for (Socio s : socios) {
+            System.out.println(s);
+        }
     }
-    public void mostrarVoluntarios(){
-        System.out.println(voluntariosEnRefugio.toString());
-    }
-    public void mostrarDonantes(){
-        System.out.println(donantesEnRefugio.toString());
+
+    public void mostrarSociosPorTipo() {
+        System.out.println("Adoptantes: " + getAdoptantes());
+        System.out.println("Voluntarios: " + getVoluntarios());
+        System.out.println("Donantes: " + getDonantes());
     }
 
     @Override
@@ -166,9 +147,7 @@ public class Refugio {
         StringBuilder sb = new StringBuilder();
         sb.append("Animales Registrados: ").append(animalesRegistrados).append("\n");
         sb.append("Animales Refugiados: ").append(animalesRefugiados).append("\n");
-        sb.append("Adoptantes: ").append(adoptantesEnRefugio).append("\n");
-        sb.append("Voluntarios: ").append(voluntariosEnRefugio).append("\n");
-        sb.append("Donantes: ").append(donantesEnRefugio).append("\n");
+        sb.append("Socios: ").append(socios).append("\n");
         sb.append("Liquidez: ").append(liquidez);
         return sb.toString();
     }

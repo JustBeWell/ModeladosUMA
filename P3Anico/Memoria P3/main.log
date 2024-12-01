@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.8)  1 DEC 2024 10:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.8)  1 DEC 2024 12:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -474,29 +474,82 @@ l.163 \end{abstract}
 \openout2 = `body/ApartadoA/page.aux'.
 
  (body/ApartadoA/page.tex
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 24.
+
 
 [4
 
 ] (D:\Programas\LaTeXDistribution\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
-))
+)
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 59.
+ (D:\Programas\LaTeXDistribution\tex/latex/base\omscmr.fd
+File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 65.
+ (D:\Programas\LaTeXDistribution\tex/latex/base\omlcmr.fd
+File: omlcmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 65.
+
+Overfull \hbox (59.405pt too wide) in paragraph at lines 66--67
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (122.85489pt too wide) in paragraph at lines 67--68
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (94.65494pt too wide) in paragraph at lines 92--93
+[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
 
 [5]
+Overfull \hbox (10.05508pt too wide) in paragraph at lines 118--119
+[][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
 
-[6]
+
+Overfull \hbox (17.10507pt too wide) in paragraph at lines 131--132
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (73.50497pt too wide) in paragraph at lines 133--134
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (66.45499pt too wide) in paragraph at lines 139--140
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+
+[6])
+
+[7]
 \openout2 = `body/ApartadoB/page.aux'.
 
  (body/ApartadoB/page.tex
 
-[7
+[8
 
 
 
 ]
 
-[8]
+[9]
 
-[9])
+[10])
 \openout2 = `body/ApartadoC/page.aux'.
 
 
@@ -505,7 +558,7 @@ No file body/ApartadoC/page.tex.
 
 (body/ApartadoD/page.tex
 
-[10
+[11
 
 
 
@@ -514,9 +567,9 @@ No file body/ApartadoC/page.tex.
 
 ]
 
-[11]
+[12]
 
-[12]) (main.aux
+[13]) (main.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
  (body/ApartadoA/page.aux) (body/ApartadoB/page.aux) (body/ApartadoC/page.aux) (body/ApartadoD/page.aux))
@@ -526,17 +579,17 @@ L3 programming layer <2024-10-09>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15173 strings out of 473701
- 240601 string characters out of 5726039
- 937308 words of memory out of 5000000
- 37981 multiletter control sequences out of 15000+600000
+ 15328 strings out of 473701
+ 242847 string characters out of 5726039
+ 976360 words of memory out of 5000000
+ 38060 multiletter control sequences out of 15000+600000
  564654 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,7n,93p,829b,1104s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\diego\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (13 pages, 527753 bytes).
+ 79i,7n,93p,654b,1968s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\diego\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Programas/LaTeXDistribution/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (14 pages, 553765 bytes).
 PDF statistics:
- 251 PDF objects out of 1000 (max. 8388607)
- 43 named destinations out of 1000 (max. 500000)
- 182 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 346 PDF objects out of 1000 (max. 8388607)
+ 113 named destinations out of 1000 (max. 500000)
+ 190 words of extra memory for PDF output out of 10000 (max. 10000000)
 

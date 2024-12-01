@@ -14,20 +14,22 @@ public class Donante extends Socio{
         this.donar(cantidad);
     }
 
-    public void donar(Double cantidad){
+    public void donar(Double cantidad){ //En vez de utilizar
         assert cantidad > 0 : "La cantidad donada debe ser mayor a cero.";
         LocalDate fechaDonacion = LocalDate.now();
         Donacion d = new Donacion(cantidad, Date.from(fechaDonacion.atStartOfDay(ZoneId.systemDefault()).toInstant()), this);
         donaciones.add(d);
         Refugio r = super.getRefugio();
-        assert r != null : "El refugio asociado no puede ser nulo.";
         r.setLiquidez(r.getLiquidez() + cantidad);
-        r.addDonante(this);
+        r.addSocio(this);
+        assert donaciones.contains(d);
     }
+
+
     public Enumeration<Donacion> getDonaciones(){
         return Collections.enumeration(this.donaciones);
     }
-
+    //Para eliminar donaciones o modificar la cantidad, se puede acceder a la propia donación, lo cual tendrá un efecto en la lista que la contiene (en este caso donaciones)
     @Override
     public String toString() {
         return "Donante{}";

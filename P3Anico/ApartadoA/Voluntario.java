@@ -25,14 +25,7 @@ public class Voluntario extends Socio{
         assert r != null : "El refugio asociado no puede ser nulo.";
         assert a != null : "El animal no puede ser nulo.";
         Enumeration<Animal> animales = r.getAnimalesRefugiados();
-        boolean encontrado = false;
-        while (animales.hasMoreElements()) {
-            if (animales.nextElement().equals(a)) {
-                encontrado = true;
-                break;
-            }
-        }
-        assert !encontrado : "El animal ya está registrado en el refugio";
+
         // Un animal se añade al refugio con el estado disponible
         a.setEstadoAnimal(EstadoAnimal.DISPONIBLE);
         r.addAnimalesRefugiados(a);

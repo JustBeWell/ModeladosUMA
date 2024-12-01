@@ -211,6 +211,7 @@ INPUT D:\Programas\LaTeXDistribution\fonts\tfm\public\cm\cmmi8.tfm
 INPUT D:\Programas\LaTeXDistribution\fonts\tfm\public\cm\cmmi6.tfm
 INPUT D:\Programas\LaTeXDistribution\fonts\tfm\public\cm\cmsy8.tfm
 INPUT D:\Programas\LaTeXDistribution\fonts\tfm\public\cm\cmsy6.tfm
+INPUT D:\Programas\LaTeXDistribution\fonts\tfm\public\cm\cmtt12.tfm
 OUTPUT main.toc
 INPUT .\main.lof
 INPUT .\main.lof
@@ -225,10 +226,15 @@ INPUT body\ApartadoA\page.tex
 INPUT D:\Programas\LaTeXDistribution\fonts\tfm\public\cm\cmr12.tfm
 INPUT D:\Programas\LaTeXDistribution\fonts\tfm\public\cm\cmbx12.tfm
 INPUT D:\Programas\LaTeXDistribution\fonts\tfm\jknappen\ec\tcrm1200.tfm
-INPUT D:\Programas\LaTeXDistribution\fonts\tfm\public\cm\cmtt12.tfm
 INPUT D:\Programas\LaTeXDistribution\tex\latex\listings\lstlang1.sty
 INPUT D:\Programas\LaTeXDistribution\tex\latex\listings\lstlang1.sty
 INPUT D:\Programas\LaTeXDistribution\tex\latex\listings\lstlang1.sty
+INPUT D:\Programas\LaTeXDistribution\tex\latex\base\omscmr.fd
+INPUT D:\Programas\LaTeXDistribution\tex\latex\base\omscmr.fd
+INPUT D:\Programas\LaTeXDistribution\tex\latex\base\omscmr.fd
+INPUT D:\Programas\LaTeXDistribution\tex\latex\base\omlcmr.fd
+INPUT D:\Programas\LaTeXDistribution\tex\latex\base\omlcmr.fd
+INPUT D:\Programas\LaTeXDistribution\tex\latex\base\omlcmr.fd
 INPUT .\body\ApartadoB\page.tex
 INPUT .\body\ApartadoB\page.tex
 OUTPUT body\ApartadoB\page.aux
@@ -261,6 +267,8 @@ INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmcsc10.pfb
 INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmcsc10.pfb
+INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmmi12.pfb
+INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmmi12.pfb
 INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT D:\Programas\LaTeXDistribution\fonts\type1\public\amsfonts\cm\cmr17.pfb

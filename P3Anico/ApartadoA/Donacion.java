@@ -13,6 +13,7 @@ public class Donacion {
     private Date date;
     private final Donante donante;
 
+
     public Donacion(Double cantidad, Date date, Donante donante) {
         assert cantidad != null && cantidad > 0 : "La cantidad debe ser positiva.";
         assert date != null && !date.after(new Date()) : "La fecha no puede ser nula ni estar en el futuro.";

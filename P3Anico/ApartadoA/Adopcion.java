@@ -7,6 +7,7 @@
  *
  * @author byani
  */
+import java.util.Collections;
 import java.util.Date;
 
 
@@ -29,9 +30,16 @@ public class Adopcion {
         this.fecha = fecha;
 
         // Asegurar bidireccionalidad: Cada acción en esta clase repercute en las otras relacionadas
+        // Actualiza el estado del animal
         a.setEstadoAnimal(EstadoAnimal.ADOPTADO);
+
+        // Añade esta adopción a las estructuras de las otras clases
         ad.addAdopcion(this);
+        assert Collections.list(ad.getAdopciones()).contains(this) : "La adopción no fue añadida correctamente al adoptante.";
+
         v.addTramite(this);
+        assert Collections.list(v.getTramites()).contains(this) : "La adopción no fue añadida correctamente al voluntario.";
+
     }
     public Date getFecha() {
         return this.fecha;

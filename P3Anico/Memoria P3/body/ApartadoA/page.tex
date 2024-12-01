@@ -1,87 +1,155 @@
 \section{Diseño del código de andamiaje}
 
 \subsection{Introducción}
-En este apartado se discutirán las diferentes formas de diseñar el código de andamiaje necesario para implementar el modelo. Además, se incluirá un diagrama de diseño y la implementación en Java con la estrategia elegida, junto con la justificación de las decisiones tomadas.
+En este apartado se discutirán las diferentes formas de diseñar el código de andamiaje necesario para implementar el modelo del refugio. Se incluirá un diagrama de diseño que represente las relaciones entre las entidades principales del sistema y la implementación en Java. Finalmente, se justificará la estrategia elegida.
 
 \subsection{Formas de diseñar el código de andamiaje}
-A continuación, se presentan las distintas estrategias consideradas para diseñar el código de andamiaje Java necesario para implementar el modelo:
+A continuación, se presentan las estrategias principales consideradas para implementar el código de andamiaje para las clases asociadas al modelo:
 
-\subsubsection{Estrategia 1: Uso de listas para manejar asociaciones 1:M}
+\subsubsection{Estrategia 1: Uso de listas}
 \begin{itemize}
-    \item \textbf{Descripción:} Esta estrategia consiste en representar las asociaciones 1:M mediante listas o colecciones genéricas.
+    \item \textbf{Descripción:} Esta estrategia utiliza listas para manejar las asociaciones 1:M.
     \item \textbf{Ventajas:}
     \begin{itemize}
-        \item Sencillez de implementación.
-        \item Flexibilidad al manejar elementos dinámicos.
+        \item Implementación sencilla.
+        \item Flexibilidad para manejar entidades dinámicas.
     \end{itemize}
     \item \textbf{Desventajas:}
     \begin{itemize}
         \item Requiere validaciones adicionales para evitar duplicados.
-        \item Incrementa la complejidad de las operaciones que necesitan acceso directo.
+        \item Acceso menos eficiente para grandes conjuntos de datos.
     \end{itemize}
 \end{itemize}
 
-\subsubsection{Estrategia 2: Uso de clases auxiliares para asociaciones}
+\subsubsection{Estrategia 2: Uso de conjuntos (\texttt{HashSet})}
 \begin{itemize}
-    \item \textbf{Descripción:} Aquí se implementan clases intermedias que representan asociaciones entre entidades.
+    \item \textbf{Descripción:} Implementación basada en conjuntos para evitar duplicados y mejorar la eficiencia.
     \item \textbf{Ventajas:}
     \begin{itemize}
-        \item Mejora la legibilidad y modularidad del código.
-        \item Facilita la adición de atributos a las relaciones.
+        \item Garantiza la unicidad de los elementos.
+        \item Ofrece un acceso más eficiente.
     \end{itemize}
     \item \textbf{Desventajas:}
     \begin{itemize}
-        \item Introduce complejidad adicional al modelo.
-        \item Requiere una estructura más elaborada para manejar las asociaciones.
+        \item Menos adecuado para mantener un orden específico de los elementos.
     \end{itemize}
 \end{itemize}
 
-\subsubsection{Estrategía 3: Uso de mapas para optimización}
+\subsubsection{Estrategía 3: Uso de mapas}
 \begin{itemize}
-    \item \textbf{Descripción:} Utiliza mapas (\texttt{HashMap} o similares) para relacionar entidades de manera eficiente.
+    \item \textbf{Descripción:} Utilización de estructuras como \texttt{HashMap} para optimizar las asociaciones.
     \item \textbf{Ventajas:}
     \begin{itemize}
-        \item Acceso rápido a elementos relacionados.
-        \item Útil para casos donde las búsquedas son frecuentes.
+        \item Alta eficiencia para búsquedas.
     \end{itemize}
     \item \textbf{Desventajas:}
     \begin{itemize}
-        \item Complejidad al sincronizar datos en estructuras grandes.
-        \item Menor claridad en el código para relaciones simples.
+        \item Introduce mayor complejidad en el diseño del código.
     \end{itemize}
 \end{itemize}
-
-\subsection{Diagrama de diseño}
-El siguiente diagrama ilustra la estructura del modelo con las asociaciones y atributos clave:
-
-\begin{figure}[H]
-    \centering
-    %\includegraphics[width=1\linewidth]{} % Actualiza con la ruta de tu diagrama.
-    \caption{Diagrama de diseño del modelo.}
-    \label{fig:diagrama_diseno}
-\end{figure}
 
 \subsection{Implementación en Java}
-A continuación, se muestra la implementación del modelo utilizando la estrategia seleccionada:
 
-\subsubsection{Clase principal del modelo}
+A continuación, se presentan las implementaciones en Java para las clases \texttt{Socio}, \texttt{Voluntario}, \texttt{Adoptante} y \texttt{Donante}.
+
+\subsubsection{Clase \texttt{Socio}}
+La clase abstracta \texttt{Socio} sirve como base para las clases \texttt{Voluntario}, \texttt{Adoptante} y \texttt{Donante}. Se asegura que cada socio esté asociado a un refugio y que su información cumpla con las restricciones del modelo.
+
 \begin{lstlisting}[language=Java]
+public abstract class Socio {
+    private int ID;
+    private Date fecha;
+    private final Refugio refugioAsociado;
 
-   
+    public Socio(int ID, Date fecha, Refugio refugioAsociado) {
+        assert ID > 0 : "El ID del socio debe ser valido.";
+        assert fecha != null : "La fecha de registro no puede ser nula.";
+        assert refugioAsociado != null : "El refugio asociado no puede ser nulo.";
+        this.ID = ID;
+        this.fecha = fecha;
+        this.refugioAsociado = refugioAsociado;
+    }
+
+    public int getID() { return ID; }
+    public Date getDate() { return this.fecha; }
+    public Refugio getRefugio() { return this.refugioAsociado; }
+}
 \end{lstlisting}
 
-\subsubsection{Clase auxiliar para asociaciones}
-\begin{lstlisting}[language=Java]
+\subsubsection{Clase \texttt{Adoptante}}
+Esta clase maneja las adopciones de animales y utiliza listas para almacenar las asociaciones.
 
+\begin{lstlisting}[language=Java]
+public class Adoptante extends Socio {
+    private List<Adopcion> adopciones;
+
+    public Adoptante(int ID, Date date, Refugio r) {
+        super(ID, date, r);
+        adopciones = new ArrayList<>();
+    }
+
+    public void adoptar(Animal a, Voluntario v) {
+        assert !adopciones.stream().anyMatch(ad -> ad.getAnimal().equals(a)) :
+            "El adoptante ya tiene registrado este animal";
+        v.tramitarAdopcion(a, this);
+    }
+
+    public void addAdopcion(Adopcion a) {
+        if (!adopciones.contains(a)) adopciones.add(a);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Clase \texttt{Voluntario}}
+Esta clase gestiona los trámites de adopción y registro de animales en el refugio.
+
+\begin{lstlisting}[language=Java]
+public class Voluntario extends Socio {
+    private List<Adopcion> tramites;
+
+    public Voluntario(int ID, Date date, Refugio r) {
+        super(ID, date, r);
+        tramites = new ArrayList<>();
+    }
+
+    public void tramitarAdopcion(Animal a, Adoptante ad) {
+        assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE :
+            "El animal ya esta adoptado.";
+        Adopcion adopcion = new Adopcion(a, ad, this, new Date());
+        this.tramites.add(adopcion);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Clase \texttt{Donante}}
+Esta clase utiliza conjuntos (\texttt{HashSet}) para manejar las donaciones, asegurando unicidad.
+
+\begin{lstlisting}[language=Java]
+public class Donante extends Socio {
+    private Set<Donacion> donaciones;
+
+    public Donante(int ID, Date date, Refugio r, Double cantidad) {
+        super(ID, date, r);
+        assert cantidad > 0 : "La cantidad inicial debe ser mayor a cero.";
+        donaciones = new HashSet<>();
+        this.donar(cantidad);
+    }
+
+    public void donar(Double cantidad) {
+        assert cantidad > 0 : "La cantidad donada debe ser mayor a cero.";
+        Donacion d = new Donacion(cantidad, new Date(), this);
+        donaciones.add(d);
+    }
+}
 \end{lstlisting}
 
 \subsection{Justificación de la estrategia elegida}
-Se ha seleccionado la estrategia de \textbf{[Nombre de la estrategia]} debido a las siguientes razones:
+Se ha optado por una combinación de listas y conjuntos debido a:
 \begin{itemize}
-    \item \textbf{Modularidad:} La estrategia seleccionada permite una mejor organización del código.
-    \item \textbf{Escalabilidad:} Es más adecuada para manejar escenarios complejos y relaciones dinámicas.
-    \item \textbf{Facilidad de mantenimiento:} La claridad y modularidad de esta implementación facilitan futuras actualizaciones del modelo.
+    \item Modularidad: Cada clase maneja sus propias asociaciones de manera clara y estructurada.
+    \item Escalabilidad: Las listas y conjuntos son adecuadas para manejar escenarios con un número moderado de asociaciones.
+    \item Mantenimiento: La separación de responsabilidades facilita futuras modificaciones.
 \end{itemize}
 
 \subsection{Conclusión}
-El diseño y la implementación presentados cumplen con los requisitos del modelo, ofreciendo una solución balanceada entre eficiencia, claridad y escalabilidad.
+El diseño y la implementación presentados cumplen con los requisitos del modelo, garantizando claridad, eficiencia y modularidad en el código.
