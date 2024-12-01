@@ -11,9 +11,9 @@ import java.util.Date;
 public class Donacion {
     private Double cantidad;
     private Date date;
-    private final Socio donante;
+    private final Donante donante;
 
-    public Donacion(Double cantidad, Date date, Socio donante) {
+    public Donacion(Double cantidad, Date date, Donante donante) {
         this.cantidad = cantidad;
         this.date = date;
         this.donante = donante;
@@ -25,7 +25,7 @@ public class Donacion {
     public Date getDate() {
         return date;
     }
-    public Socio getDonante(){ return this.donante;}
+    public Donante getDonante(){ return this.donante;}
     public void setDate(Date date) {
         this.date = date;
     }
@@ -34,6 +34,18 @@ public class Donacion {
     }
     @Override
     public String toString() {
-        return "Donacion{" + "cantidad=" + cantidad + ", date=" + date + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cantidad: ").append(cantidad).append("; ");
+        sb.append("Fecha: ").append(date).append(" ");
+        return sb.toString();
+    }
+    @Override
+    public boolean equals(Object obj){
+        return obj == this || (obj instanceof Donacion) && ((Donacion)obj).getDonante().equals(this.donante);
+    }
+
+    @Override
+    public int hashCode(){
+        return Double.hashCode(cantidad) + this.donante.hashCode();
     }
 }

@@ -11,24 +11,24 @@ import java.util.Date;
  */
 public class Test {
     public static void main(String[] args) {
-        Animal a = new Animal(1, new Date(), null, null, null);
-        Animal b = new Animal(2, new Date(),null,null, null);
-        Refugio r = new Refugio(0, a);
-        Socio Pepe = new Socio(1, new Date(), r, true, true);
-        Socio Mavi = new Socio(1, new Date(), r, false, true);
-        Socio Tolo = new Socio(1, new Date(), r, true, false);
-        Socio Paco = new Socio(1, new Date(), r, false, false);
+        Refugio r = new Refugio("Refugio 1", 0);
+        Animal a = new Animal(1, new Date(), EstadoAnimal.DISPONIBLE, r, null);
+        Animal b = new Animal(2, new Date(),EstadoAnimal.DISPONIBLE, r, null);
+        Socio Pepe = new Socio(1, new Date(), r);
+        Socio Mavi = new Socio(2, new Date(), r);
+        Socio Tolo = new Socio(3, new Date(), r);
+        Socio Paco = new Socio(4, new Date(), r);
 
         System.out.println(r.toString());
         System.out.println("///////// ------- ////////");
-        Paco.donar(100.00);
-        Pepe.adoptar(a, Pepe);
+        Paco.getOperacionesDonante(100.00);
+        Pepe.getOperacionesAdoptante().adoptar(a, Pepe.getOperacionesVoluntario());
         System.out.println(r.toString());
         System.out.println(Pepe.esDonante());
         System.out.println("///////// ------- ////////");
-        Mavi.donar(200.00);
-        Pepe.registrar(b);
-        Mavi.adoptar(b, Pepe);
+        Mavi.getOperacionesDonante(0.00).donar(200.00);
+        Pepe.getOperacionesVoluntario().registrar(b);
+        Mavi.getOperacionesAdoptante().adoptar(b, Pepe.getOperacionesVoluntario());
         System.out.println(r.toString());
     }
 }

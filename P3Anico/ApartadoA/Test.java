@@ -16,6 +16,8 @@ public class Test {
             Donante donante = new Donante(2, new Date(), refugio, 100.00);
             Adoptante adoptante = new Adoptante(3, new Date(), refugio);
 
+            refugio.addSocio(adoptante);
+
             // Registrar animales en el refugio
             Animal animal1 = new Animal(101, new Date(), EstadoAnimal.DISPONIBLE, refugio, null);
             Animal animal2 = new Animal(102, new Date(), EstadoAnimal.DISPONIBLE, refugio, null);

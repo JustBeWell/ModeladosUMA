@@ -3,138 +3,156 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
-/**
- *
- * @author byani
- */
 public class Refugio {
-    //Guarda la cantidad total de los animales
+    private String nombre;
+    //Representa el capital financiero del refugio
     private double liquidez;
     //Lista para guardar a los animales registrados
-    private List<Animal> animalesRegistrados;
+    private Set<Animal> animalesRegistrados;
     //Lista para guardar los animales refugiados
-    private List<Animal> animalesRefugiados;
+    private Set<Animal> animalesRefugiados;
     // Lista para guardar a los adoptantes
-    private List<Socio> adoptantes;
-    // Lista para guardar a los voluntarios
-    private List<Socio> voluntarios;
-    //Lista para guardar a los donantes
-    private List<Socio> donantes;
+    private Set<Socio> socios;
 
-    public Refugio(double liquidez, Animal a) {
+    public Refugio(String nombre, double liquidez) {
+        //Comprobamos que la liquidez sea valida
+        assert liquidez >= 0 : "La liquidez debe ser no negativa.";
+        //assert a != null : "El refugio tiene que ser creado con un animal dentro";
+        assert nombre != "" : "El nombre del refugio no puede estar vacío";
+        //Asignamos un nombre al refugio
+        this.nombre = nombre;
+        //Asignamos las variables al refugio
         this.liquidez = liquidez;
-        animalesRefugiados = new ArrayList<>();
-        animalesRegistrados = new ArrayList<>();
-        adoptantes = new ArrayList<>();
-        voluntarios = new ArrayList<>();
-        donantes = new ArrayList<>();
+        //Instanciamos las colecciones como hashset dado a que nos permite hacer una busqueda en tiempos de ejecucion lineales haciendo el sistema mas eficiente
+        animalesRefugiados = new HashSet<>();
+        animalesRegistrados = new HashSet<>();
+        socios = new HashSet<>();
+    }
 
-        //Añadimos un animal a la lista de los registrados.
-        registrar(a);
-
-        //Añadimos un animal a la lista de los refugiados
-
+    public String getNombre(){
+        return this.nombre;
     }
 
     public double getLiquidez() {
         return liquidez;
     }
-    
     public void setLiquidez(double liquidez) {
+        assert liquidez >= 0 : "La liquidez debe ser no negativa";
         this.liquidez = liquidez;
     }
-
-    public Enumeration<Socio> getAdoptantes() {return Collections.enumeration(adoptantes);}
-
-    public Enumeration<Socio> getVoluntarios() {
-        return Collections.enumeration(voluntarios);
+    public void addSocio(Socio s) {
+        assert s != null : "El socio no puede ser nulo.";
+        socios.add(s); //Como es un set no necesitamos comprobar que existan elementos repetidos
     }
 
-    public Enumeration<Socio> getDonantes() {
-        return Collections.enumeration(donantes);
+    public void removeSocio(Socio s) {
+        assert s != null : "El socio no puede ser nulo.";
+        if (socios.contains(s)) { //Comprobamos que previamente existe el socio en el sistema
+            socios.remove(s);
+        } else {
+            System.out.println("Este socio no está registrado en el refugio.");
+        }
     }
-    
+
+    /* CREACIÓN DE LAS LISTAS DE OBJETOS */
+
     public Enumeration<Animal> getAnimalesRegistrados() {
         return Collections.enumeration(animalesRegistrados);
     }
     public Enumeration<Animal> getAnimalesRefugiados() {
         return Collections.enumeration(animalesRefugiados);
     }
+    public Enumeration<Socio> getSocios() {
+        return Collections.enumeration(socios);
+    }
+    /* MÉTODOS PARA AÑADIR OBJETOS AL REFUGIO */
+    public List<Adoptante> getAdoptantes() {
+        List<Adoptante> adoptantes = new ArrayList<>();
+        for (Socio s : socios) {
+            if (s.esAdoptante()) {
+                adoptantes.add(s.getOperacionesAdoptante());
+            }
+        }
+        return adoptantes;
+    }
+
+    public List<Voluntario> getVoluntarios() {
+        List<Voluntario> voluntarios = new ArrayList<>();
+        for (Socio s : socios) {
+            if (s.esVoluntario()) {
+                voluntarios.add(s.getOperacionesVoluntario());
+            }
+        }
+        return voluntarios;
+    }
+
+    public List<Donante> getDonantes() {
+        List<Donante> donantes = new ArrayList<>();
+        for (Socio s : socios) {
+            if (s.esDonante()) {
+                donantes.add(s.getOperacionesDonante(0.00)); // Este donante no va a donar nada, es solo para acceder al objeto
+            }
+        }
+        return donantes;
+    }
 
     public void registrar(Animal a){
         this.addAnimalesRegistrados(a);
     }
 
-    public void addAdoptante(Socio a){
-        if(a.esAdoptante() && !adoptantes.contains(a)){
-            adoptantes.add(a);
-        }
-    }
 
-    public void removeAdoptante(Socio a){
-        if(a.esAdoptante() && adoptantes.contains(a))    adoptantes.remove(a);
-        else System.out.println("El socio no está asociado al refugio");
-
-    }
-    public void addVoluntario(Socio v){
-        if(v.esVoluntario() && !voluntarios.contains(v)) voluntarios.add(v);
-        else System.out.println("El voluntario ya está asociado al refugio");
-    }
-    public void removeVoluntario(Socio v){
-        if(v.esVoluntario() && voluntarios.contains(v))    adoptantes.remove(v);
-        else System.out.println("El voluntario no está asociado al refugio");
-    }
-    public void addDonante(Socio d){
-        if(d.esDonante() && !donantes.contains(d) && d.esDonante()) donantes.add(d);
-        else System.out.println("Este donante ya está asociado al refugio");
-    }
-    public void removeDonante(Socio d){
-        if(d.esDonante() && donantes.contains(d))    donantes.remove(d);
-        else System.out.println("Este donante no ha realizado ninguna doncación al refugio");
-    }
     public void addAnimalesRefugiados(Animal a){
+        assert a != null : "El animal no puede ser nulo.";
         if(!animalesRefugiados.contains(a)){
             animalesRefugiados.add(a);
             this.addAnimalesRegistrados(a);
-        }else System.out.println("Este animal ya está refugiado");
+        } else System.out.println("Este animal ya está refugiado.");
     }
-    public void removeAnimalesRefugiados(Animal a){
-        if(animalesRefugiados.contains(a))    animalesRefugiados.remove(a);
-        else System.out.println("Este animal no está refugiado");
-    }
+
     private void addAnimalesRegistrados(Animal a){
+        assert a != null : "El animal no puede ser nulo.";
         animalesRegistrados.add(a);
     }
-//    public void removeAnimalesRegistrados(Animal a){
-//        if(animalesRegistrados.contains(a))    animalesRegistrados.remove(a);
-//        else System.out.println("Este animal no está refugiado");
-//    }
+
+    /* MÉTODOS PARA ELIMINAR OBJETOS DEL REFUGIO */
+    public void removeAnimalesRefugiados(Animal a){
+        assert a != null : "El animal no puede ser nulo.";
+        if (animalesRefugiados.contains(a)) {
+            animalesRefugiados.remove(a);
+        } else {
+            System.out.println("El animal ya fue eliminado de este refugio.");
+        }
+    }
+
+    /* MÉTODOS AUXILIARES PARA MOSTRAR DATOS EN CONCRETO */
+    public void mostrarAnimalesRefugiados(){
+        System.out.println(animalesRefugiados.toString());
+    }
+    public void mostrarAnimalesRegistrados(){
+        System.out.println(animalesRegistrados.toString());
+    }
+    public void mostrarSocios() {
+        for (Socio s : socios) {
+            System.out.println(s);
+        }
+    }
+
+    public void mostrarSociosPorTipo() {
+        System.out.println("Adoptantes: " + getAdoptantes());
+        System.out.println("Voluntarios: " + getVoluntarios());
+        System.out.println("Donantes: " + getDonantes());
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Nombre: ").append(nombre).append("\n");
         sb.append("Animales Registrados: ").append(animalesRegistrados).append("\n");
         sb.append("Animales Refugiados: ").append(animalesRefugiados).append("\n");
-        sb.append("Adoptantes: ").append(adoptantes).append("\n");
-        sb.append("Voluntarios: ").append(voluntarios).append("\n");
-        sb.append("Donantes: ").append(donantes).append("\n");
+        sb.append("Socios: ").append(socios).append("\n");
         sb.append("Liquidez: ").append(liquidez);
         return sb.toString();
-    }
-
-    public void mostrarAdoptantes(){
-        System.out.println(adoptantes.toString());
-    }
-
-    public void mostrarVoluntarios(){
-        System.out.println(voluntarios.toString());
-    }
-
-    public void mostrarDonantes(){
-        System.out.println(donantes.toString());
     }
 }
