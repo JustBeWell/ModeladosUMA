@@ -1,121 +1,53 @@
-\phantomsection\numberedsection{RF2.1 Crear Producto}
+\phantomsection\numberedsection{Apartado B}
 
-\subsection*{Descripción}
-Los usuarios deben de poder crear productos mientras sea posible, definiendo sus atributos y asignándoles sus respectivas categorías y relaciones.\par
-\vspace{0.15cm}
-
-\textbf{Pre-condición}\par
-El usuario debe haber iniciado sesión en su cuenta en Mini PIM.\par
-\vspace{0.15cm}
-
-\textbf{Post-condición}
+Se nos pide considerar el caso en el que un mismo socio puede desempeñar 
+múltiples roles. Por ejemplo:
 \begin{itemize}
-    \item Caso de éxito: Todos los productos que el usuario creó se reflejan en la base de datos del sistema y en su interfaz gráfica.
-    \item Caso mínimo: El sistema notifica al usuario el resultado de la acción de crear producto; exitosa o fallida.
+    \item Un \emph{Voluntario} podría también haber adoptado un animal.
+    \item Un \emph{Adoptante} podría decidir realizar donaciones.
 \end{itemize}
 
-\textbf{Prioridad: }
-Alta
+Esto supone un caso que, dado nuestro modelo donde cada
+rol se implementa como una subclase de la clase base \texttt{Socio}
+y el lenguaje de programación usado, es imposible de cumplir.
+
+\numberedsubsection{Herencia simple en Java}
+En la Programación Orientada a Objetos con Java, no es posible establecer 
+una herencia múltiple ya que una clase en Java solo puede heredar de una 
+única clase base. Esto significa que una vez \emph{Socio} se cree como 
+instancia de una subclase específica (por ejemplo, \emph{Voluntario}), 
+no puede ser también instancia de otra (como \emph{Adoptante} o \emph{Donante}).\par
 \vspace{0.15cm}
+Dado que las clases \emph{Voluntario}, \emph{Adoptante} y \emph{Donante} 
+heredan todas de la misma clase base \emph{Socio}, no es posible que un 
+mismo objeto \emph{Socio} asuma múltiples roles simultáneamente.\par
 
-\textbf{Autor: }
-Francisco Javier Jordá Garay\par
-\vspace{0.15cm}
+\numberedsubsection{Impacto en la implementación}
+El modelo dado se basa en subclases que encapsulan el comportamiento 
+específico de cada rol. Si intentamos que un socio tuviera múltiples roles, 
+tendríamos que duplicar la información del mismo socio en varias instancias 
+lo que rompería la unicidad del objeto. Por ejemplo:
+\begin{itemize}
+    \item Dos objetos diferentes representarían al mismo socio, pero 
+    con roles distintos, lo que podría llevar a datos contradictorios.
+    \item La relación entre \emph{Socio} y \emph{Refugio} perdería sentido 
+    al no poder asociarse al objeto ambiguo.
+\end{itemize}
 
-\textbf{Control de cambios: } Versión 1: Definición del caso de uso
+\numberedsubsection{Próximo pasos}
+Implementar el caso descrito utilizando el modelo actual de subclases es 
+técnicamente imposible debido por las razones explicadas previamente. 
+Este problema sugiere que el modelo debe ser replanteado utilizando una 
+estructura más flexible. Opciones disponibles serían:
+\begin{itemize}
+    \item \textbf{Composición en lugar de herencia:} 
+    Donde se puede asociar roles como atributos o relaciones del objeto \emph{Socio}.
+    \item \textbf{Interfaces:} 
+    Permitiría que un socio implemente múltiples roles sin la necesidad de 
+    una jerarquía rígida.
+\end{itemize}
 
-\numberedsubsection{Escenario principal}
-\begin{enumerate}
-    \item El usuario se encuentra en el apartado de productos y selecciona la opción de \enquote{Añadir}.
-    \item El sistema muestra el menú de creación solicitando al usuario:
-    \begin{itemize}
-        \item GTIN (atributo sistema $-$ comprueba validez de longitud)
-        \item SKU (atributo sistema)
-        \item Thumbnail (atributo sistema $-$ comprueba tamaño 200$\times$200px y formato)
-        \item Label (atributo sistema $-$ comprueba máximo de 250 caracteres)
-        \item Atributos (opcional $-$ comprueba máximo 5 nuevos atributos usuario)
-        \item Categorías (opcional)
-    \end{itemize}
-    \item El usuario introduce los datos obligatorios y los que decida de opcionales y selecciona \enquote{Confirmar}.
-    \item El sistema comprueba la validez de los datos introducidos por el usuario.
-    \item El sistema almacena el producto creado en la base de datos registrando la fecha de creación.
-    \item El sistema actualiza la información del total de datos registrados en la base de datos.
-    \item El sistema muestra el apartado de \enquote{Productos} todos los recursos almacenados para esta sección.
-\end{enumerate}
+A continuación, se discute el enfoque que hemos visto más adecuado para resolver 
+el caso propuesto justificando las decisiones de diseño que conlleva.
 
-\numberedsubsection{Escenarios alternativos}
-\begin{description}
-    \item[2.a.] El sistema no puede almacenar el producto por superar el máximo de almacenamiento ligado al plan de suscripción del usuario.
-    \begin{enumerate}
-        \item[2.a.1] El sistema notifica al usuario que ha llegado al máximo de capacidad permitida en el plan de almacenamiento.
-    \end{enumerate}
-
-    \item[*.a] El usuario cancela la acción de crear un nuevo producto seleccionando la opción que cierra el menú de creación.
-    \begin{enumerate}
-        \item[*.a.1] El sistema regresa al apartado de \enquote{Productos}.
-    \end{enumerate}
-
-    \item[4.a] El sistema detecta un fallo en la comprobación de los datos obligatorios.
-    \begin{enumerate}
-        \item[4.a.1] El sistema notifica del error de comprobación al usuario mostrando el atributo del producto afectado.
-        \item[4.a.2] El sistema regresa al menú de creación permitiendo edición de los datos.
-    \end{enumerate}
-\end{description}
-
-\numberedsubsection{Casos de Prueba}
-\underline{Escenario: Principal}\par
-\vspace{0.15cm}
-\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
-\textbf{Y} estoy en el apartado de Productos\par
-\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
-\textbf{E} introduzco correctamente los atributos del producto que deseo crear\par
-\textbf{Y} selecciono \enquote{confirmar} para guardar los datos\par
-\textbf{Entonces} el sistema almacena la información en la base de datos de Mini PIM\par
-\textbf{Y} actualiza la información del total de datos registrados en la base de datos\par
-\textbf{Y} muestra el apartado de Productos con todos los recursos almacenados para esta sección.\par
-\vspace{0.20cm}
-
-\underline{Escenario: Alternativo 2.a}\par
-\vspace{0.15cm}
-\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
-\textbf{Y} tengo el límite de productos\par
-\textbf{Y} estoy en el apartado de Productos\par
-\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
-\textbf{E} introduzco correctamente los atributos del producto que deseo crear\par
-\textbf{Y} selecciono \enquote{confirmar} para guardar los datos\par
-\textbf{Entonces} el sistema me notifica que no puede almacenar el producto por superar el máximo de almacenamiento ligado a mi plan de suscripción actual\par
-\vspace{0.20cm}
-
-\underline{Escenario: Alternativo 3.a}\par
-\vspace{0.15cm}
-\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
-\textbf{Y} estoy en el apartado de Productos\par
-\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
-\textbf{Y} selecciono la opción de cancelar\par
-\textbf{Entonces} el sistema muestra el apartado de Productos mostrando todos los recursos almacenados sin ningún cambio.\par
-\vspace{0.20cm}
-
-\underline{Escenario: Alternativo 4.a}\par
-\vspace{0.15cm}
-\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
-\textbf{Y} estoy en el apartado de Productos\par
-\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
-\textbf{Y} escribo los datos del producto y dejo uno obligatorio vacío\par
-\textbf{Entonces} el sistema me muestra cual es el atributo que falla\par
-\textbf{Y} regresa al menú de creación.\par
-\vspace{0.20cm}
-
-\numberedsubsection{Bocetos}
-% \begin{figure}[H]
-%     \includegraphics[width=1\linewidth]{}
-%     \caption{Apartado Productos hacer clic en \enquote{Añadir}}
-%    \end{figure}
-% \vspace{1.0cm}
-
-% \begin{figure}[H]
-%     \includegraphics[width=1\linewidth]{}
-%     \caption{Menú de creación tras clicar \enquote{Añadir}}
-%    \end{figure}
-% \vspace{1.0cm}
-
-\newpage %Inicia en una nueva página otro caso de uso
+\newpage

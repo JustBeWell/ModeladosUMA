@@ -76,22 +76,42 @@
 
 % Definimos forma de llamar al listado con letras minúsculas pero sustituye el listado por 
 % números de enumerate. Comentar para tener enumerate por default.
-% \renewcommand{\theenumi}{\alph{enumi}}
+ \renewcommand{\theenumi}{\alph{enumi}}
 % \begin{enumerate}
 %   \item
 % \end{enumerate}
 
 
-% Configuración para sintaxis usando código VHDL
-\lstdefinestyle{Código_VHDL}{
-    language=VHDL,                % Especifica VHDL como el lenguaje
-    basicstyle=\ttfamily\small,   % Estilo básico: letra monoespaciada pequeña
-    keywordstyle=\color{red!90!black}, % Color para palabras clave
-    commentstyle=\color{green!50!black}, % Color para comentarios
-    tabsize=2,                    % Tamaño del tabulador
-    showspaces=false,             % No mostrar espacios
-    showstringspaces=false,       % No mostrar espacios en cadenas de texto
-    breaklines=true,              % Ajustar líneas largas
+% Configuración para sintaxis Java
+\lstdefinestyle{javaNormal}{
+    language=Java,                        % Especifica Java como el lenguaje
+    basicstyle=\ttfamily\small,           % Estilo básico: letra monoespaciada pequeña
+    keywordstyle=\color{orange!90!black}, % Color para palabras clave
+    commentstyle=\color{gray},            % Color para comentarios
+    stringstyle=\color{green!50!black},   % Color para cadenas de texto
+    identifierstyle=\color{black},        % Color para identificadores
+    tabsize=2,                            % Tamaño del tabulador
+    showspaces=false,                     % No mostrar espacios
+    showstringspaces=false,               % No mostrar espacios en cadenas de texto
+    breaklines=true                       % Ajustar líneas largas
+}
+
+% Configuración para sintaxis Java con fondo
+\lstdefinestyle{javaEspecifico}{
+    language=Java,                        % Especifica Java como el lenguaje
+    basicstyle=\ttfamily\small,           % Estilo básico: letra monoespaciada pequeña
+    backgroundcolor=\color{gray!10},      % Fondo gris claro
+    keywordstyle=\color{orange!90!black}, % Color para palabras clave
+    commentstyle=\color{gray},            % Color para comentarios
+    stringstyle=\color{green!50!black},   % Color para cadenas de texto
+    numberstyle=\tiny\color{gray},        % Color de los números de línea
+    stepnumber=1,                         % Mostrar un número de línea en cada línea
+    numbersep=10pt,                       % Separación de los números del código
+    tabsize=2,                            % Tamaño del tabulador
+    showspaces=false,                     % No mostrar espacios
+    showstringspaces=false,               % No mostrar espacios en cadenas de texto
+    breaklines=true,                      % Ajustar líneas largas
+    frame=single                          % Añadir un marco alrededor del código
 }
 
 \begin{document}
@@ -148,19 +168,22 @@
 \thispagestyle{empty}
 \begin{abstract}
   Esta práctica aborda el diseño e implementación de un sistema orientado a objetos para 
-  gestionar un refugio de animales utilizando Java y conceptos de diseño orientado a objetos 
-  vistos en el Tema 5.\par
+  gestionar un refugio de animales utilizando Java, siguiendo los conceptos de diseño orientado 
+  a objetos presentados en el Tema 5.\par
   \vspace{0.5cm}
-  El objetivo principal es analizar las posibles estrategias de diseño que permitan implementar 
-  este modelo, abordando desafíos como la necesidad de que un mismo socio pueda desempeñar múltiples 
-  roles simultáneamente. Se discute por qué las clases descritas inicialmente no pueden ser implementadas 
-  directamente en Java y se propone una posible solución mediante técnicas como composición, interfaces, y herencia 
-  múltiple simulada para garantizar la consistencia del sistema.\par
+  El objetivo principal es analizar y comparar diferentes estrategias de diseño para implementar 
+  este modelo, asi como casos especiales donde un mismo socio pueda desempeñar múltiples 
+  roles simultáneamente. Se justifica por qué las clases descritas inicialmente no pueden 
+  ser implementadas directamente en Java debido a la limitación de herencia simple. 
+  Asimismo, se propone una solución basada en composición e interfaces discutiendo la decision
+  tomada.\par
   \vspace{0.5cm}
-  Finalmente, la solución propuesta acompañada de un diagrama de diseño que ilustra la arquitectura del sistema, 
-  muestra la reutilización de métodos, la integridad de los datos y la flexibilidad necesaria para adaptarse a 
-  los requerimientos del modelo conceptual.\par
+  Finalmente, se presenta una solución acompañada de un nuevo diagrama de diseño que muestra 
+  la arquitectura propuesta, con las relaciones implementadas, validaciones con \emph{assert} 
+  para comprobar restricciones en el nuevo código, asi como métodos actualizados a 
+  las necesidades presentadas para el caso especial de un Socio con multiples roles\par
 \end{abstract}
+
 
 \newpage
 % FIN RESUMEN
