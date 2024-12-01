@@ -1,0 +1,12 @@
+-Eliminadas las clases Donante, Voluntario y Adoptante.
+-Socio tiene 3 booleanos: esDonante, esVoluntario, esAdoptante.
+-Todos los métodos que estaban en cada clase hija, se ha puesto en la clase Socio y se ha añadido un if de comprobación para que el método de cada clase hija compruebe si su booleano está en true.
+-El booleano de esDonante SÓLO puede cambiar cuando haga una donación.
+
+Problemas:
+Cuando se llama un Socio.donar(cantidad), se realiza la donación y DEBERÍA de cambiar su estado de esDonante de false a true (está implementado en el método donar).
+	Sin embargo, en los tests que he hecho Socio.esDonante siempre me sale false aunque haya hecho una donación.
+
+
+Dudas:
+-Se pueden crear socios que tengan esVoluntario y esAdoptante en false. O sea, que es socio pero no tiene ningún rol al crearse.

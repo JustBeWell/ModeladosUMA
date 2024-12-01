@@ -1,121 +1,87 @@
-\phantomsection\numberedsection{RF2.1 Crear Producto}
+\section{Diseño del código de andamiaje}
 
-\subsection*{Descripción}
-Los usuarios deben de poder crear productos mientras sea posible, definiendo sus atributos y asignándoles sus respectivas categorías y relaciones.\par
-\vspace{0.15cm}
+\subsection{Introducción}
+En este apartado se discutirán las diferentes formas de diseñar el código de andamiaje necesario para implementar el modelo. Además, se incluirá un diagrama de diseño y la implementación en Java con la estrategia elegida, junto con la justificación de las decisiones tomadas.
 
-\textbf{Pre-condición}\par
-El usuario debe haber iniciado sesión en su cuenta en Mini PIM.\par
-\vspace{0.15cm}
+\subsection{Formas de diseñar el código de andamiaje}
+A continuación, se presentan las distintas estrategias consideradas para diseñar el código de andamiaje Java necesario para implementar el modelo:
 
-\textbf{Post-condición}
+\subsubsection{Estrategia 1: Uso de listas para manejar asociaciones 1:M}
 \begin{itemize}
-    \item Caso de éxito: Todos los productos que el usuario creó se reflejan en la base de datos del sistema y en su interfaz gráfica.
-    \item Caso mínimo: El sistema notifica al usuario el resultado de la acción de crear producto; exitosa o fallida.
+    \item \textbf{Descripción:} Esta estrategia consiste en representar las asociaciones 1:M mediante listas o colecciones genéricas.
+    \item \textbf{Ventajas:}
+    \begin{itemize}
+        \item Sencillez de implementación.
+        \item Flexibilidad al manejar elementos dinámicos.
+    \end{itemize}
+    \item \textbf{Desventajas:}
+    \begin{itemize}
+        \item Requiere validaciones adicionales para evitar duplicados.
+        \item Incrementa la complejidad de las operaciones que necesitan acceso directo.
+    \end{itemize}
 \end{itemize}
 
-\textbf{Prioridad: }
-Alta
-\vspace{0.15cm}
-
-\textbf{Autor: }
-Francisco Javier Jordá Garay\par
-\vspace{0.15cm}
-
-\textbf{Control de cambios: } Versión 1: Definición del caso de uso
-
-\numberedsubsection{Escenario principal}
-\begin{enumerate}
-    \item El usuario se encuentra en el apartado de productos y selecciona la opción de \enquote{Añadir}.
-    \item El sistema muestra el menú de creación solicitando al usuario:
+\subsubsection{Estrategia 2: Uso de clases auxiliares para asociaciones}
+\begin{itemize}
+    \item \textbf{Descripción:} Aquí se implementan clases intermedias que representan asociaciones entre entidades.
+    \item \textbf{Ventajas:}
     \begin{itemize}
-        \item GTIN (atributo sistema $-$ comprueba validez de longitud)
-        \item SKU (atributo sistema)
-        \item Thumbnail (atributo sistema $-$ comprueba tamaño 200$\times$200px y formato)
-        \item Label (atributo sistema $-$ comprueba máximo de 250 caracteres)
-        \item Atributos (opcional $-$ comprueba máximo 5 nuevos atributos usuario)
-        \item Categorías (opcional)
+        \item Mejora la legibilidad y modularidad del código.
+        \item Facilita la adición de atributos a las relaciones.
     \end{itemize}
-    \item El usuario introduce los datos obligatorios y los que decida de opcionales y selecciona \enquote{Confirmar}.
-    \item El sistema comprueba la validez de los datos introducidos por el usuario.
-    \item El sistema almacena el producto creado en la base de datos registrando la fecha de creación.
-    \item El sistema actualiza la información del total de datos registrados en la base de datos.
-    \item El sistema muestra el apartado de \enquote{Productos} todos los recursos almacenados para esta sección.
-\end{enumerate}
+    \item \textbf{Desventajas:}
+    \begin{itemize}
+        \item Introduce complejidad adicional al modelo.
+        \item Requiere una estructura más elaborada para manejar las asociaciones.
+    \end{itemize}
+\end{itemize}
 
-\numberedsubsection{Escenarios alternativos}
-\begin{description}
-    \item[2.a.] El sistema no puede almacenar el producto por superar el máximo de almacenamiento ligado al plan de suscripción del usuario.
-    \begin{enumerate}
-        \item[2.a.1] El sistema notifica al usuario que ha llegado al máximo de capacidad permitida en el plan de almacenamiento.
-    \end{enumerate}
+\subsubsection{Estrategía 3: Uso de mapas para optimización}
+\begin{itemize}
+    \item \textbf{Descripción:} Utiliza mapas (\texttt{HashMap} o similares) para relacionar entidades de manera eficiente.
+    \item \textbf{Ventajas:}
+    \begin{itemize}
+        \item Acceso rápido a elementos relacionados.
+        \item Útil para casos donde las búsquedas son frecuentes.
+    \end{itemize}
+    \item \textbf{Desventajas:}
+    \begin{itemize}
+        \item Complejidad al sincronizar datos en estructuras grandes.
+        \item Menor claridad en el código para relaciones simples.
+    \end{itemize}
+\end{itemize}
 
-    \item[*.a] El usuario cancela la acción de crear un nuevo producto seleccionando la opción que cierra el menú de creación.
-    \begin{enumerate}
-        \item[*.a.1] El sistema regresa al apartado de \enquote{Productos}.
-    \end{enumerate}
+\subsection{Diagrama de diseño}
+El siguiente diagrama ilustra la estructura del modelo con las asociaciones y atributos clave:
 
-    \item[4.a] El sistema detecta un fallo en la comprobación de los datos obligatorios.
-    \begin{enumerate}
-        \item[4.a.1] El sistema notifica del error de comprobación al usuario mostrando el atributo del producto afectado.
-        \item[4.a.2] El sistema regresa al menú de creación permitiendo edición de los datos.
-    \end{enumerate}
-\end{description}
+\begin{figure}[H]
+    \centering
+    %\includegraphics[width=1\linewidth]{} % Actualiza con la ruta de tu diagrama.
+    \caption{Diagrama de diseño del modelo.}
+    \label{fig:diagrama_diseno}
+\end{figure}
 
-\numberedsubsection{Casos de Prueba}
-\underline{Escenario: Principal}\par
-\vspace{0.15cm}
-\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
-\textbf{Y} estoy en el apartado de Productos\par
-\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
-\textbf{E} introduzco correctamente los atributos del producto que deseo crear\par
-\textbf{Y} selecciono \enquote{confirmar} para guardar los datos\par
-\textbf{Entonces} el sistema almacena la información en la base de datos de Mini PIM\par
-\textbf{Y} actualiza la información del total de datos registrados en la base de datos\par
-\textbf{Y} muestra el apartado de Productos con todos los recursos almacenados para esta sección.\par
-\vspace{0.20cm}
+\subsection{Implementación en Java}
+A continuación, se muestra la implementación del modelo utilizando la estrategia seleccionada:
 
-\underline{Escenario: Alternativo 2.a}\par
-\vspace{0.15cm}
-\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
-\textbf{Y} tengo el límite de productos\par
-\textbf{Y} estoy en el apartado de Productos\par
-\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
-\textbf{E} introduzco correctamente los atributos del producto que deseo crear\par
-\textbf{Y} selecciono \enquote{confirmar} para guardar los datos\par
-\textbf{Entonces} el sistema me notifica que no puede almacenar el producto por superar el máximo de almacenamiento ligado a mi plan de suscripción actual\par
-\vspace{0.20cm}
+\subsubsection{Clase principal del modelo}
+\begin{lstlisting}[language=Java]
 
-\underline{Escenario: Alternativo 3.a}\par
-\vspace{0.15cm}
-\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
-\textbf{Y} estoy en el apartado de Productos\par
-\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
-\textbf{Y} selecciono la opción de cancelar\par
-\textbf{Entonces} el sistema muestra el apartado de Productos mostrando todos los recursos almacenados sin ningún cambio.\par
-\vspace{0.20cm}
+   
+\end{lstlisting}
 
-\underline{Escenario: Alternativo 4.a}\par
-\vspace{0.15cm}
-\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
-\textbf{Y} estoy en el apartado de Productos\par
-\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
-\textbf{Y} escribo los datos del producto y dejo uno obligatorio vacío\par
-\textbf{Entonces} el sistema me muestra cual es el atributo que falla\par
-\textbf{Y} regresa al menú de creación.\par
-\vspace{0.20cm}
+\subsubsection{Clase auxiliar para asociaciones}
+\begin{lstlisting}[language=Java]
 
-\numberedsubsection{Bocetos}
-% \begin{figure}[H]
-%     \includegraphics[width=1\linewidth]{}
-%     \caption{Apartado Productos hacer clic en \enquote{Añadir}}
-%    \end{figure}
-% \vspace{1.0cm}
+\end{lstlisting}
 
-% \begin{figure}[H]
-%     \includegraphics[width=1\linewidth]{}
-%     \caption{Menú de creación tras clicar \enquote{Añadir}}
-%    \end{figure}
-% \vspace{1.0cm}
+\subsection{Justificación de la estrategia elegida}
+Se ha seleccionado la estrategia de \textbf{[Nombre de la estrategia]} debido a las siguientes razones:
+\begin{itemize}
+    \item \textbf{Modularidad:} La estrategia seleccionada permite una mejor organización del código.
+    \item \textbf{Escalabilidad:} Es más adecuada para manejar escenarios complejos y relaciones dinámicas.
+    \item \textbf{Facilidad de mantenimiento:} La claridad y modularidad de esta implementación facilitan futuras actualizaciones del modelo.
+\end{itemize}
 
-\newpage %Inicia en una nueva página otro caso de uso
+\subsection{Conclusión}
+El diseño y la implementación presentados cumplen con los requisitos del modelo, ofreciendo una solución balanceada entre eficiencia, claridad y escalabilidad.

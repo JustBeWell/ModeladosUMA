@@ -1,0 +1,3 @@
+Para desarrollar el esquema del modelo de diseño hay que hacerlo como aparece en los apuntes en las páginas 22, 25, etc...
+
+Se puede partir del digarama actual que es el del pdf y a partir de ahí añadir las soluciones a las asociaciones.

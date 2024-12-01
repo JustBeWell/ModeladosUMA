@@ -3,13 +3,17 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 public class Voluntario extends Socio{
-    List<Adopcion> tramites;
+    Set<Adopcion> tramites; //Considerar usar un sets
     public Voluntario(int ID, Date date,Refugio r) {
         super(ID, date,r);
-        tramites = new ArrayList<>();
+
+
+
+        tramites = new HashSet<>();
     }
     public void tramitarAdopcion(Animal a, Adoptante ad){
         assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE : "El animal ya está adoptado.";
+        assert ad != null : "El adoptante no puede ser nulo.";
         LocalDate fechaAdopcion = LocalDate.now();
         // Añadimos una nuevo tramite del animal al adoptante con la fecha actual.
         Adopcion adopcion = new Adopcion(a, ad, this, Date.from(fechaAdopcion.atStartOfDay(ZoneId.systemDefault()).toInstant()));
@@ -18,6 +22,8 @@ public class Voluntario extends Socio{
     }
     public void registrar(Animal a){
         Refugio r = super.getRefugio();
+        assert r != null : "El refugio asociado no puede ser nulo.";
+        assert a != null : "El animal no puede ser nulo.";
         Enumeration<Animal> animales = r.getAnimalesRefugiados();
         boolean encontrado = false;
         while (animales.hasMoreElements()) {
@@ -35,9 +41,9 @@ public class Voluntario extends Socio{
         return Collections.enumeration(tramites);
     }
     public void addTramite(Adopcion ad){
-        if(!tramites.contains(ad)){
-            tramites.add(ad);
-        } else System.out.println("Este voluntario ya ha realizado este trámite");
+        assert ad != null : "El trámite de adopción no puede ser nulo.";
+        tramites.add(ad); //Explicar en la memoria que como queríamos evitar duplicados se ha utilizado directamente un hashSet
+
     }
 
 

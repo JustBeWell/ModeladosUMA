@@ -3,23 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-/**
- *
- * @author byani
- */
 
+import java.util.Collections;
 import java.util.Date;
 
 public abstract class Socio {
-    private int ID;
-    private Date fecha;
-    private final Refugio r;
-    public Socio(int ID, Date fecha, Refugio r) {
+    private int ID; //Identificador único del socio
+    private Date fecha; //Fecha en la que se restristro
+    private final Refugio refugioAsociado;
+    public Socio(int ID, Date fecha, Refugio refugioAsociado) {
         assert ID > 0 : "El ID del socio debe ser válido.";
         assert fecha != null : "La fecha de registro no puede ser nula.";
+        assert refugioAsociado != null : "El refugio asociado no puede ser nulo.";
+        assert !Collections.list(refugioAsociado.getDonantesEnRefugio()).contains(this) : "El donante ya está registrado en el refugio.";
         this.ID = ID;
         this.fecha = fecha;
-        this.r = r;
+        this.refugioAsociado = refugioAsociado;
     }
     public int getID(){
         return ID;
@@ -34,7 +33,7 @@ public abstract class Socio {
         this.fecha = fecha;
     }
     public Refugio getRefugio() {
-        return this.r;
+        return this.refugioAsociado;
     }
     
 }

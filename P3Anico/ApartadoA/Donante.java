@@ -4,10 +4,13 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class Donante extends Socio{
-    private List<Donacion> donaciones;
-    public Donante(int ID, Date date,Refugio r, Double cantidad) {
+    private Set<Donacion> donaciones; //Set?
+    public Donante(int ID, Date date,Refugio r, Double cantidad) { //Se ha decidido meter la cantidad en el constructor, ya que es una condición necesaria y suficiente para ser donante.
         super(ID,date,r);
-        donaciones = new ArrayList<>();
+        assert cantidad > 0 : "La cantidad inicial donada debe ser mayor a cero.";
+
+
+        donaciones = new HashSet<>(); //Se ha decicido utilizar un set en vez de una lista ya que no queremos donantes duplicados
         this.donar(cantidad);
     }
 
@@ -17,8 +20,9 @@ public class Donante extends Socio{
         Donacion d = new Donacion(cantidad, Date.from(fechaDonacion.atStartOfDay(ZoneId.systemDefault()).toInstant()), this);
         donaciones.add(d);
         Refugio r = super.getRefugio();
+        assert r != null : "El refugio asociado no puede ser nulo.";
         r.setLiquidez(r.getLiquidez() + cantidad);
-        if (!Collections.list(r.getDonantesEnRefugio()).contains(this)) r.addDonante(this);
+        r.addDonante(this);
     }
     public Enumeration<Donacion> getDonaciones(){
         return Collections.enumeration(this.donaciones);

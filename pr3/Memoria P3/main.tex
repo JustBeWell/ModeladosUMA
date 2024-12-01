@@ -1,0 +1,187 @@
+\documentclass[12pt, a4paper, titlepage]{article}
+
+\usepackage[utf8]{inputenc}     % Permite el uso de caracteres como ñ y acentos
+\usepackage[spanish]{babel}     % Configura el documento en español
+\usepackage{graphicx}           % Para manipular gráficos e imágenes en el documento
+\usepackage{float}              % Permite forzar una ubicación exacta de imágenes con [H]
+\usepackage{listings}           % Permite formato de fragmentos de código de programación
+\usepackage[autostyle=false, style=english]{csquotes} % Permite escribir "" con \enquote{}
+\usepackage[explicit]{titlesec} % Permite personalizar el estilo de los títulos y secciones
+\usepackage{xcolor}             % Para definir y usar colores personalizados en texto
+\usepackage{geometry}           % Para configuración de los márgenes y el tamaño de la página
+\usepackage{lipsum}             % Para generar texto de relleno ("Lorem ipsum")
+\usepackage{tocloft}            % Para personalizar el formato del índice
+\usepackage{subfiles}           % Para incluir de otros archivos .tex en el main mediante \include{}
+\usepackage[colorlinks=true, allcolors=blue, linktoc=all]{hyperref} % Crea enlaces dentro del documento 
+\usepackage{bookmark}           % Mejora la administración de los marcadores (bookmarks) en documentos PDF generados
+\usepackage{xr}                 % Permite referenciar elementos de otros documentos .tex
+\usepackage{natbib}             % Para gestionar bibliografías y hacer citaciones
+
+
+
+% Configuración de márgenes
+\geometry{
+    left=2.5cm,  % Margen izquierdo
+    right=2.5cm, % Margen derecho
+    top=3cm,     % Margen superior
+    bottom=3cm   % Margen inferior
+}
+
+
+% Definimos una nueva forma de referirnos a las \section, \subsection y \subsubsection.
+% Ahora en los subarchivos tex al llamarlas de esta forma aseguramos que en la
+% Table of Contents (ToC) aparezcan los números de las secciones que seleccionemos
+%     \subsection*{} hace que salga el titulo en formato subsection pero no aparece en el ToC
+%     \numberedsubsection hará que si salga en la ToC
+
+
+% ESTA VERSION NO TIENE NÚMEROS EN LOS TÍTULOS     Section, Subsection... 
+\newcommand{\numberedsection}[1]{%
+  \stepcounter{section}%
+  \section*{#1}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+}
+\newcommand{\numberedsubsection}[1]{%
+  \stepcounter{subsection}%
+  \subsection*{#1}%
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}%
+}
+\newcommand{\numberedsubsubsection}[1]{%
+  \stepcounter{subsubsection}%
+  \subsubsection*{#1}%
+  \addcontentsline{toc}{subsubsection}{\protect\numberline{\thesubsubsection}#1}%
+}
+
+% ESTA VERSIÓN LE PONE NÚMEROS A LOS TÍTULOS:   1. Section, 1.1 Subsection... 
+% \newcommand{\numberedsection}[1]{
+%   \stepcounter{section}
+%   \section*{\thesection\hspace{0.5em}#1}
+%   \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}
+% }
+
+% \newcommand{\numberedsubsection}[1]{
+%   \stepcounter{subsection}
+%   \subsection*{\thesubsection\hspace{0.5em}#1}
+%   \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}
+% }
+
+% \newcommand{\numberedsubsubsection}[1]{
+%   \stepcounter{subsubsection}
+%   \subsubsection*{\thesubsubsection\hspace{0.5em}#1}
+%   \addcontentsline{toc}{subsubsection}{\protect\numberline{\thesubsubsection}#1}
+% }
+
+% Definimos comando para realizar un tab
+\newcommand\tab[1][1cm]{\hspace*{#1}} 
+
+% Definimos forma de llamar al listado con letras minúsculas pero sustituye el listado por 
+% números de enumerate. Comentar para tener enumerate por default.
+% \renewcommand{\theenumi}{\alph{enumi}}
+% \begin{enumerate}
+%   \item
+% \end{enumerate}
+
+
+% Configuración para sintaxis usando código VHDL
+\lstdefinestyle{Código_VHDL}{
+    language=VHDL,                % Especifica VHDL como el lenguaje
+    basicstyle=\ttfamily\small,   % Estilo básico: letra monoespaciada pequeña
+    keywordstyle=\color{red!90!black}, % Color para palabras clave
+    commentstyle=\color{green!50!black}, % Color para comentarios
+    tabsize=2,                    % Tamaño del tabulador
+    showspaces=false,             % No mostrar espacios
+    showstringspaces=false,       % No mostrar espacios en cadenas de texto
+    breaklines=true,              % Ajustar líneas largas
+}
+
+\begin{document}
+
+% PORTADA
+\begin{titlepage}
+  \centering
+  {\bfseries\LARGE Universidad de Málaga\par}
+  \vspace{1cm}
+  {\scshape\Large ETSI Informática\par}
+  \vspace{2cm}
+  {\scshape\Huge Diseño orientado a objetos\par}
+  \vspace{0.1cm}
+  {\scshape\Huge de un refugio de animales}
+  \vspace{2cm}
+  \begin{figure}[H]
+      \centering
+       \includegraphics[width=0.30\linewidth]{assets/umaLogo.png}
+  \end{figure}
+  \vfill
+  {\scshape\Large Modelado y Diseño del Software (2024$-$25)\par}
+  \vspace{0.5cm}
+  {\Large Daniil Gumeniuk\par}
+  {\Large Angel Bayon Pazos \par}
+  {\Large Diego Sicre Cortizo\par}
+  {\Large Pablo Ortega Serapio\par}
+  {\Large Angel Nicolás Escaño López\par}
+  {\Large Francisco Javier Jordá Garay\par}
+  {\Large Janine Bernadeth Olegario Laguit\par}
+  \vspace{1cm}
+  {\Large Grupo 1.1}
+  \vfill
+  {\Large Diciembre 2024}
+  
+  \end{titlepage}
+% FIN PORTADA  
+
+% ÍNDICE
+\tableofcontents % Crea el Índice
+\thispagestyle{empty} % Quita el número de la primera página
+\addtocontents{toc}{\protect\thispagestyle{empty}} % Asegura que cada página del índice sea sin número de página
+
+\newpage
+
+\listoffigures % Crea un Índice de Figuras (registra imágenes)
+\thispagestyle{empty}
+\addtocontents{lof}{\protect\thispagestyle{empty}}
+
+\newpage
+% FIN ÍNDICE
+
+
+% RESUMEN
+\thispagestyle{empty}
+\begin{abstract}
+  Esta práctica aborda el diseño e implementación de un sistema orientado a objetos para 
+  gestionar un refugio de animales utilizando Java y conceptos de diseño orientado a objetos 
+  vistos en el Tema 5.\par
+  \vspace{0.5cm}
+  El objetivo principal es analizar las posibles estrategias de diseño que permitan implementar 
+  este modelo, abordando desafíos como la necesidad de que un mismo socio pueda desempeñar múltiples 
+  roles simultáneamente.
+  
+  A lo largo del documento se discute por qué las clases descritas inicialmente no pueden ser implementadas 
+  directamente en Java y se propone una posible solución mediante técnicas como composición, interfaces, y herencia 
+  múltiple simulada para garantizar la consistencia del sistema.\par
+  \vspace{0.5cm}
+  Finalmente, la solución propuesta acompañada de un diagrama de diseño que ilustra la arquitectura del sistema, 
+  muestra la reutilización de métodos, la integridad de los datos y la flexibilidad necesaria para adaptarse a 
+  los requerimientos del modelo conceptual.\par
+\end{abstract}
+
+\newpage
+% FIN RESUMEN
+
+
+% CUERPO DEL DOCUMENTO
+\setcounter{page}{4} % Inicia a contar las páginas a partir de {}
+
+\include{body/ApartadoA/page}
+\include{body/ApartadoB/page}
+\include{body/ApartadoC/page}
+\include{body/ApartadoD/page}
+
+% BIBLIOGRAFÍA
+% \newpage
+
+% \addcontentsline{toc}{section}{Referencias}  % Agrega "Referencias" al índice
+% \bibliographystyle{apalike}                  % ó elsarticle-num.bst
+% \bibliography{citas.bib}                     % Nombre del archivo donde tenemos todas las referencias bibliográficas
+
+
+\end{document}

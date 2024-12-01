@@ -1,0 +1,118 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{lipsum} % Para texto de relleno, puedes eliminarlo si no lo necesitas
+
+\begin{document}
+
+\phantomsection
+\section{RF2.1 Crear Producto}
+
+\subsection*{Descripción}
+Los usuarios deben de poder crear productos mientras sea posible, definiendo sus atributos y asignándoles sus respectivas categorías y relaciones.\par
+\vspace{0.15cm}
+
+\textbf{Pre-condición}\par
+El usuario debe haber iniciado sesión en su cuenta en Mini PIM.\par
+\vspace{0.15cm}
+
+\textbf{Post-condición}
+\begin{itemize}
+    \item Caso de éxito: Todos los productos que el usuario creó se reflejan en la base de datos del sistema y en su interfaz gráfica.
+    \item Caso mínimo: El sistema notifica al usuario el resultado de la acción de crear producto; exitosa o fallida.
+\end{itemize}
+
+\textbf{Prioridad: } Alta
+\vspace{0.15cm}
+
+\textbf{Autor: } Francisco Javier Jordá Garay\par
+\vspace{0.15cm}
+
+\textbf{Control de cambios: } Versión 1: Definición del caso de uso
+
+\subsection{Escenario Principal}
+\begin{enumerate}
+    \item El usuario se encuentra en el apartado de productos y selecciona la opción de \enquote{Añadir}.
+    \item El sistema muestra el menú de creación solicitando al usuario:
+    \begin{itemize}
+        \item GTIN (atributo sistema $-$ comprueba validez de longitud)
+        \item SKU (atributo sistema)
+        \item Thumbnail (atributo sistema $-$ comprueba tamaño 200$\times$200px y formato)
+        \item Label (atributo sistema $-$ comprueba máximo de 250 caracteres)
+        \item Atributos (opcional $-$ comprueba máximo 5 nuevos atributos usuario)
+        \item Categorías (opcional)
+    \end{itemize}
+    \item El usuario introduce los datos obligatorios y los que decida de opcionales y selecciona \enquote{Confirmar}.
+    \item El sistema comprueba la validez de los datos introducidos por el usuario.
+    \item El sistema almacena el producto creado en la base de datos registrando la fecha de creación.
+    \item El sistema actualiza la información del total de datos registrados en la base de datos.
+    \item El sistema muestra el apartado de \enquote{Productos} todos los recursos almacenados para esta sección.
+\end{enumerate}
+
+\subsection{Escenarios Alternativos}
+\begin{description}
+    \item[2.a.] El sistema no puede almacenar el producto por superar el máximo de almacenamiento ligado al plan de suscripción del usuario.
+    \begin{enumerate}
+        \item[2.a.1] El sistema notifica al usuario que ha llegado al máximo de capacidad permitida en el plan de almacenamiento.
+    \end{enumerate}
+
+    \item[*.a] El usuario cancela la acción de crear un nuevo producto seleccionando la opción que cierra el menú de creación.
+    \begin{enumerate}
+        \item[*.a.1] El sistema regresa al apartado de \enquote{Productos}.
+    \end{enumerate}
+
+    \item[4.a] El sistema detecta un fallo en la comprobación de los datos obligatorios.
+    \begin{enumerate}
+        \item[4.a.1] El sistema notifica del error de comprobación al usuario mostrando el atributo del producto afectado.
+        \item[4.a.2] El sistema regresa al menú de creación permitiendo edición de los datos.
+    \end{enumerate}
+\end{description}
+
+\subsection{Casos de Prueba}
+\underline{Escenario: Principal}\par
+\vspace{0.15cm}
+\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
+\textbf{Y} estoy en el apartado de Productos\par
+\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
+\textbf{E} introduzco correctamente los atributos del producto que deseo crear\par
+\textbf{Y} selecciono \enquote{confirmar} para guardar los datos\par
+\textbf{Entonces} el sistema almacena la información en la base de datos de Mini PIM\par
+\textbf{Y} actualiza la información del total de datos registrados en la base de datos\par
+\textbf{Y} muestra el apartado de Productos con todos los recursos almacenados para esta sección.\par
+\vspace{0.20cm}
+
+\underline{Escenario: Alternativo 2.a}\par
+\vspace{0.15cm}
+\textbf{Dado} que inicié sesión con mi cuenta de usuario correspondiente\par
+\textbf{Y} tengo el límite de productos\par
+\textbf{Y} estoy en el apartado de Productos\par
+\textbf{Cuando} selecciono la opción de \enquote{Añadir}\par
+\textbf{E} introduzco correctamente los atributos del producto que deseo crear\par
+\textbf{Y} selecciono \enquote{confirmar} para guardar los datos\par
+\textbf{Entonces} el sistema me notifica que no puede almacenar el producto por superar el máximo de almacenamiento ligado a mi plan de suscripción actual\par
+\vspace{0.20cm}
+
+% --- MÁS ESCENARIOS --- 
+
+\subsection{Bocetos}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{ruta/a/la/imagen1.png}
+    \caption{Apartado Productos hacer clic en \enquote{Añadir}}
+    \label{fig:anadirProducto}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{ruta/a/la/imagen2.png}
+    \caption{Menú de creación tras clicar \enquote{Añadir}}
+    \label{fig:menuCreacion}
+\end{figure}
+
+\newpage
+
+\end{document}
