@@ -1,7 +1,260 @@
 \section{Diseño del Código de Andamiaje}
 
 \subsection{Introducción}
-En este apartado, se describe el diseño del código de andamiaje necesario para implementar el modelo de gestión del refugio. Las clases principales y las estructuras de datos se han implementado para garantizar la correcta funcionalidad y la relación entre las entidades definidas. Se justifica la elección de estructuras de datos como \texttt{Set} para evitar duplicados y se asegura la integridad mediante el uso de aserciones (\texttt{assert}).
+Nos referimos al código de andamiaje a las estructuras y configuraciones básicas necesarias para desarrollar una aplicación, como clases, métodos e interfaces, que no contienen la lógica específica del problema a resolver. Su propósito es proporcionar un marco inicial sobre el que los desarrolladores pueden construir las funcionalidades particulares de un proyecto, agilizando el desarrollo al evitar escribir repetitivamente las mismas configuraciones en cada proyecto.
+
+\subsection{Análisis de opciones de Diseño}
+En este análisis, se discuten las diferentes opciones de diseño para la implementación del sistema de gestión de un refugio de animales, conforme al modelo de clases y operaciones proporcionado.\\
+
+El sistema requiere gestionar los socios del refugio (quienes pueden desempeñar diferentes roles como voluntarios, donantes y adoptantes), así como el registro, adopción y donación de animales. Además, se deben considerar las relaciones entre las entidades (socios, animales, refugio, donaciones) y las restricciones del sistema, como la consistencia en los datos y las operaciones.\\
+
+El diseño del código de andamiaje es crucial para garantizar que el sistema sea flexible, mantenible y eficiente. En esta sección, exploraremos diversas opciones de diseño y sus implicaciones para la implementación en Java.
+
+\subsubsection{Manejo de las Asociaciones}
+
+\textbf{a) Asociación Directa (Sin Reificación)}\\
+
+\textit{\textbf{Descripción:}}  
+Se implementan las asociaciones directamente como atributos en las clases relacionadas. Por ejemplo, un \texttt{Refugio} tiene una lista de \texttt{Animal} para gestionar los animales que están actualmente en el refugio.\\
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Simplicidad:} El diseño es directo y fácil de implementar.
+    \item \textbf{Rápido de desarrollar:} Menor cantidad de clases a gestionar.
+    \item \textbf{Reducción de clases:} Se minimiza el número de clases necesarias para representar las relaciones.
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item \textbf{Falta de Flexibilidad:} No se pueden añadir atributos adicionales a las asociaciones (como fechas en el proceso de adopción).
+    \item \textbf{Dificultad para relaciones complejas:} Si se agregan reglas complejas sobre la relación entre entidades, como validaciones adicionales, puede resultar difícil gestionarlas.
+    \item \textbf{Problemas de Consistencia:} El manejo de relaciones más complejas, como un socio con múltiples roles, podría volverse problemático con este enfoque.
+\end{itemize}
+
+\textbf{b) Reificación de la Asociación (Clase de Asociación)}\\
+
+\textit{\textbf{Descripción:}  }
+Se introduce una clase adicional para representar la relación entre dos clases. Por ejemplo, \texttt{Adopción} sería una clase intermedia entre \texttt{Animal} y \texttt{Adoptante} que podría incluir atributos adicionales como la fecha de adopción.\\
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Mayor Flexibilidad:} Se pueden agregar atributos y métodos específicos a las relaciones (por ejemplo, \texttt{fechaAdopcion} en la clase \texttt{Adopción}).
+    \item \textbf{Mejor Gestión de Restricciones:} Es más fácil implementar reglas de negocio complejas relacionadas con la asociación.
+    \item \textbf{Más Control:} La clase de asociación permite un control más preciso sobre cómo se gestionan las relaciones.
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item \textbf{Mayor Complejidad:} Incrementa el número de clases y relaciones a gestionar.
+    \item \textbf{Más Código:} Requiere gestionar las clases de asociación y los métodos para acceder a las relaciones.
+\end{itemize}
+
+\subsubsection{Manejo de Roles de los Socios}
+
+\textbf{}{a) Subclases Específicas para cada Rol}\\
+
+\textit{\textbf{Descripción:}}  
+Cada rol (Voluntario, Donante, Adoptante) se implementa como una subclase de la clase \texttt{Socio}. Cada subclase tendría sus propios métodos específicos.\\
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Claridad:} Cada rol está claramente representado con métodos específicos.
+    \item \textbf{Encapsulamiento:} Permite que cada tipo de socio tenga sus propios métodos y atributos.
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item \textbf{Limitación para Roles Múltiples:} No permite que un socio tenga más de un rol sin duplicar instancias de subclases.
+    \item \textbf{Rigidez:} El sistema es menos flexible si los roles cambian o si un socio puede tener múltiples roles de forma dinámica.
+\end{itemize}
+
+\textbf{}{b) Uso de Composición de roles}\\
+
+\textit{\textbf{Descripción:} } 
+Permite que un objeto, como un \texttt{Socio}, asuma múltiples roles sin necesidad de crear subclases para cada combinación. En lugar de utilizar la herencia, se utiliza una colección de objetos que representan los roles, cada uno con sus propios comportamientos y métodos.\\
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Flexibilidad:} Permite asignar múltiples roles a un socio sin necesidad de subclases.
+    \item \textbf{Simplicidad:} Más sencillo de implementar y mantener.
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item \textbf{Menos Claridad:} No hay distinción explícita entre los diferentes tipos de socios, lo que puede hacer que el sistema sea menos intuitivo.
+    \item \textbf{Mayor Validación:} Es necesario implementar lógica adicional para validar qué operaciones están disponibles para qué rol.
+\end{itemize}
+
+\subsubsection{Consistencia y Gestión de Datos}
+
+\textbf{}{a) Encapsulación Estricta}\\
+
+\textit{\textbf{Descripción:} } 
+Se restringe el acceso a los atributos y métodos mediante el uso de visibilidad privada, proporcionando métodos públicos controlados para acceder o modificar los datos.\\
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Seguridad de los Datos:} Asegura que los datos sean modificados de manera controlada y consistente.
+    \item \textbf{Flexibilidad:} Facilita la incorporación de validaciones o lógica adicional.
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item \textbf{Mayor Código:} Requiere implementar más métodos, como getters y setters, y las validaciones necesarias.
+    \item \textbf{Potencial Complejidad:} La implementación de validaciones puede hacer que el código sea más extenso y menos directo.
+\end{itemize}
+
+\textbf{}{b) Uso de Colecciones Inmutables}\\
+
+\textit{\textbf{Descripción:}}  
+Se utilizan colecciones inmutables para proteger las relaciones y garantizar que no se modifiquen fuera de las clases.\\
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Inmutabilidad:} Garantiza que las relaciones no se modifiquen de manera no controlada, mejorando la integridad del sistema.
+    \item \textbf{Reducción de Errores:} Minimiza los errores de modificación accidental.
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item \textbf{Rigidez:} No permite realizar cambios dinámicos en las relaciones.
+    \item \textbf{Mayor Complejidad en el Manejo de Relaciones:} Si es necesario cambiar una relación (por ejemplo, agregar o eliminar un animal), se tendría que crear una nueva colección inmutable.
+\end{itemize}
+
+\subsubsection{Estrategias para Manejo de Adopciones y Donaciones}
+
+\textbf{}{a) Operaciones Independientes}\\
+
+\textit{\textbf{Descripción:} } 
+Cada acción (adopción, registro de animales, donación) se implementa como una operación independiente, sin interacciones entre ellas.\\
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Claridad:} Las operaciones están bien definidas y separadas.
+    \item \textbf{Simplicidad:} El diseño es directo y fácil de entender.
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item \textbf{Duplicación de Código:} Puede haber duplicación si algunas operaciones son comunes entre adopciones y donaciones (por ejemplo, ambas requieren validar la existencia de un animal o un donante).
+    \item \textbf{Menos Flexibilidad:} Si se quiere modificar una operación, podría requerir cambios en varias partes del sistema.
+\end{itemize}
+
+\textbf{}{b) Métodos Combinados}\\
+
+\textit{\textbf{Descripción:}  }
+Se implementan métodos que combinan las operaciones relacionadas, como un único método \texttt{realizarAccion()} que puede gestionar adopciones y donaciones dependiendo del rol del socio.\\
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item \textbf{Reutilización de Código:} Las operaciones comunes se implementan una sola vez.
+    \item \textbf{Flexibilidad:} Se pueden agregar nuevas acciones o roles sin cambiar demasiado el sistema.
+\end{itemize}
+
+\subsubsection{Representación de relaciones en el sistema}
+
+\textbf{}{a) Unidireccional}\\
+
+\textit{\textbf{Descripción:} } 
+En una relación unidireccional, solo una entidad tiene conocimiento de la relación, y no hay necesidad de actualizar automáticamente las otras entidades cuando se realiza un cambio. Por ejemplo, un Adoptante puede conocer al Animal que adopta, pero el Animal no necesita saber nada sobre el Adoptante.\\
+
+\textbf{Ventajas de las Relaciones Unidireccionales}:
+\begin{itemize}
+    \item \textbf{Simplicidad:} Las relaciones unidireccionales son fáciles de implementar, ya que solo una entidad tiene que gestionar la relación. Esto reduce la complejidad del sistema.
+    \item \textbf{Reducción de Código:} No es necesario mantener relaciones de actualización mutua entre clases, lo que simplifica el mantenimiento del sistema.
+    \item \textbf{Menor Carga de Mantenimiento:} En sistemas más simples, las relaciones unidireccionales permiten un mantenimiento más ágil, ya que no requieren actualizaciones en varias clases cuando se realiza un cambio en una entidad.
+\end{itemize}
+
+\textbf{Desventajas de las Relaciones Unidireccionales}:
+\begin{itemize}
+    \item \textbf{Inconsistencias de Datos:} Si no se gestionan adecuadamente, las relaciones unidireccionales pueden dar lugar a datos desincronizados. Por ejemplo, un \texttt{Animal} podría estar adoptado pero seguir siendo mostrado como disponible en el \texttt{Adoptante}.
+    \item \textbf{Consultas Complejas:} Las consultas entre entidades pueden volverse más complicadas, ya que no hay una relación explícita entre todos los objetos involucrados. Esto podría requerir más lógica para mantener la coherencia.
+\end{itemize}
+
+\textbf{}{b) Bidireccional}\\
+
+\textit{\textbf{Descripción:} } 
+En una relación \textbf{bidireccional}, ambos objetos involucrados están al tanto de la relación, lo que significa que cualquier cambio en un objeto se refleja automáticamente en el otro. Por ejemplo, cuando un \texttt{Adoptante} adopta un \texttt{Animal}, el \texttt{Animal} también sabe que ha sido adoptado, y ambos se actualizan mutuamente.\\
+
+\textbf{Ventajas de las Relaciones Bidireccionales}:
+\begin{itemize}
+    \item \textbf{Consistencia de los Datos:} Garantiza que todas las partes relacionadas estén siempre sincronizadas. Si el \texttt{Animal} es adoptado, tanto el \texttt{Animal} como el \texttt{Adoptante} se actualizan automáticamente, evitando inconsistencias.
+    \item \textbf{Facilita la Gestión de Relaciones:} La bidireccionalidad asegura que todos los objetos estén al tanto de los cambios, lo que facilita la gestión de las relaciones entre entidades, especialmente en sistemas complejos.
+    \item \textbf{Integridad de los Datos:} Los cambios en una clase se reflejan en las clases relacionadas, lo que asegura que las entidades tengan siempre datos coherentes y actualizados.
+\end{itemize}
+
+\textbf{Desventajas de las Relaciones Bidireccionales}:
+\begin{itemize}
+    \item \textbf{Mayor Complejidad:} Las relaciones bidireccionales aumentan la complejidad del sistema. Al modificar una entidad, es necesario actualizar varias otras clases, lo que puede hacer que el código sea más difícil de mantener.
+    \item \textbf{Mayor Carga de Mantenimiento:} Requiere un esfuerzo adicional para mantener las relaciones sincronizadas. Si se realiza un cambio en una clase, puede ser necesario actualizar otras clases asociadas, lo que aumenta el riesgo de errores y la carga de mantenimiento.
+    \item \textbf{Rendimiento:} En sistemas grandes o con muchas interacciones entre objetos, la bidireccionalidad podría afectar el rendimiento si no se maneja adecuadamente, ya que cada cambio puede desencadenar múltiples actualizaciones en las clases relacionadas.
+\end{itemize}
+
+
+\subsection{Selección y justificación de la estrategia de Implementación}
+
+En esta sección, se explican las estrategias de implementación seleccionadas para el desarrollo del sistema de gestión del refugio de animales. Las decisiones tomadas se basan en los requisitos del sistema, la simplicidad del diseño, la flexibilidad, y la necesidad de mantener la coherencia de los datos. A continuación, se describen las principales opciones elegidas para la implementación.
+
+\subsection{Manejo de las Asociaciones}
+
+Se ha optado por \textbf{reificar las asociaciones} mediante el uso de clases de asociación, como la clase \texttt{Adopcion}, que actúa como intermediaria entre las clases \texttt{Animal}, \texttt{Adoptante} y \texttt{Voluntario}. Este enfoque ofrece las siguientes ventajas:
+
+\begin{itemize}
+    \item \textbf{Mayor Flexibilidad:} Las clases de asociación permiten agregar atributos y métodos específicos a las relaciones, como la fecha de adopción o el estado del trámite.
+    \item \textbf{Mejor Gestión de Restricciones:} Al usar clases intermedias, es más fácil implementar reglas de negocio complejas, como validar el estado del animal antes de permitir su adopción.
+    \item \textbf{Control:} Se tiene un control más preciso sobre cómo se gestionan las relaciones entre entidades, lo que mejora la mantenibilidad y escalabilidad del sistema.
+\end{itemize}
+
+Se descartó la opción de asociaciones directas debido a que no permitirían agregar atributos adicionales a las relaciones ni gestionar de forma flexible las restricciones entre las clases asociadas.
+
+\subsection{Manejo de Roles de los Socios}
+
+Para gestionar los roles de los socios (como Voluntario, Donante y Adoptante), hemos elegido utilizar herencia por subclases. En lugar de usar una colección de roles, creamos subclases específicas para cada rol. Cada una de estas subclases hereda de la clase base Socio y contiene métodos y comportamientos específicos para cada tipo de socio.
+
+\begin{itemize}
+    \item \textbf{Claridad y Encapsulamiento:} Cada rol está claramente representado mediante una subclase, lo que facilita la comprensión del código y la asignación de comportamientos específicos a cada tipo de socio.
+    \item \textbf{Especialización de Funcionalidad:} Cada rol tiene métodos especializados que permiten gestionar las funciones correspondientes (por ejemplo, un Voluntario puede gestionar adopciones, un Donante puede realizar donaciones, etc.).
+    \item \textbf{Extensibilidad:} Si en el futuro se agregan nuevos roles, se puede hacer fácilmente añadiendo nuevas subclases que hereden de Socio, manteniendo la estructura organizada.
+\end{itemize}
+
+Aunque se evaluó la opción de gestionar los roles de los socios mediante composición en lugar de herencia por subclases, finalmente se optó por la herencia debido a la claridad y especialización que ofrece. La composición de roles hubiera permitido asignar múltiples roles a un socio mediante una colección de objetos, pero se consideró que el uso de subclases específicas facilita una mejor organización y encapsulación de comportamientos particulares para cada tipo de socio, además de proporcionar una estructura más explícita y fácil de mantener a largo plazo.
+
+\subsection{Consistencia y Gestión de Datos}
+
+Se eligió una \textbf{encapsulación estricta} para garantizar que los atributos y métodos sean gestionados de manera controlada. Esto se implementa mediante el uso de métodos privados para la manipulación de datos y la validación mediante **asserts** para asegurar que los valores de las entidades sean correctos antes de su modificación. Las ventajas de este enfoque son:
+
+\begin{itemize}
+    \item \textbf{Seguridad de los Datos:} La encapsulación asegura que los datos sean modificados solo mediante métodos controlados, evitando cambios no deseados o inconsistentes.
+    \item \textbf{Flexibilidad para Validaciones:} Facilita la implementación de validaciones o lógica adicional sin exponer los detalles de implementación.
+\end{itemize}
+
+La opción de\textbf{ usar colecciones inmutables} fue descartada debido a que el sistema necesita permitir cambios dinámicos en las relaciones, como agregar o eliminar animales, lo cual sería más difícil de manejar con colecciones inmutables.
+
+\subsection{Estrategia para Manejo de Adopciones y Donaciones}
+
+Se seleccionó la opción de \textbf{operaciones independientes} para el manejo de adopciones y donaciones. Cada proceso (como la adopción de un animal o la donación de dinero) se maneja como una operación separada sin interacciones complejas entre ellas. Esto tiene las siguientes ventajas:
+
+\begin{itemize}
+    \item \textbf{Claridad:} Las operaciones están claramente definidas, lo que facilita la comprensión y mantenimiento del código.
+    \item \textbf{Simplicidad:} El diseño es directo, con menos dependencias entre las operaciones, lo que facilita su implementación.
+\end{itemize}
+
+Se evaluó la opción de \textbf{métodos combinados} (un único método para manejar adopciones y donaciones), pero se desechó debido a que aumentaría la complejidad del código y la posibilidad de errores si no se gestiona correctamente.
+
+\subsection{Selección de Bidireccionalidad para las Relaciones}
+
+Se optó por implementar \textbf{relaciones bidireccionales} en lugar de unidireccionales entre las entidades clave, como \texttt{Animal}, \texttt{Adoptante} y \texttt{Voluntario}. Esto significa que los cambios en una entidad (por ejemplo, una adopción) se reflejan automáticamente en las clases relacionadas. Las ventajas de este enfoque son:
+
+\begin{itemize}
+    \item \textbf{Consistencia de los Datos:} Garantiza que todos los objetos involucrados en una adopción estén actualizados y sincronizados.
+    \item \textbf{Facilidad de Gestión de Relaciones Complejas:} Al tener las relaciones reflejadas en ambas direcciones, la gestión de datos es más intuitiva y menos propensa a errores.
+\end{itemize}
+
+Se desechó la opción de \textbf{relaciones unidireccionales} porque no proporcionaba la coherencia necesaria en un sistema donde la sincronización de los datos entre las partes involucradas es crítica.
+
+\subsection{Diagrama de Diseño}
+
+FALTA HACER Y METER EL DIAGRAMA DE DISEÑO DE NUESTRO SISTEMA. RECOMENDABLE PONER UNA MINI EXPLICACIÓN.
 
 \subsection{Implementación del Modelo}
 
@@ -295,6 +548,7 @@ public class Animal {
     }
 }
 \end{lstlisting}
+
 
 \subsection{Conclusión}
 El código de andamiaje diseñado utiliza \texttt{Set} para evitar duplicados y asegura la bidireccionalidad de las asociaciones entre clases mediante comprobaciones con \texttt{assert}. Esto garantiza la consistencia e integridad del modelo.
