@@ -2,31 +2,37 @@
 import java.util.*;
 
 public class Adoptante extends Socio {
-    private Set<Adopcion> adopciones;
+    private Set<Adopcion> adopciones; //Para poder guardar las Adopciones en un adoptante hemos decidido utilizar un set para no permitir elementos repetidos en los datos del sistema
 
+    //Constructor para un adoptante
     public Adoptante(int ID, Date date, Refugio r) {
-        super(ID, date,r);
-        adopciones = new HashSet<>();
+        super(ID, date,r); //Asigno los parametros a traves de la clase padre de la que hereda adoptante
+        adopciones = new HashSet<>(); //Por terminos de eficiencia en ejecucion utilizamos Hashset que permiten el accesso en tiempo O(1)
 
     }
 
+    //Metodo que simula una adopcion en el sistema a partir de un voluntario y un animal
     public void adoptar(Animal a, Voluntario v) {
+        //Comprobamos si previamente el animal a ya se encontraba adoptado en el sistema
         assert !adopciones.stream().anyMatch(ad -> ad.getAnimal().equals(a)) : "El adoptante ya tiene registrado este animal";
+        //Si no, se tramita la adopcion
         v.tramitarAdopcion(a, this);
     }
 
     public void addAdopcion(Adopcion a){
         this.adopciones.add(a); //En caso de que ya exista la adopción directamente no se insertará
-
     }
 
     public void removeAdopcion(Adopcion a){
-        if (adopciones.contains(a)) adopciones.remove(a);
+        if (adopciones.contains(a)) adopciones.remove(a); //Comprobamos si previamente el animal a ya se encontraba en el sistema
         else System.out.println("Este animal ya no está asociado al adoptante");
     }
     public Enumeration<Adopcion> getAdopciones(){
         return Collections.enumeration(adopciones);
     }
+
+    //Metodo que comprueba si dos adoptantes son iguales
+        //Dos adoptantes son iguales si y solo si sus campos ID son iguales
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

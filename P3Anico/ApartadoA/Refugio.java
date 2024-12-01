@@ -15,9 +15,11 @@ public class Refugio {
     // Lista para guardar a los adoptantes
     private Set<Socio> socios;
     public Refugio(double liquidez) {
+        //Comprobamos que la liquidez sea valida
         assert liquidez >= 0 : "La liquidez debe ser no negativa.";
-
+        //Asignamos las variables al refugio
         this.liquidez = liquidez;
+        //Instanciamos las colecciones como hashset dado a que nos permite hacer una busqueda en tiempos de ejecucion lineales haciendo el sistema mas eficiente
         animalesRefugiados = new HashSet<>();
         animalesRegistrados = new HashSet<>();
         socios = new HashSet<>();
@@ -33,20 +35,19 @@ public class Refugio {
     }
     public void addSocio(Socio s) {
         assert s != null : "El socio no puede ser nulo.";
-            socios.add(s);
-
+        socios.add(s); //Como es un set no necesitamos comprobar que existan elementos repetidos
     }
 
     public void removeSocio(Socio s) {
         assert s != null : "El socio no puede ser nulo.";
-        if (socios.contains(s)) {
+        if (socios.contains(s)) { //Comprobamos que previamente existe el socio en el sistema
             socios.remove(s);
         } else {
             System.out.println("Este socio no está registrado en el refugio.");
         }
     }
 
-    /** CREACIÓN DE LAS LISTAS DE OBJETOS */
+    /* CREACIÓN DE LAS LISTAS DE OBJETOS */
 
     public Enumeration<Animal> getAnimalesRegistrados() {
         return Collections.enumeration(animalesRegistrados);
@@ -57,7 +58,7 @@ public class Refugio {
     public Enumeration<Socio> getSocios() {
         return Collections.enumeration(socios);
     }
-    /** MÉTODOS PARA AÑADIR OBJETOS AL REFUGIO */
+    /* MÉTODOS PARA AÑADIR OBJETOS AL REFUGIO */
     public List<Adoptante> getAdoptantes() {
         List<Adoptante> adoptantes = new ArrayList<>();
         for (Socio s : socios) {
@@ -111,7 +112,7 @@ public class Refugio {
     }
 
 
-    /** MÉTODOS PARA ELIMINAR OBJETOS DEL REFUGIO */
+    /* MÉTODOS PARA ELIMINAR OBJETOS DEL REFUGIO */
 
     public void removeAnimalesRefugiados(Animal a){
         assert a != null : "El animal no puede ser nulo.";
@@ -123,7 +124,7 @@ public class Refugio {
     }
 
 
-    /** MÉTODOS AUXILIARES PARA MOSTRAR DATOS EN CONCRETO */
+    /* MÉTODOS AUXILIARES PARA MOSTRAR DATOS EN CONCRETO */
     public void mostrarAnimalesRefugiados(){
         System.out.println(animalesRefugiados.toString());
     }

@@ -12,18 +12,21 @@ import java.util.Date;
 
 
 public class Adopcion {
+    //Variables que va a contener una adopcion
     private Date fecha;
     final private Animal animal;
     final private Adoptante adoptante;
     final private Voluntario voluntario;
 
+    //Constructor para una adopcion
     public Adopcion(Animal a, Adoptante ad, Voluntario v, Date fecha) {
-        assert a != null : "El animal no puede ser nulo.";
+        // Asegurar que los parámetros no son nulos y que los datos son válidos
+        assert a != null : "El animal no puede ser nulo."; 
         assert ad != null : "El adoptante no puede ser nulo.";
         assert v != null : "El voluntario no puede ser nulo.";
         assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE : "El animal debe estar disponible para adopción.";
         assert fecha != null && !fecha.after(new Date()) : "La fecha no puede ser nula ni estar en el futuro.";
-
+        //Tras las comprobaciones asignamos a los valores de nuestro objetos los valores previamente comprobados
         this.animal = a;
         this.adoptante = ad;
         this.voluntario = v;
@@ -41,6 +44,7 @@ public class Adopcion {
         assert Collections.list(v.getTramites()).contains(this) : "La adopción no fue añadida correctamente al voluntario.";
 
     }
+
     public Date getFecha() {
         return this.fecha;
     }
@@ -58,7 +62,8 @@ public class Adopcion {
         return this.adoptante;
     }
     
-
+    //Metodo para comprobar que dos adopciones sean iguales
+        //Dos adopciones se consideran iguales si y solo si sus adoptantes y animales asociados son los mismos
     @Override
     public boolean equals(Object obj) {
         if( this == obj ) return true;

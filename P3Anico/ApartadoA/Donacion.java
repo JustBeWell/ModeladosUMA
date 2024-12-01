@@ -12,13 +12,13 @@ public class Donacion {
     private Double cantidad;
     private Date date;
     private final Donante donante;
-
-
+    //Constructor para la clase Donacion
     public Donacion(Double cantidad, Date date, Donante donante) {
+        //Comprobamos que todos los datos sean validos y no nulos
         assert cantidad != null && cantidad > 0 : "La cantidad debe ser positiva.";
         assert date != null && !date.after(new Date()) : "La fecha no puede ser nula ni estar en el futuro.";
         assert donante != null : "El donante no puede ser nulo.";
-
+        //Si todos los datos son correctos asignamos los valores a la donacion
         this.cantidad = cantidad;
         this.date = date;
         this.donante = donante;
