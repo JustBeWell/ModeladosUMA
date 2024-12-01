@@ -15,7 +15,6 @@ public abstract class Socio {
         assert ID > 0 : "El ID del socio debe ser válido.";
         assert fecha != null : "La fecha de registro no puede ser nula.";
         assert refugioAsociado != null : "El refugio asociado no puede ser nulo.";
-        assert !Collections.list(refugioAsociado.getDonantesEnRefugio()).contains(this) : "El donante ya está registrado en el refugio.";
         this.ID = ID;
         this.fecha = fecha;
         this.refugioAsociado = refugioAsociado;
@@ -24,12 +23,14 @@ public abstract class Socio {
         return ID;
     }
     private void setID(int ID){
+        assert ID > 0;
         this.ID = ID;
     }
     public Date getDate() {
         return this.fecha;
     }
     public void setDate(Date fecha) {
+        assert  fecha != null;
         this.fecha = fecha;
     }
     public Refugio getRefugio() {

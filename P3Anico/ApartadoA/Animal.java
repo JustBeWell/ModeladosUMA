@@ -43,6 +43,7 @@ public class Animal {
         return this.adopcion;
     }
     public void setAdopcion(Adopcion adopcion){
+        assert  adopcion != null;
         this.adopcion = adopcion;
     }
     
