@@ -30,8 +30,8 @@ public class Adoptante extends Socio {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        Adoptante adoptante = (Adoptante) obj;
         if(obj instanceof Adoptante ){
+            Adoptante adoptante = (Adoptante) obj;
             return adoptante.getID() == this.getID();
         }
         return false;
