@@ -1,63 +1,16 @@
-\section{Diseño del código de andamiaje}
+\section{Diseño del Código de Andamiaje}
 
 \subsection{Introducción}
-En este apartado se discutirán las diferentes formas de diseñar el código de andamiaje necesario para implementar el modelo del refugio. Se incluirá un diagrama de diseño que represente las relaciones entre las entidades principales del sistema y la implementación en Java. Finalmente, se justificará la estrategia elegida.
+En este apartado, se describe el diseño del código de andamiaje necesario para implementar el modelo de gestión del refugio. Las clases principales y las estructuras de datos se han implementado para garantizar la correcta funcionalidad y la relación entre las entidades definidas. Se justifica la elección de estructuras de datos como \texttt{Set} para evitar duplicados y se asegura la integridad mediante el uso de aserciones (\texttt{assert}).
 
-\subsection{Formas de diseñar el código de andamiaje}
-A continuación, se presentan las estrategias principales consideradas para implementar el código de andamiaje para las clases asociadas al modelo:
+\subsection{Implementación del Modelo}
 
-\subsubsection{Estrategia 1: Uso de listas}
-\begin{itemize}
-    \item \textbf{Descripción:} Esta estrategia utiliza listas para manejar las asociaciones 1:M.
-    \item \textbf{Ventajas:}
-    \begin{itemize}
-        \item Implementación sencilla.
-        \item Flexibilidad para manejar entidades dinámicas.
-    \end{itemize}
-    \item \textbf{Desventajas:}
-    \begin{itemize}
-        \item Requiere validaciones adicionales para evitar duplicados.
-        \item Acceso menos eficiente para grandes conjuntos de datos.
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{Estrategia 2: Uso de conjuntos (\texttt{HashSet})}
-\begin{itemize}
-    \item \textbf{Descripción:} Implementación basada en conjuntos para evitar duplicados y mejorar la eficiencia.
-    \item \textbf{Ventajas:}
-    \begin{itemize}
-        \item Garantiza la unicidad de los elementos.
-        \item Ofrece un acceso más eficiente.
-    \end{itemize}
-    \item \textbf{Desventajas:}
-    \begin{itemize}
-        \item Menos adecuado para mantener un orden específico de los elementos.
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{Estrategía 3: Uso de mapas}
-\begin{itemize}
-    \item \textbf{Descripción:} Utilización de estructuras como \texttt{HashMap} para optimizar las asociaciones.
-    \item \textbf{Ventajas:}
-    \begin{itemize}
-        \item Alta eficiencia para búsquedas.
-    \end{itemize}
-    \item \textbf{Desventajas:}
-    \begin{itemize}
-        \item Introduce mayor complejidad en el diseño del código.
-    \end{itemize}
-\end{itemize}
-
-\subsection{Implementación en Java}
-
-A continuación, se presentan las implementaciones en Java para las clases \texttt{Socio}, \texttt{Voluntario}, \texttt{Adoptante} y \texttt{Donante}.
-
-\subsubsection{Clase \texttt{Socio}}
-La clase abstracta \texttt{Socio} sirve como base para las clases \texttt{Voluntario}, \texttt{Adoptante} y \texttt{Donante}. Se asegura que cada socio esté asociado a un refugio y que su información cumpla con las restricciones del modelo.
+\subsubsection{Clase Socio}
+La clase \texttt{Socio} es abstracta y representa la base para las subclases \texttt{Adoptante}, \texttt{Voluntario}, y \texttt{Donante}. Esta clase asegura que cada socio tenga un \texttt{ID} único, una fecha de registro válida y un refugio asociado.
 
 \begin{lstlisting}[language=Java]
 public abstract class Socio {
-    private int ID;
+    private int ID; 
     private Date fecha;
     private final Refugio refugioAsociado;
 
@@ -69,60 +22,20 @@ public abstract class Socio {
         this.fecha = fecha;
         this.refugioAsociado = refugioAsociado;
     }
-
-    public int getID() { return ID; }
-    public Date getDate() { return this.fecha; }
-    public Refugio getRefugio() { return this.refugioAsociado; }
-}
-\end{lstlisting}
-
-\subsubsection{Clase \texttt{Adoptante}}
-Esta clase maneja las adopciones de animales y utiliza listas para almacenar las asociaciones.
-
-\begin{lstlisting}[language=Java]
-public class Adoptante extends Socio {
-    private List<Adopcion> adopciones;
-
-    public Adoptante(int ID, Date date, Refugio r) {
-        super(ID, date, r);
-        adopciones = new ArrayList<>();
+    public int getID() {
+        return ID;
     }
-
-    public void adoptar(Animal a, Voluntario v) {
-        assert !adopciones.stream().anyMatch(ad -> ad.getAnimal().equals(a)) :
-            "El adoptante ya tiene registrado este animal";
-        v.tramitarAdopcion(a, this);
+    public Date getDate() {
+        return this.fecha;
     }
-
-    public void addAdopcion(Adopcion a) {
-        if (!adopciones.contains(a)) adopciones.add(a);
+    public Refugio getRefugio() {
+        return this.refugioAsociado;
     }
 }
 \end{lstlisting}
 
-\subsubsection{Clase \texttt{Voluntario}}
-Esta clase gestiona los trámites de adopción y registro de animales en el refugio.
-
-\begin{lstlisting}[language=Java]
-public class Voluntario extends Socio {
-    private List<Adopcion> tramites;
-
-    public Voluntario(int ID, Date date, Refugio r) {
-        super(ID, date, r);
-        tramites = new ArrayList<>();
-    }
-
-    public void tramitarAdopcion(Animal a, Adoptante ad) {
-        assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE :
-            "El animal ya esta adoptado.";
-        Adopcion adopcion = new Adopcion(a, ad, this, new Date());
-        this.tramites.add(adopcion);
-    }
-}
-\end{lstlisting}
-
-\subsubsection{Clase \texttt{Donante}}
-Esta clase utiliza conjuntos (\texttt{HashSet}) para manejar las donaciones, asegurando unicidad.
+\subsubsection{Clase Donante}
+La clase \texttt{Donante} extiende de \texttt{Socio} y gestiona las donaciones realizadas por un socio. Las donaciones se almacenan en un \texttt{Set} para evitar duplicados.
 
 \begin{lstlisting}[language=Java]
 public class Donante extends Socio {
@@ -130,26 +43,258 @@ public class Donante extends Socio {
 
     public Donante(int ID, Date date, Refugio r, Double cantidad) {
         super(ID, date, r);
-        assert cantidad > 0 : "La cantidad inicial debe ser mayor a cero.";
+        assert cantidad > 0 : "La cantidad inicial donada debe ser mayor a cero.";
         donaciones = new HashSet<>();
         this.donar(cantidad);
     }
 
     public void donar(Double cantidad) {
         assert cantidad > 0 : "La cantidad donada debe ser mayor a cero.";
-        Donacion d = new Donacion(cantidad, new Date(), this);
+        LocalDate fechaDonacion = LocalDate.now();
+        Donacion d = new Donacion(cantidad, Date.from(fechaDonacion.atStartOfDay(ZoneId.systemDefault()).toInstant()), this);
         donaciones.add(d);
+        Refugio r = super.getRefugio();
+        r.setLiquidez(r.getLiquidez() + cantidad);
+        r.addSocio(this);
+        assert donaciones.contains(d);
     }
 }
 \end{lstlisting}
 
-\subsection{Justificación de la estrategia elegida}
-Se ha optado por una combinación de listas y conjuntos debido a:
-\begin{itemize}
-    \item Modularidad: Cada clase maneja sus propias asociaciones de manera clara y estructurada.
-    \item Escalabilidad: Las listas y conjuntos son adecuadas para manejar escenarios con un número moderado de asociaciones.
-    \item Mantenimiento: La separación de responsabilidades facilita futuras modificaciones.
-\end{itemize}
+\subsubsection{Clase Adoptante}
+La clase \texttt{Adoptante} extiende de \texttt{Socio} y gestiona las adopciones realizadas por un adoptante. Las adopciones se almacenan en un \texttt{Set}.
+
+\begin{lstlisting}[language=Java]
+public class Adoptante extends Socio {
+    private Set<Adopcion> adopciones;
+
+    public Adoptante(int ID, Date date, Refugio r) {
+        super(ID, date, r);
+        adopciones = new HashSet<>();
+    }
+
+    public void adoptar(Animal a, Voluntario v) {
+        assert !adopciones.stream().anyMatch(ad -> ad.getAnimal().equals(a)) : "El adoptante ya tiene registrado este animal";
+        v.tramitarAdopcion(a, this);
+    }
+
+    public void addAdopcion(Adopcion a) {
+        adopciones.add(a);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Clase Voluntario}
+La clase \texttt{Voluntario} extiende de \texttt{Socio} y gestiona los trámites de adopción realizados por un voluntario.
+
+\begin{lstlisting}[language=Java]
+public class Voluntario extends Socio {
+    Set<Adopcion> tramites;
+
+    public Voluntario(int ID, Date date, Refugio r) {
+        super(ID, date, r);
+        tramites = new HashSet<>();
+    }
+
+    public void tramitarAdopcion(Animal a, Adoptante ad) {
+        assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE : "El animal ya esta adoptado.";
+        LocalDate fechaAdopcion = LocalDate.now();
+        Adopcion adopcion = new Adopcion(a, ad, this, Date.from(fechaAdopcion.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        tramites.add(adopcion);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Clase Refugio}
+La clase \texttt{Refugio} gestiona el conjunto de \texttt{Socios} y \texttt{Animales}. Las operaciones están centralizadas para simplificar la gestión.
+
+\begin{lstlisting}[language=Java]
+public class Refugio {
+    private double liquidez;
+    private Set<Animal> animalesRegistrados;
+    private Set<Socio> socios;
+
+    public Refugio(double liquidez) {
+        assert liquidez >= 0 : "La liquidez debe ser no negativa.";
+        this.liquidez = liquidez;
+        animalesRegistrados = new HashSet<>();
+        socios = new HashSet<>();
+    }
+
+    public void addSocio(Socio s) {
+        assert s != null : "El socio no puede ser nulo.";
+        socios.add(s);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Clase Donacion}
+La clase \texttt{Donacion} representa una donación realizada por un \texttt{Donante}. Incluye la cantidad, la fecha de la donación y el donante asociado. Las validaciones aseguran que los valores sean válidos en el momento de la creación de la instancia.
+
+\begin{lstlisting}[language=Java]
+public class Donacion {
+    private Double cantidad;
+    private Date date;
+    private final Donante donante;
+
+    public Donacion(Double cantidad, Date date, Donante donante) {
+        assert cantidad != null && cantidad > 0 : "La cantidad debe ser positiva.";
+        assert date != null && !date.after(new Date()) : "La fecha no puede ser nula ni estar en el futuro.";
+        assert donante != null : "El donante no puede ser nulo.";
+        this.cantidad = cantidad;
+        this.date = date;
+        this.donante = donante;
+    }
+
+    public Double getCantidad() {
+        assert cantidad != null && cantidad > 0 : "La cantidad no puede ser nula.";
+        return cantidad;
+    }
+
+    public void setCantidad(Double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Date getDate() {
+        assert date != null : "La fecha no puede ser nula.";
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Donante getDonante() {
+        return this.donante;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Donacion: %.2f, %tY-%tB-%td", cantidad, date, date, date);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Clase Adopcion}
+La clase \texttt{Adopcion} modela una adopción de un \texttt{Animal} realizada por un \texttt{Adoptante}, gestionada por un \texttt{Voluntario}. Implementa la bidireccionalidad entre estas entidades para mantener consistencia en las asociaciones.
+
+\begin{lstlisting}[language=Java]
+public class Adopcion {
+    private Date fecha;
+    final private Animal animal;
+    final private Adoptante adoptante;
+    final private Voluntario voluntario;
+
+    public Adopcion(Animal a, Adoptante ad, Voluntario v, Date fecha) {
+        assert a != null : "El animal no puede ser nulo.";
+        assert ad != null : "El adoptante no puede ser nulo.";
+        assert v != null : "El voluntario no puede ser nulo.";
+        assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE : "El animal debe estar disponible para adopcion.";
+        assert fecha != null && !fecha.after(new Date()) : "La fecha no puede ser nula ni estar en el futuro.";
+
+        this.animal = a;
+        this.adoptante = ad;
+        this.voluntario = v;
+        this.fecha = fecha;
+
+        a.setEstadoAnimal(EstadoAnimal.ADOPTADO);
+        ad.addAdopcion(this);
+        assert Collections.list(ad.getAdopciones()).contains(this) : 
+        "La adopcion no fue anadida correctamente al adoptante.";
+        v.addTramite(this);
+        assert Collections.list(v.getTramites()).contains(this) : 
+        "La adopcion no fue anadida correctamente al voluntario.";
+    }
+
+    public Date getFecha() {
+        return this.fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        assert fecha != null && !fecha.after(new Date()) : "La fecha no puede ser nula ni estar en el futuro";
+        this.fecha = fecha;
+    }
+
+    public Animal getAnimal() {
+        return this.animal;
+    }
+
+    public Voluntario getVoluntario() {
+        return this.voluntario;
+    }
+
+    public Adoptante getAdoptante() {
+        return this.adoptante;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Adopcion: %tY-%tB-%td, %s, %s", fecha, fecha, fecha, animal, adoptante);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Clase Animal}
+La clase \texttt{Animal} modela a un animal registrado en el sistema. Cada animal tiene un ID único, una fecha de nacimiento, un estado actual y está asociado a un \texttt{Refugio}.
+
+\begin{lstlisting}[language=Java]
+public class Animal {
+    private int ID;
+    private Date nacimiento;
+    private EstadoAnimal estadoAnimal;
+    final private Refugio refugio;
+    private Adopcion adopcion;
+
+    public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal, Refugio refugio, Adopcion adopcion) {
+        assert ID > 0 : "El ID del animal debe ser valido.";
+        assert nacimiento != null : "La fecha de nacimiento no puede ser nula.";
+        assert estadoAnimal != null : "El estado del animal debe estar definido.";
+        assert refugio != null : "El refugio debe existir.";
+
+        this.ID = ID;
+        this.nacimiento = nacimiento;
+        this.estadoAnimal = estadoAnimal;
+        this.refugio = refugio;
+        this.adopcion = adopcion;
+    }
+
+    public EstadoAnimal getEstadoAnimal() {
+        return estadoAnimal;
+    }
+
+    public void setEstadoAnimal(EstadoAnimal estadoAnimal) {
+        assert estadoAnimal != null : "El estado del animal debe estar definido.";
+        this.estadoAnimal = estadoAnimal;
+    }
+
+    public Date getNacimiento() {
+        return nacimiento;
+    }
+
+    public void setNacimiento(Date nacimiento) {
+        assert nacimiento != null : "La fecha de nacimiento no puede ser nula";
+        this.nacimiento = nacimiento;
+    }
+
+    public Refugio getRefugio() {
+        return refugio;
+    }
+
+    public Adopcion getAdopcion() {
+        return this.adopcion;
+    }
+
+    public void setAdopcion(Adopcion adopcion) {
+        assert adopcion != null;
+        this.adopcion = adopcion;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Animal: ID=%d, nacimiento=%tF, estado=%s", ID, nacimiento, estadoAnimal);
+    }
+}
+\end{lstlisting}
 
 \subsection{Conclusión}
-El diseño y la implementación presentados cumplen con los requisitos del modelo, garantizando claridad, eficiencia y modularidad en el código.
+El código de andamiaje diseñado utiliza \texttt{Set} para evitar duplicados y asegura la bidireccionalidad de las asociaciones entre clases mediante comprobaciones con \texttt{assert}. Esto garantiza la consistencia e integridad del modelo.
