@@ -100,6 +100,7 @@ public class Refugio {
     }
 
     public void registrar(Animal a){
+        assert a != null : "No podemos registrar a un animal que no existe";
         this.addAnimalesRegistrados(a);
     }
 
