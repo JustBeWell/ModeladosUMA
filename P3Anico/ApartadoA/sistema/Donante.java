@@ -21,7 +21,7 @@ public class Donante extends Socio{
     public void donar(float cantidad){ //En vez de utilizar
         //Comprobamos que la cantidad sea valida
         assert cantidad > 0 : "La cantidad donada debe ser mayor a cero.";
-        assert Collections.list(this.getRefugio().getSocios()).contains(this): "El socio debe ser donante antes de poder donar"; //En caso de que el socio ya fuese donante del refugio tiene permitido donar, ya que la asociación se define en su constructor
+        //assert Collections.list(this.getRefugio().getSocios()).contains(this): "El socio debe ser donante antes de poder donar"; Sobra, ya que si es donante ha sido ya añadido al refugio como socio.
         LocalDate fechaDonacion = LocalDate.now();
         Donacion d = new Donacion(cantidad, Date.from(fechaDonacion.atStartOfDay(ZoneId.systemDefault()).toInstant())); //Instanciamos una donacion
         addDonacion(d);

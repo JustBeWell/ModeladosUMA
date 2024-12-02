@@ -68,5 +68,30 @@ public class Test {
 
 
         }
+        try {
+            System.out.println("\nCaso 3: Donante dona antes de serlo\n");
+
+            // Crear un refugio con liquidez inicial
+            Refugio refugio = new Refugio(500.00f);
+
+            // Intentar registrar un animal nulo
+            //Se ha asumido que solo se puede crear un refugio
+
+            // Crear socios
+            Voluntario voluntario = new Voluntario(1, new Date(), refugio);
+
+
+            Donante donante = new Donante(2, new Date(), refugio, 100.00f);
+            Adoptante adoptante = new Adoptante(3, new Date(), refugio);
+            Animal animal1 = new Animal(101, new Date(), EstadoAnimal.ENTRATAMIENTO);
+            voluntario.registrar(animal1);
+            adoptante.adoptar(animal1, voluntario);
+            adoptante.adoptar(animal1, voluntario);
+
+        } catch (AssertionError e) {
+            System.out.println("Error detectado: " + e.getMessage());
+
+
+        }
     }
 }
