@@ -40,6 +40,10 @@ public class Refugio {
             System.out.println("El socio ya está asociado a otro refugio.");
             return;
         }*/ //Como asumimos que solo puede haber un refugio esta comprobación deja de ser necesaria.
+        if(socios.contains(s)) {
+            System.out.println("El socio ya esta registrado.");
+            return;
+        }
         socios.add(s); //Como es un set no necesitamos comprobar que existan elementos repetidos
     }
 
