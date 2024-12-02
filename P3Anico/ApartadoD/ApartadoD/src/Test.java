@@ -194,5 +194,41 @@ public class Test {
         } catch (AssertionError e) {
             System.out.println("Error detectado: " + e.getMessage());
         }
+
+        // Caso 8: Dos personas distintas intentan adoptar al mismo animal
+        try {
+            System.out.println("\nCaso 8: Dos personas distintas intentan adoptar al mismo animal\n");
+
+            // Intentar registrar un animal nulo
+            //Se ha asumido que solo se puede crear un refugio
+
+            // Crear socios
+
+            // Crear un refugio con liquidez inicial
+            Refugio refugio = new Refugio(500.00f);
+            //Se ha asumido que solo se puede crear un refugio
+
+            //Crear socios
+            Socio socio = new Socio(1, new Date(), refugio);
+            Socio socio2 = new Socio(2, new Date(), refugio);
+            socio.createVoluntario();
+            socio.createDonante(100.00f);
+            socio.createAdoptante();
+
+            Animal animal1 = new Animal(101, new Date(), EstadoAnimal.ENTRATAMIENTO);
+            Adoptante adoptante = socio.getAdoptante();
+            Voluntario voluntario = socio2.createVoluntario();
+
+            Adoptante adoptante2 = socio2.createAdoptante();
+
+            voluntario.registrar(animal1);
+
+            adoptante.adoptar(animal1, voluntario);
+            adoptante2.adoptar(animal1, voluntario);
+
+            System.out.println(refugio.toString());
+        } catch (AssertionError e) {
+            System.out.println("Error detectado: " + e.getMessage());
+        }
     }
 }

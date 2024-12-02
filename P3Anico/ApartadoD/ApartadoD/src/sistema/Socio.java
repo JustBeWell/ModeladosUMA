@@ -97,4 +97,15 @@ public class Socio { //Esta clase es la clase padre de voluntario adoptante y do
     public int hashCode() {
         return Integer.hashCode(ID);
     }
+
+    @Override
+    public String toString() {
+        return "Socio{" +
+                "ID=" + ID +
+                ", registro=" + registro +
+                ", donante=" + donante +
+                ", voluntario=" + voluntario +
+                ", adoptante=" + adoptante +
+                '}';
+    }
 }
