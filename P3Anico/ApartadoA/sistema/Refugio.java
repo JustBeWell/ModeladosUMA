@@ -105,7 +105,7 @@ public class Refugio {
         if(!animalesRefugiados.contains(a)){
             animalesRefugiados.add(a);
             this.addAnimalesRegistrados(a);
-        } else System.out.println("Este animal ya está refugiado.");
+        } else System.out.println("Este animal ya está en el refugio.");
     }
 
     private void addAnimalesRegistrados(Animal a){

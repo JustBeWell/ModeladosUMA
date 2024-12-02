@@ -44,7 +44,13 @@ public class Animal {
         assert  adopcion != null;
         this.adopcion = adopcion;
     }
-    
+
+    public int getID() {
+        return ID;
+    }
+
+
+
     //Metodo que comprueba si dos animales son iguales
         //Dos animales son iguales si y solo si sus campos ID son iguales
     @Override
