@@ -31,7 +31,9 @@ public abstract class Socio {
 \label{codigo:donante}
 \subsubsection{Clase Donante}
 La clase \texttt{Donante} extiende de \texttt{Socio} y gestiona las donaciones realizadas 
-por un socio. Las donaciones se almacenan en un \texttt{Set} para evitar duplicados.
+por un socio. Las donaciones se almacenan en un \texttt{Set} para evitar duplicados. También consideramos
+necesario recalcar que las donaciones son un float ya que al contar que una menor cantidad de decimales
+lo consideramos más eficiente que un double
 
 \begin{lstlisting}[style = javaNormal, language=Java] 
 public class Donante extends Socio {
@@ -105,7 +107,8 @@ public class Voluntario extends Socio {
 
 \subsubsection{Clase Refugio}
 La clase \texttt{Refugio} gestiona el conjunto de \texttt{Socios} y \texttt{Animales}. 
-Las operaciones están centralizadas para simplificar la gestión.
+Las operaciones están centralizadas para simplificar la gestión. Igual que en Donante en esta clase
+el atributo liquidez también es un float
 \label{codigo:refugio}
 \begin{lstlisting}[style = javaNormal, language=Java] 
 public class Refugio {
@@ -129,7 +132,8 @@ public class Refugio {
 
 \subsubsection{Clase Donacion}
 La clase \texttt{Donacion} representa una donación realizada por un \texttt{Donante}. 
-Incluye la cantidad, la fecha de la donación y el donante asociado. Las validaciones 
+Incluye la cantidad que como anteriormente mencionamos por temas de eficiencia es un float,
+la fecha de la donación y el donante asociado. Las validaciones 
 aseguran que los valores sean válidos en el momento de la creación de la instancia.
 \label{codigo:donacion}
 \begin{lstlisting}[style = javaNormal, language=Java] 

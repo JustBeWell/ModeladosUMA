@@ -4,21 +4,21 @@
 \contentsline {subsection}{\numberline {1.1}Diseño del Código de Andamiaje}{4}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Análisis de opciones de Diseño}{4}{subsection.1.2}%
 \contentsline {subsubsection}{\numberline {1.2.1}Manejo de las Asociaciones}{4}{subsubsection.1.2.1}%
-\contentsline {subsubsection}{\numberline {1.2.2}Manejo de Roles de los Socios}{5}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.2}Manejo de Roles de los Socios}{6}{subsubsection.1.2.2}%
 \contentsline {subsubsection}{\numberline {1.2.3}Consistencia y Gestión de Datos}{7}{subsubsection.1.2.3}%
 \contentsline {subsubsection}{\numberline {1.2.4}Estrategias para Manejo de Adopciones y Donaciones}{8}{subsubsection.1.2.4}%
 \contentsline {subsubsection}{\numberline {1.2.5}Representación de Relaciones en el Sistema}{9}{subsubsection.1.2.5}%
-\contentsline {subsection}{\numberline {1.3}Diagrama de Diseño}{11}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Implementación del Modelo}{12}{subsection.1.4}%
-\contentsline {subsubsection}{\numberline {1.4.1}Clase Socio}{12}{subsubsection.1.4.1}%
-\contentsline {subsubsection}{\numberline {1.4.2}Clase Donante}{12}{subsubsection.1.4.2}%
-\contentsline {subsubsection}{\numberline {1.4.3}Clase Adoptante}{13}{subsubsection.1.4.3}%
-\contentsline {subsubsection}{\numberline {1.4.4}Clase Voluntario}{13}{subsubsection.1.4.4}%
-\contentsline {subsubsection}{\numberline {1.4.5}Clase Refugio}{14}{subsubsection.1.4.5}%
-\contentsline {subsubsection}{\numberline {1.4.6}Clase Donacion}{14}{subsubsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.3}Diagrama de Diseño}{10}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Implementación del Modelo}{11}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Clase Socio}{11}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Clase Donante}{11}{subsubsection.1.4.2}%
+\contentsline {subsubsection}{\numberline {1.4.3}Clase Adoptante}{12}{subsubsection.1.4.3}%
+\contentsline {subsubsection}{\numberline {1.4.4}Clase Voluntario}{12}{subsubsection.1.4.4}%
+\contentsline {subsubsection}{\numberline {1.4.5}Clase Refugio}{13}{subsubsection.1.4.5}%
+\contentsline {subsubsection}{\numberline {1.4.6}Clase Donacion}{13}{subsubsection.1.4.6}%
 \contentsline {subsubsection}{\numberline {1.4.7}Clase Adopcion}{15}{subsubsection.1.4.7}%
-\contentsline {subsubsection}{\numberline {1.4.8}Clase Animal}{17}{subsubsection.1.4.8}%
-\contentsline {subsection}{\numberline {1.5}Conclusión}{18}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.4.8}Clase Animal}{16}{subsubsection.1.4.8}%
+\contentsline {subsection}{\numberline {1.5}Conclusión}{17}{subsection.1.5}%
 \contentsline {section}{\numberline {2}Apartado B}{19}{section*.1}%
 \contentsline {subsection}{\numberline {2.1}Herencia simple en Java}{19}{section*.1}%
 \contentsline {subsection}{\numberline {2.2}Impacto en la implementación}{19}{section*.1}%

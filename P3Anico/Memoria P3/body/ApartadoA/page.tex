@@ -2,16 +2,19 @@
 \subsection{Diseño del Código de Andamiaje}
 \subsection*{Introducción}
 El concepto de \enquote{código de andamiaje} en el diseño orientado a objetos, 
-particularmente en Java, hace referencia al conjunto de estructuras, métodos y 
-prácticas necesarias para implementar asociaciones entre clases, asegurando la 
+particularmente en Java, hace referencia al conjunto de estructuras y métodos 
+necesarios para implementar asociaciones entre clases, asegurando la 
 consistencia y la integridad del sistema.\par
 \vspace{0.15cm}
 Su propósito es proporcionar un marco inicial sobre el que los desarrolladores pueden 
-construir las funcionalidades particulares de un proyecto, agilizando el desarrollo al 
-evitar escribir respectivamente las mismas configuraciones en cada proyecto.
+construir las funcionalidades particulares de un proyecto. Sin embargo, la línea entre
+\enquote{andamiaje} e \enquote{implementación completa} puede ser fina ya que estamos 
+añadiendo nuevas funcionalidades que luego se convierten en el nuevo marco inicial para 
+futuros cambios que vayamos a realizar en los próximos apartados. A continuación se 
+exponen las decisiones diseño que completan el andamiaje inicial.
 
 \subsection{Análisis de opciones de Diseño}
-En esta sección se discuten las diferentes opciones de diseño para la implementación 
+En esta sección se exponen las diferentes opciones de diseño para la implementación 
 del sistema de gestión de un refugio de animales, conforme al modelo de clases y 
 operaciones proporcionado.\par
 \vspace{0.15cm}
@@ -21,11 +24,6 @@ adopción y donación de animales. Además, se deben considerar las relaciones e
 las entidades (socios, animales, refugio, donaciones) y las restricciones del sistema, 
 como la consistencia en los datos y las operaciones.\par
 \vspace{0.15cm}
-El diseño del código de andamiaje es crucial para garantizar que el sistema sea flexible, 
-sostenible y eficiente. En el siguiente análisis, exploraremos diversas opciones de diseño 
-y sus implicaciones para la implementación en Java así como la decisión de diseño tomada y 
-su justificación.\par
-\vspace{0.15cm}
 Importante mencionar que en nuestro diseño, \textbf{no hemos aplicado un único enfoque de manera 
 exclusiva}. Hemos adoptado una combinación de estrategias dependiendo de las necesidades de 
 cada relación dentro del sistema justificándolo de forma adecuada.
@@ -33,27 +31,41 @@ cada relación dentro del sistema justificándolo de forma adecuada.
 \subsubsection{Manejo de las Asociaciones}
 
 \begin{description}
-    \item[a)] \textbf{Asociación Directa (Sin Reificación)}
+    \item[a)] \textbf{Asociación Directa (Sin Reificación\footnote{
+        La reificación es una técnica en programación 
+        orientada a objetos que se basa en convertir un 
+        concepto abstracto, como una relación, en una 
+        entidad concreta o clase.})}
 \end{description}
 
 \textit{\textbf{Descripción:}}  
 En este enfoque, las asociaciones entre clases se implementan directamente como atributos 
 en las clases relacionadas.\par
+\vspace{0.15cm}
+Esta práctica es fácil de implementar porque la cantidad de clases a gestionar 
+y el número de clases necesarias para representar las relaciones es menor. No obstante, 
+añadir atributos adicionales a las asociaciones (como fechas en el proceso 
+de adopción) puede traer problemas de consistencia al manejar relaciones complejas como la 
+de un socio con múltiples roles (lo exploraremos en futuras secciones).\par
+\newpage % Para que no se ve aglomerada la definición en la footnote
+\textbf{Ejemplo: Implementación de \texttt{Refugio} con asociación directa a \texttt{Animal}}\par
+La asociación es directa porque \texttt{Refugio} gestiona los \texttt{Animales} mediante un 
+\texttt{set}, sin una clase intermedia que relacione ambas entidades.(ver Código~\ref{codigo:refugio})\par
+TODO: CAMBIAR EL CODE\par
+En nuestra implementación, hemos decidido la utilización de un \texttt{Set} para las estructuras de datos 
+en vez de \texttt{List} por varios factores:
 
 \begin{itemize}
-    \item \textbf{Ventajas:}\par
-    El diseño es directo y fácil de implementar porque tiene menor cantidad de clases a gestionar 
-    y minimiza el número de clases necesarias para representar las relaciones.
-    \item \textbf{Desventajas:}\par
-    No se pueden añadir atributos adicionales a las asociaciones (como fechas en el proceso 
-    de adopción) y tiene problemas de consistencia al manejar relaciones complejas como la 
-    de un socio con múltiples roles (lo exploraremos en futuras secciones).
-
+    \item \textbf{Control de elementos repetidos:} Los \texttt{Set} usan los métodos de \texttt{hashCode} e \texttt{equals}
+    para hacer la comprobación de la existencia de elementos en la colección. Si un nuevo elemento coincide con uno existente, 
+    no se inserta, evitando comprobaciones adicionales que haríamos con el uso de \texttt{List}.
+    \item \textbf{Complejidad algorítmica:} En los \texttt{HashSet}, la búsqueda y la inserción tienen una complejidad de \(O(1)\), 
+    ya que se basan en tablas hash. Por otro lado, en una \texttt{List} (como \texttt{ArrayList}), las operaciones de búsqueda tienen una 
+    complejidad de \(O(n)\), porque requiere iterar sobre los elementos.
+    \item \textbf{Orden de los elementos:} En nuestra implementación, no es necesario mantener un orden específico en las colecciones. 
+    Por esta razón, el uso \texttt{Set} es más adecuado que \texttt{List} teniendo en cuenta los puntos anteriores.
 \end{itemize}
-
-\textbf{Ejemplo: Implementación de \texttt{Refugio} con asociación directa a \texttt{Animal}}\par
-La asociación es directa porque \texttt{Refugio} gestiona los \texttt{Animales} mediante una 
-lista o conjunto, sin una clase intermedia que relacione ambas entidades. (ver Código~\ref{codigo:refugio})
+\vspace{0.45cm}
 
 \begin{description}
     \item[b)] \textbf{Reificación de la Asociación (Clase de Asociación)}
@@ -63,18 +75,14 @@ lista o conjunto, sin una clase intermedia que relacione ambas entidades. (ver C
 En este enfoque, las asociaciones complejas entre clases se modelan mediante clases 
 intermedias. Por ejemplo, la clase \texttt{Adopcion} representa la relación entre un 
 \texttt{Animal}, un \texttt{Adoptante}, y un \texttt{Voluntario}, incluyendo atributos 
-como \texttt{fechaAdopcion} para capturar detalles específicos de la relación.
-
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
-    Se pueden agregar atributos y métodos específicos a las relaciones,
-    facilita la implementación de restricciones complejas relacionadas con la asociación y
-    permite un manejo más preciso y controlado de las relaciones.
-    \item \textbf{Desventajas:}\par
-    Incrementa el número de clases y relaciones a gestionar, lo que puede hacer el diseño más denso
-    porque ahora debemos implementar y gestionar las clases de asociación, así como los métodos para 
-    acceder a las relaciones.
-\end{itemize}
+como \texttt{fechaAdopcion} para capturar detalles específicos de la relación.\par
+\vspace{0.15cm}
+Como la reificación nos permiten agregar atributos y métodos específicos a las relaciones,
+facilita la implementación de restricciones complejas relacionadas con la asociación.
+Sin embargo, aumenta el número de clases y relaciones a gestionar, lo que hace el diseño más denso
+ya que debemos implementar y gestionar las clases de asociación, así como los métodos para 
+acceder a las relaciones.\par
+\vspace{0.15cm}
 
 \textbf{Nuestra Implementación: Uso de \texttt{Adopcion} como clase de asociación:}
 \begin{itemize}
@@ -101,25 +109,25 @@ las restricciones relacionadas con el proceso de adopción.
 
 \textit{\textbf{Descripción:}}  
 Cada rol (\texttt{Voluntario}, \texttt{Donante}, \texttt{Adoptante}) se implementa como una 
-subclase de la clase base \texttt{Socio}. Esto permite encapsular los atributos y métodos 
+subclase de la clase \texttt{Socio}. Esto permite encapsular los atributos y métodos 
 específicos de cada rol dentro de su respectiva subclase.
+\vspace{0.15cm}
 
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
-    Proporciona claridad al diseño, ya que cada rol está claramente representado con 
-    métodos específicos para su comportamiento. Además, permite encapsular los atributos y 
-    métodos particulares de cada tipo de socio, lo que mejora la organización y legibilidad 
-    del código.
-    \item \textbf{Desventajas:}\par
-    Tiene una limitación significativa para manejar roles múltiples, ya que no permite que 
-    un socio asuma más de un rol sin duplicar instancias de las subclases. Esto hace que el 
-    diseño sea rígido y menos flexible en casos donde los roles pueden cambiar dinámicamente 
-    o coexistir (volveremos a tocar este tema más adelante).
-\end{itemize}
+
+Esto proporciona claridad al diseño, ya que cada rol está claramente representado con 
+métodos específicos para su comportamiento. Además, permite encapsular los atributos y 
+métodos particulares de cada tipo de socio, lo que mejora la organización y legibilidad 
+del código. Aunque tiene una limitación significativa para manejar roles múltiples, ya que no permite que 
+un socio asuma más de un rol sin duplicar instancias de las subclases. Esto hace que el 
+diseño sea rígido y menos flexible en casos donde los roles pueden cambiar dinámicamente 
+o coexistir (volveremos a hablar de esto en los siguientes apartados).\par
+\vspace{0.15cm}
+
+
 
 \textbf{Ejemplo: Subclases específicas para los roles}\par
 El diseño tiene implementadas las subclases \texttt{Donante}, \texttt{Adoptante}, 
-y \texttt{Voluntario} como extensiones de la clase base \texttt{Socio}.\par
+y \texttt{Voluntario} como extensiones de la clase \texttt{Socio}.\par
 (ver Código~\ref{codigo:donante}, \ref{codigo:adoptante}, \ref{codigo:voluntario})
 
 \begin{description}
@@ -131,17 +139,17 @@ En lugar de modelar cada rol como una subclase de \texttt{Socio}, este enfoque u
 la composición para permitir que un socio tenga múltiples roles simultáneamente. 
 Cada rol se modela como una clase independiente que puede ser asociada dinámicamente a 
 un \texttt{Socio} mediante una colección de roles.
+\vspace{0.15cm}
 
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
-    Este enfoque es mucho más flexible, ya que permite asignar múltiples roles a un socio 
-    sin necesidad de crear combinaciones de subclases. También simplifica el manejo de 
-    roles dinámicos y permite cambios en tiempo de ejecución.
-    \item \textbf{Desventajas:}\par
-    Puede reducir la claridad del diseño, ya que no existe una distinción explícita entre 
-    los diferentes tipos de socios. Además, requiere implementar lógica adicional para 
-    validar qué operaciones son aplicables para los roles asignados a cada socio.
-\end{itemize}
+
+Este enfoque es mucho más flexible, ya que permite asignar múltiples roles a un socio 
+sin necesidad de crear combinaciones de subclases. También simplifica el manejo de 
+roles dinámicos y permite cambios en tiempo de ejecución.
+Puede reducir la claridad del diseño, ya que no existe una distinción explícita entre 
+los diferentes tipos de socios. Además, requiere implementar lógica adicional para 
+validar qué operaciones son aplicables para los roles asignados a cada socio.\par
+\vspace{0.15cm}
+
 
 \textbf{Nuestra implementación: Uso de Subclases Específicas para cada Rol:}\par  
 \vspace{0.15cm}
@@ -172,17 +180,15 @@ Este enfoque restringe el acceso directo a los atributos y métodos de las clase
 el uso de visibilidad privada. Para interactuar con los atributos, se proporcionan métodos 
 públicos controlados (\texttt{getters} y \texttt{setters}) que incluyen validaciones (mediante 
 \texttt{asserts}) para garantizar que los datos se mantengan en un estado consistente.
+\vspace{0.15cm}
 
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
-    Asegura que los datos sean modificados de manera controlada y consistente. Facilita la 
-    incorporación de validaciones o pruebas unitarias lo que completa el comportamiento del
-    esperado del sistema.
-    \item \textbf{Desventajas:}\par
-    Requiere implementar más métodos, como \texttt{getters}, \texttt{setters} y validaciones 
+    Debido a esto nos aseguramos que los datos sean modificados de manera controlada y consistente.
+    Facilita la incorporación de validaciones o pruebas unitarias lo que completa el comportamiento del
+    esperado del sistema.Dicho esto también se requiere de implementar más métodos, como \texttt{getters}, \texttt{setters} y validaciones 
     necesarias, lo que aumenta la cantidad de código. Además, estas validaciones podrían hacer 
-    que el diseño sea más extenso y menos directo.
-\end{itemize}
+    que el diseño sea más extenso y menos directo.\par
+    \vspace{0.15cm}
+
 
 \textbf{Ejemplo en el sistema: Uso de encapsulación estricta en la clase \texttt{Animal}:}\par  
 En nuestro sistema, la clase \texttt{Animal} utiliza atributos privados y métodos públicos 
@@ -200,16 +206,14 @@ En este enfoque, las colecciones utilizadas para representar relaciones (por eje
 listas o conjuntos de \texttt{Animal} en \texttt{Refugio}) son inmutables. Esto garantiza 
 que las relaciones no puedan ser modificadas accidentalmente fuera de las clases que las 
 gestionan.
+\vspace{0.15cm}
 
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
     Mejora la integridad del sistema al garantizar que las relaciones no se modifiquen de 
     manera no controlada.
-    \item \textbf{Desventajas:}\par
-    Introduce rigidez, ya que no permite realizar cambios dinámicos en las relaciones sin 
+    Por otro lado introduce rigidez ya que no permite realizar cambios dinámicos en las relaciones sin 
     reemplazar completamente la colección. Esto puede dificultar la gestión de operaciones 
-    como agregar o eliminar elementos.
-\end{itemize}
+    como agregar o eliminar elementos.\par
+    \vspace{0.15cm}
 
 \textbf{Ejemplo de Uso de Colecciones Inmutables en la Clase \texttt{Refugio}:}\par  
 En nuestro sistema, el método \texttt{getAnimalesRegistrados} de la clase \texttt{Refugio} 
@@ -244,18 +248,15 @@ y protección contra modificaciones accidentales.
 En este enfoque, cada operación (como adopción, registro de animales o donaciones) se 
 implementa de forma independiente, sin interacciones entre ellas. Cada acción tiene su 
 propio método o flujo lógico separado.
+\vspace{0.15cm}
 
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
     Este diseño asegura que las operaciones están bien definidas y separadas, lo que 
     facilita su comprensión. Además, la simplicidad del diseño permite que sea directo y 
-    fácil de implementar.
-    \item \textbf{Desventajas:}\par
-    Puede llevar a la duplicación de código si varias operaciones comparten lógica similar 
+    fácil de implementar.Sin Embargo, puede llevar a la duplicación de código si varias operaciones comparten lógica similar 
     (por ejemplo, validar la existencia de un animal o donante). También puede ser menos 
     flexible, ya que cualquier cambio en una operación podría requerir modificaciones en 
-    múltiples partes del sistema.
-\end{itemize}
+    múltiples partes del sistema.\par
+    \vspace{0.15cm}
 
 \textbf{Ejemplo: Operaciones independientes en nuestra implementación}  
 En nuestro diseño, las adopciones y donaciones se gestionan mediante clases específicas 
@@ -267,17 +268,14 @@ En nuestro diseño, las adopciones y donaciones se gestionan mediante clases esp
 
 \textit{\textbf{Descripción:}}  
 En lugar de mantener las operaciones completamente separadas, este enfoque identifica y 
-reutiliza lógica común entre las operaciones (como validaciones o actualizaciones de estado). Aunque no implementamos este enfoque en nuestra solución actual, sería posible centralizar las validaciones comunes mediante una clase auxiliar, como se muestra en el siguiente ejemplo.
-
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
-    Reduce la duplicación de código, ya que la lógica compartida se implementa una sola vez. 
-    Además, facilita la incorporación de nuevas funcionalidades relacionadas con las 
-    operaciones existentes.
-    \item \textbf{Desventajas:}\par
-    Puede introducir una dependencia más estrecha entre las clases, lo que podría aumentar 
-    la complejidad del sistema en caso de cambios importantes.
-\end{itemize}
+reutiliza lógica común entre las operaciones (como validaciones o actualizaciones de estado). 
+Aunque no implementamos este enfoque en nuestra solución actual, sería posible centralizar las 
+validaciones comunes mediante una clase auxiliar, como se muestra en el siguiente ejemplo.\par
+\vspace{0.15cm}
+Esta opción reduce la duplicación de código, ya que la lógica compartida se implementa una sola vez
+y facilita la incorporación de nuevas funcionalidades relacionadas con las operaciones existentes. Pero 
+puede introducir una dependencia más estrecha entre las clases, lo que podría aumentar 
+la complejidad del sistema en caso de cambios importantes.
 
 \textbf{Ejemplo Propuesto: Centralización de Validaciones}  
 Aunque nuestra implementación actual gestiona las validaciones directamente en los métodos 
@@ -308,7 +306,7 @@ public void adoptar(Animal a, Voluntario v) {
 En nuestra implementación actual, las validaciones se realizan directamente en las clases 
 donde ocurren las operaciones. Esto se alinea con la claridad y simplicidad requeridas por 
 el sistema. Sin embargo, reconocemos que la centralización de lógica compartida podría ser 
-útil en sistemas más complejos. (ver los getters en Código~\ref{codigo:adopcion} por ejemplo)
+útil en sistemas más complejos. FIXME: EL GETTER ES MAL EJEMPLO DE ESTO (ver los getters en Código~\ref{codigo:adopcion} por ejemplo) 
 
 
 
@@ -321,18 +319,14 @@ el sistema. Sin embargo, reconocemos que la centralización de lógica compartid
 \textit{\textbf{Descripción:}}  
 En una relación unidireccional, solo una entidad tiene conocimiento de la relación. 
 Por ejemplo, un \texttt{Adoptante} puede conocer al \texttt{Animal} que adopta, 
-pero el \texttt{Animal} no necesita saber nada sobre el \texttt{Adoptante}.
-
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
-    Son más simples de implementar, ya que solo una entidad gestiona la relación, 
-    lo que reduce la complejidad del sistema.
-    \item \textbf{Desventajas:}\par
-    Pueden dar lugar a inconsistencias de datos si no se gestionan adecuadamente. 
-    Además, las consultas entre entidades relacionadas pueden volverse más complejas 
-    al no haber referencias explícitas.
-\end{itemize}
-
+pero el \texttt{Animal} no necesita saber nada sobre el \texttt{Adoptante}.\par
+\vspace{0.15cm} 
+Estas relaciones gestionan la relación con una clase, lo que reduce la complejidad del sistema.
+El problema, es que limita las consultas entre clases relacionadas y puede volverse más complejo 
+añadir funcionalidades.\par
+\vspace{0.15cm}
+En nuestro sistema, todas las relaciones unidireccionales con 1 a muchos, por ejemplo:
+TODO: EXPANDIR ESTA IDEA
 
 \begin{description}
     \item[b)] \textbf{Relaciones Bidireccionales}
@@ -341,23 +335,18 @@ pero el \texttt{Animal} no necesita saber nada sobre el \texttt{Adoptante}.
 \textit{\textbf{Descripción:}}  
 En una relación bidireccional, ambas entidades conocen y mantienen referencias mutuas. 
 Por ejemplo, cuando un \texttt{Adoptante} adopta un \texttt{Animal}, ambos se actualizan 
-mutuamente para reflejar la relación.
-
-\begin{itemize}
-    \item \textbf{Ventajas:}\par
-    Garantizan la consistencia de los datos, ya que ambas partes relacionadas están 
-    sincronizadas. Además, facilitan la gestión de relaciones complejas al mantener 
-    referencias mutuas explícitas.
-    \item \textbf{Desventajas:}\par
-    Aumentan la complejidad del sistema al requerir sincronización constante entre las 
-    entidades relacionadas, lo que puede dificultar el mantenimiento y afectar el 
-    rendimiento en sistemas grandes.
-\end{itemize}
-
+mutuamente para reflejar la relación.\par
+\vspace{0.15cm}
+Las relaciones de este estilo garantizan la consistencia de los datos, ya que ambas partes relacionadas están 
+sincronizadas al mantener referencias mutuas explícitas. Sin embargo, como hay que tener una sincronización constante 
+entre las todas las clases relacionadas, si tuviéramos muchas relaciones bidireccionales puede dificultar el mantenimiento
+por que genera un alto nivel de acoplamiento.\par
+\vspace{0.15cm}
 \textbf{Ejemplo en el Sistema: Relaciones Bidireccionales en \texttt{Adopcion}}\par 
 En nuestro diseño, la relación entre \texttt{Animal}, \texttt{Adoptante}, y 
-\texttt{Voluntario} es bidireccional, asegurando consistencia en ambas direcciones.
-(ver Código~\ref{codigo:adopcion} como se actualiza el estado del animal tras ser adoptado)\par
+\texttt{Voluntario} es bidireccional y se asegurando consistencia en ambas direcciones
+reflejando los cambios realizados en una clase en las demás involucradas.
+(ver Código~\ref{codigo:adopcion} como, por ejemplo, se actualiza el estado del animal tras ser adoptado)\par
 \vspace{0.15cm}
 \textbf{Decisión Tomada: Relaciones Bidireccionales}\par
 Hemos implementado relaciones bidireccionales para las asociaciones complejas del sistema, 
@@ -385,7 +374,7 @@ FALTA HACER Y METER EL DIAGRAMA DE DISEÑO DE NUESTRO SISTEMA.RECOMENDABLE PONER
 
 El diseño e implementación del código de andamiaje para el sistema se realizó siguiendo 
 los principios fundamentales del diseño orientado a objetos, adaptados a los requerimientos 
-específicos del de este apartado. Se tomaron la decisiones de diseño adecuadas, como la gestión 
+específicos de este apartado. Se tomaron la decisiones de diseño adecuadas, como la gestión 
 de asociaciones entre clases, la encapsulación de datos y la validación restricciones con \texttt{assert}, 
 proporcionando un modelo consistente y flexible.\par
 \vspace{0.15cm}
@@ -396,8 +385,9 @@ implementaciones directas, como la gestión de animales en el refugio, y la flex
 de las relaciones complejas, como las adopciones, donde se requieren atributos adicionales 
 y validaciones específicas mientras protegíamos las listas de cada objeto en el sistema.\par
 \vspace{0.15cm}
-Además, la bidireccionalidad en relaciones clave, como las adopciones, garantizó la 
+Además, la bidireccionalidad en relaciones como las adopciones, garantizó la 
 consistencia del modelo al sincronizar automáticamente los datos entre entidades 
 relacionadas.\par
+TODO: AÑADIR COMO RESUMEN LAS DESICIONES QUE NO SE HAYANN  MENCIONADO DE LO QUE DIEGO A RECOPILADO EN LLAMADA
 
 \newpage
