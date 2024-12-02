@@ -231,13 +231,13 @@ INPUT C:\MikTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\MikTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\MikTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\MikTeX\fonts\tfm\public\cm\cmtt10.tfm
-INPUT .\assets\Diagrama.jpg
-INPUT .\assets\Diagrama.jpg
-INPUT .\assets\Diagrama.jpg
-INPUT .\assets\Diagrama.jpg
-INPUT .\assets\Diagrama.jpg
-INPUT .\assets\Diagrama.jpg
-INPUT .\assets\Diagrama.jpg
+INPUT .\assets\Diagrama_bien.png
+INPUT .\assets\Diagrama_bien.png
+INPUT .\assets\Diagrama_bien.png
+INPUT .\assets\Diagrama_bien.png
+INPUT .\assets\Diagrama_bien.png
+INPUT .\assets\Diagrama_bien.png
+INPUT .\assets\Diagrama_bien.png
 INPUT .\body\ApartadoA\codigosApartadoA.tex
 INPUT .\body\ApartadoA\codigosApartadoA.tex
 INPUT .\body\ApartadoA\codigosApartadoA.tex
@@ -264,6 +264,13 @@ OUTPUT body\ApartadoD\page.aux
 INPUT .\body\ApartadoD\page.tex
 INPUT .\body\ApartadoD\page.tex
 INPUT body\ApartadoD\page.tex
+INPUT .\assets\Class Diagram1.png
+INPUT .\assets\Class Diagram1.png
+INPUT .\assets\Class Diagram1.png
+INPUT .\assets\Class Diagram1.png
+INPUT .\assets\Class Diagram1.png
+INPUT .\assets\Class Diagram1.png
+INPUT .\assets\Class Diagram1.png
 INPUT main.aux
 INPUT .\body\ApartadoA\page.aux
 INPUT .\body\ApartadoA\page.aux

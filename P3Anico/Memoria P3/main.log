@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.8)  2 DEC 2024 20:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.8)  2 DEC 2024 23:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -496,14 +496,14 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 [7]
 
 [8]
-<assets/Diagrama.jpg, id=142, 1803.73875pt x 865.2325pt>
-File: assets/Diagrama.jpg Graphic file (type jpg)
-<use assets/Diagrama.jpg>
-Package pdftex.def Info: assets/Diagrama.jpg  used on input line 268.
-(pdftex.def)             Requested size: 455.24411pt x 218.36716pt.
+<assets/Diagrama_bien.png, id=176, 1298.6919pt x 634.5306pt>
+File: assets/Diagrama_bien.png Graphic file (type png)
+<use assets/Diagrama_bien.png>
+Package pdftex.def Info: assets/Diagrama_bien.png  used on input line 268.
+(pdftex.def)             Requested size: 455.24411pt x 222.4279pt.
 
 
-[9 <./assets/Diagrama.jpg>]
+[9 <./assets/Diagrama_bien.png (PNG copy)>]
 
 [10] (body/ApartadoA/codigosApartadoA.tex
 Overfull \hbox (1.55348pt too wide) in paragraph at lines 2--5
@@ -530,7 +530,7 @@ Overfull \hbox (1.55348pt too wide) in paragraph at lines 2--5
 
 [19]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 449.
+(Font)              <10.95> on input line 451.
 
 
 [20]
@@ -562,7 +562,45 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ])
 \openout2 = `body/ApartadoD/page.aux'.
 
- (body/ApartadoD/page.tex) (main.aux
+ (body/ApartadoD/page.tex
+<assets/Class Diagram1.png, id=810, 1298.9328pt x 683.6742pt>
+File: assets/Class Diagram1.png Graphic file (type png)
+<use assets/Class Diagram1.png>
+Package pdftex.def Info: assets/Class Diagram1.png  used on input line 8.
+(pdftex.def)             Requested size: 455.24411pt x 239.61295pt.
+
+
+[27
+
+
+
+ <./assets/Class Diagram1.png (PNG copy)>]
+
+[28]
+
+[29]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 148.
+
+
+[30]
+
+[31]
+
+[32]
+
+[33]
+
+[34]
+
+[35]
+
+[36]
+
+[37]
+
+[38])
+
+[39] (main.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
  (body/ApartadoA/page.aux) (body/ApartadoB/page.aux) (body/ApartadoC/page.aux) (body/ApartadoD/page.aux))
@@ -572,17 +610,17 @@ L3 programming layer <2024-10-09>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15925 strings out of 473702
- 249198 string characters out of 5735993
- 1167002 words of memory out of 5000000
- 38164 multiletter control sequences out of 15000+600000
+ 16486 strings out of 473702
+ 257651 string characters out of 5735993
+ 1166999 words of memory out of 5000000
+ 38263 multiletter control sequences out of 15000+600000
  566107 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,8n,93p,703b,2055s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,8n,93p,724b,2069s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/MikTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (27 pages, 1249258 bytes).
+Output written on main.pdf (40 pages, 1924050 bytes).
 PDF statistics:
- 1023 PDF objects out of 1200 (max. 8388607)
- 604 named destinations out of 1000 (max. 500000)
- 203 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1673 PDF objects out of 1728 (max. 8388607)
+ 1066 named destinations out of 1200 (max. 500000)
+ 288 words of extra memory for PDF output out of 10000 (max. 10000000)
 
