@@ -16,10 +16,10 @@ public class Refugio {
     // Lista para guardar a los adoptantes
     private Set<Socio> socios;
 
-    public Refugio(String nombre, double liquidez) {
+    public Refugio(String nombre, double liquidez, Animal a) {
         //Comprobamos que la liquidez sea valida
         assert liquidez >= 0 : "La liquidez debe ser no negativa.";
-        //assert a != null : "El refugio tiene que ser creado con un animal dentro";
+        assert a != null : "El refugio tiene que ser creado con un animal dentro";
         assert nombre != "" : "El nombre del refugio no puede estar vacío";
         //Asignamos un nombre al refugio
         this.nombre = nombre;
@@ -92,7 +92,7 @@ public class Refugio {
         List<Donante> donantes = new ArrayList<>();
         for (Socio s : socios) {
             if (s.esDonante()) {
-                donantes.add(s.getOperacionesDonante(0.00)); // Este donante no va a donar nada, es solo para acceder al objeto
+                donantes.add(s.getOperacionesDonante(0.0)); // Este donante no va a donar nada, es solo para acceder al objeto
             }
         }
         return donantes;

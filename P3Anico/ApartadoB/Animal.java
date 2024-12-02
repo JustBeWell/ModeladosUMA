@@ -14,9 +14,8 @@ public class Animal {
     private int ID;    // Identificaión
     private Date nacimiento; // Fecha del nacimiento del animal
     private EstadoAnimal estadoAnimal; // El estado en el que se encuentra el animal
-    final private Refugio refugio; // Refugio donde está el animal o por el que ha pasado
+    private Refugio refugio; // Refugio donde está el animal o por el que ha pasado
     private Adopcion adopcion;   //
-
     public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal,Refugio refugio, Adopcion adopcion) {
         this.ID = ID;
         this.nacimiento = nacimiento;

@@ -28,9 +28,6 @@ public class Socio {
         this.ID = ID;
         this.fecha = fecha;
         this.r = r;
-        this.donante = null;
-        this.adoptante = null;
-        this.voluntario = null;
     }
 
     public int getID(){return ID;}
@@ -51,8 +48,8 @@ public class Socio {
     public boolean esDonante() {
         return this.donante != null;
     }
-    private Donante createDonante(Double cantidad) {
-        this.donante = new Donante(this, cantidad);
+    private Donante createDonante() {
+        this.donante = new Donante(this);
         return this.donante;
     }
     public boolean esVoluntario() {
@@ -72,11 +69,11 @@ public class Socio {
     public Voluntario getOperacionesVoluntario(){
         return this.esVoluntario() ? this.voluntario : this.createVoluntario();
     }
-    public Donante getOperacionesDonante(Double cantidad){
-        return this.esDonante() ? this.donante : (cantidad > 0 ? this.createDonante(cantidad) : null);
+    public Donante getOperacionesDonante(){
+        return this.esDonante() ? this.donante : this.createDonante();
     }
     public Adoptante getOperacionesAdoptante(){
-        return this.adoptante;
+        return this.esAdoptante() ? this.adoptante : this.createAdoptante();
     }
 
     @Override

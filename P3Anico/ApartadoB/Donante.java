@@ -11,7 +11,6 @@ public  class Donante {
         //Comprobamos que la cantidad sea valida
         assert cantidad > 0 : "La cantidad inicial donada debe ser mayor a cero.";
         donaciones = new HashSet<>(); //Se ha decicido utilizar un set en vez de una lista ya que no queremos donantes duplicados y es mas eficiente
-        this.donar(cantidad); //Cuando creamos un donante es obvio que va a donar instantaneamente por eso se le llama en el propio constructor.
         this.socio = socio;  // Inicializamos al socio
     }
 
