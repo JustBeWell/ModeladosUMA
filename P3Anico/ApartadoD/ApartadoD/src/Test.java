@@ -76,10 +76,123 @@ public class Test {
             adoptante.adoptar(animal1, voluntario);
             adoptante.adoptar(animal1, voluntario);
 
+            System.out.println(refugio.toString());
+
         } catch (AssertionError e) {
             System.out.println("Error detectado: " + e.getMessage());
+        }
+        // Caso 3: Intentar meter dos veces el mismo socio en el mismo refugio
+        try {
+            System.out.println("\nCaso 3: Intentar meter dos veces el mismo socio en el mismo refugio\n");
 
+            // Crear un refugio con liquidez inicial
+            Refugio refugio = new Refugio(500.00f);
 
+            //Se ha asumido que solo se puede crear un refugio
+            //Crear socios
+            Socio socio = new Socio(1, new Date(), refugio);
+            Socio socio2 = new Socio(1, new Date(), refugio);
+
+            System.out.println(refugio.toString());
+        } catch (AssertionError e) {
+            System.out.println("Error detectado: " + e.getMessage());
+        }
+
+        // Caso 4:  Intentar que un socio sea dos voluntarios
+        try {
+            System.out.println("\nCaso 4: Intentar que un socio sea dos donantes, voluntarios y adoptantes\n");
+
+            // Crear un refugio con liquidez inicial
+            Refugio refugio = new Refugio(500.00f);
+
+            //Se ha asumido que solo se puede crear un refugio
+            //Crear socios
+            Socio socio = new Socio(1, new Date(), refugio);
+
+            socio.createVoluntario();
+            socio.createDonante(100.00f);
+            socio.createAdoptante();
+
+            socio.createVoluntario();
+            //socio.createDonante(1.00f);
+            //socio.createAdoptante();
+
+            System.out.println(refugio.toString());
+        } catch (AssertionError e) {
+            System.out.println("Error detectado: " + e.getMessage());
+        }
+
+        // Caso 5:  Intentar que un socio sea dos donantes
+        try {
+            System.out.println("\nCaso 5:  Intentar que un socio sea dos donantes\n");
+
+            // Crear un refugio con liquidez inicial
+            Refugio refugio = new Refugio(500.00f);
+
+            //Se ha asumido que solo se puede crear un refugio
+            //Crear socios
+            Socio socio = new Socio(1, new Date(), refugio);
+
+            socio.createVoluntario();
+            socio.createDonante(100.00f);
+            socio.createAdoptante();
+
+            //socio.createVoluntario();
+            socio.createDonante(1.00f);
+            //socio.createAdoptante();
+
+            System.out.println(refugio.toString());
+        } catch (AssertionError e) {
+            System.out.println("Error detectado: " + e.getMessage());
+        }
+        // Caso 6:  Intentar que un socio sea dos adoptantes
+        try {
+            System.out.println("\nCaso 6:  Intentar que un socio sea dos adoptantes\n");
+
+            // Crear un refugio con liquidez inicial
+            Refugio refugio = new Refugio(500.00f);
+
+            //Se ha asumido que solo se puede crear un refugio
+            //Crear socios
+            Socio socio = new Socio(1, new Date(), refugio);
+
+            socio.createVoluntario();
+            socio.createDonante(100.00f);
+            socio.createAdoptante();
+
+            //socio.createVoluntario();
+            //socio.createDonante(1.00f);
+            socio.createAdoptante();
+
+            System.out.println(refugio.toString());
+        } catch (AssertionError e) {
+            System.out.println("Error detectado: " + e.getMessage());
+        }
+
+        // Caso 7: Meter un animal dos veces en el mismo refugio, el mismo animal y luego dos distintos, desde refugio y desde voluntario
+        try {
+            System.out.println("\nCaso 7: Meter un animal dos veces en el mismo refugio, el mismo animal y luego dos distintos, desde refugio y desde voluntario\n");
+
+            // Crear un refugio con liquidez inicial
+            Refugio refugio = new Refugio(500.00f);
+
+            //Se ha asumido que solo se puede crear un refugio
+            //Crear socios
+            Socio socio = new Socio(1, new Date(), refugio);
+
+            Animal animal = new Animal(101, new Date(), EstadoAnimal.ENTRATAMIENTO);
+            Animal animal2 = new Animal(102, new Date(), EstadoAnimal.ENTRATAMIENTO);
+
+            Voluntario voluntario = socio.createVoluntario();
+            voluntario.registrar(animal);
+            voluntario.registrar(animal);
+
+            refugio.registrar(animal2);
+            refugio.registrar(animal2);
+
+            System.out.println(refugio.toString());
+        } catch (AssertionError e) {
+            System.out.println("Error detectado: " + e.getMessage());
         }
     }
 }

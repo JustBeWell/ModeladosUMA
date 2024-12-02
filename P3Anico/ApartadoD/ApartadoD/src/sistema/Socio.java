@@ -50,6 +50,7 @@ public class Socio { //Esta clase es la clase padre de voluntario adoptante y do
         return this.donante != null;
     }
     public Donante createDonante(float cantidad) {
+        assert this.donante == null : "El socio ya está registrado como un donante";
         this.donante = new Donante(cantidad, this);
         return this.donante;
     }
@@ -57,6 +58,7 @@ public class Socio { //Esta clase es la clase padre de voluntario adoptante y do
         return this.voluntario != null;
     }
     public Voluntario createVoluntario() {
+        assert this.voluntario == null : "El socio ya está registrado como un voluntario";
         this.voluntario = new Voluntario(this);
         return this.voluntario;
     }
@@ -64,6 +66,7 @@ public class Socio { //Esta clase es la clase padre de voluntario adoptante y do
         return adoptante != null;
     }
     public Adoptante createAdoptante() {
+        assert this.adoptante == null : "El socio ya está registrado como un adoptante";
         this.adoptante = new Adoptante(this);
         return this.adoptante;
     }
