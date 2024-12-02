@@ -1,3 +1,4 @@
+package sistema;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,12 +30,12 @@ public class Donante extends Socio{
         assert donaciones.contains(d); //Asegura que las donaciones contengan la nueva ;)
     }
 
-    public void addDonacion(Donacion donacion){
+    protected void addDonacion(Donacion donacion){
         assert donacion != null: "La donación no puede ser nula";
         donaciones.add(donacion);
     }
 
-    public void removeDonacion(Donacion donacion){
+    protected void removeDonacion(Donacion donacion){
         assert donacion != null : "La donación no puede ser nula.";
         if (donaciones.contains(donacion) && donaciones.size() > 1) {
             donaciones.remove(donacion);

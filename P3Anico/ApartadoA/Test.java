@@ -1,3 +1,5 @@
+import sistema.*;
+
 import java.util.Date;
 
 public class Test {
@@ -13,10 +15,8 @@ public class Test {
             //Se ha asumido que solo se puede crear un refugio
 
             // Crear socios
-            Voluntario voluntario = new Voluntario(1, new Date(), refugio);
+            Voluntario voluntario = new Voluntario( 1, new Date(), refugio);
 
-
-            refugio.addSocio(voluntario);//No se añade porque es un set
             Donante donante = new Donante(2, new Date(), refugio, 100.00f);
             Adoptante adoptante = new Adoptante(3, new Date(), refugio);
             Voluntario voluntario2 = new Voluntario(1, new Date(), refugio);//No se añade porque el equals es igual que el 1, es el mismo socio
@@ -56,7 +56,6 @@ public class Test {
             Voluntario voluntario = new Voluntario(1, new Date(), refugio);
 
 
-            refugio.addSocio(voluntario);//No se añade porque es un set
             Donante donante = new Donante(2, new Date(), refugio, 100.00f);
             Adoptante adoptante = new Adoptante(3, new Date(), refugio);
             Animal animal1 = new Animal(101, new Date(), EstadoAnimal.ENTRATAMIENTO);

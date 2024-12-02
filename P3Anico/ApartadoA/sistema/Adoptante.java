@@ -1,3 +1,4 @@
+package sistema;
 
 import java.util.*;
 
@@ -25,11 +26,11 @@ public class Adoptante extends Socio {
 
     }
 
-    public void addAdopcion(Adopcion a){
+    protected void addAdopcion(Adopcion a){
         this.adopciones.add(a); //En caso de que ya exista la adopción directamente no se insertará
     }
 
-    public void removeAdopcion(Adopcion a){
+    protected void removeAdopcion(Adopcion a){
         if (adopciones.contains(a)) adopciones.remove(a); //Comprobamos si previamente el animal a ya se encontraba en el sistema
         else System.out.println("Este animal ya no está asociado al adoptante");
     }

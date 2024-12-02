@@ -1,3 +1,5 @@
+package sistema;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -37,10 +39,14 @@ public class Voluntario extends Socio{
     public Enumeration<Adopcion> getTramites(){
         return Collections.enumeration(tramites);
     }
-    public void addTramite(Adopcion ad){
+    protected void addTramite(Adopcion ad){
         assert ad != null : "El trámite de adopción no puede ser nulo.";
         tramites.add(ad); //Como estamos utilizando un HashSet no necesitamos comprobar que existan elementos repetidos
 
+    }
+    protected void removeTramite(Adopcion ad){
+        assert  ad != null: "El trámite de adopción no puede ser nulo.";
+        tramites.remove(ad);
     }
 
 

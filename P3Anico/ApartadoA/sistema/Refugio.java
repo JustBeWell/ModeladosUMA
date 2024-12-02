@@ -1,4 +1,4 @@
-/*
+package sistema;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -34,7 +34,7 @@ public class Refugio {
         assert liquidez >= 0 : "La liquidez debe ser no negativa";
         this.liquidez = liquidez;
     }
-    public void addSocio(Socio s) {
+    protected void addSocio(Socio s) {
         assert s != null : "El socio no puede ser nulo.";
         /*if(!s.getRefugio().equals(this)){ //Se ha añadido está condición para evitar que un socio pertenezca varias veces a uno o varios refugios
             System.out.println("El socio ya está asociado a otro refugio.");
@@ -44,7 +44,7 @@ public class Refugio {
     }
 
 
-    public void removeSocio(Socio s) {
+    protected void removeSocio(Socio s) {
         assert s != null : "El socio no puede ser nulo.";
         if (socios.contains(s)) { //Comprobamos que previamente existe el socio en el sistema
             socios.remove(s);
@@ -100,7 +100,7 @@ public class Refugio {
     }
 
 
-    public void addAnimalesRefugiados(Animal a){
+    protected void addAnimalesRefugiados(Animal a){
         assert a != null : "El animal no puede ser nulo.";
         if(!animalesRefugiados.contains(a)){
             animalesRefugiados.add(a);
@@ -119,7 +119,7 @@ public class Refugio {
 
     /* MÉTODOS PARA ELIMINAR OBJETOS DEL REFUGIO */
 
-    public void removeAnimalesRefugiados(Animal a){
+    protected void removeAnimalesRefugiados(Animal a){
         assert a != null : "El animal no puede ser nulo.";
         if (animalesRefugiados.contains(a)) {
             animalesRefugiados.remove(a); //Si que puede haber 0 animales refugiados, pero no cero registrados
@@ -128,7 +128,7 @@ public class Refugio {
         }
     }
 
-    public void removeAnimalesRegistrados(Animal a){
+    protected void removeAnimalesRegistrados(Animal a){
         assert a != null : "El animal no puede ser nulo.";
         if (animalesRegistrados.contains(a) && animalesRegistrados.size() > 1) {
             animalesRegistrados.remove(a);
