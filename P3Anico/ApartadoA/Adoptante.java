@@ -14,9 +14,15 @@ public class Adoptante extends Socio {
     //Metodo que simula una adopcion en el sistema a partir de un voluntario y un animal
     public void adoptar(Animal a, Voluntario v) {
         //Comprobamos si previamente el animal a ya se encontraba adoptado en el sistema
-        assert !adopciones.stream().anyMatch(ad -> ad.getAnimal().equals(a)) : "El adoptante ya tiene registrado este animal";
+        assert a.getEstadoAnimal().equals(EstadoAnimal.DISPONIBLE);
         //Si no, se tramita la adopcion
+        Refugio refugioDelVoluntario = v.getRefugio();
+        a.setEstadoAnimal(EstadoAnimal.ADOPTADO); //El estado del animal debe pasar a ADOPTADO
+        refugioDelVoluntario.removeAnimalesRefugiados(a); //El animal ya no debe estar en el refugio por haber sido adoptado
+
+
         v.tramitarAdopcion(a, this);
+
     }
 
     public void addAdopcion(Adopcion a){
@@ -49,7 +55,7 @@ public class Adoptante extends Socio {
 
     @Override
     public String toString() {
-        return "Adoptante{}";
+        return "Adoptante " + super.getID();
     }
 
     

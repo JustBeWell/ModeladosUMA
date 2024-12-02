@@ -37,11 +37,11 @@ public class Adopcion {
         a.setEstadoAnimal(EstadoAnimal.ADOPTADO);
 
         // Añade esta adopción a las estructuras de las otras clases
-        ad.addAdopcion(this);
-        assert Collections.list(ad.getAdopciones()).contains(this) : "La adopción no fue añadida correctamente al adoptante.";
+        //ad.addAdopcion(this);
+        //assert Collections.list(ad.getAdopciones()).contains(this) : "La adopción no fue añadida correctamente al adoptante.";
 
-        v.addTramite(this);
-        assert Collections.list(v.getTramites()).contains(this) : "La adopción no fue añadida correctamente al voluntario.";
+        //v.addTramite(this);
+        //assert Collections.list(v.getTramites()).contains(this) : "La adopción no fue añadida correctamente al voluntario.";
 
     }
 
@@ -61,7 +61,8 @@ public class Adopcion {
     public Adoptante getAdoptante(){
         return this.adoptante;
     }
-    
+    //Al ser final y tener asserts de no nulidad en el constructor, estamos garantizando que, si el objeto existe, entonces tiene estos atributos ya definidos.
+
     //Metodo para comprobar que dos adopciones sean iguales
         //Dos adopciones se consideran iguales si y solo si sus adoptantes y animales asociados son los mismos
     @Override

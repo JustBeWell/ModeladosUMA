@@ -12,12 +12,12 @@ public class Voluntario extends Socio{
     //Metodo que simula el tramite de una adopcion en el sistema a partir de un animal a y un adoptante ad
     public void tramitarAdopcion(Animal a, Adoptante ad){
         //Comprobamos que los valores sean validos
-        assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE : "El animal ya está adoptado.";
+        assert a.getEstadoAnimal().equals(EstadoAnimal.DISPONIBLE) : "El animal ya está adoptado.";
         assert ad != null : "El adoptante no puede ser nulo.";
         LocalDate fechaAdopcion = LocalDate.now();
         // Añadimos una nuevo tramite del animal al adoptante con la fecha actual.
         Adopcion adopcion = new Adopcion(a, ad, this, Date.from(fechaAdopcion.atStartOfDay(ZoneId.systemDefault()).toInstant())); //Instanciamos una adopcion
-        this.addTramite(adopcion);
+        addTramite(adopcion);
         ad.addAdopcion(adopcion);
     }
     //Metodo que simula el registro de un animal en el sistema a paritr de un voluntario
@@ -27,10 +27,12 @@ public class Voluntario extends Socio{
         //Comprobamos que los valores sean validos
         assert r != null : "El refugio asociado no puede ser nulo.";
         assert a != null : "El animal no puede ser nulo.";
-        Enumeration<Animal> animales = r.getAnimalesRefugiados();
+        //assert !Collections.list(getRefugio().getAnimalesRefugiados()).contains(a); Al ser un set no hace falta
         // Un animal se añade al refugio con el estado disponible
         a.setEstadoAnimal(EstadoAnimal.DISPONIBLE);
-        r.addAnimalesRefugiados(a);
+        r.addAnimalesRefugiados(a); //No se llama al addAnimalesRegistrados, porque se ha decidido, debido a que al refugiar un animal en un refugio, este también debe quedar registrado, hacer que el méto do
+        //  addAnimalesRegistrados sea un méto do privado que se llama al añadir un animal al refugio de forma automática.
+
     }
     public Enumeration<Adopcion> getTramites(){
         return Collections.enumeration(tramites);
@@ -44,6 +46,6 @@ public class Voluntario extends Socio{
 
     @Override
     public String toString() {
-        return "Voluntario{}";
+        return "Voluntario " + super.getID();
     }
 }

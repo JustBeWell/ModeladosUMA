@@ -5,27 +5,26 @@ public class Animal {
     private int ID;
     private Date nacimiento;
     private EstadoAnimal estadoAnimal; 
-    // Declaramos el Refugio como final porque estamos seguros que solo existirá una instancia de él
-    final private Refugio refugio;
+
+
     private Adopcion adopcion;
     // Contructor para la clase Animal
-    public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal, Refugio refugio, Adopcion adopcion) {
+    public Animal(int ID, Date nacimiento, EstadoAnimal estadoAnimal) {
         //Comprobamos que todos los campos sean validos y no nulos
         assert ID > 0 : "El ID del animal debe ser válido.";
         assert nacimiento != null : "La fecha de nacimiento no puede ser nula.";
         assert estadoAnimal != null : "El estado del animal debe estar definido.";
-        assert refugio != null : "El refugio debe existir.";
-        //Si todo esta correcto asignamos los datos a las variables del animal
+        //Se ha eliminado la iniciación de adopción en animal, porque nunca existe la adopción en el momento de creación y se define cuando alguien adopta al bicho
+        //Si to do esta correcto asignamos los datos a las variables del animal
         this.ID = ID;
         this.nacimiento = nacimiento;
         this.estadoAnimal = estadoAnimal;
-        this.refugio = refugio;
-        this.adopcion = adopcion;
     }
 
     public EstadoAnimal getEstadoAnimal() {
         return estadoAnimal;
     }
+
     public void setEstadoAnimal(EstadoAnimal estadoAnimal) {
         assert estadoAnimal != null : "El estado del animal debe estar definido.";
         this.estadoAnimal = estadoAnimal;
@@ -36,9 +35,6 @@ public class Animal {
     public void setNacimiento(Date nacimiento) {
         assert nacimiento != null : "La fecha de nacimiento no puede ser nula";
         this.nacimiento = nacimiento;
-    }
-    public Refugio getRefugio() {
-        return refugio;
     }
     public Adopcion getAdopcion() {
         return this.adopcion;

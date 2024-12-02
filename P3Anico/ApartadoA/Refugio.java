@@ -7,15 +7,16 @@ import java.util.*;
 
 public class Refugio {
     // Representa el capital financiero del refugio
-    private double liquidez;
+    private float liquidez; //Quizás es más interesante utilizar un float, porque al estar tratando con dinero, vamos a tener un máximo de dos decimales
     //Lista para guardar a los animales registrados
     private Set<Animal> animalesRegistrados;
     //Lista para guardar los animales refugiados
     private Set<Animal> animalesRefugiados;
     // Lista para guardar a los adoptantes
     private Set<Socio> socios;
-    public Refugio(double liquidez) {
+    public Refugio(float liquidez) {
         //Comprobamos que la liquidez sea valida
+
         assert liquidez >= 0 : "La liquidez debe ser no negativa.";
         //Asignamos las variables al refugio
         this.liquidez = liquidez;
@@ -26,17 +27,22 @@ public class Refugio {
 
     }
 
-    public double getLiquidez() {
+    public float getLiquidez() {
         return liquidez;
     }
-    public void setLiquidez(double liquidez) {
+    public void setLiquidez(float liquidez) {
         assert liquidez >= 0 : "La liquidez debe ser no negativa";
         this.liquidez = liquidez;
     }
     public void addSocio(Socio s) {
         assert s != null : "El socio no puede ser nulo.";
+        /*if(!s.getRefugio().equals(this)){ //Se ha añadido está condición para evitar que un socio pertenezca varias veces a uno o varios refugios
+            System.out.println("El socio ya está asociado a otro refugio.");
+            return;
+        }*/ //Como asumimos que solo puede haber un refugio esta comprobación deja de ser necesaria.
         socios.add(s); //Como es un set no necesitamos comprobar que existan elementos repetidos
     }
+
 
     public void removeSocio(Socio s) {
         assert s != null : "El socio no puede ser nulo.";
@@ -111,18 +117,27 @@ public class Refugio {
         }
     }
 
-
     /* MÉTODOS PARA ELIMINAR OBJETOS DEL REFUGIO */
 
     public void removeAnimalesRefugiados(Animal a){
         assert a != null : "El animal no puede ser nulo.";
         if (animalesRefugiados.contains(a)) {
-            animalesRefugiados.remove(a);
+            animalesRefugiados.remove(a); //Si que puede haber 0 animales refugiados, pero no cero registrados
         } else {
-            System.out.println("El animal ya fue eliminado de este refugio.");
+            System.out.println("El animal no se encuentra en este Refugio.");
         }
     }
 
+    public void removeAnimalesRegistrados(Animal a){
+        assert a != null : "El animal no puede ser nulo.";
+        if (animalesRegistrados.contains(a) && animalesRegistrados.size() > 1) {
+            animalesRegistrados.remove(a);
+        } else if (animalesRegistrados.contains(a) && animalesRegistrados.size() == 1) {
+            System.out.println("Todo refugio debe tener al menos un animal registrado, estás intentando eliminar el único animal existente");
+        } else {
+            System.out.println("El animal no se encuentra en este Refugio.");
+        }
+    }
 
     /* MÉTODOS AUXILIARES PARA MOSTRAR DATOS EN CONCRETO */
     public void mostrarAnimalesRefugiados(){
@@ -152,4 +167,6 @@ public class Refugio {
         sb.append("Liquidez: ").append(liquidez);
         return sb.toString();
     }
+
+
 }
