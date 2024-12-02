@@ -12,7 +12,7 @@ public class Voluntario extends Socio{
     //Metodo que simula el tramite de una adopcion en el sistema a partir de un animal a y un adoptante ad
     public void tramitarAdopcion(Animal a, Adoptante ad){
         //Comprobamos que los valores sean validos
-        assert a.getEstadoAnimal().equals(EstadoAnimal.DISPONIBLE) : "El animal ya está adoptado.";
+
         assert ad != null : "El adoptante no puede ser nulo.";
         LocalDate fechaAdopcion = LocalDate.now();
         // Añadimos una nuevo tramite del animal al adoptante con la fecha actual.

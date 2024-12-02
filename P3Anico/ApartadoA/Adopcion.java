@@ -24,8 +24,8 @@ public class Adopcion {
         assert a != null : "El animal no puede ser nulo."; 
         assert ad != null : "El adoptante no puede ser nulo.";
         assert v != null : "El voluntario no puede ser nulo.";
-        assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE : "El animal debe estar disponible para adopción.";
         assert fecha != null && !fecha.after(new Date()) : "La fecha no puede ser nula ni estar en el futuro.";
+        //No hay que comprobar el estado porque ya se ha comprobado en el méto do adoptar
         //Tras las comprobaciones asignamos a los valores de nuestro objetos los valores previamente comprobados
         this.animal = a;
         this.adoptante = ad;
@@ -33,8 +33,7 @@ public class Adopcion {
         this.fecha = fecha;
 
         // Asegurar bidireccionalidad: Cada acción en esta clase repercute en las otras relacionadas
-        // Actualiza el estado del animal
-        a.setEstadoAnimal(EstadoAnimal.ADOPTADO);
+        // Actualiza el estado del animal -> Ya está en el metodo adopatar
 
         // Añade esta adopción a las estructuras de las otras clases
         //ad.addAdopcion(this);
