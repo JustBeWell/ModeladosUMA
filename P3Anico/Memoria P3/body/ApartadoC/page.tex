@@ -1,0 +1,28 @@
+\phantomsection\numberedsection{Apartado C}
+
+Se nos pide considerar el caso en el que un mismo socio puede desempeñar 
+múltiples roles. Tras discutir diferentes opciones, hemos llegado a las siguientes ideas:
+
+\begin{itemize}
+    \item \textbf{Composición en lugar de herencia:} 
+    Facilita la reutilización al delegar la lógica común a clases auxiliares,
+    pero puede aumentar el código necesario para configurar relaciones entre las clases.
+    \item \textbf{Interfaces:} 
+    Permite a las clases hijas implementar acciones específicas de forma flexible,
+    pero puede generar complejidad si hay demasiadas interfaces, ya que cada acción
+    requiere una definición separada.
+    \item \textbf{Rediseño del modelo con una clase Socio más rica:}
+    Centraliza el comportamiento en la clase base, simplificando el diseño y
+    evitando la duplicación de lógica, pero puede hacer que la clase base sea
+    demasiado compleja.
+    \item \textbf{Uso de patrones de diseño como el Singleton:}
+    Permite compartir una única instancia de una clase para gestionar lógica o
+    estado común entre las clases hijas, asegurando acceso centralizado y consistente.
+    Aunque reduce la duplicación de lógica, puede introducir un acoplamiento fuerte
+    entre las clases.
+\end{itemize}
+
+A continuación, se discute el enfoque que hemos visto más adecuado para resolver 
+el caso propuesto justificando las decisiones de diseño que conlleva.
+
+\newpage

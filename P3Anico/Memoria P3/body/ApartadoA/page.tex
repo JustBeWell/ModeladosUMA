@@ -49,22 +49,21 @@ de adopción) puede traer problemas de consistencia al manejar relaciones comple
 de un socio con múltiples roles (lo exploraremos en futuras secciones).\par
 \newpage % Para que no se ve aglomerada la definición en la footnote
 \textbf{Ejemplo: Implementación de \texttt{Refugio} con asociación directa a \texttt{Animal}}\par
-La asociación es directa porque \texttt{Refugio} gestiona los \texttt{Animales} mediante un 
-\texttt{set}, sin una clase intermedia que relacione ambas entidades.(ver Código~\ref{codigo:refugio})\par
-TODO: CAMBIAR EL CODE\par
-En nuestra implementación, hemos decidido la utilización de un \texttt{Set} para las estructuras de datos 
-en vez de \texttt{List} por varios factores:
+La asociación es directa porque \texttt{Refugio} gestiona los \texttt{Animales} mediante varios 
+\texttt{Set}, sin una clase intermedia que relacione ambas entidades. (ver Código~\ref{codigo:refugio})\par
 
-\begin{itemize}
-    \item \textbf{Control de elementos repetidos:} Los \texttt{Set} usan los métodos de \texttt{hashCode} e \texttt{equals}
-    para hacer la comprobación de la existencia de elementos en la colección. Si un nuevo elemento coincide con uno existente, 
-    no se inserta, evitando comprobaciones adicionales que haríamos con el uso de \texttt{List}.
-    \item \textbf{Complejidad algorítmica:} En los \texttt{HashSet}, la búsqueda y la inserción tienen una complejidad de \(O(1)\), 
-    ya que se basan en tablas hash. Por otro lado, en una \texttt{List} (como \texttt{ArrayList}), las operaciones de búsqueda tienen una 
-    complejidad de \(O(n)\), porque requiere iterar sobre los elementos.
-    \item \textbf{Orden de los elementos:} En nuestra implementación, no es necesario mantener un orden específico en las colecciones. 
-    Por esta razón, el uso \texttt{Set} es más adecuado que \texttt{List} teniendo en cuenta los puntos anteriores.
-\end{itemize}
+En nuestra implementación, hemos decidido la utilización de un \texttt{Set} para las estructuras de datos 
+en vez de \texttt{List} en algunos casos por las razones que se detallan en \ref{page:Consideraciones}
+
+Por ejemplo, podríamos añadir la siguiente condición para evitar que un socio pertenezca varias veces a uno o varios refugios:
+\begin{lstlisting}[style = javaEspecifico, language=Java]
+    if(!s.getRefugio().equals(this)){
+    System.out.println("El socio ya esta asociado a otro refugio.");
+    return;
+}
+\end{lstlisting}
+El uso de \texttt{Set} nos ahorra esa comprobación añadiendo que hemos asumido que \textbf{solo puede haber un refugio}, entonces esta comprobación deja de ser necesaria. Sin embargo,
+en colecciones donde no necesitamos hacer esta clase de comprobación, se usan \texttt{ArrayList}.
 \vspace{0.45cm}
 
 \begin{description}
@@ -75,9 +74,9 @@ en vez de \texttt{List} por varios factores:
 En este enfoque, las asociaciones complejas entre clases se modelan mediante clases 
 intermedias. Por ejemplo, la clase \texttt{Adopcion} representa la relación entre un 
 \texttt{Animal}, un \texttt{Adoptante}, y un \texttt{Voluntario}, incluyendo atributos 
-como \texttt{fechaAdopcion} para capturar detalles específicos de la relación.\par
+como \texttt{fecha} de adopción para capturar detalles específicos de la relación.\par
 \vspace{0.15cm}
-Como la reificación nos permiten agregar atributos y métodos específicos a las relaciones,
+Como la reificación nos permite agregar atributos y métodos específicos a las relaciones,
 facilita la implementación de restricciones complejas relacionadas con la asociación.
 Sin embargo, aumenta el número de clases y relaciones a gestionar, lo que hace el diseño más denso
 ya que debemos implementar y gestionar las clases de asociación, así como los métodos para 
@@ -94,10 +93,6 @@ acceder a las relaciones.\par
     asegurando consistencia en los datos.
 \end{itemize}
 
-Elegimos este enfoque, ya que proporciona la flexibilidad necesaria para agregar atributos 
-y gestionar reglas de negocio específicas. La asociación directa fue descartada porque no 
-permitiría capturar detalles adicionales, como la fecha de adopción, ni manejar eficientemente 
-las restricciones relacionadas con el proceso de adopción.
 
 
 
@@ -137,8 +132,6 @@ y \texttt{Voluntario} como extensiones de la clase \texttt{Socio}.\par
 \textit{\textbf{Descripción:}}  
 En lugar de modelar cada rol como una subclase de \texttt{Socio}, este enfoque utiliza 
 la composición para permitir que un socio tenga múltiples roles simultáneamente. 
-Cada rol se modela como una clase independiente que puede ser asociada dinámicamente a 
-un \texttt{Socio} mediante una colección de roles.
 \vspace{0.15cm}
 
 
@@ -158,8 +151,8 @@ Hemos decidido no cambiar como están implementados los roles mediante subclases
 los roles están claramente definidos y no se requiere que un socio tenga múltiples roles de 
 manera simultánea. Además:
 \begin{itemize}
-    \item La claridad y encapsulación que proporciona la herencia permiten manejar las responsabilidades y comportamientos específicos de cada tipo de socio de manera aislada.
-    \item Aunque la composición sería más flexible, introducirá complejidad adicional innecesaria para los requisitos actuales del sistema.
+    \item La claridad y encapsulación que proporciona la herencia permiten manejar las responsabilidades y comportamientos específicos de cada tipo de socio.
+    \item Aunque la composición sería más flexible, introducirá complejidad adicional innecesaria para la implementación actual.
 \end{itemize}
 
 No obstante, los requisitos del sistema cambiarán en futuros apartados pidiendo que un socio
@@ -169,7 +162,7 @@ la composición sería una solución más adecuada y como se ha implementado.
 
 
 
-\subsubsection{Consistencia y Gestión de Datos}
+\subsubsection{Consistencia y Gestión de Datos}\label{page:Consistencia y Gestión de Datos}
 
 \begin{description}
     \item[a)] \textbf{Encapsulación Estricta}
@@ -177,24 +170,18 @@ la composición sería una solución más adecuada y como se ha implementado.
 
 \textit{\textbf{Descripción:}}  
 Este enfoque restringe el acceso directo a los atributos y métodos de las clases mediante 
-el uso de visibilidad privada. Para interactuar con los atributos, se proporcionan métodos 
-públicos controlados (\texttt{getters} y \texttt{setters}) que incluyen validaciones (mediante 
+el uso de distintas visibilidades. Para interactuar con los atributos, se proporcionan métodos 
+ controlados (\texttt{getters} y \texttt{setters}) que incluyen validaciones (mediante 
 \texttt{asserts}) para garantizar que los datos se mantengan en un estado consistente.
+Facilita la incorporación de validaciones o pruebas unitarias lo que completa el comportamiento
+esperado del sistema. 
 \vspace{0.15cm}
 
-    Debido a esto nos aseguramos que los datos sean modificados de manera controlada y consistente.
-    Facilita la incorporación de validaciones o pruebas unitarias lo que completa el comportamiento del
-    esperado del sistema.Dicho esto también se requiere de implementar más métodos, como \texttt{getters}, \texttt{setters} y validaciones 
-    necesarias, lo que aumenta la cantidad de código. Además, estas validaciones podrían hacer 
-    que el diseño sea más extenso y menos directo.\par
-    \vspace{0.15cm}
 
-
-\textbf{Ejemplo en el sistema: Uso de encapsulación estricta en la clase \texttt{Animal}:}\par  
-En nuestro sistema, la clase \texttt{Animal} utiliza atributos privados y métodos públicos 
-controlados para garantizar consistencia y validaciones en tiempo de ejecución.Este enfoque 
-asegura que cualquier intento de modificar el estado de un \texttt{Animal} pase por 
-validaciones definidas en los métodos públicos. (ver Código~\ref{codigo:animal})
+\textbf{Ejemplo en el sistema: Uso de encapsulación estricta en la clase \texttt{Refugio}:}\par  
+En nuestro sistema, la clase \texttt{Refugio} utiliza atributos privados y distintas visibilidades de métodos 
+ garantizar consistencia y control en tiempo de ejecución. ver en Código~\ref{codigo:refugio} como distintos métodos tienen visibilidades especificas para el rol que deben cumplir.
+ En \ref{page:Consideraciones} se explican a detalle la función de cada una de las visibilidades presentes.
 
 
 \begin{description}
@@ -217,98 +204,18 @@ gestionan.
 
 \textbf{Ejemplo de Uso de Colecciones Inmutables en la Clase \texttt{Refugio}:}\par  
 En nuestro sistema, el método \texttt{getAnimalesRegistrados} de la clase \texttt{Refugio} 
-devuelve una vista inmutable de los animales registrados. Esto asegura que las listas no 
-puedan modificarse desde fuera de la clase. Además, el uso de \texttt{Collections.}\texttt{enumeration} 
+devuelve una vista inmutable de los animales registrados. Esto asegura que los \texttt{Set} no 
+puedan modificarse ya que el uso de \texttt{Collections.}\texttt{enumeration} 
 garantiza que la colección de animales no pueda ser alterada fuera de la clase \texttt{Refugio}, 
-manteniendo la consistencia de los datos. (ver Código~\ref{codigo:refugio} aunque se implementa en varias clases)
+manteniendo la consistencia de los datos. (ver Código~\ref{codigo:refugio} como ejemplo aunque se implementa esta práctica en varias clases del sistema)
 
 \textbf{Decisión Tomada: Encapsulación Controlada con Enumerations:}\par
 En nuestro diseño, optamos por una encapsulación controlada en lugar de colecciones 
-completamente inmutables. Esto se debe a que:
-\begin{itemize}
-    \item Proporciona flexibilidad para realizar cambios dinámicos en las colecciones a 
-    través de métodos controlados, lo que es necesario para operaciones como agregar o 
-    eliminar animales en un refugio.
-    \item Utilizar enumeraciones en los métodos \texttt{get} garantiza que las colecciones 
-    no se modifiquen desde fuera de las clases, preservando la integridad de los datos.
-\end{itemize}
+completamente inmutables. Utilizar enumeraciones en los métodos \texttt{get} garantiza que las colecciones 
+no se modifiquen desde fuera de las clases, preservando la integridad de los datos.
 
 Este enfoque combina lo mejor de ambos mundos: flexibilidad para realizar cambios controlados 
-y protección contra modificaciones accidentales.
-
-
-
-\subsubsection{Estrategias para Manejo de Adopciones y Donaciones}
-
-\begin{description}
-    \item[a)] \textbf{Operaciones Independientes}
-\end{description}
-
-\textit{\textbf{Descripción:}}  
-En este enfoque, cada operación (como adopción, registro de animales o donaciones) se 
-implementa de forma independiente, sin interacciones entre ellas. Cada acción tiene su 
-propio método o flujo lógico separado.
-\vspace{0.15cm}
-
-    Este diseño asegura que las operaciones están bien definidas y separadas, lo que 
-    facilita su comprensión. Además, la simplicidad del diseño permite que sea directo y 
-    fácil de implementar.Sin Embargo, puede llevar a la duplicación de código si varias operaciones comparten lógica similar 
-    (por ejemplo, validar la existencia de un animal o donante). También puede ser menos 
-    flexible, ya que cualquier cambio en una operación podría requerir modificaciones en 
-    múltiples partes del sistema.\par
-    \vspace{0.15cm}
-
-\textbf{Ejemplo: Operaciones independientes en nuestra implementación}  
-En nuestro diseño, las adopciones y donaciones se gestionan mediante clases específicas 
-(\texttt{Adopcion} y \texttt{Donacion}), cada una con su propia lógica y atributos.
-
-\begin{description}
-    \item[b)] \textbf{Reutilización de Lógica Compartida entre Operaciones}
-\end{description}
-
-\textit{\textbf{Descripción:}}  
-En lugar de mantener las operaciones completamente separadas, este enfoque identifica y 
-reutiliza lógica común entre las operaciones (como validaciones o actualizaciones de estado). 
-Aunque no implementamos este enfoque en nuestra solución actual, sería posible centralizar las 
-validaciones comunes mediante una clase auxiliar, como se muestra en el siguiente ejemplo.\par
-\vspace{0.15cm}
-Esta opción reduce la duplicación de código, ya que la lógica compartida se implementa una sola vez
-y facilita la incorporación de nuevas funcionalidades relacionadas con las operaciones existentes. Pero 
-puede introducir una dependencia más estrecha entre las clases, lo que podría aumentar 
-la complejidad del sistema en caso de cambios importantes.
-
-\textbf{Ejemplo Propuesto: Centralización de Validaciones}  
-Aunque nuestra implementación actual gestiona las validaciones directamente en los métodos 
-de las clases relevantes (\texttt{Adoptante}, \texttt{Donante}). Por ejemplo, podríamos considerar una 
-clase auxiliar para centralizarlas en el futuro:
-
-\begin{lstlisting}[style = javaEspecifico, language=Java, caption={Clase Auxiliar para Validaciones}] 
-public class Validacion {
-    public static void validarEstadoAnimal(Animal animal, EstadoAnimal estadoEsperado) {
-        assert animal.getEstadoAnimal() == estadoEsperado : 
-            "El estado del animal no coincide con el esperado.";
-    }
-}
-\end{lstlisting}
-
-En nuestra implementación actual, la validación se realiza directamente dentro de las clases:
-
-\begin{lstlisting}[style = javaEspecifico, language=Java, caption={Manejo de validaciones dentro del método Adoptar}] 
-public void adoptar(Animal a, Voluntario v) {
-    assert a.getEstadoAnimal() == EstadoAnimal.DISPONIBLE : 
-        "El animal no esta disponible.";
-    Adopcion adopcion = new Adopcion(a, this, v, new Date());
-    adopciones.add(adopcion);
-}
-\end{lstlisting}
-\vspace{0.15cm}
-\textbf{Decisión Tomada: Mantener las Validaciones en las Clases Relevantes}\par
-En nuestra implementación actual, las validaciones se realizan directamente en las clases 
-donde ocurren las operaciones. Esto se alinea con la claridad y simplicidad requeridas por 
-el sistema. Sin embargo, reconocemos que la centralización de lógica compartida podría ser 
-útil en sistemas más complejos. FIXME: EL GETTER ES MAL EJEMPLO DE ESTO (ver los getters en Código~\ref{codigo:adopcion} por ejemplo) 
-
-
+y protección contra modificaciones accidentales en las estructuras de datos.
 
 \subsubsection{Representación de Relaciones en el Sistema}
 
@@ -325,8 +232,6 @@ Estas relaciones gestionan la relación con una clase, lo que reduce la compleji
 El problema, es que limita las consultas entre clases relacionadas y puede volverse más complejo 
 añadir funcionalidades.\par
 \vspace{0.15cm}
-En nuestro sistema, todas las relaciones unidireccionales con 1 a muchos, por ejemplo:
-TODO: EXPANDIR ESTA IDEA
 
 \begin{description}
     \item[b)] \textbf{Relaciones Bidireccionales}
@@ -348,20 +253,69 @@ En nuestro diseño, la relación entre \texttt{Animal}, \texttt{Adoptante}, y
 reflejando los cambios realizados en una clase en las demás involucradas.
 (ver Código~\ref{codigo:adopcion} como, por ejemplo, se actualiza el estado del animal tras ser adoptado)\par
 \vspace{0.15cm}
-\textbf{Decisión Tomada: Relaciones Bidireccionales}\par
+\textbf{Decisión Tomada:}\par
 Hemos implementado relaciones bidireccionales para las asociaciones complejas del sistema, 
 como las adopciones, ya que garantizan consistencia y sincronización entre las entidades 
 relacionadas. Sin embargo, para relaciones más simples, como la lista de animales en un 
 refugio, usamos relaciones unidireccionales para mantener la simplicidad.
 
+
+\newpage
 \subsection{Diagrama de Diseño}
 
 \begin{figure}[H]
     \centering
-     \includegraphics[width=1\linewidth]{assets/umaLogo.png}
-     \caption{UMA}
+     \includegraphics[width=1\linewidth]{assets/Diagrama.jpg}
+     \caption{Diagrama}
 \end{figure}
-FALTA HACER Y METER EL DIAGRAMA DE DISEÑO DE NUESTRO SISTEMA.RECOMENDABLE PONER UNA MINI EXPLICACIÓN.
+
+Este es un diagrama enriquecido en el que se muestran las relaciones, productos, operaciones y funciones de todas las clases.
+
+\subsection{Consideraciones}\label{page:Consideraciones}
+
+Aquí tienes el párrafo reestructurado y enumerado correctamente, manteniendo los itemize correspondientes:
+
+\begin{description}
+    \item[1.] \textbf{Gestión de relaciones:}
+\end{description}
+Las relaciones (1..*) que tenemos se han gestionado usando un \texttt{Set} en cada una por las siguientes razones:
+\begin{itemize}
+    \item \textbf{Control de elementos repetidos:} Los \texttt{Set} usan los métodos de \texttt{hashCode} e \texttt{equals}
+    para hacer la comprobación de la existencia de elementos en la colección. Si un nuevo elemento coincide con uno existente, 
+    no se inserta, evitando comprobaciones adicionales que haríamos con el uso de \texttt{List} mediante \texttt{asserts}. En 
+    nuestro caso, \texttt{equals} hace comprobación de la existencia de un animal mediante el tipo e ID de la instancia.
+    \item \textbf{Complejidad algorítmica:} En los \texttt{HashSet}, la búsqueda y la inserción tienen una complejidad de \(O(1)\), 
+    ya que se basan en tablas hash. Por otro lado, en una \texttt{List} (como \texttt{ArrayList}), las operaciones de búsqueda tienen una 
+    complejidad de \(O(n)\), porque requiere iterar sobre los elementos que es la misma en el peor de los casos para el \texttt{HashSet} si hay muchas colisiones en la tabla hash.
+    \item \textbf{Orden de los elementos:} En nuestra implementación, no es necesario mantener un orden específico en las colecciones. 
+    Por esta razón, el uso \texttt{Set} es más adecuado que \texttt{List} teniendo en cuenta los puntos anteriores.
+\end{itemize}
+
+\begin{description}
+    \item[2.] \textbf{Encapsulación y visibilidad de métodos:}
+\end{description}
+En distintas clases del sistema, se puede apreciar el uso de métodos públicos, privados y protegidos siguiendo los lineamientos de la Encapsulación Directa \ref{page:Consistencia y Gestión de Datos}.
+Las funcionalidad que cada visibilidad implementa en el código:
+\begin{itemize}
+    \item \textbf{public} permite el acceso desde cualquier clase del programa.
+    \item \textbf{private} solo hace accesible el método dentro de la misma clase.
+    \item \textbf{protected} hace el método accesible a clases dentro del mismo paquete.
+\end{itemize}
+En nuestra implementación decidimos utilizar visibilidades \texttt{protected} con métodos que modifican las colecciones de datos mediante \texttt{add} o \texttt{remove} 
+para evitar modificaciones indeseadas.\par
+\vspace{0.20cm}
+
+\begin{description}
+    \item[3.] \textbf{Representación de atributos de precio:}
+\end{description}
+En distintas clases hacemos referencia a \textbf{liquidez} como un \texttt{float} porque al estar tratando con dinero, vamos a tener como máximo de dos decimales. Usar un \texttt{double} es malgastar  memoria que no es necesaria.
+\vspace{0.20cm}
+
+\begin{description}
+    \item[4.] \textbf{Control de restricciones:}
+\end{description}
+Controlamos las restricciones mediante el uso de \texttt{assert} los cuales permiten validar que ciertas condiciones se cumplan durante la ejecución del programa. Si una restricción no se cumple, se lanza un error en tiempo de ejecución, lo que ayuda a detectar inconsistencias.
+
 
 \newpage
 
@@ -375,19 +329,18 @@ FALTA HACER Y METER EL DIAGRAMA DE DISEÑO DE NUESTRO SISTEMA.RECOMENDABLE PONER
 El diseño e implementación del código de andamiaje para el sistema se realizó siguiendo 
 los principios fundamentales del diseño orientado a objetos, adaptados a los requerimientos 
 específicos de este apartado. Se tomaron la decisiones de diseño adecuadas, como la gestión 
-de asociaciones entre clases, la encapsulación de datos y la validación restricciones con \texttt{assert}, 
-proporcionando un modelo consistente y flexible.\par
+de asociaciones entre clases, la encapsulación de datos y la validación de restricciones con \texttt{assert}, 
+proporcionando un modelo consistente y completo.\par
 \vspace{0.15cm}
 Una de las decisiones clave fue el uso combinado de asociaciones directas para relaciones 
-simples y la reificación de asociaciones para relaciones más complejas junto con \texttt{get}
-con conjuntos inmutables. Esto permitió mantener un equilibrio entre la simplicidad de las 
+simples y la reificación de asociaciones para relaciones más complejas junto con métodos \texttt{get}
+que devuelven conjuntos inmutables. Esto permitió mantener un equilibrio entre la simplicidad de las 
 implementaciones directas, como la gestión de animales en el refugio, y la flexibilidad 
 de las relaciones complejas, como las adopciones, donde se requieren atributos adicionales 
 y validaciones específicas mientras protegíamos las listas de cada objeto en el sistema.\par
 \vspace{0.15cm}
 Además, la bidireccionalidad en relaciones como las adopciones, garantizó la 
-consistencia del modelo al sincronizar automáticamente los datos entre entidades 
-relacionadas.\par
-TODO: AÑADIR COMO RESUMEN LAS DESICIONES QUE NO SE HAYANN  MENCIONADO DE LO QUE DIEGO A RECOPILADO EN LLAMADA
+consistencia del modelo al sincronizar automáticamente los datos entre las
+clases participantes.\par
 
 \newpage
