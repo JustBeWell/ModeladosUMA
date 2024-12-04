@@ -18,9 +18,19 @@
 \contentsline {subsubsection}{\numberline {1.5.6}Clase Donacion}{19}{subsubsection.1.5.6}%
 \contentsline {subsubsection}{\numberline {1.5.7}Clase Adopcion}{21}{subsubsection.1.5.7}%
 \contentsline {subsubsection}{\numberline {1.5.8}Clase Animal}{23}{subsubsection.1.5.8}%
-\contentsline {subsection}{\numberline {1.6}Conclusión}{24}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.6}Testing}{24}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Conclusión}{24}{subsection.1.7}%
 \contentsline {section}{\numberline {2}Apartado B}{25}{section*.1}%
 \contentsline {subsection}{\numberline {2.1}Herencia simple en Java}{25}{section*.1}%
 \contentsline {subsection}{\numberline {2.2}Impacto en la implementación}{25}{section*.1}%
-\contentsline {subsection}{\numberline {2.3}Próximo pasos}{25}{section*.1}%
 \contentsline {section}{\numberline {3}Apartado C}{26}{section*.2}%
+\contentsline {section}{\numberline {4}Apartado D}{27}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Diagrama de Diseño}{27}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Solución propuesta}{27}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Cambios respecto a la implementación original}{30}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Constructores de cada rol}{30}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Métodos hashCode y equals}{30}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Manejo de las estructuras de datos}{31}{subsubsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.4}Acceso a los datos}{32}{subsubsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.4}Testing}{32}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Output}{37}{subsubsection.4.4.1}%
