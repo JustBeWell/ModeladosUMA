@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.8)  2 DEC 2024 23:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.12.11)  11 DEC 2024 17:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/franc/Documents/Escuela/UMA/5toSemestre/Modelado y Diseño/Github/ModeladosUMA/P3Anico/Memoria P3/main.tex"
-(c:/Users/franc/Documents/Escuela/UMA/5toSemestre/Modelado y Diseño/Github/ModeladosUMA/P3Anico/Memoria P3/main.tex
+**"d:/GIT/ModeladosUMA/P3Anico/Memoria P3/main.tex"
+(d:/GIT/ModeladosUMA/P3Anico/Memoria P3/main.tex
 LaTeX2e <2024-11-01>
-L3 programming layer <2024-10-09>
-(C:\MikTeX\tex/latex/base\article.cls
+L3 programming layer <2024-11-02>
+(D:\UMA\Herramientas\MikTex\tex/latex/base\article.cls
 Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
-(C:\MikTeX\tex/latex/base\size12.clo
+(D:\UMA\Herramientas\MikTex\tex/latex/base\size12.clo
 File: size12.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count196
@@ -23,25 +23,25 @@ File: size12.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen141
-) (C:\MikTeX\tex/latex/base\inputenc.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks17
 \inpenc@posthook=\toks18
-) (C:\MikTeX\tex/generic/babel\babel.sty
-Package: babel 2024/10/20 v24.12 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
+) (D:\UMA\Herramientas\MikTex\tex/generic/babel\babel.sty
+Package: babel 2024/11/08 v24.13 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
 \babel@savecnt=\count270
 \U@D=\dimen142
 \l@unhyphenated=\language79
- (C:\MikTeX\tex/generic/babel\txtbabel.def)
+ (D:\UMA\Herramientas\MikTex\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read2
 \bbl@dirlevel=\count271
 
 *************************************
 * Local config file bblopts.cfg used
 *
-(C:\MikTeX\tex/latex/arabi\bblopts.cfg
+(D:\UMA\Herramientas\MikTex\tex/latex/arabi\bblopts.cfg
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
-) (C:\MikTeX\tex/latex/babel-spanish\spanish.ldf
+) (D:\UMA\Herramientas\MikTex\tex/latex/babel-spanish\spanish.ldf
 Language: spanish.ldf 2021/05/27 v5.0q Spanish support from the babel system
 \es@quottoks=\toks19
 \es@quotdepth=\count272
@@ -49,35 +49,35 @@ Package babel Info: Making " an active character on input line 570.
 Package babel Info: Making . an active character on input line 675.
 Package babel Info: Making < an active character on input line 722.
 Package babel Info: Making > an active character on input line 722.
-)) (C:\MikTeX\tex/generic/babel/locale/es\babel-spanish.tex
+)) (D:\UMA\Herramientas\MikTex\tex/generic/babel/locale/es\babel-spanish.tex
 Package babel Info: Importing font and identification data for spanish
 (babel)             from babel-es.ini. Reported on input line 11.
-) (C:\MikTeX\tex/latex/graphics\graphicx.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
- (C:\MikTeX\tex/latex/graphics\keyval.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks20
-) (C:\MikTeX\tex/latex/graphics\graphics.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
- (C:\MikTeX\tex/latex/graphics\trig.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (C:\MikTeX\tex/latex/graphics-cfg\graphics.cfg
+) (D:\UMA\Herramientas\MikTex\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
- (C:\MikTeX\tex/latex/graphics-def\pdftex.def
+ (D:\UMA\Herramientas\MikTex\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen143
 \Gin@req@width=\dimen144
-) (C:\MikTeX\tex/latex/float\float.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count273
 \float@exts=\toks21
 \float@box=\box52
 \@float@everytoks=\toks22
 \@floatcapt=\box53
-) (C:\MikTeX\tex/latex/listings\listings.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/listings\listings.sty
 \lst@mode=\count274
 \lst@gtempboxa=\box54
 \lst@token=\toks23
@@ -90,20 +90,20 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \lst@newlines=\count278
 \lst@lineno=\count279
 \lst@maxwidth=\dimen148
- (C:\MikTeX\tex/latex/listings\lstpatch.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
-) (C:\MikTeX\tex/latex/listings\lstmisc.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 \c@lstnumber=\count280
 \lst@skipnumbers=\count281
 \lst@framebox=\box55
-) (C:\MikTeX\tex/latex/listings\listings.cfg
+) (D:\UMA\Herramientas\MikTex\tex/latex/listings\listings.cfg
 File: listings.cfg 2024/09/23 1.10c listings configuration
 ))
 Package: listings 2024/09/23 1.10c (Carsten Heinz)
- (C:\MikTeX\tex/latex/csquotes\csquotes.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/csquotes\csquotes.sty
 Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
- (C:\MikTeX\tex/latex/etoolbox\etoolbox.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count282
 )
@@ -114,18 +114,18 @@ Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \csq@maxlvl=\count287
 \csq@tshold=\count288
 \csq@ltx@everypar=\toks24
- (C:\MikTeX\tex/latex/csquotes\csquotes.def
+ (D:\UMA\Herramientas\MikTex\tex/latex/csquotes\csquotes.def
 File: csquotes.def 2024-04-04 v5.2o csquotes generic definitions (JAW)
 )
 Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
 Package csquotes Info: ... configuration file loaded successfully.
- (C:\MikTeX\tex/latex/csquotes\csquotes.cfg
+ (D:\UMA\Herramientas\MikTex\tex/latex/csquotes\csquotes.cfg
 File: csquotes.cfg 
 )
 Package csquotes Info: Disabling multilingual quotes.
 Package csquotes Info: Disabling multilingual quotes.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-) (C:\MikTeX\tex/latex/titlesec\titlesec.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \ttl@box=\box56
 \beforetitleunit=\skip51
@@ -136,13 +136,13 @@ Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \titlewidth=\dimen151
 \titlewidthlast=\dimen152
 \titlewidthfirst=\dimen153
-) (C:\MikTeX\tex/latex/xcolor\xcolor.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
- (C:\MikTeX\tex/latex/graphics-cfg\color.cfg
+ (D:\UMA\Herramientas\MikTex\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
- (C:\MikTeX\tex/latex/graphics\mathcolor.ltx)
+ (D:\UMA\Herramientas\MikTex\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -152,11 +152,11 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
-) (C:\MikTeX\tex/latex/geometry\geometry.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
- (C:\MikTeX\tex/generic/iftex\ifvtex.sty
+ (D:\UMA\Herramientas\MikTex\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
- (C:\MikTeX\tex/generic/iftex\iftex.sty
+ (D:\UMA\Herramientas\MikTex\tex/generic/iftex\iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 ))
 \Gm@cnth=\count289
@@ -171,9 +171,9 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 \Gm@layouthoffset=\dimen160
 \Gm@layoutvoffset=\dimen161
 \Gm@dimlist=\toks26
- (C:\MikTeX\tex/latex/geometry\geometry.cfg)) (C:\MikTeX\tex/latex/lipsum\lipsum.sty (C:\MikTeX\tex/latex/l3packages/l3keys2e\l3keys2e.sty (C:\MikTeX\tex/latex/l3kernel\expl3.sty
-Package: expl3 2024-10-09 L3 programming layer (loader) 
- (C:\MikTeX\tex/latex/l3backend\l3backend-pdftex.def
+ (D:\UMA\Herramientas\MikTex\tex/latex/geometry\geometry.cfg)) (D:\UMA\Herramientas\MikTex\tex/latex/lipsum\lipsum.sty (D:\UMA\Herramientas\MikTex\tex/latex/l3packages/l3keys2e\l3keys2e.sty (D:\UMA\Herramientas\MikTex\tex/latex/l3kernel\expl3.sty
+Package: expl3 2024-11-02 L3 programming layer (loader) 
+ (D:\UMA\Herramientas\MikTex\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count292
 \l__pdf_internal_box=\box57
@@ -184,7 +184,7 @@ Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
 \g__lipsum_par_int=\count293
 \l__lipsum_a_int=\count294
 \l__lipsum_b_int=\count295
- (C:\MikTeX\tex/latex/lipsum\lipsum.ltd.tex)) (C:\MikTeX\tex/latex/tocloft\tocloft.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/lipsum\lipsum.ltd.tex)) (D:\UMA\Herramientas\MikTex\tex/latex/tocloft\tocloft.sty
 Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
 Package tocloft Info: The document has section divisions on input line 51.
 \cftparskip=\skip53
@@ -220,56 +220,56 @@ Package tocloft Info: The document has section divisions on input line 51.
 \cftbeforetabskip=\skip81
 \cfttabindent=\skip82
 \cfttabnumwidth=\skip83
-) (C:\MikTeX\tex/latex/subfiles\subfiles.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/subfiles\subfiles.sty
 Package: subfiles 2020/11/14 v2.2 Multi-file projects (package)
- (C:\MikTeX\tex/latex/import\import.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/import\import.sty
 Package: import 2020/04/01  v 6.2
-)) (C:\MikTeX\tex/latex/hyperref\hyperref.sty
-Package: hyperref 2024-10-30 v7.01k Hypertext links for LaTeX
- (C:\MikTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+)) (D:\UMA\Herramientas\MikTex\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
+ (D:\UMA\Herramientas\MikTex\tex/latex/kvsetkeys\kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-) (C:\MikTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+) (D:\UMA\Herramientas\MikTex\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (C:\MikTeX\tex/generic/pdfescape\pdfescape.sty
+) (D:\UMA\Herramientas\MikTex\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
- (C:\MikTeX\tex/generic/ltxcmds\ltxcmds.sty
+ (D:\UMA\Herramientas\MikTex\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (C:\MikTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+) (D:\UMA\Herramientas\MikTex\tex/generic/pdftexcmds\pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (C:\MikTeX\tex/generic/infwarerr\infwarerr.sty
+ (D:\UMA\Herramientas\MikTex\tex/generic/infwarerr\infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)) (C:\MikTeX\tex/latex/hycolor\hycolor.sty
+)) (D:\UMA\Herramientas\MikTex\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (C:\MikTeX\tex/latex/hyperref\nameref.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/hyperref\nameref.sty
 Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
- (C:\MikTeX\tex/latex/refcount\refcount.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (C:\MikTeX\tex/generic/gettitlestring\gettitlestring.sty
+) (D:\UMA\Herramientas\MikTex\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (C:\MikTeX\tex/latex/kvoptions\kvoptions.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count298
-) (C:\MikTeX\tex/generic/stringenc\stringenc.sty
+) (D:\UMA\Herramientas\MikTex\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \@linkdim=\dimen162
 \Hy@linkcounter=\count299
 \Hy@pagecounter=\count300
- (C:\MikTeX\tex/latex/hyperref\pd1enc.def
-File: pd1enc.def 2024-10-30 v7.01k Hyperref: PDFDocEncoding definition (HO)
+ (D:\UMA\Herramientas\MikTex\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2024-11-05 v7.01l Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (C:\MikTeX\tex/generic/intcalc\intcalc.sty
+) (D:\UMA\Herramientas\MikTex\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count301
- (C:\MikTeX\tex/latex/hyperref\puenc.def
-File: puenc.def 2024-10-30 v7.01k Hyperref: PDF Unicode definition (HO)
+ (D:\UMA\Herramientas\MikTex\tex/latex/hyperref\puenc.def
+File: puenc.def 2024-11-05 v7.01l Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
@@ -282,15 +282,15 @@ Package hyperref Info: Backreferencing OFF on input line 4177.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4424.
 \c@Hy@tempcnt=\count302
- (C:\MikTeX\tex/latex/url\url.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4763.
 \XeTeXLinkMargin=\dimen163
- (C:\MikTeX\tex/generic/bitset\bitset.sty
+ (D:\UMA\Herramientas\MikTex\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (C:\MikTeX\tex/generic/bigintcalc\bigintcalc.sty
+ (D:\UMA\Herramientas\MikTex\tex/generic/bigintcalc\bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count303
@@ -303,7 +303,7 @@ Package hyperref Info: backreferencing OFF on input line 6057.
 Package hyperref Info: Link coloring ON on input line 6060.
 Package hyperref Info: Link coloring with OCG OFF on input line 6067.
 Package hyperref Info: PDF/A mode OFF on input line 6072.
- (C:\MikTeX\tex/latex/base\atbegshi-ltx.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/base\atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
@@ -312,30 +312,30 @@ package with kernel methods
 \c@Hfootnote=\count306
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
- (C:\MikTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2024-10-30 v7.01k Hyperref driver for pdfTeX
- (C:\MikTeX\tex/latex/base\atveryend-ltx.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2024-11-05 v7.01l Hyperref driver for pdfTeX
+ (D:\UMA\Herramientas\MikTex\tex/latex/base\atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
 \Fld@listcount=\count307
 \c@bookmark@seq@number=\count308
- (C:\MikTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
- (C:\MikTeX\tex/generic/uniquecounter\uniquecounter.sty
+ (D:\UMA\Herramientas\MikTex\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip84
-) (C:\MikTeX\tex/latex/bookmark\bookmark.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/bookmark\bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
- (C:\MikTeX\tex/latex/bookmark\bkm-pdftex.def
+ (D:\UMA\Herramientas\MikTex\tex/latex/bookmark\bkm-pdftex.def
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
 \BKM@id=\count309
-)) (C:\MikTeX\tex/latex/tools\xr.sty
+)) (D:\UMA\Herramientas\MikTex\tex/latex/tools\xr.sty
 Package: xr 2024-04-10 v6.00 eXternal References (DPC)
-) (C:\MikTeX\tex/latex/natbib\natbib.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip85
 \bibsep=\skip86
@@ -367,7 +367,7 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
 LaTeX Font Info:    ... okay on input line 117.
 LaTeX Info: Redefining \. on input line 117.
 LaTeX Info: Redefining \% on input line 117.
- (C:\MikTeX\tex/context/base/mkii\supp-pdf.mkii
+ (D:\UMA\Herramientas\MikTex\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count311
 \scratchdimen=\dimen166
@@ -380,10 +380,10 @@ LaTeX Info: Redefining \% on input line 117.
 \MPnumerator=\count315
 \makeMPintoPDFobject=\count316
 \everyMPtoPDFconversion=\toks28
-) (C:\MikTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+) (D:\UMA\Herramientas\MikTex\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (C:\MikTeX\tex/latex/00miktex\epstopdf-sys.cfg
+ (D:\UMA\Herramientas\MikTex\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 \c@lstlisting=\count317
@@ -436,7 +436,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 [1
 
-{C:/Users/franc/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./assets/umaLogo.png>] (main.toc
+{C:/Users/gumen/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./assets/umaLogo.png>] (main.toc
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -485,7 +485,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 51.
- (C:\MikTeX\tex/latex/listings\lstlang1.sty
+ (D:\UMA\Herramientas\MikTex\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 
@@ -606,19 +606,19 @@ LaTeX Info: Redefining \% on input line 12.
  (body/ApartadoA/page.aux) (body/ApartadoB/page.aux) (body/ApartadoC/page.aux) (body/ApartadoD/page.aux))
  ***********
 LaTeX2e <2024-11-01>
-L3 programming layer <2024-10-09>
+L3 programming layer <2024-11-02>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 16486 strings out of 473702
- 257651 string characters out of 5735993
- 1166999 words of memory out of 5000000
- 38263 multiletter control sequences out of 15000+600000
+ 16486 strings out of 473682
+ 259045 string characters out of 5727729
+ 1167357 words of memory out of 5000000
+ 38283 multiletter control sequences out of 15000+600000
  566107 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,8n,93p,724b,2069s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/MikTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/MikTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (40 pages, 1924050 bytes).
+ 79i,8n,93p,656b,2069s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmti12.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmtt10.pfb><D:/UMA/Herramientas/MikTex/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (40 pages, 1924060 bytes).
 PDF statistics:
  1673 PDF objects out of 1728 (max. 8388607)
  1066 named destinations out of 1200 (max. 500000)

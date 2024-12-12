@@ -1,6 +1,6 @@
 \babel@toc {spanish}{}\relax 
 \thispagestyle {empty}
-\contentsline {section}{\numberline {1}Apartado A}{4}{section.1}%
+\contentsline {section}{\numberline {1}Apartado A }{4}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Diseño del Código de Andamiaje}{4}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Análisis de opciones de Diseño}{4}{subsection.1.2}%
 \contentsline {subsubsection}{\numberline {1.2.1}Manejo de las Asociaciones}{4}{subsubsection.1.2.1}%
