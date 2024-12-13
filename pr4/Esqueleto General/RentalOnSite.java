@@ -4,18 +4,35 @@ public class RentalOnSite extends Rental{
     
     public RentalOnSite(String comments, Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice) {
         super(startDate,endDate,customer,car,rentalOffice);
+        assert comments != null : "Los comentarios no pueden ser nulos";
         this.comments = comments;
+    }
+    //Se añade un constructor en el que no se fuerza al usuario a meter comentarios ya que no son obligatorios
+    public RentalOnSite(Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice) {
+        super(startDate,endDate,customer,car,rentalOffice);
     }
     
     public String getComments() {
         return comments;
     }
-    public void setComments(String comments) {
+
+
+
+    protected void setComments(String comments) {
+        assert comments != null;
         this.comments = comments;
     }
+
+    //Hacemos un override para llamar al super? ;)
+    /*
     @Override
     public Date getStartDate() {
+
         return super.getStartDate();
+    }
+    @Override
+    protected void setCar(Car car) {
+        super.setCar(car);
     }
     @Override
     public void setStartDate(Date startDate) {
@@ -54,17 +71,25 @@ public class RentalOnSite extends Rental{
     public void setCar(Car car){
         super.setCar(car);
     }
+     */
+
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RentalOnSite that)) return false;
+        if (!super.equals(o)) return false;
+        return Objects.equals(comments, that.comments);
     }
+
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(super.hashCode(), comments);
     }
 
     @Override
     public String toString() {
         return super.toString() + " ; " + comments;
     }
+
+
 }

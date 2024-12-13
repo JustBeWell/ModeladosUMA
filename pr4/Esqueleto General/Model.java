@@ -33,7 +33,7 @@ public class Model {
 
     } // No hace falta poner if(cars.contains(car)), es redudante, la eliminación de elementos no existentes es segura en Java
 
-    public void setPricePerDay(int pricePerDay) {
+    protected void setPricePerDay(int pricePerDay) {
         assert (pricePerDay > 0) : "PricePerDay no puede ser negativo";
         this.pricePerDay = pricePerDay;
     }

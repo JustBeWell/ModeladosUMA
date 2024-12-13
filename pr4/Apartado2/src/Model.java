@@ -1,12 +1,10 @@
 import java.util.*;
 public class Model {
-    private final String name;
+    private String name;
     private int pricePerDay;
     private Set<Car> cars;
     
     public Model(String name, int pricePerDay) {
-        assert name != null : "Name no puede ser null";
-        assert pricePerDay > 0 : "Price per day no puede ser negativo";
         this.name = name;
         this.pricePerDay = pricePerDay;
         cars = new HashSet<>();
@@ -18,25 +16,24 @@ public class Model {
         return pricePerDay;
     }
     public Set<Car> getCars() {
-        //Set<Car> copy = new HashSet<>();
-        //copy.addAll(cars);
-        return Collections.unmodifiableSet(cars);
+        Set<Car> copy = new HashSet<>();
+        copy.addAll(cars);
+        return copy;
     }
-    protected void addCar(Car car){
-        assert car != null : "Car no puede ser null";
+    public void addCar(Car car){
         cars.add(car);
-
     }
-    protected void removeCar(Car car){
-        assert car != null : "Car no puede ser null";
-        cars.remove(car);
+    public void removeCar(Car car){
+        if(cars.contains(car)) cars.remove(car);
+    }
 
-    } // No hace falta poner if(cars.contains(car)), es redudante, la eliminación de elementos no existentes es segura en Java
-
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setPricePerDay(int pricePerDay) {
-        assert (pricePerDay > 0) : "PricePerDay no puede ser negativo";
         this.pricePerDay = pricePerDay;
     }
+
 
     @Override
     public boolean equals(Object obj) {

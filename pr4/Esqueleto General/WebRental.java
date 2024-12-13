@@ -1,10 +1,11 @@
 import java.util.*;
 
-public class WebRental extends Rental{
+public class WebRental extends Rental {
     private Integer deliveryTime;
     private RentalOffice deliveryRentalOffice;
-    public WebRental(Integer deliveryTime, Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice){
-        super(startDate, endDate,customer,car,rentalOffice);
+
+    public WebRental(Integer deliveryTime, Date startDate, Date endDate, Customer customer, Car car, RentalOffice rentalOffice) {
+        super(startDate, endDate, customer, car, rentalOffice);
         assert deliveryTime > 0 : "DeliveryTime debe ser positivo";
         assert rentalOffice != null : "RentalOfffice no puede ser null";
         this.deliveryTime = deliveryTime;
@@ -14,17 +15,18 @@ public class WebRental extends Rental{
     public Integer getDeliveryTime() {
         return deliveryTime;
     }
-    public Date getStarDate(){
+
+    public Date getStarDate() {
         return super.getStartDate();
     }
 
 
-    protected void setDeliveryTime(Integer deliveryTime){
+    protected void setDeliveryTime(Integer deliveryTime) {
         assert deliveryTime > 0 : "DeliveryTime debe ser positivo";
         this.deliveryTime = deliveryTime;
     }
 
-    protected void setDeliveryRentalOffice(RentalOffice deliveryRentalOffice){
+    protected void setDeliveryRentalOffice(RentalOffice deliveryRentalOffice) {
         assert deliveryRentalOffice != null : "RentalOffice no puede ser null";
         deliveryRentalOffice.removeWebRental(this);
         this.deliveryRentalOffice = deliveryRentalOffice;
@@ -75,18 +77,26 @@ public class WebRental extends Rental{
         super.setCustomer(customer);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
+      }*/
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 
     @Override
     public String toString() {
         return super.toString() + " ; " + deliveryTime.toString();
-    }*/
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof WebRental webRental)) return false;
+        if (!super.equals(o)) return false;
+        return Objects.equals(deliveryTime, webRental.deliveryTime) && Objects.equals(deliveryRentalOffice, webRental.deliveryRentalOffice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), deliveryTime, deliveryRentalOffice);
+    }
+
 }

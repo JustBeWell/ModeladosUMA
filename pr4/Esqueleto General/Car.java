@@ -13,6 +13,7 @@ public class Car {
         this.assignedRentalOffice = rentalOffice;
         this.licensePlate = licensePlate;
         this.model = model;
+        this.model.addCar(this);
         rentalOffice.addCar(this); //Garantizamos bidreccionalidad
 
         rentals = new HashSet<>();
@@ -94,7 +95,7 @@ private boolean datesOverlap(Date start1, Date end1, Date start2, Date end2) {
     }
     @Override
     public String toString() {
-        return "[Car: " + licensePlate + " ; " + displayRentals() + "]";
+        return "[Car: " + licensePlate + " ; " + displayRentals() +  " ; " + getAssignedRentalOffice()  + "]";
     }
 
     public String displayRentals(){

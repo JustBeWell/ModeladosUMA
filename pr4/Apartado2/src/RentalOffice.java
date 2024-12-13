@@ -1,13 +1,11 @@
 import java.util.*;
 public class RentalOffice{
     private String address;
-    private int feeForDelivery; //Vamos a considerar que tanto la dirección como la fee se pueden mutar
+    private int feeForDelivery;
     private Set<Car> cars;
     private Set<WebRental> webRentals;
     private Set<Rental> rentals;
     public RentalOffice(String address, int feeForDelivery){
-        assert address != null : "address no puede ser null";
-        assert feeForDelivery >= 0 : "feeForDelivery must be positive";
         this.address = address;
         this.feeForDelivery = feeForDelivery;
         cars = new HashSet<>();
@@ -22,59 +20,44 @@ public class RentalOffice{
     }
 
     public Set<Car> getCars() {
-        /*Set<Car> copy = new HashSet<>();
+        Set<Car> copy = new HashSet<>();
         copy.addAll(cars);
-        return copy;*/
-        return Collections.unmodifiableSet(cars);
+        return copy;
     }
     public Set<WebRental> getWebRentals() {
-        /*Set<WebRental> copy = new HashSet<>();
+        Set<WebRental> copy = new HashSet<>();
         copy.addAll(webRentals);
-        return copy;    */
-        return Collections.unmodifiableSet(webRentals);
+        return copy;    
     }
 
     public Set<Rental> getRentals() {
-        /*Set<Rental> copy = new HashSet<>();
+        Set<Rental> copy = new HashSet<>();
         copy.addAll(rentals);
-        return copy;    */
-        return Collections.unmodifiableSet(rentals);
+        return copy;    
     }
 
-    protected void addCar(Car car) {
-        assert car != null : "car no puede ser null";
+    public void addCar(Car car) {
         cars.add(car);
     }
-    protected void removeCar(Car car) {
-        /*if(cars.contains(car))*/
-        assert car != null : "car no puede ser null";
-        cars.remove(car);
+    public void removeCar(Car car) {
+        if(cars.contains(car)) cars.remove(car);
     }
-    protected void addWebRental(WebRental webRental) {
-        assert webRental != null : "webRental no puede ser null";
+    public void addWebRental(WebRental webRental) {
         webRentals.add(webRental);
     }
-    protected void removeWebRental(WebRental webRental){
-        /*if(webRentals.contains(webRental)) */
-        assert webRental != null : "webRental no puede ser null";
-        webRentals.remove(webRental);
+    public void removeWebRental(WebRental webRental){
+        if(webRentals.contains(webRental)) webRentals.remove(webRental);
     }
-    protected void addRental(Rental rental){
-        assert rental != null : "rental no puede ser null";
+    public void addRental(Rental rental){
         rentals.add(rental);
     }
     public void removeRental(Rental rental){
-        assert rental != null : "rental no puede ser null";
-
-        /*if(rentals.contains(rental)) */
-        rentals.remove(rental);
+        if(rentals.contains(rental)) rentals.remove(rental);
     }
-    protected void setAddress(String address) {
-        assert address != null : "address no puede ser null";
+    public void setAddress(String address) {
         this.address = address;
     }
-    protected void setFeeForDelivery(int feeForDelivery) {
-        assert feeForDelivery >= 0 : "feeForDelivery must be positive";
+    public void setFeeForDelivery(int feeForDelivery) {
         this.feeForDelivery = feeForDelivery;
     }
     @Override

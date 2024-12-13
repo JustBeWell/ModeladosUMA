@@ -4,18 +4,35 @@ public class RentalOnSite extends Rental{
     
     public RentalOnSite(String comments, Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice) {
         super(startDate,endDate,customer,car,rentalOffice);
+        assert comments != null : "Los comentarios no pueden ser nulos";
         this.comments = comments;
+    }
+    //Se añade un constructor en el que no se fuerza al usuario a meter comentarios ya que no son obligatorios
+    public RentalOnSite(Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice) {
+        super(startDate,endDate,customer,car,rentalOffice);
     }
     
     public String getComments() {
         return comments;
     }
-    public void setComments(String comments) {
+
+
+
+    protected void setComments(String comments) {
+        assert comments != null;
         this.comments = comments;
     }
+
+    //Hacemos un override para llamar al super? ;)
+    /*
     @Override
     public Date getStartDate() {
+
         return super.getStartDate();
+    }
+    @Override
+    protected void setCar(Car car) {
+        super.setCar(car);
     }
     @Override
     public void setStartDate(Date startDate) {
@@ -27,13 +44,13 @@ public class RentalOnSite extends Rental{
     }
 
     @Override
-    public RentalOffice getRentalOffice() {
-        return super.getRentalOffice();
+    public RentalOffice getPickUpRentalOffice() {
+        return super.getPickUpRentalOffice();
     }
 
     @Override
-    public void setRentalOffice(RentalOffice rentalOffice) {
-        super.setRentalOffice(rentalOffice);
+    public void setPickUpRentalOffice(RentalOffice pickUpRentalOffice) {
+        super.setPickUpRentalOffice(pickUpRentalOffice);
     }
     @Override    
     public void setEndDate(Date endDate) {
@@ -67,4 +84,6 @@ public class RentalOnSite extends Rental{
     public String toString() {
         return super.toString() + " ; " + comments;
     }
+    */
+
 }

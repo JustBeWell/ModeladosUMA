@@ -4,7 +4,7 @@ public abstract  class Rental {
     private final Date endDate;
     private Customer customer; //El cliente puede cambiar (le paso el contrato a mi padre)
     private Car car; //Vamos a considerar que se puede cambiar de coche
-    private RentalOffice pickUpRentalOffice; //Vamos a considerar qyue se puede cambiar de oficina
+    private RentalOffice pickUpRentalOffice; //Vamos a considerar que se puede cambiar de oficina
     /*Quizás sea mejor no poner cosas como el modelo o la placa de un coche inmutables, para permitir a los usarios cambiarlo en caso de que
     o bien un coche cambie de matrícula (lo cual puede pasar) o bien se hayan confundido al meter el modelo y puedan cambiarlo sin tener que borrar el objeto y todas sus relaciones
 */
@@ -48,7 +48,7 @@ public abstract  class Rental {
         assert pickUpRentalOffice != null : "Rental office no puede ser null.";
         pickUpRentalOffice.removeRental(this);
         this.pickUpRentalOffice = pickUpRentalOffice;
-        pickUpRentalOffice.addRental(this);
+        this.pickUpRentalOffice.addRental(this);
     }
     /*public void setEndDate(Date endDate) {
         assert endDate != null : "End date no puede ser null.";
@@ -75,7 +75,7 @@ public abstract  class Rental {
         this.car = car;
         this.car.addRental(this);
     }
-//¿Se pueden poner los remove y add private para restringir más aún su visibilidad?
+
 
     //Para que dos alquileres sean considerados iguales no basta con que tengan la misma fecha de start y end, tenemos que considerar también el cliente y el coche que se alquila.
     @Override
