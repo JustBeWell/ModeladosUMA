@@ -12,11 +12,10 @@ public class Customer {
     }
     public String getDni() {
         return dni;
-    }public String getName() {
+    }
+    public String getName() {
         return name;
     }
-
-
 
     public Set<Rental> getRentals() {
        // Set<Rental> copy = new HashSet<>();
@@ -32,6 +31,35 @@ public class Customer {
         assert rental != null : "rental no puede ser null";
         rentals.remove(rental);
     }
+
+    /**
+     * Devuelve el número de alquileres web donde las oficinas de recogida y entrega son diferentes.
+     */
+    public Integer numberOfRentalsWithDifferentOffices() {
+        int count = 0;
+        RentalIterator iterator = this.getRentalIterator();
+
+        while (iterator.hasNext()) {
+            Rental rental = iterator.next();
+            if (rental instanceof WebRental) { // Verificamos si es un WebRental
+                WebRental webRental = (WebRental) rental;
+                if (!webRental.getPickUpRentalOffice().equals(webRental.getDeliveryRentalOffice())) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    /**
+     * Proporciona un iterador para recorrer los alquileres.
+     * Encapsula la implementación interna de `rentals` como un `HashSet`.
+     */
+    public RentalIterator getRentalIterator() {
+        return new RentalSetIterator(this.rentals);
+    }
+
 
     @Override
     public boolean equals(Object obj) {

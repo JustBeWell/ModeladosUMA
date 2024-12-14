@@ -6,8 +6,6 @@ public class Test {
         Model modelA = new Model("Model A", 50);
         Model modelB = new Model("Model B", 70);
 
-
-
         // Crear oficinas de alquiler
         RentalOffice office1 = new RentalOffice("Office 1", 20);
         RentalOffice office2 = new RentalOffice("Office 2", 25);
@@ -55,5 +53,33 @@ public class Test {
         System.out.println("\nOffice Rentals:");
         System.out.println(office1.toString());
         System.out.println(office2.toString());
+
+        /**
+         * Test para apartado 1
+         */
+        System.out.println("\n=== Test: Método numberOfRentalsWithDifferentOffices ===");
+        Customer customer2 = new Customer("87654321B", "Bob");
+
+        WebRental webRental1 = new WebRental(2, startDate1, endDate1, customer2, car1, office1);
+        webRental1.setDeliveryRentalOffice(office2); // Oficinas diferentes
+        WebRental webRental2 = new WebRental(2, startDate1, endDate1, customer2, car2, office2);
+        webRental2.setDeliveryRentalOffice(office2); // Oficinas iguales
+
+        customer2.addRental(webRental1);
+        customer2.addRental(webRental2);
+
+        int rentalsWithDifferentOffices = customer2.numberOfRentalsWithDifferentOffices();
+        System.out.println("Alquileres con oficinas diferentes: " + rentalsWithDifferentOffices);
+        if (rentalsWithDifferentOffices == 1) {
+            System.out.println("Correcto: El método devuelve el número esperado.");
+        } else {
+            System.out.println("ERROR: El método devuelve un resultado incorrecto.");
+        }
+
+        // Sección 5: Estado final
+        System.out.println("\n=== Estado final del sistema ===");
+        System.out.println("Customer Rentals:");
+        System.out.println(customer1);
+        System.out.println(customer2);
     }
 }

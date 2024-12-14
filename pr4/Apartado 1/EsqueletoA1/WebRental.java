@@ -26,6 +26,11 @@ public class WebRental extends Rental {
         this.deliveryTime = deliveryTime;
     }
 
+    public RentalOffice getDeliveryRentalOffice(){
+        assert deliveryRentalOffice != null: "La deliveryOfice para alquier tipo Web no puede ser nulo";
+        return deliveryRentalOffice;
+    }
+
     protected void setDeliveryRentalOffice(RentalOffice deliveryRentalOffice) {
         assert deliveryRentalOffice != null : "RentalOffice no puede ser null";
         this.deliveryRentalOffice.removeWebRental(this);
