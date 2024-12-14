@@ -5,11 +5,14 @@ public class WebRental extends Rental {
     private RentalOffice deliveryRentalOffice;
 
     public WebRental(Integer deliveryTime, Date startDate, Date endDate, Customer customer, Car car, RentalOffice rentalOffice) {
-        super(startDate, endDate, customer, car, rentalOffice);
+        super(startDate, endDate, customer, car, car.getAssignedRentalOffice());
         assert deliveryTime > 0 : "DeliveryTime debe ser positivo";
         assert rentalOffice != null : "RentalOffice no puede ser null";
         this.deliveryTime = deliveryTime;
         this.deliveryRentalOffice = rentalOffice;
+
+        // Siguiendo el comportamiento de Rental, siempre que creamos una instancia de WebRental lo añadimos a su colección correspondiente
+        this.getPickUpRentalOffice().addWebRental(this);
     }
 
     public Integer getDeliveryTime() {

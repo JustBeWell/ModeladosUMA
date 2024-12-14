@@ -82,7 +82,10 @@ public abstract  class Rental {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Rental rental)) return false;
-        return Objects.equals(startDate, rental.startDate) && Objects.equals(endDate, rental.endDate) && Objects.equals(customer, rental.customer) && Objects.equals(car, rental.car);
+        return Objects.equals(startDate, rental.startDate) &&
+                Objects.equals(endDate, rental.endDate) &&
+                Objects.equals(customer, rental.customer) &&
+                Objects.equals(car, rental.car);
     }
 
     @Override

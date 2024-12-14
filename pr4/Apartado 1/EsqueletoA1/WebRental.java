@@ -5,12 +5,25 @@ public class WebRental extends Rental {
     private RentalOffice deliveryRentalOffice;
 
     public WebRental(Integer deliveryTime, Date startDate, Date endDate, Customer customer, Car car, RentalOffice rentalOffice) {
-        super(startDate, endDate, customer, car, rentalOffice);
+        super(startDate, endDate, customer, car, car.getAssignedRentalOffice());
         assert deliveryTime > 0 : "DeliveryTime debe ser positivo";
         assert rentalOffice != null : "RentalOffice no puede ser null";
         this.deliveryTime = deliveryTime;
         this.deliveryRentalOffice = rentalOffice;
+
+        // Siguiendo el comportamiento de Rental, siempre que creamos una instancia de WebRental lo añadimos a su colección correspondiente
+        this.getPickUpRentalOffice().addWebRental(this);
     }
+
+    /**
+     * El constructor de WebRental recibe en el parámetro "RentalOffice rentalOffice" el lugar de RECOGIDA
+     *
+     * Cuando llamamos al super(), recuperando los datos de un Rental que por ser una clase abstracta, WebRental heredará todos los atributos
+     * y los extiende con los suyos; es una especificación de Rental. Es por eso que necesitamos pasarle a Rental "car.getAssignedRentalOffice()"
+     * porque en ese constructor estamos definiendo el "pickUpRentalOffice" que es donde se encuentra el coche actualmente.
+     *
+     * Entonces RentalOffice rentalOffice se asigna al deliveryRentalOffice que viene del Test al momento de crear una instancia de WebRental
+     */
 
     public Integer getDeliveryTime() {
         return deliveryTime;
@@ -27,13 +40,19 @@ public class WebRental extends Rental {
     }
 
     public RentalOffice getDeliveryRentalOffice(){
-        assert deliveryRentalOffice != null: "La deliveryOfice para alquier tipo Web no puede ser nulo";
+        assert deliveryRentalOffice != null: "La deliveryOffice para alquiler tipo Web no puede ser nulo";
         return deliveryRentalOffice;
     }
 
     protected void setDeliveryRentalOffice(RentalOffice deliveryRentalOffice) {
         assert deliveryRentalOffice != null : "RentalOffice no puede ser null";
         this.deliveryRentalOffice.removeWebRental(this);
+        /**
+         * ¿Por qué usamos un remove antes de un add?
+         * El removeWebRental se utiliza como medida de seguridad en caso de que el dato original sea erróneo. Ahora siempre nos
+         * aseguramos de añadir (en la línea siguiente) el deliveryRentalOffice correcto tras borrar su instancia actual; utilizamos
+         * la nueva.
+         */
         this.deliveryRentalOffice = deliveryRentalOffice;
         this.deliveryRentalOffice.addWebRental(this);
     }

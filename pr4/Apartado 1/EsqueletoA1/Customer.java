@@ -74,6 +74,7 @@ public class Customer {
     public int hashCode() {
         return dni.toLowerCase().hashCode();
     }
+
     @Override
     public String toString() {
         return "[Customer: " + dni + " " + name + "\n" + rentals.toString() + "]";

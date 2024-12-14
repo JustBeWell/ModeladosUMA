@@ -60,13 +60,15 @@ public class Test {
         System.out.println("\n=== Test: Método numberOfRentalsWithDifferentOffices ===");
         Customer customer2 = new Customer("87654321B", "Bob");
 
-        WebRental webRental1 = new WebRental(2, startDate1, endDate1, customer2, car1, office1);
+        WebRental webRental1 = new WebRental(5, startDate1, endDate1, customer2, car1, office1);
         webRental1.setDeliveryRentalOffice(office2); // Oficinas diferentes
         WebRental webRental2 = new WebRental(2, startDate1, endDate1, customer2, car2, office2);
         webRental2.setDeliveryRentalOffice(office2); // Oficinas iguales
 
-        customer2.addRental(webRental1);
-        customer2.addRental(webRental2);
+        // Prints de prueba
+        System.out.println(customer2.getRentals());
+        System.out.println(rental1.equals(rental2));
+        System.out.println(rental1.hashCode() == rental2.hashCode());
 
         int rentalsWithDifferentOffices = customer2.numberOfRentalsWithDifferentOffices();
         System.out.println("Alquileres con oficinas diferentes: " + rentalsWithDifferentOffices);
@@ -76,7 +78,7 @@ public class Test {
             System.out.println("ERROR: El método devuelve un resultado incorrecto.");
         }
 
-        // Sección 5: Estado final
+        // Estado final del sistema
         System.out.println("\n=== Estado final del sistema ===");
         System.out.println("Customer Rentals:");
         System.out.println(customer1);
