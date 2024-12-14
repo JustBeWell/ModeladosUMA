@@ -7,7 +7,7 @@ public class WebRental extends Rental {
     public WebRental(Integer deliveryTime, Date startDate, Date endDate, Customer customer, Car car, RentalOffice rentalOffice) {
         super(startDate, endDate, customer, car, rentalOffice);
         assert deliveryTime > 0 : "DeliveryTime debe ser positivo";
-        assert rentalOffice != null : "RentalOfffice no puede ser null";
+        assert rentalOffice != null : "RentalOffice no puede ser null";
         this.deliveryTime = deliveryTime;
         this.deliveryRentalOffice = rentalOffice;
     }
@@ -28,7 +28,7 @@ public class WebRental extends Rental {
 
     protected void setDeliveryRentalOffice(RentalOffice deliveryRentalOffice) {
         assert deliveryRentalOffice != null : "RentalOffice no puede ser null";
-        deliveryRentalOffice.removeWebRental(this);
+        this.deliveryRentalOffice.removeWebRental(this);
         this.deliveryRentalOffice = deliveryRentalOffice;
         this.deliveryRentalOffice.addWebRental(this);
     }

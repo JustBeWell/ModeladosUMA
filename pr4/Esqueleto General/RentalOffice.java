@@ -5,6 +5,7 @@ public class RentalOffice{
     private Set<Car> cars;
     private Set<WebRental> webRentals;
     private Set<Rental> rentals;
+
     public RentalOffice(String address, int feeForDelivery){
         assert address != null : "address no puede ser null";
         assert feeForDelivery >= 0 : "feeForDelivery must be positive";
@@ -92,7 +93,7 @@ public class RentalOffice{
     }
     @Override
     public String toString() {
-        return "[RentalOffice: " + address + " " + feeForDelivery + " ; " + displayCars() + displayRentals() + displayWebRentals() + "]";
+        return "[RentalOffice: " + address + " " + feeForDelivery + " ; " + displayCars() + " ; "+ displayRentals() +" ; "+ displayWebRentals() + "]";
     }
 
     public String displayRentals(){

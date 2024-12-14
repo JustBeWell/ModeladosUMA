@@ -46,7 +46,7 @@ public abstract  class Rental {
     }
     protected void setPickUpRentalOffice(RentalOffice pickUpRentalOffice) {
         assert pickUpRentalOffice != null : "Rental office no puede ser null.";
-        pickUpRentalOffice.removeRental(this);
+        this.pickUpRentalOffice.removeRental(this);
         this.pickUpRentalOffice = pickUpRentalOffice;
         this.pickUpRentalOffice.addRental(this);
     }
@@ -65,7 +65,7 @@ public abstract  class Rental {
 
     protected void setCustomer(Customer customer) {
         assert customer != null : "Customer no puede ser null.";
-        customer.removeRental(this);
+        this.customer.removeRental(this);
         this.customer = customer;
         this.customer.addRental(this);
     }
@@ -92,6 +92,6 @@ public abstract  class Rental {
 
     @Override
     public String toString() {
-        return this.getClass().getName() + ": " + startDate + " " + endDate;
+        return this.getClass().getName() + ": " + startDate + " " + endDate+"\n";
     }
 }

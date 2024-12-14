@@ -16,8 +16,8 @@ public class Test {
         Car car2 = new Car("XYZ-789", modelB, office2);
 
         // Asignar coches a oficinas
-        office1.addCar(car1);
-        office2.addCar(car2);
+        //office1.addCar(car1);
+        //office2.addCar(car2);
 
         // Crear clientes
         Customer customer1 = new Customer("12345678A", "Alice");

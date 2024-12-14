@@ -49,7 +49,7 @@ public class Customer {
     }
     @Override
     public String toString() {
-        return "[Customer: " + dni + " " + name + "\n" + displayRentals() + "]";
+        return "[Customer: " + dni + " " + name + "\n" + rentals.toString() + "]";
     }
 
     public String displayRentals(){

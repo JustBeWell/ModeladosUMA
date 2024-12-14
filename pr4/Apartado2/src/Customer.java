@@ -1,9 +1,11 @@
 import java.util.*;
 public class Customer {
-    private String dni;
-    private String name;
+    private final String dni;
+    private final String name; //No vamos a permitir que cambien el dni o el nombre
     private Set<Rental> rentals;
     public Customer(String dni, String name) {
+        assert  dni != null : "dni no puede ser null";
+        assert  name != null : "name no puede ser null";
         this.dni = dni;
         this.name = name;
         rentals = new HashSet<>();
@@ -12,21 +14,23 @@ public class Customer {
         return dni;
     }public String getName() {
         return name;
-    }public void setDni(String dni) {
-        this.dni = dni;
-    }public void setName(String name) {
-        this.name = name;
-    }
-    public Set<Rental> getRentals() {
-        Set<Rental> copy = new HashSet<>();
-        copy.addAll(rentals);
-        return copy;
     }
 
-    public void addRental(Rental rental) {
+
+
+
+    public Set<Rental> getRentals() {
+        // Set<Rental> copy = new HashSet<>();
+        //copy.addAll(rentals);
+        return Collections.unmodifiableSet(rentals);
+    }
+
+    protected void addRental(Rental rental) {
+        assert rental != null : "rental no puede ser null";
         rentals.add(rental);
     }
-    public void removeRental(Rental rental) {
+    protected void removeRental(Rental rental) {
+        assert rental != null : "rental no puede ser null";
         rentals.remove(rental);
     }
 
@@ -45,7 +49,7 @@ public class Customer {
     }
     @Override
     public String toString() {
-        return "[Customer: " + dni + " " + name + "\n" + displayRentals() + "]";
+        return "[Customer: " + dni + " " + name + "\n" + rentals.toString() + "]";
     }
 
     public String displayRentals(){

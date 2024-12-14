@@ -28,7 +28,6 @@ public class Car {
         this.assignedRentalOffice.removeCar(this);
         this.assignedRentalOffice = rentalOffice;
         rentalOffice.addCar(this);
-
     }
     public String getLicensePlate() {
         return licensePlate;
@@ -40,7 +39,6 @@ public class Car {
     public Model getModel() {
         return model;
     }
-
 
     public Set<Rental> getRentals(){
         //Set<Rental> copy = new HashSet<>();
@@ -95,7 +93,7 @@ private boolean datesOverlap(Date start1, Date end1, Date start2, Date end2) {
     }
     @Override
     public String toString() {
-        return "[Car: " + licensePlate + " ; " + displayRentals() +  " ; " + getAssignedRentalOffice()  + "]";
+        return "Car: " + licensePlate;
     }
 
     public String displayRentals(){

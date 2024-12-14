@@ -1,8 +1,10 @@
+import java.util.Set;
+
 public class EnServicio extends Estado{
 
-    public void rent(Rental r, Car c){
-        c.addRental(r);
-        r.setCar(c);
-    }
-
+   public boolean sePuedeAlquilar(){ return true;}
+   @Override
+   public String toString(){
+      return "El coche está en servicio";
+   }
 }

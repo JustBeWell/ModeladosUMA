@@ -53,7 +53,7 @@ public class Model {
     }
     @Override
     public String toString() {
-        return "[Model: " + name + " " + pricePerDay + " ; " + displayCars() + "]";
+        return "[Model: " + name + " " + pricePerDay + " ; " + cars.toString() + "]";
     }
 
     public String displayCars(){
