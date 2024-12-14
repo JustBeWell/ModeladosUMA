@@ -1,0 +1,27 @@
+\section{Ejercicio 2}
+\subsection*{Instrucción}
+A menudo, los coches que la empresa de alquiler de coches pone a disposición de sus clientes se tienen que poner
+fuera de servicio (por reparaciones, para pasar la ITV, etc.). Queremos representar esta situación en nuestro sistema
+para que cuando los coches estén fuera de servicio no puedan ser alquilados aunque registraremos, si hay, un coche
+que lo sustituye. Es por eso que nuestro sistema tendrá que proporcionar dos funcionalidades. La funcionalidad (1) poner 
+un coche fuera de servicio (si ya está fuera de servicio o si está en servicio pero es sustituto de algún coche
+que está fuera de servicio, la funcionalidad no tendrá ningún efecto).\par
+\vspace{0.15cm}
+Esta funcionalidad pondrá el coche fuera de servicio y registrará la fecha hasta la cual estará fuera de servicio y, si hay, buscará y registrará también un coche
+sustituto (será cualquier coche del mismo modelo del coche que se pone fuera de servicio que esté asignado a la
+misma oficina y que esté en servicio).\par
+\vspace{0.15cm}
+La funcionalidad (2) pone un coche que estaba fuera de servicio en servicio.\par
+\vspace{0.15cm}
+En concreto, \textbf{nos centraremos en implementar la funcionalidad (1)} añadiendo la operación
+\texttt{takeOutOfService(backToService : date)} de la clase \texttt{Car}. No hace falta implementar la funcionalidad (2).
+
+\subsection{Patrón de Diseño utilizado}
+
+
+\subsection{Efectos sobre el Diagrama de Diseño}
+
+\subsection{Implementación de \textit{takeOutOfService}}
+\input{body/Ejercicio2/codigosEj2.tex} % Código en el documento "codigosEj2"
+
+\newpage

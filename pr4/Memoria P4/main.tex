@@ -76,22 +76,42 @@
 
 % Definimos forma de llamar al listado con letras minúsculas pero sustituye el listado por 
 % números de enumerate. Comentar para tener enumerate por default.
-% \renewcommand{\theenumi}{\alph{enumi}}
+ \renewcommand{\theenumi}{\alph{enumi}}
 % \begin{enumerate}
 %   \item
 % \end{enumerate}
 
 
-% Configuración para sintaxis usando código VHDL
-\lstdefinestyle{Código_VHDL}{
-    language=VHDL,                % Especifica VHDL como el lenguaje
-    basicstyle=\ttfamily\small,   % Estilo básico: letra monoespaciada pequeña
-    keywordstyle=\color{red!90!black}, % Color para palabras clave
-    commentstyle=\color{green!50!black}, % Color para comentarios
-    tabsize=2,                    % Tamaño del tabulador
-    showspaces=false,             % No mostrar espacios
-    showstringspaces=false,       % No mostrar espacios en cadenas de texto
-    breaklines=true,              % Ajustar líneas largas
+% Configuración para sintaxis Java
+\lstdefinestyle{javaNormal}{
+    language=Java,                        % Especifica Java como el lenguaje
+    basicstyle=\ttfamily\small,           % Estilo básico: letra monoespaciada pequeña
+    keywordstyle=\color{orange!90!black}, % Color para palabras clave
+    commentstyle=\color{gray},            % Color para comentarios
+    stringstyle=\color{green!50!black},   % Color para cadenas de texto
+    identifierstyle=\color{black},        % Color para identificadores
+    tabsize=2,                            % Tamaño del tabulador
+    showspaces=false,                     % No mostrar espacios
+    showstringspaces=false,               % No mostrar espacios en cadenas de texto
+    breaklines=true                       % Ajustar líneas largas
+}
+
+% Configuración para sintaxis Java con fondo
+\lstdefinestyle{javaEspecifico}{
+    language=Java,                        % Especifica Java como el lenguaje
+    basicstyle=\ttfamily\small,           % Estilo básico: letra monoespaciada pequeña
+    backgroundcolor=\color{gray!10},      % Fondo gris claro
+    keywordstyle=\color{orange!90!black}, % Color para palabras clave
+    commentstyle=\color{gray},            % Color para comentarios
+    stringstyle=\color{green!50!black},   % Color para cadenas de texto
+    numberstyle=\tiny\color{gray},        % Color de los números de línea
+    stepnumber=1,                         % Mostrar un número de línea en cada línea
+    numbersep=10pt,                       % Separación de los números del código
+    tabsize=2,                            % Tamaño del tabulador
+    showspaces=false,                     % No mostrar espacios
+    showstringspaces=false,               % No mostrar espacios en cadenas de texto
+    breaklines=true,                      % Ajustar líneas largas
+    frame=single                          % Añadir un marco alrededor del código
 }
 
 \begin{document}
@@ -103,9 +123,9 @@
   \vspace{1cm}
   {\scshape\Large ETSI Informática\par}
   \vspace{2cm}
-  {\scshape\Huge Diseño orientado a objetos\par}
+  {\scshape\Huge Patrones de diseño aplicados\par}
   \vspace{0.1cm}
-  {\scshape\Huge de un refugio de animales}
+  {\scshape\Huge a un sistema de Alquiler de coches}
   \vspace{2cm}
   \begin{figure}[H]
       \centering
@@ -115,7 +135,7 @@
   {\scshape\Large Modelado y Diseño del Software (2024$-$25)\par}
   \vspace{0.5cm}
   {\Large Daniil Gumeniuk\par}
-  {\Large Angel Bayon Pazos \par}
+  %{\Large Angel Bayon Pazos \par}
   {\Large Diego Sicre Cortizo\par}
   {\Large Pablo Ortega Serapio\par}
   {\Large Angel Nicolás Escaño López\par}
@@ -147,22 +167,21 @@
 % RESUMEN
 \thispagestyle{empty}
 \begin{abstract}
-  Esta práctica aborda el diseño e implementación de un sistema orientado a objetos para 
-  gestionar un refugio de animales utilizando Java y conceptos de diseño orientado a objetos 
-  vistos en el Tema 5.\par
+  Esta práctica tiene como objetivo el diseño e implementación de un sistema de gestión de alquileres de coches para una 
+  empresa. El proyecto se centra en desarrollar las funcionalidades necesarias para gestionar el proceso de alquiler, las 
+  restricciones de negocio y las operaciones específicas requeridas asi como aplicar \emph{Patrones de Diseño} presentados 
+  en el Tema 6.\par
   \vspace{0.5cm}
-  El objetivo principal es analizar las posibles estrategias de diseño que permitan implementar 
-  este modelo, abordando desafíos como la necesidad de que un mismo socio pueda desempeñar múltiples 
-  roles simultáneamente.
-  
-  A lo largo del documento se discute por qué las clases descritas inicialmente no pueden ser implementadas 
-  directamente en Java y se propone una posible solución mediante técnicas como composición, interfaces, y herencia 
-  múltiple simulada para garantizar la consistencia del sistema.\par
+  Estructuramos el trabajo de tal forma que para cada uno de los apartados presentamos en esta memoria, se desarrolla y 
+  documenta un modelo UML hecho en \emph{Visual Paradigm} detallado ajustándose a las necesidades de cada sección. También 
+  se justifican las posibles contradicciones o lagunas encontradas en el enunciado. Además, se explican las decisiones de diseño 
+  tomadas para la implementación del código en lenguaje \emph{Java} respetando las restricciones impuestas por el enunciado.\par
   \vspace{0.5cm}
-  Finalmente, la solución propuesta acompañada de un diagrama de diseño que ilustra la arquitectura del sistema, 
-  muestra la reutilización de métodos, la integridad de los datos y la flexibilidad necesaria para adaptarse a 
-  los requerimientos del modelo conceptual.\par
+  Todas las implementaciones parten del mismo esqueleto que se presenta en la Introducción de la memoria, detallando en cada apartado 
+  las clases que se ven afectadas al implementar el \emph{Patrón de Diseño} escogido (en caso que fuera necesario) y una explicación de 
+  como ese patrón enriquece el funcionamiento del sistema original.
 \end{abstract}
+
 
 \newpage
 % FIN RESUMEN
@@ -171,8 +190,10 @@
 % CUERPO DEL DOCUMENTO
 \setcounter{page}{4} % Inicia a contar las páginas a partir de {}
 
-\include{body/Apartado2/page}
-
+\include{body/Introduccion/page}
+\include{body/Ejercicio1/page}
+\include{body/Ejercicio2/page}
+\include{body/Ejercicio3/page}
 
 % BIBLIOGRAFÍA
 % \newpage

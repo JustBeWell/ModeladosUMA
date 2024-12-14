@@ -1,0 +1,17 @@
+\babel@toc {spanish}{}\relax 
+\thispagestyle {empty}
+\contentsline {section}{\numberline {1}Introducción}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Diagrama de Diseño}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Cambios respecto a la implementación original}{4}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Ejercicio 1}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Patrón de Diseño utilizado}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Efectos sobre el Diagrama de Diseño}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Implementación de \textit {numberOfRentalsWithDifferentOffices() : Integer}}{5}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Ejercicio 2}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Patrón de Diseño utilizado}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Efectos sobre el Diagrama de Diseño}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Implementación de \textit {takeOutOfService}}{6}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Ejercicio 3}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Patrón de Diseño utilizado}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Efectos sobre el Diagrama de Diseño}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Implementación de \textit {getPrice() : Integer}}{7}{subsection.4.3}%

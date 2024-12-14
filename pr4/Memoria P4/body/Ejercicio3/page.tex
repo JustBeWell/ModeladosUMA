@@ -1,0 +1,36 @@
+\section{Ejercicio 3}
+\subsection*{Instrucción}
+Cuando los clientes de la empresa de alquiler de coches alquilan un coche, el sistema que estamos construyendo
+tiene que proporcionarles el precio del alquiler. Este precio lo calcula la operación \texttt{getPrice() : Integer} de la siguiente
+forma: El precio base será el precio del modelo del vehículo por día.
+\begin{center}
+    \texttt{ (pricePerDay) * [endDate - startDate]}
+\end{center}
+Además, la empresa de alquiler de coches puede añadir al cálculo de precios la posibilidad de hacer promociones
+que implican descuentos de estos precios. Inicialmente, la empresa ofrecerá dos tipos de promociones: por cantidad
+y por porcentaje.
+\begin{itemize}
+    \item \textbf{Promoción por cantidad:} permitirá decrementar el precio del alquiler en la cantidad indicada en
+    la promoción.
+    \item \textbf{Promoción por porcentaje:} decrementará el precio del alquiler en el porcentaje indicado en la
+    promoción. Las promociones se asignan a los alquileres en el momento de su creación.
+\end{itemize}
+Evidentemente, es posible
+que a algunos alquileres no se les aplique ninguna promoción. Las promociones que se asignan a los alquileres son
+determinadas por una política de la empresa que no impacta al diseño de nuestra operación (impactará a la
+operación que crea los alquileres).\par
+\vspace{0.15cm}
+Eso sí, la empresa quiere que mientras no se haga el pago del alquiler, si aparecen
+nuevas promociones, se apliquen a los alquileres siempre y cuando sean más favorables (no nos tenemos que
+preocupar tampoco de estos cambios, son gestionados por otras operaciones).
+
+
+\subsection{Patrón de Diseño utilizado}
+
+
+\subsection{Efectos sobre el Diagrama de Diseño}
+
+\subsection{Implementación de \textit{getPrice() : Integer}}
+\input{body/Ejercicio3/codigosEj3.tex} % Código en el documento "codigosEj3"
+
+\newpage
