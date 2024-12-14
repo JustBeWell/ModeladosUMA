@@ -16,7 +16,7 @@ public class WebRental extends Rental {
         return deliveryTime;
     }
 
-    public Date getStarDate() {
+    public Date getStartDate() {
         return super.getStartDate();
     }
 
