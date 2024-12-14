@@ -65,6 +65,8 @@ public class Car {
     // Setter para asignar el coche sustituto:
     private void setSustituto(Car car){
         assert car != null : "car no puede ser null";
+        assert car.getEstado() instanceof EnServicio: "El coche está fuera de servicio";
+        assert car.getAssignedRentalOffice().equals(this.getAssignedRentalOffice()) : "El sustituto no está asignado a la misma oficina";
         this.sustituto = car;
     }
     //Getter para obtener la fecha hasta la que el coche estará fuera de servicio:
@@ -78,12 +80,12 @@ public class Car {
         this.fueraDeServicioHasta = fueraDeServicioHasta;
     }
 
-
     protected void addRental(Rental rental) { //Se pone protected para que solo podamos usarlo nostros
        assert rental != null: "El alquiler no puede ser nulo";
+        // En servicio
         for (Rental existingRental : rentals) {
-            assert (!(datesOverlap(existingRental.getStartDate(), existingRental.getEndDate(),
-                    rental.getStartDate(), rental.getEndDate()))):("El alquiler se solapa con otro ya existente.");
+           assert (!(datesOverlap(existingRental.getStartDate(), existingRental.getEndDate(),
+                rental.getStartDate(), rental.getEndDate()))) : ("El alquiler se solapa con otro ya existente.");
         }
         rentals.add(rental);
     }
@@ -100,7 +102,7 @@ public class Car {
     // Método para poner un coche fuera de servicio
     public void takeOutOfService(Date backToService){
        assert estado instanceof  EnServicio : "El coche ya está fuera de servicio";
-       assert !this.esSustituto() : "El coche es sustituto del otro coche";
+       assert !this.esSustituto(): "El coche es el sustituto del otro";                          // "El coche es sustituto del otro coche";
        this.setEstado(new FueraDeServicio());       // Ponemos un coche fuera de servicio
        this.sustituto = encontrarSustituto();       // Buscamos un coche sustituto
        this.setFueraDeServicioHasta(backToService); // Registramos la cuando el coche vuelva en servicio
@@ -111,8 +113,8 @@ public class Car {
         Iterator<Car> iter = this.getAssignedRentalOffice().getCars().iterator(); // Obtenemos los coches de la misma oficina
         while(iter.hasNext()){  // Iteramos sobre el conjunto de coches obtenidos
             Car curr = iter.next();
-            //Buscamos un coche sustituto que tenga el mismo modelo y esté en servicio
-            if(curr.getModel().equals(this.getModel()) && curr.getEstado() instanceof EnServicio){
+            //Buscamos un coche sustituto que tenga el mismo modelo, esté en servicio y no sea el sustituto del otro coche
+            if(curr.getModel().equals(this.getModel()) && curr.getEstado() instanceof EnServicio && !curr.esSustituto()){
                     return curr;
             }
         }
@@ -124,7 +126,7 @@ public class Car {
         Iterator<Car> iter = this.getModel().getCars().iterator();
         while(iter.hasNext()){
             Car curr = iter.next();
-            if(curr.getSustituto() != null && curr.getSustituto().equals(this.getSustituto()))
+            if(curr.getSustituto() != null && curr.getSustituto().equals(this))
                 return true;
         }
         return false;

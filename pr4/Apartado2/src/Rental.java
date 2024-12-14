@@ -14,16 +14,16 @@ public abstract  class Rental {
         assert endDate != null : "End date no puede ser null.";
         assert customer != null : "Customer no puede ser null.";
         assert car != null : "Car no puede ser null.";
+        assert car.getEstado() instanceof  EnServicio ||(car.getEstado() instanceof FueraDeServicio && car.getSustituto() != null) : "No se puede alquilar un" +
+                " coche que está fuera de servicio y que no tenga sustituto";
         assert rentalOffice != null : "Rental office no puede ser null.";
         this.startDate = startDate;
         this.endDate = endDate;
+        this.car = car.getEstado() instanceof EnServicio ? car : car.getSustituto();
         this.customer = customer;
-        this.car = car;
         this.pickUpRentalOffice = rentalOffice;
-
-        car.addRental(this);
-        customer.addRental(this);
-        rentalOffice.addRental(this);
+        this.customer.addRental(this);
+        this.pickUpRentalOffice.addRental(this);
         //Garantizamos bidireccionalidad
     }
 
@@ -71,12 +71,19 @@ public abstract  class Rental {
     }
     protected void setCar(Car car){
         assert car != null : "Car no puede ser null.";
-        this.car.removeRental(this);
-        this.car.addRental(this);
-        this.car = car;
-
+        if(car.getEstado().sePuedeAlquilar()) {
+            this.car.removeRental(this);
+            this.car = car;
+            this.car.addRental(this);
+        }else if(this.car.getSustituto() != null){
+            Car temp = this.car.getSustituto();
+            this.car.removeRental(this);
+            this.car = temp;
+            this.car.addRental(this);
+        }else{
+            System.out.println("No se puede alquilar un coche fuera de servicio y que no tenga sustituto");
+        }
     }
-
 
     //Para que dos alquileres sean considerados iguales no basta con que tengan la misma fecha de start y end, tenemos que considerar también el cliente y el coche que se alquila.
     @Override
