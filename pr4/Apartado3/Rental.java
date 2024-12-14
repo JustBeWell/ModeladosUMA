@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 public abstract  class Rental {
     private final Date startDate; //No deberían poder mutar las fechas
@@ -8,7 +11,8 @@ public abstract  class Rental {
     /*Quizás sea mejor no poner cosas como el modelo o la placa de un coche inmutables, para permitir a los usarios cambiarlo en caso de que
     o bien un coche cambie de matrícula (lo cual puede pasar) o bien se hayan confundido al meter el modelo y puedan cambiarlo sin tener que borrar el objeto y todas sus relaciones
 */
-    public Rental(Date startDate, Date endDate, Customer customer,Car car, RentalOffice rentalOffice) {
+    private DescuentoEstrategia descuento;
+    public Rental(Date startDate, Date endDate, Customer customer,Car car, RentalOffice rentalOffice,DescuentoEstrategia descuento) {
         assert (startDate.before(endDate)) : "La fecha de inicio debe ser anterior a la de finalización";
         assert startDate != null : "Start date no puede ser null.";
         assert endDate != null : "End date no puede ser null.";
@@ -20,7 +24,7 @@ public abstract  class Rental {
         this.customer = customer;
         this.car = car;
         this.pickUpRentalOffice = rentalOffice;
-
+        this.descuento = descuento;
         car.addRental(this);
         customer.addRental(this);
         rentalOffice.addRental(this);
@@ -44,6 +48,23 @@ public abstract  class Rental {
     public RentalOffice getPickUpRentalOffice() {
         return pickUpRentalOffice;
     }
+    public DescuentoEstrategia getDescuento() {
+        return descuento;
+    }
+    //NUEVO METODO PARA OBTENER PRECIO CON DESCUENTO SI EXISTE
+    public int getPrice(){
+        LocalDate localStartDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localEndDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        double diasRental = ChronoUnit.DAYS.between(localStartDate, localEndDate);
+        int precioBase = (int) (diasRental * car.getModel().getPricePerDay());
+        if(this.descuento != null) return descuento.aplicarDescuento(precioBase);
+        return precioBase;
+    }
+
+    public void setDescuento(DescuentoEstrategia descuento) {
+        this.descuento = descuento;
+    }
+    
     protected void setPickUpRentalOffice(RentalOffice pickUpRentalOffice) {
         assert pickUpRentalOffice != null : "Rental office no puede ser null.";
         this.pickUpRentalOffice.removeRental(this);

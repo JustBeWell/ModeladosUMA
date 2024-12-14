@@ -27,9 +27,10 @@ public class Test3 {
         Date endDate1 = new GregorianCalendar(2024, Calendar.JANUARY, 10).getTime();
         Date startDate2 = new GregorianCalendar(2024, Calendar.JANUARY, 5).getTime(); // Solapado
         Date endDate2 = new GregorianCalendar(2024, Calendar.JANUARY, 15).getTime();
-
-        Rental rental1 = new RentalOnSite("First rental", startDate1, endDate1, customer1, car1, office1);
-        Rental rental2 = new RentalOnSite("Overlapping rental", startDate2, endDate2, customer1, car1, office1);
+        DescuentoPorcentaje descPorcentaje = new DescuentoPorcentaje(50);
+        DescuentoPromocion descPromocion = new DescuentoPromocion(100);
+        Rental rental1 = new RentalOnSite("First rental", startDate1, endDate1, customer1, car1, office1,descPorcentaje);
+        Rental rental2 = new RentalOnSite("Overlapping rental", startDate2, endDate2, customer1, car1, office1,descPromocion);
 
         // Añadir alquileres al cliente
         customer1.addRental(rental1);
@@ -39,10 +40,10 @@ public class Test3 {
         Date invalidStartDate = new GregorianCalendar(2024, Calendar.FEBRUARY, 10).getTime();
         Date invalidEndDate = new GregorianCalendar(2024, Calendar.FEBRUARY, 5).getTime(); // Inválido
 
-        Rental invalidRental = new WebRental(11, invalidStartDate, invalidEndDate, customer1, car2, office2);
+        Rental invalidRental = new WebRental(11, invalidStartDate, invalidEndDate, customer1, car2, office2,null);
 
         // Alquiler web con hora de entrega después de las 13:00
-        Rental lateDeliveryRental = new WebRental(14, startDate1, endDate1, customer1, car2, office1); // Inválido
+        Rental lateDeliveryRental = new WebRental(14, startDate1, endDate1, customer1, car2, office1,null); // Inválido
 
         // Añadir más alquileres
         customer1.addRental(invalidRental);
@@ -55,5 +56,9 @@ public class Test3 {
         System.out.println("\nOffice Rentals:");
         System.out.println(office1.toString());
         System.out.println(office2.toString());
+
+        System.out.println("----------------------------------------------------------------");
+        System.out.println(rental1.getPrice());
+        System.out.println(rental2.getPrice());
     }
 }

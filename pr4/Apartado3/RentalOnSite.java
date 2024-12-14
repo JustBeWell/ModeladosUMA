@@ -2,14 +2,14 @@ import java.util.*;
 public class RentalOnSite extends Rental{
     private String comments;
     
-    public RentalOnSite(String comments, Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice) {
-        super(startDate,endDate,customer,car,rentalOffice);
+    public RentalOnSite(String comments, Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice,DescuentoEstrategia descuento) {
+        super(startDate,endDate,customer,car,rentalOffice,descuento);
         assert comments != null : "Los comentarios no pueden ser nulos";
         this.comments = comments;
     }
     //Se añade un constructor en el que no se fuerza al usuario a meter comentarios ya que no son obligatorios
-    public RentalOnSite(Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice) {
-        super(startDate,endDate,customer,car,rentalOffice);
+    public RentalOnSite(Date startDate, Date endDate,Customer customer,Car car,RentalOffice rentalOffice,DescuentoEstrategia descuento) {
+        super(startDate,endDate,customer,car,rentalOffice,descuento);
     }
     
     public String getComments() {
