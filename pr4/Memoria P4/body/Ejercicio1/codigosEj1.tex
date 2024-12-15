@@ -1,5 +1,27 @@
+\subsubsection*{Código del tester}
+
 \begin{lstlisting}[style = javaNormal, language=Java] 
 
-    introducir codigo aqui
+    public Integer numberOfRentalsWithDifferentOffices() {
+        int count = 0;
+        RentalIterator iterator = this.getRentalIterator();
+
+        while (iterator.hasNext()) {
+            Rental rental = iterator.next();
+            if (rental instanceof WebRental) {
+                WebRental webRental = (WebRental) rental;
+                if (!webRental.getPickUpRentalOffice().equals(webRental.getDeliveryRentalOffice())) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public RentalIterator getRentalIterator() {
+        return new RentalSetIterator(this.rentals);
+    }
 
 \end{lstlisting}
+\vspace{1cm}

@@ -1,6 +1,6 @@
-PWD c:\Users\franc\Desktop\Memoria P4
+PWD c:\Users\franc\Documents\Escuela\UMA\5toSemestre\Modelado y Diseño\Github\ModeladosUMA\pr4\Memoria P4
 INPUT C:\Users\franc\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\franc\Desktop\Memoria P4\main.tex
+INPUT c:\Users\franc\Documents\Escuela\UMA\5toSemestre\Modelado y Diseño\Github\ModeladosUMA\pr4\Memoria P4\main.tex
 OUTPUT main.log
 INPUT C:\MikTeX\tex\latex\base\article.cls
 INPUT C:\MikTeX\tex\latex\base\article.cls
@@ -225,17 +225,31 @@ INPUT .\body\Introduccion\page.tex
 INPUT body\Introduccion\page.tex
 INPUT C:\MikTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\MikTeX\fonts\tfm\public\cm\cmbx12.tfm
-INPUT .\assets\umaLogo.png
-INPUT .\assets\umaLogo.png
-INPUT .\assets\umaLogo.png
-INPUT .\assets\umaLogo.png
+INPUT .\assets\Esqueleto.jpg
+INPUT .\assets\Esqueleto.jpg
+INPUT .\assets\Esqueleto.jpg
+INPUT .\assets\Esqueleto.jpg
+INPUT .\assets\Esqueleto.jpg
+INPUT .\assets\Esqueleto.jpg
+INPUT .\assets\Esqueleto.jpg
+INPUT C:\MikTeX\fonts\tfm\public\cm\cmtt12.tfm
 INPUT .\body\Ejercicio1\page.tex
 INPUT .\body\Ejercicio1\page.tex
 OUTPUT body\Ejercicio1\page.aux
 INPUT .\body\Ejercicio1\page.tex
 INPUT .\body\Ejercicio1\page.tex
 INPUT body\Ejercicio1\page.tex
-INPUT C:\MikTeX\fonts\tfm\public\cm\cmtt12.tfm
+INPUT C:\MikTeX\fonts\tfm\public\cm\cmbx10.tfm
+INPUT C:\MikTeX\fonts\tfm\public\cm\cmbxti10.tfm
+INPUT C:\MikTeX\fonts\tfm\public\cm\cmti10.tfm
+INPUT C:\MikTeX\fonts\tfm\public\cm\cmtt10.tfm
+INPUT .\assets\diagramas\UML_Apartado1.png
+INPUT .\assets\diagramas\UML_Apartado1.png
+INPUT .\assets\diagramas\UML_Apartado1.png
+INPUT .\assets\diagramas\UML_Apartado1.png
+INPUT .\assets\diagramas\UML_Apartado1.png
+INPUT .\assets\diagramas\UML_Apartado1.png
+INPUT .\assets\diagramas\UML_Apartado1.png
 INPUT C:\MikTeX\fonts\tfm\public\cm\cmbxti10.tfm
 INPUT .\body\Ejercicio1\codigosEj1.tex
 INPUT .\body\Ejercicio1\codigosEj1.tex
@@ -244,6 +258,9 @@ INPUT C:\MikTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\MikTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\MikTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\MikTeX\fonts\tfm\public\cm\cmtt10.tfm
+INPUT .\body\Ejercicio1\Test.tex
+INPUT .\body\Ejercicio1\Test.tex
+INPUT body\Ejercicio1\Test.tex
 INPUT .\body\Ejercicio2\page.tex
 INPUT .\body\Ejercicio2\page.tex
 OUTPUT body\Ejercicio2\page.aux
@@ -275,18 +292,30 @@ INPUT body\Ejercicio2\page.aux
 INPUT .\body\Ejercicio3\page.aux
 INPUT .\body\Ejercicio3\page.aux
 INPUT body\Ejercicio3\page.aux
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmbxti10.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmbxti10.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmcsc10.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmcsc10.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmmi12.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmmi12.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr17.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr17.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr7.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr7.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr8.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmr8.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmti10.pfb
+INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmti10.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmti12.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmti12.pfb
 INPUT C:\MikTeX\fonts\type1\public\amsfonts\cm\cmtt10.pfb

@@ -53,8 +53,7 @@ public class Customer {
     }
 
     /**
-     * Proporciona un iterador para recorrer los alquileres.
-     * Encapsula la implementación interna de `rentals` como un `HashSet`.
+     * Este cliente usa un iterador para recorrer los alquileres.
      */
     public RentalIterator getRentalIterator() {
         return new RentalSetIterator(this.rentals);

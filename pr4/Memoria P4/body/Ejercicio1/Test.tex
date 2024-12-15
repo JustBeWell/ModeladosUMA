@@ -1,0 +1,69 @@
+\begin{lstlisting}[style = javaNormal, language=Java] 
+    // Crear cliente
+    Customer customer2 = new Customer("87654321B", "Bob");
+    // Crear modelos de coches
+    Model modelA = new Model("Model A", 50);
+    Model modelB = new Model("Model B", 70);
+    // Crear oficinas de alquiler
+    RentalOffice office1 = new RentalOffice("Office 1", 20);
+    RentalOffice office2 = new RentalOffice("Office 2", 25);
+    // Crear coches
+    Car car1 = new Car("ABC-123", modelA, office1);
+    Car car2 = new Car("XYZ-789", modelB, office2);
+    // Crear fechas
+    Date startDate1 = new GregorianCalendar(2024, Calendar.JANUARY, 1).getTime();
+    Date endDate1 = new GregorianCalendar(2024, Calendar.JANUARY, 10).getTime();
+
+    Date startDate2 = new GregorianCalendar(2024, Calendar.JANUARY, 5).getTime();
+    Date endDate2 = new GregorianCalendar(2024, Calendar.JANUARY, 15).getTime();
+
+    // Oficinas diferentes
+    WebRental webRental1 = new WebRental(5, startDate1, endDate1, customer2, car1, office1);
+    webRental1.setDeliveryRentalOffice(office2);
+
+    // Oficinas iguales
+    WebRental webRental2 = new WebRental(2, startDate1, endDate1, customer2, car2, office2);
+    webRental2.setDeliveryRentalOffice(office2);
+
+    // Usar nueva operacion implementada
+    int rentalsWithDifferentOffices = customer2.numberOfRentalsWithDifferentOffices();
+
+    System.out.println("Alquileres con oficinas diferentes: " + rentalsWithDifferentOffices);
+
+    if (rentalsWithDifferentOffices == 1) {
+        System.out.println("Correcto: El metodo devuelve el numero esperado.");
+    } else {
+        System.out.println("ERROR: El metodo devuelve un resultado incorrecto.");
+    }
+\end{lstlisting}
+
+
+\subsubsection*{Output}
+
+\begin{lstlisting}[style = javaNormal, language=Java] 
+    [WebRental: Mon Jan 01 00:00:00 CET 2024 Wed Jan 10 00:00:00 CET 2024
+    ; 2, WebRental: Mon Jan 01 00:00:00 CET 2024 Wed Jan 10 00:00:00 CET 2024
+    ; 5]
+
+    Alquileres con oficinas diferentes: 1
+    Correcto: El metodo devuelve el numero esperado.
+\end{lstlisting}
+
+\vspace{1cm}
+
+Los \texttt{toString()} usados para mostrar el Output fueron:
+
+
+\begin{lstlisting}[style = javaEspecifico, language=Java] 
+    // en Rental
+    @Override
+    public String toString() {
+        return this.getClass().getName() + ": " + startDate + " " + endDate+"\n";
+    }
+
+    // en WebRental
+    @Override
+    public String toString() {
+        return super.toString() + " ; " + deliveryTime.toString();
+    }
+\end{lstlisting}

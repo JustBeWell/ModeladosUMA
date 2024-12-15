@@ -1,16 +1,67 @@
 \section{Ejercicio 1}
 \subsection*{Instrucción}
-Supongamos ahora que queremos definir una operación \texttt{numberOfRentalsWithDifferentOffices() : Integer} en la clase
+Supongamos ahora que queremos definir una operación\par 
+\texttt{numberOfRentalsWithDifferentOffices() : Integer} en la clase
 \texttt{Customer} que devuelve el número de alquileres web que ha hecho un cliente self donde la oficina de recogida y de
 entrega es diferente. En este momento del diseño del sistema todavía no sabemos qué estructura de datos
 utilizaremos para guardar los alquileres que ha hecho/hace un cliente.
 
 \subsection{Patrón de Diseño utilizado}
+El objetivo de incorporar la nueva operación es introducir al sistema una forma de recuperar información específica acerca de alquileres web. 
+Como todos los alquileres son realizados por clientes, necesitaríamos verificar cada uno y encontrar todos aquellos que cumplan que su alquiler 
+además de ser mediante la página, cumplan que la oficina de recogida entrega sea diferente.\par
+\vspace{0.15cm}
+La descripción inicial del sistema no detalla que esta operación sea la única que hace falta o es la primera 
+que se implementa referente a los alquileres. Es posible que en un futuro se necesite información de clientes que hayan hecho más de un alquiler 
+o se necesite recuperar información de cuantas veces un coche ha sido alquilado.\par
+\vspace{0.15cm}
+Pensando en todos los casos que se puedan solicitar, es ineficiente simplemente hacer un bucle que recorra toda la colección y filtrar por 
+la condición necesaria si el sistema puede escalar. Es por ello que el patrón \texttt{Iterador} es el más adecuado para implementar esta solución.\par
+\vspace{0.15cm}
+Este patrón de diseño nos permite acceder secuencialmente a los elementos de una colección, separando la lógica de iteración del \emph{cliente}\footnote{\textbf{¿Quiénes son los \emph{clientes}?} Este término no se refiere ni a las clases del sistema ni a los usuarios del programa, sino a las partes del código que utilizan el iterador para recorrer una colección. En este caso, el \emph{cliente} del iterador es el método \texttt{numberOfRentalsWithDifferentOffices()}.} y centralizándola 
+en el propio iterador, sin mencionar que permite escalar con facilidad el sistema. Otra ventaja de usar esta patrón es que no expone la estructura interna 
+de la colección y permite ser usada por varios \emph{clientes} simultáneamente.
 
+\subsubsection*{Consideraciones}
+Como estamos utilizando un \texttt{HashSet} para almacenar los alquileres, somos consientes que esta colección ya implementa el método \texttt{iterator()} de la 
+interfaz \texttt{Iterable}. No sería correcto usar este iterator por las mismas razones recién comentadas; el iterador nativo de \texttt{HashSet} simplemente 
+recorre los elementos uno por uno, sin ningún tipo de lógica adicional. Como queremos filtrar \texttt{Rentals} para recuperar los que cumplan una condición específica, 
+tiene sentido implementar un iterador personalizado con este patrón que encapsule esa lógica en particular.
+
+\newpage % Mostramos el diagrama en una nueva página
 
 \subsection{Efectos sobre el Diagrama de Diseño}
+\begin{figure}[H]
+    \centering
+     \includegraphics[width=0.70\linewidth]{assets/diagramas/UML_Apartado1.png}
+     \caption{Diagrama de Diseño modificado para Ejercicio1}
+\end{figure}
+\vspace{0.50cm}
+Hemos tenido que modificar el diseño original para poder implementar este patrón de diseño. Siguiendo la estructura presentada en los apuntes del Tema 6 en la página 108, tenemos:
+\begin{itemize}
+    \item \textbf{\texttt{Interfaz} RentalIterator:} Define las operaciones necesarias para recorrer una colección de elementos.
+    \item \textbf{\texttt{ConcreteIterator} RentalSetIterator:} Contiene la lógica específica para moverse a través de la colección.
+    \item \textbf{\texttt{ConcreteCollection } Set$<$Rental$>$ rentals:} Almacena los elementos y devuelve un iterador para recorrerlos.
+\end{itemize}
+\vspace{0.15cm}
+Importante mencionar que en el diseño presentado en los apuntes del Tema 6, la estructura del patrón \texttt{Iterator} incluye una interfaz adicional, 
+\texttt{IterableCollection}, que establece una relación entre las clases que desean ser iterables. En nuestra implementación, decidimos no introducir 
+esta interfaz adicional porque únicamente la clase \texttt{Customer} requiere un iterador que resuelva la restricción de búsqueda en el método que se presenta 
+en el siguiente apartado.
+
+\newpage % Mostramos la implementación en una nueva página
 
 \subsection{Implementación de \textit{numberOfRentalsWithDifferentOffices() : Integer}}
-\input{body/Ejercicio1/codigosEj1.tex}% Código en el documento "codigosEj1"
+\input{body/Ejercicio1/codigosEj1.tex} % Código en el documento "codigosEj1"
 
-\newpage
+Con estos dos métodos habilitamos el uso del patrón de diseño \texttt{Iterator}.\par
+\texttt{numberOfRentalsWithDifferentOffices()} realiza el recorrido de la colección de alquileres asociados a un cliente y 
+calcula cuántos de ellos cumplen con la condición específica de que sean alquileres de \texttt{WebRental} y las oficinas 
+de recogida y entrega sean diferentes. Como se explicó antes, \texttt{getRentalIterator()} encapsula la creación del iterador específico (\texttt{RentalSetIterator}) 
+que permite recorrer la colección de alquileres sin exponer su estructura interna.
+
+\newpage % Muestra el test
+
+\subsection{Ejemplo de ejecución}
+\input{body/Ejercicio1/Test.tex}
+
