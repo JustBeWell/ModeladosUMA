@@ -5,7 +5,7 @@ public class WebRental extends Rental {
     private RentalOffice deliveryRentalOffice;
 
     public WebRental(Integer deliveryTime, Date startDate, Date endDate, Customer customer, Car car, RentalOffice rentalOffice,DescuentoEstrategia descuento) {
-        super(startDate, endDate, customer, car, rentalOffice,descuento);
+        super(startDate, endDate, customer, car, car.getAssignedRentalOffice(),descuento);
         assert deliveryTime > 0 : "DeliveryTime debe ser positivo";
         assert rentalOffice != null : "RentalOffice no puede ser null";
         this.deliveryTime = deliveryTime;
