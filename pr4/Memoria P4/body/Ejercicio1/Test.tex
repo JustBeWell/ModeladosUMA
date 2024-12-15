@@ -1,3 +1,4 @@
+\subsubsection*{Código del tester}
 \begin{lstlisting}[style = javaNormal, language=Java] 
     // Crear cliente
     Customer customer2 = new Customer("87654321B", "Bob");
@@ -13,7 +14,6 @@
     // Crear fechas
     Date startDate1 = new GregorianCalendar(2024, Calendar.JANUARY, 1).getTime();
     Date endDate1 = new GregorianCalendar(2024, Calendar.JANUARY, 10).getTime();
-
     Date startDate2 = new GregorianCalendar(2024, Calendar.JANUARY, 5).getTime();
     Date endDate2 = new GregorianCalendar(2024, Calendar.JANUARY, 15).getTime();
 
@@ -61,7 +61,7 @@ Los \texttt{toString()} usados para mostrar el Output fueron:
         return this.getClass().getName() + ": " + startDate + " " + endDate+"\n";
     }
 
-    // en WebRental
+    // en WebRental, que llama al de Rental mediante super
     @Override
     public String toString() {
         return super.toString() + " ; " + deliveryTime.toString();

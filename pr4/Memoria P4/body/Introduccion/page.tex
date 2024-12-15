@@ -17,7 +17,7 @@
 \begin{itemize}
     \item \textbf{name: String}: Nombre del modelo. Este valor es inmutable.
     \item \textbf{pricePerDay: int}: Precio por día asociado al modelo.
-    \item \textbf{cars: Set<Car>}: Conjunto de coches asociados al modelo de Coche. Este conjunto es  inmutable.
+    \item \textbf{cars: Set$<$Car$>$}: Conjunto de coches asociados al modelo de Coche. Este conjunto es  inmutable.
 \end{itemize}
 
 \subsubsection*{Operaciones}
@@ -44,7 +44,7 @@
 
 \begin{itemize}
     \item \textbf{licensePlate: String}: Matrícula del coche.
-    \item \textbf{rentals: Set<Rental>}: Conjunto de alquileres asociados al coche. Este conjunto es inmutable.
+    \item \textbf{rentals: Set$<$Rental$>$}: Conjunto de alquileres asociados al coche. Este conjunto es inmutable.
     \item \textbf{model: Model}: Modelo del coche. Este valor es inmutable.
     \item \textbf{assignedRentalOffice: RentalOffice}: Oficina de alquiler asignada al coche.
 \end{itemize}
@@ -59,7 +59,7 @@
     \item \textbf{getLicensePlate() : String}: Devuelve la matrícula del coche.
     \item \textbf{setLicensePlate(licensePlate : String) : void}: Actualiza la matrícula del coche.
     \item \textbf{getModel() : Model}: Devuelve el modelo del coche.
-    \item \textbf{getRentals() : Set<Rental>}: Devuelve el conjunto de alquileres del al coche.
+    \item \textbf{getRentals() : Set$<$Rental$>$}: Devuelve el conjunto de alquileres del al coche.
     \item \textbf{addRental(rental : Rental) : void}: Añade un alquiler al conjunto de alquileres del coche. 
     \item \textbf{removeRental(rental : Rental) : void}: Elimina un alquiler del conjunto de alquileres del coche.
     \item \textbf{equals(obj : Object) : boolean}: Compara dos coches para determinar si son iguales basándose en su matrícula.
@@ -84,7 +84,7 @@
 \begin{itemize}
     \item \textbf{dni: String}: Es el DNI del cliente, un identificador único. No se permite modificarlo después de inicializarlo.
     \item \textbf{name: String}: Es el nombre del cliente. No se permite modificarlo después de inicializarlo.
-    \item \textbf{rentals: Set<Rental>}: Conjunto de todos los alquileres de cliente.
+    \item \textbf{rentals: Set$<$Rental$>$}: Conjunto de todos los alquileres de cliente.
 \end{itemize}
 
 \subsubsection*{Operaciones}
@@ -93,7 +93,7 @@
     \item \textbf{Customer(dni : String, name : String) : Customer}: Constructor que inicializa un cliente con un DNI y un nombre.
     \item \textbf{getDni() : String}: Devuelve el DNI del cliente.
     \item \textbf{getName() : String}: Devuelve el nombre del cliente.
-    \item \textbf{getRentals() : Set<Rental>}: Devuelve el conjunto de alquileres asociados al cliente.
+    \item \textbf{getRentals() : Set$<$Rental$>$}: Devuelve el conjunto de alquileres asociados al cliente.
     \item \textbf{addRental(rental : Rental) : void}: Agrega un alquiler al conjunto de alquileres del cliente.
     \item \textbf{removeRental(rental : Rental) : void}: Elimina un alquiler del conjunto de alquileres del cliente.
     \item \textbf{equals(obj : Object) : boolean}: Compara dos clientes por DNI para determinar si son iguales.
@@ -178,7 +178,7 @@
     \item \textbf{setDeliveryRentalOffice(deliveryRentalOffice : RentalOffice) : void}: Actualiza la oficina de entrega asociada al alquiler.
     \item \textbf{equals(o : Object) : boolean}: Compara dos alquileres para determinar si son iguales, mediante atributos heredados, el tiempo de entrega y la oficina de entrega.
     \item \textbf{hashCode() : int}: Genera un código hash basado en los atributos heredados, el tiempo de entrega y la oficina de entrega.
-    \item \textbf{toString() : String}: Devuelve un string con losatributos heredados y el tiempo de entrega.
+    \item \textbf{toString() : String}: Devuelve un string con los atributos heredados y el tiempo de entrega.
 \end{itemize}
 
 \subsubsection{RentalOffice}
@@ -188,9 +188,9 @@
 \begin{itemize}
     \item \textbf{address: String}: Dirección de la oficina de alquiler. 
     \item \textbf{feeForDelivery: Integer}: Tarifa de entrega de la oficina de alquiler
-    \item \textbf{cars: Set<Car>}: Conjunto de coches disponibles en la oficina de alquiler.
-    \item \textbf{webRentals: Set<WebRental>}: Conjunto de alquileres web asociados a la oficina. 
-    \item \textbf{rentals: Set<Rental>}: Conjunto de alquileres asociados a la oficina.
+    \item \textbf{cars: Set$<$Car$>$}: Conjunto de coches disponibles en la oficina de alquiler.
+    \item \textbf{webRentals: Set$<$WebRental$>$}: Conjunto de alquileres web asociados a la oficina. 
+    \item \textbf{rentals: Set$<$Rental$>$}: Conjunto de alquileres asociados a la oficina.
 \end{itemize}
 
 \subsubsection*{Operaciones}
@@ -200,9 +200,9 @@
     Constructor que inicializa una oficina de alquiler con una dirección y una tarifa de entrega.
     \item \textbf{getAddress() : String}: Devuelve la dirección de la oficina de alquiler.
     \item \textbf{getFeeForDelivery() : Integer}: Devuelve la tarifa de entrega de la oficina.
-    \item \textbf{getCars() : Set<Car>}: Devuelve el conjunto de coches disponibles en la oficina.
-    \item \textbf{getWebRentals() : Set<WebRental>}: Devuelve el conjunto los alquileres web de la oficina.
-    \item \textbf{getRentals() : Set<Rental>}: Devuelve un conjunto de los alquileres de la oficina.
+    \item \textbf{getCars() : Set$<$Car$>$}: Devuelve el conjunto de coches disponibles en la oficina.
+    \item \textbf{getWebRentals() : Set$<$WebRental$>$}: Devuelve el conjunto los alquileres web de la oficina.
+    \item \textbf{getRentals() : Set$<$Rental$>$}: Devuelve un conjunto de los alquileres de la oficina.
     \item \textbf{addCar(car : Car) : void}: Añade un coche a la oficina.
     \item \textbf{removeCar(car : Car) : void}: Elimina un coche de la oficina.
     \item \textbf{addWebRental(webRental : WebRental) : void}: Añade un alquiler web a la oficina.
