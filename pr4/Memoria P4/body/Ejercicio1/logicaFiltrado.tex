@@ -1,0 +1,18 @@
+\begin{lstlisting}[style = javaEspecifico, language=Java]
+ // Clase FilteredRentalIterator
+            [...]
+    private void moveToNextValid() {
+        nextRental = null;
+        while (iterator.hasNext()) {
+            Rental rental = iterator.next();
+            if (rental instanceof WebRental) {
+                WebRental webRental = (WebRental) rental;
+                if (!webRental.getPickUpRentalOffice().equals(webRental.getDeliveryRentalOffice())) {
+                    nextRental = rental;
+                    break;
+                }
+            }
+        }
+    }
+            [...]
+\end{lstlisting}

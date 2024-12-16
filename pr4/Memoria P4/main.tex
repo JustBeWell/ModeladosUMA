@@ -16,8 +16,15 @@
 \usepackage{bookmark}           % Mejora la administración de los marcadores (bookmarks) en documentos PDF generados
 \usepackage{xr}                 % Permite referenciar elementos de otros documentos .tex
 \usepackage{natbib}             % Para gestionar bibliografías y hacer citaciones
+\usepackage{varioref}
 
-
+% Configuración personalizada para las labels en español (por defecto están en inglés)
+\renewcommand{\reftextfaceafter}{en la página siguiente}
+\renewcommand{\reftextfacebefore}{en la página anterior}
+\renewcommand{\reftextafter}{en la página~\thevpagerefnum}
+\renewcommand{\reftextbefore}{en la página~\thevpagerefnum}
+\renewcommand{\reftextcurrent}{en esta página}
+\renewcommand{\reftextfaraway}[1]{en la página~\pageref{#1}}
 
 % Configuración de márgenes
 \geometry{
@@ -76,7 +83,7 @@
 
 % Definimos forma de llamar al listado con letras minúsculas pero sustituye el listado por 
 % números de enumerate. Comentar para tener enumerate por default.
- \renewcommand{\theenumi}{\alph{enumi}}
+% \renewcommand{\theenumi}{\alph{enumi}}
 % \begin{enumerate}
 %   \item
 % \end{enumerate}

@@ -54,7 +54,6 @@ public class Customer {
             Rental rental = iterator.next();
             count++;
         }
-
         return count;
     }
 

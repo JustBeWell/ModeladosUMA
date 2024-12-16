@@ -26,11 +26,11 @@ preocupar tampoco de estos cambios, son gestionados por otras operaciones).
 
 
 \subsection{Patrón de Diseño utilizado}
-Para poder realizar este apartado optamos varias casuisticas de diferentes patrones de diseño validos. Por un lado optamos por el patron visitante,
-dicho patron complicaria demasiado la imlementación de la operacion debido al gran numero de instancias presentes de dicho patron para un unico metodo,esto hace que 
-el uso de este patron sea algo ineficiente. Tras ese planteamiento llegamos a la conclusion de utilizar el patron \textbf{Strategy} para poder implementar la operacion correctamente.
-Este patron se basa en la utilizacion de una interfaz que actua como padre de todos los objetos que implementen una operacion similar, en este caso tenemos dos tipos de promociones,
-\textbf{Promoción por porcentaje} y \textbf{Promoción por cantidad} ambas mantienen una logica similar por lo que el uso del patron \textbf{Strategy} es el adecuado.
+Para poder realizar este apartado optamos varias casuísticas de diferentes patrones de diseño validos. Por un lado optamos por el patron visitante,
+dicho patron complicaría demasiado la implementación de la operación debido al gran numero de instancias presentes de dicho patron para un unico método,esto hace que 
+el uso de este patron sea algo ineficiente. Tras ese planteamiento llegamos a la conclusion de utilizar el patron \textbf{Strategy} para poder implementar la operación correctamente.
+Este patron se basa en la utilización de una interfaz que actúa como padre de todos los objetos que implementen una operación similar, en este caso tenemos dos tipos de promociones,
+\textbf{Promoción por porcentaje} y \textbf{Promoción por cantidad} ambas mantienen una lógica similar por lo que el uso del patron \textbf{Strategy} es el adecuado.
 
 \subsection{Efectos sobre el Diagrama de Diseño}
 
@@ -40,18 +40,22 @@ Este patron se basa en la utilizacion de una interfaz que actua como padre de to
      \caption{Diagrama de Diseño del apartado 3}
 \end{figure}
 
-Como podemos observar, el patron \textbf{Strategy} mantiene una interfaz padre de la cual heredan todas las instancias de objetos que vayan a realizar dicha operacion.
+Como podemos observar, el patron \textbf{Strategy} mantiene una interfaz padre de la cual heredan todas las instancias de objetos que vayan a realizar dicha operación.
 Como bien hemos dicho antes nos basamos en un sistema con dos operaciones diferentes para obtener el precio final, por lo cual necesitaremos crear dos clases una para cada tipo de 
-promocion. Estas heredaran de la clase \textbf{Strategy} para asi obligar al sistema a implementar dichas operaciones en cada una de las clases. Un requisito del sistema es que dichas
-promociones se apliquen al instanciar un objeto \textbf{Rental}, es por eso que dichos tipos de promociones vendran instanciados en el constructor de dicha clase pudiendo ser nulo en caso 
-de que no se le aplique ningun tipo de promocion.\par
-
+promoción. Estas heredaran de la clase \textbf{Strategy} para asi obligar al sistema a implementar dichas operaciones en cada una de las clases. Un requisito del sistema es que dichas
+promociones se apliquen al instanciar un objeto \textbf{Rental}, es por eso que dichos tipos de promociones vendrán instanciados en el constructor de dicha clase pudiendo ser nulo en caso 
+de que no se le aplique ningún tipo de promoción.\par
+\newpage
 \subsection{Implementación de \textit{getPrice() : Integer}}
 \input{body/Ejercicio3/codigosEj3.tex}\par
-En la primera seccion podemos encontrar las nuevas instancias que debemos generar para poder usar el patron \textbf{Strategy} dichas clases implementan el metodo de la interfaz
-de manera similar pero cambiando ligeramente la forma en la que calculan los precios a dependiendo de sus propios parametros privados (porcentaje o cantidad).\par
+En la primera sección podemos encontrar las nuevas instancias que debemos generar para poder usar el patron \textbf{Strategy} dichas clases implementan el método de la interfaz
+de manera similar pero cambiando ligeramente la forma en la que calculan los precios a dependiendo de sus propios parámetros privados (porcentaje o cantidad).\par
 \vspace{0.15cm}
-Para implementar el metodo getPrice hemos decidido generar a partir de los parametro \textbf{startDate} y \textbf{endDate} el precio base que tendria el alquiler antes de aplicar 
-cualquier tipo de promocion. Como bien hemos explicado antes en caso de que no exista promocion alguna se instanciara como nulo el atributo en el constructor. Es por eso que 
-antes de calcular el nuevo precio comprobamos si el \textbf{Rental} contiene un tipo de promocion disponible, en caso contrario devolveremos el precio base inicial.
+Para implementar el método getPrice hemos decidido generar a partir de los parámetro \textbf{startDate} y \textbf{endDate} el precio base que tendría el alquiler antes de aplicar 
+cualquier tipo de promoción. Como bien hemos explicado antes en caso de que no exista promoción alguna se instanciará como nulo el atributo en el constructor. Es por eso que 
+antes de calcular el nuevo precio comprobamos si el \textbf{Rental} contiene un tipo de promoción disponible, en caso contrario devolveremos el precio base inicial.
+
 \newpage
+
+\subsection{Ejemplo de ejecución}
+\input{body/Ejercicio3/Text.tex}

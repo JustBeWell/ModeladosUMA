@@ -1,25 +1,12 @@
 \begin{lstlisting}[style = javaNormal, language=Java] 
-
     public Integer numberOfRentalsWithDifferentOffices() {
         int count = 0;
-        RentalIterator iterator = this.getRentalIterator();
-
+        RentalIterator iterator = this.getRentals().createFilteredIterator();
         while (iterator.hasNext()) {
             Rental rental = iterator.next();
-            if (rental instanceof WebRental) {
-                WebRental webRental = (WebRental) rental;
-                if (!webRental.getPickUpRentalOffice().equals(webRental.getDeliveryRentalOffice())) {
-                    count++;
-                }
-            }
+            count++;
         }
-
         return count;
     }
-
-    public RentalIterator getRentalIterator() {
-        return new RentalSetIterator(this.rentals);
-    }
-
 \end{lstlisting}
-\vspace{1cm}
+\vspace{0.20cm}

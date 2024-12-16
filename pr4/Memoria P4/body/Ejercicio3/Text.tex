@@ -1,0 +1,84 @@
+\subsubsection*{Código del tester}
+\begin{lstlisting}[style = javaNormal, language=Java] 
+    // Crear modelos de coches
+    Model modelA = new Model("Model A", 50);
+    Model modelB = new Model("Model B", 70);
+
+    // Crear oficinas de alquiler
+    RentalOffice office1 = new RentalOffice("Office 1", 20);
+    RentalOffice office2 = new RentalOffice("Office 2", 25);
+    // Crear coches
+    Car car1 = new Car("ABC-123", modelA, office1);
+    Car car2 = new Car("XYZ-789", modelB, office2);
+
+    // Crear clientes
+    Customer customer1 = new Customer("12345678A", "Alice");
+
+    // Alquiler con fechas solapadas
+    Date startDate1 = new GregorianCalendar(2024, Calendar.JANUARY, 1).getTime();
+    Date endDate1 = new GregorianCalendar(2024, Calendar.JANUARY, 10).getTime();
+    Date startDate2 = new GregorianCalendar(2024, Calendar.JANUARY, 5).getTime(); // Solapado
+    Date endDate2 = new GregorianCalendar(2024, Calendar.JANUARY, 15).getTime();
+    DescuentoPorcentaje descPorcentaje = new DescuentoPorcentaje(50);
+    DescuentoPromocion descPromocion = new DescuentoPromocion(100);
+    Rental rental1 = new RentalOnSite("First rental", startDate1, endDate1, customer1, car1, office1,descPorcentaje);
+    Rental rental2 = new RentalOnSite("Overlapping rental", startDate2, endDate2, customer1, car1, office1,descPromocion);
+
+    // Mete alquileres al cliente
+    customer1.addRental(rental1);
+    customer1.addRental(rental2); // Esto viola la restriccion de solapamiento
+
+    // Alquiler con fecha de inicio posterior a la fecha de finalizacion
+    Date invalidStartDate = new GregorianCalendar(2024, Calendar.FEBRUARY, 10).getTime();
+    Date invalidEndDate = new GregorianCalendar(2024, Calendar.FEBRUARY, 5).getTime(); // Invalido
+
+    Rental invalidRental = new WebRental(11, invalidStartDate, invalidEndDate, customer1, car2, office2,null);
+
+    // Alquiler web con hora de entrega despues de las 13:00
+    Rental lateDeliveryRental = new WebRental(14, startDate1, endDate1, customer1, car2, office1,null); // Invalido
+
+    // Mete mas alquileres
+    customer1.addRental(invalidRental);
+    customer1.addRental(lateDeliveryRental);
+
+    // Imprimir resultados
+    System.out.println("Customer Rentals:");
+    System.out.println(customer1);
+
+    System.out.println("\nOffice Rentals:");
+    System.out.println(office1.toString());
+    System.out.println(office2.toString());
+    //Comprobar que los precios han cambiado en base a la promocion dada en el sistema
+    System.out.println("----------------------------------------------------------------");
+    System.out.println("Precio tras aplicar un descuento del " + rental1.getDescuento().toString() + " del tipo " + rental1.getDescuento().getClass().getName() + ": " + rental1.getPrice() + "\n");
+    System.out.println("Precio tras aplicar un descuento del " + rental2.getDescuento().toString() + " del tipo " + rental2.getDescuento().getClass().getName() + ": " + rental2.getPrice() + "\n");
+\end{lstlisting}
+
+
+\subsubsection*{Output}
+
+\begin{lstlisting}[style = javaNormal, language=Java] 
+    Precio tras aplicar un descuento del [50.0] del tipo DescuentoPorcentaje: 225
+
+    Precio tras aplicar un descuento del [100] del tipo DescuentoPromocion: 400
+\end{lstlisting}
+
+\vspace{1cm}
+
+\newpage
+
+Los \texttt{toString()} usados para mostrar el Output fueron:
+
+\begin{lstlisting}[style = javaEspecifico, language=Java] 
+    // en DescuentoPromocion
+    @Override
+    public String toString() {
+        return "[" + descuento + "]";
+    }
+
+    // en DescuentoPorcentaje
+    @Override
+    public String toString() {
+        return "[" + porcentaje + "]";
+    }
+\end{lstlisting}

@@ -39,26 +39,31 @@ tiene sentido implementar un iterador personalizado con este patrón que encapsu
 \vspace{0.50cm}
 Hemos tenido que modificar el diseño original para poder implementar este patrón de diseño. Siguiendo la estructura presentada en los apuntes del Tema 6 en la página 108, tenemos:
 \begin{itemize}
-    \item \textbf{\texttt{Interfaz} RentalIterator:} Define las operaciones necesarias para recorrer una colección de elementos.
-    \item \textbf{\texttt{ConcreteIterator} RentalSetIterator:} Contiene la lógica específica para moverse a través de la colección.
-    \item \textbf{\texttt{ConcreteCollection } Set$<$Rental$>$ rentals:} Almacena los elementos y devuelve un iterador para recorrerlos.
+    \item \textbf{\texttt{Interfaz} RentalIterator:} Define las operaciones necesarias para recorrer la colección de elementos.
+    \item \textbf{\texttt{Interfaz} RentalCollection:} Implementa las operaciones necesarias para crear una colección iterable. Es una \texttt{IterableCollection}.
+    \item \textbf{\texttt{ConcreteCollection } RentalSet:} Almacena los elementos y devuelve un iterador para recorrerlos además de poder gestionarlos y recuperarlos.
+    \item \textbf{\texttt{ConcreteIterator} RentalSetIterator:} Contiene la lógica específica para moverse de uno en uno a través de la colección.
+    \item \textbf{\texttt{ConcreteIterator} FilteredRentalIterator:} Contiene la lógica que recorre solo los elementos de tipo \texttt{WebRental} cumpla con la condición de tener una oficina de recogida y entrega distintas.
 \end{itemize}
 \vspace{0.15cm}
-Importante mencionar que en el diseño presentado en los apuntes del Tema 6, la estructura del patrón \texttt{Iterator} incluye una interfaz adicional, 
-\texttt{IterableCollection}, que establece una relación entre las clases que desean ser iterables. En nuestra implementación, decidimos no introducir 
-esta interfaz adicional porque únicamente la clase \texttt{Customer} requiere un iterador que resuelva la restricción de búsqueda en el método que se presenta 
-en el siguiente apartado.
+Estructurar el diseño de esta manera, se alinea con el enunciado ya que estamos abstrayendo el tipo de colección usada para guardar los alquileres que ha hecho/hace un cliente.
 
 \newpage % Mostramos la implementación en una nueva página
 
 \subsection{Implementación de \textit{numberOfRentalsWithDifferentOffices():Integer}}
 \input{body/Ejercicio1/codigosEj1.tex} % Código en el documento "codigosEj1"
 
-Con estos dos métodos habilitamos el uso del patrón de diseño \texttt{Iterator}.\par
-\texttt{numberOfRentalsWithDifferentOffices()} realiza el recorrido de la colección de alquileres asociados a un cliente y 
-calcula cuántos de ellos cumplen con la condición específica de que sean alquileres de \texttt{WebRental} y las oficinas 
-de recogida y entrega sean diferentes. Como se explicó antes, \texttt{getRentalIterator()} encapsula la creación del iterador específico (\texttt{RentalSetIterator}) 
-que permite recorrer la colección de alquileres sin exponer su estructura interna.
+Sigue el patrón de diseño implementado ya que se ha modificado la clase para que este \emph{cliente} solo reciba el resultado del método 
+sin exponer la lógica de la iteración. A continuación mostramos las operaciones que ocurren en segundo plano para devolver el resultado esperado del método.
+\begin{enumerate}
+    \item \emph{Cliente} (\texttt{Customer}) inicia el cálculo llamando al nuevo método.
+    \item \texttt{RentalSet} crea el \texttt{FilteredRentalIterator} en respuesta.
+    \item Este iterador, contiene la lógica filtrado para los elementos en la colección. Como se ve a continuación.
+    \input{body/Ejercicio1/logicaFiltrado.tex}
+    \item \emph{Cliente} utiliza el iterador para contar los elementos válidos.
+    \item El cliente recibe el número total de alquileres que cumplen el filtro.
+\end{enumerate}
+\newpage
 
 \newpage % Muestra el test
 

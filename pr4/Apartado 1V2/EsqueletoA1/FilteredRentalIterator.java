@@ -17,7 +17,7 @@ public class FilteredRentalIterator implements RentalIterator{
         nextRental = null;
         while (iterator.hasNext()) {
             Rental rental = iterator.next();
-            if (rental instanceof WebRental) { // Ejemplo de condición
+            if (rental instanceof WebRental) {
                 WebRental webRental = (WebRental) rental;
                 if (!webRental.getPickUpRentalOffice().equals(webRental.getDeliveryRentalOffice())) {
                     nextRental = rental;
