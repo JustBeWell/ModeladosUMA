@@ -55,8 +55,6 @@ public class Customer {
             count++;
         }
 
-
-
         return count;
     }
 
