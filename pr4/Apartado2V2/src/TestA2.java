@@ -45,12 +45,25 @@ public class TestA2 {
 
         Rental rent1 = new RentalOnSite(startDate, endDate, c1, car1, office1); // No funciona bien
 
-        // Intentamos alquilar un coche que está fuera de servicio y que not tiene sustituto:
-
         Date startDate2 = sdf.parse("2024-01-14 12:30:00");
         Date endDate2 = sdf.parse("2024-01-21 12:30:00");
 
-        Rental rent2 = new RentalOnSite(startDate, endDate, c1, car3, office1);
+        //Ahora vamos a intentar alquilar el coche 2 que está siendo sustituto del coche 1
+
+        //Descomentar esta línea para comprobar el alquiler de un coche sustituto
+        //Rental rent2 = new RentalOnSite(startDate2, endDate2, c1, car2, office1);
+
+
+
+
+        // Intentamos alquilar un coche que está fuera de servicio y que not tiene sustituto:
+
+        Date startDate3 = sdf.parse("2024-01-14 12:30:00");
+        Date endDate3 = sdf.parse("2024-01-21 12:30:00");
+        //Falla por intentar alquilar un coche fuera de servicio
+        Rental rent3 = new RentalOnSite(startDate3, endDate3, c1, car3, office1);
+
+
 
 
     }

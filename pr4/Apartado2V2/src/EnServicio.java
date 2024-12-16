@@ -8,7 +8,9 @@ public class EnServicio extends Estado{
       super(context);
    }
 
-   public boolean sePuedeAlquilar(){ return true;}
+   public boolean sePuedeAlquilar(){
+   return !context.esSustituto();
+   }
 
    @Override
    public void takeOutOfService(Date backToService) {
@@ -25,7 +27,7 @@ public class EnServicio extends Estado{
 
    @Override
    public void removeRental(Rental rental) {
-      context.removeRental(rental);
+      context.removeRentalAfterValidation(rental);
    }
 
    @Override

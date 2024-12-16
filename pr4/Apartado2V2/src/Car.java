@@ -64,8 +64,8 @@ public class Car {
     }
     // Setter para asignar el coche sustituto:
     protected void setSustituto(Car car){
-        assert car != null : "car no puede ser null";
-        assert car.getAssignedRentalOffice().equals(this.getAssignedRentalOffice()) : "El sustituto no está asignado a la misma oficina";
+        //assert car.getAssignedRentalOffice().equals(this.getAssignedRentalOffice()) : "El sustituto no está asignado a la misma oficina";
+        //Como el enconrtar sustituto ya filtra por misma oficina, aquí solo nos puede llegar null (que significa que no existe un sustituto) o un car que cumpla las condiciones para serlo.
         this.sustituto = car;
     }
     //Getter para obtener la fecha hasta la que el coche estará fuera de servicio:
@@ -97,6 +97,7 @@ public class Car {
 
     protected void validateAndAddRental(Rental rental) { //Méto do que solo llama el estado, por lo que estamos delegándole la decisión
         assert rental != null : "Rental no puede ser null";
+        assert !esSustituto() : "El coche está siendo usado como sustituto";
         for (Rental existingRental : rentals) {
             assert !datesOverlap(existingRental.getStartDate(), existingRental.getEndDate(),
                 rental.getStartDate(), rental.getEndDate()) : "El alquiler se solapa con otro ya existente.";
@@ -131,7 +132,7 @@ public class Car {
         return estado;
     }
     // Método privado para encontrar al sustituo
-    Car encontrarSustituto(){
+    protected Car encontrarSustituto(){
         /*Iterator<Car> iter = this.getAssignedRentalOffice().getCars().iterator(); // Obtenemos los coches de la misma oficina
         while(iter.hasNext()){  // Iteramos sobre el conjunto de coches obtenidos
             Car curr = iter.next();
@@ -144,8 +145,9 @@ public class Car {
 
         //Opción con streams
         return assignedRentalOffice.getCars().stream()
-                .filter(car -> car.getModel().equals(this.getModel()) && car.getEstado().sePuedeAlquilar())
+                .filter(car -> car.getModel().equals(this.getModel()) && car.getEstado().sePuedeAlquilar() && !car.esSustituto())
                 .findFirst().orElse(null);
+
     }
 
     // El método para comprobar si el coche actual es sustituto o no

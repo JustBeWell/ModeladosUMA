@@ -14,12 +14,13 @@ public abstract  class Rental {
         assert endDate != null : "End date no puede ser null.";
         assert customer != null : "Customer no puede ser null.";
         assert car != null : "Car no puede ser null.";
-        assert car.getEstado() instanceof  EnServicio ||(car.getEstado() instanceof FueraDeServicio && car.getSustituto() != null) : "No se puede alquilar un" +
-                " coche que está fuera de servicio y que no tenga sustituto";
+        /*assert car.getEstado() instanceof  EnServicio ||(car.getEstado() instanceof FueraDeServicio && car.getSustituto() != null) : "No se puede alquilar un" +
+                " coche que está fuera de servicio y que no tenga sustituto";*/
+        assert (car.getEstado().sePuedeAlquilar() || car.getSustituto() != null) : "El coche debe de estar en servicio o tener un sustituto para poder alquilarse";
         assert rentalOffice != null : "Rental office no puede ser null.";
         this.startDate = startDate;
         this.endDate = endDate;
-        this.car = car.getEstado() instanceof EnServicio ? car : car.getSustituto();
+        this.car = car.getEstado().sePuedeAlquilar() ? car : car.getSustituto();
         this.customer = customer;
         this.pickUpRentalOffice = rentalOffice;
         this.customer.addRental(this);
