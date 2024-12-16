@@ -278,25 +278,33 @@ public class TestA2 {
 }
 \end{lstlisting}
 \subsubsection*{Output}
-Caso 1: 
+Caso 1: \par
 \vspace{0.15cm}
-Fulanito DGJ-324 ; null
+Fulanito DGJ-324 ; null\par
 \vspace{0.15cm}
-Caso 2:
+Caso 2:\par
 \vspace{0.15cm}
-Exception in thread "main" java.lang.AssertionError: La fecha de inicio no es valida
-        at Rental.<init>(Rental.java:20)
-        at RentalOnSite.<init>(RentalOnSite.java:12)
-        at TestA2.main(TestA2.java:54)
+Exception in thread "main" java.lang.AssertionError: La fecha de inicio no es valida\par
+        at Rental.<init>(Rental.java:20)\par
+        at RentalOnSite.<init>(RentalOnSite.java:12)\par
+        at TestA2.main(TestA2.java:54)\par
 \vspace{0.15cm}
-Vemos en este caso un error debido a que estamos intentando solapar fechas.
-Caso 3:
+Vemos en este caso un error debido a que estamos intentando solapar fechas.\par
+Caso 3:\par
 \vspace{0.15cm}
-Exception in thread "main" java.lang.IllegalStateException: El coche está fuera de servicio y no tiene sustituto
-        at FueraDeServicio.getCocheParaAlquilar(FueraDeServicio.java:25)
-        at Rental.<init>(Rental.java:23)
-        at RentalOnSite.<init>(RentalOnSite.java:12)
-        at TestA2.main(TestA2.java:64)
+Exception in thread "main" java.lang.IllegalStateException: El coche está fuera de servicio y no tiene sustituto\par
+        at FueraDeServicio.getCocheParaAlquilar(FueraDeServicio.java:25)\par
+        at Rental.<init>(Rental.java:23)\par
+        at RentalOnSite.<init>(RentalOnSite.java:12)\par
+        at TestA2.main(TestA2.java:64)\par
         \vspace{0.15cm}
-Vemos que aqui tenemos un error debido a que el coche que estamos intentando asociar se encuentra fuera de servicio.
-        \newpage
+Vemos que aqui tenemos un error debido a que el coche que estamos intentando asociar se encuentra fuera de servicio.\par
+Caso 4:\par
+\vspace{0.15cm}
+     
+Exception in thread "main" java.lang.AssertionError: El coche ya esta siendo usado como sustituto.\par
+	at Rental.<init>(Rental.java:21)\par
+	at RentalOnSite.<init>(RentalOnSite.java:12)\par
+	at TestA2.main(TestA2.java:54)\par
+Vemos que falla porque se esta intentando alquilar un coche sustituto.\par
+\newpage
