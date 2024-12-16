@@ -19,7 +19,7 @@
 \contentsline {subsection}{\numberline {3.1}Patrón de Diseño utilizado}{16}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Efectos sobre el Diagrama de Diseño}{17}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Implementación de \textit {takeOutOfService : date}}{20}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Testing}{21}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.4}Ejemplo de ejecución}{21}{subsection.3.4}%
 \contentsline {section}{\numberline {4}Ejercicio 3}{25}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Patrón de Diseño utilizado}{25}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Efectos sobre el Diagrama de Diseño}{26}{subsection.4.2}%
