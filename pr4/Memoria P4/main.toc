@@ -21,5 +21,5 @@
 \contentsline {subsection}{\numberline {3.3}Implementación de \textit {takeOutOfService : date}}{16}{subsection.3.3}%
 \contentsline {section}{\numberline {4}Ejercicio 3}{17}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Patrón de Diseño utilizado}{17}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Efectos sobre el Diagrama de Diseño}{17}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Implementación de \textit {getPrice() : Integer}}{17}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.2}Efectos sobre el Diagrama de Diseño}{18}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Implementación de \textit {getPrice() : Integer}}{18}{subsection.4.3}%

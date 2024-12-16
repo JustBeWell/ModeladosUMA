@@ -1,5 +1,60 @@
-\begin{lstlisting}[style = javaNormal, language=Java] 
+\begin{lstlisting}[style = javaNormal, language=Java,caption={Clases generadas para el patron Strategy}] 
+    //INTERFAZ GENERAL
+    public interface DescuentoEstrategia {
+    //Metodo para aplicar un descuento
+    int aplicarDescuento(int precioBase);
+    }
+    //TIPO DE DESCUENTO 1 POR PORCENTAJE
+    public class DescuentoPorcentaje implements DescuentoEstrategia{
+        private final double porcentaje;
 
-    introducir codigo aqui
+        public DescuentoPorcentaje(double porcentaje) {
+            assert porcentaje >= 0 && porcentaje <= 100 : "Porcentaje invalido";
+            this.porcentaje = porcentaje;
+        }
 
+        @Override
+        public int aplicarDescuento(int precioBase) {
+            double res = precioBase * (1-porcentaje/100);
+            int sol = (int)res;
+            return sol;
+        }
+
+        @Override
+        public String toString() {
+            return "[" + porcentaje + "]";
+        }
+    }
+    //TIPO DE DESCUENTO 2 POR DESCUENTO 
+    public class DescuentoPromocion implements DescuentoEstrategia{
+        private final int descuento;
+    
+        public DescuentoPromocion(int descuento) {
+            assert descuento >= 0 : "Descuento no puede ser negativo";
+            this.descuento = descuento;
+        }
+    
+        @Override
+        public int aplicarDescuento(int precioBase) {
+            if(descuento >= precioBase) return 0;
+            return precioBase - descuento;
+        }
+    
+        @Override
+        public String toString() {
+            return "[" + descuento + "]";
+        }      
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[style = javaNormal, language=Java, caption={Metodo getPrice en la clase Rental}] 
+    //NUEVO METODO PARA OBTENER PRECIO CON DESCUENTO SI EXISTE
+    public int getPrice(){
+        LocalDate localStartDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localEndDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        double diasRental = ChronoUnit.DAYS.between(localStartDate, localEndDate);
+        int precioBase = (int) (diasRental * car.getModel().getPricePerDay());
+        if(this.descuento != null) return descuento.aplicarDescuento(precioBase);
+        return precioBase;
+    }
 \end{lstlisting}

@@ -26,23 +26,32 @@ preocupar tampoco de estos cambios, son gestionados por otras operaciones).
 
 
 \subsection{Patrón de Diseño utilizado}
-En un principio teniamos pensado usar el patrón visitante pero al final la acabamos descartando porque nos estaba siendo muy complicado 
-pensar la solución con este patrón y además era muy complejo de implementar.\par
-Al final cabamos optando por usar el patrón estrategia ya que es un patrón relativamente simple que nos permitia añadir el algoritmo para calcular 
-los descuentos de una manera sencilla y rápida de llevar a cabo, en nuestro problema hemos implementado una interfaz con la operación de 
-aplicar descuento y dos clases distintas una para descuentos de promociones y otra de porcentajes que veremos con más detalle en el diagrama. \par
+Para poder realizar este apartado optamos varias casuisticas de diferentes patrones de diseño validos. Por un lado optamos por el patron visitante,
+dicho patron complicaria demasiado la imlementación de la operacion debido al gran numero de instancias presentes de dicho patron para un unico metodo,esto hace que 
+el uso de este patron sea algo ineficiente. Tras ese planteamiento llegamos a la conclusion de utilizar el patron \textbf{Strategy} para poder implementar la operacion correctamente.
+Este patron se basa en la utilizacion de una interfaz que actua como padre de todos los objetos que implementen una operacion similar, en este caso tenemos dos tipos de promociones,
+\textbf{Promoción por porcentaje} y \textbf{Promoción por cantidad} ambas mantienen una logica similar por lo que el uso del patron \textbf{Strategy} es el adecuado.
 
 \subsection{Efectos sobre el Diagrama de Diseño}
 
 \begin{figure}[H]
     \centering
      \includegraphics[width=1\linewidth]{assets/diagramas/UML_Apartado3.png}
-     \caption{Diagrama de Diseño centrado en lo nuevo del apartado 3}
+     \caption{Diagrama de Diseño del apartado 3}
 \end{figure}
 
-Como podemos observar 
+Como podemos observar, el patron \textbf{Strategy} mantiene una interfaz padre de la cual heredan todas las instancias de objetos que vayan a realizar dicha operacion.
+Como bien hemos dicho antes nos basamos en un sistema con dos operaciones diferentes para obtener el precio final, por lo cual necesitaremos crear dos clases una para cada tipo de 
+promocion. Estas heredaran de la clase \textbf{Strategy} para asi obligar al sistema a implementar dichas operaciones en cada una de las clases. Un requisito del sistema es que dichas
+promociones se apliquen al instanciar un objeto \textbf{Rental}, es por eso que dichos tipos de promociones vendran instanciados en el constructor de dicha clase pudiendo ser nulo en caso 
+de que no se le aplique ningun tipo de promocion.\par
 
 \subsection{Implementación de \textit{getPrice() : Integer}}
-\input{body/Ejercicio3/codigosEj3.tex} % Código en el documento "codigosEj3"
-
+\input{body/Ejercicio3/codigosEj3.tex}\par
+En la primera seccion podemos encontrar las nuevas instancias que debemos generar para poder usar el patron \textbf{Strategy} dichas clases implementan el metodo de la interfaz
+de manera similar pero cambiando ligeramente la forma en la que calculan los precios a dependiendo de sus propios parametros privados (porcentaje o cantidad).\par
+\vspace{0.15cm}
+Para implementar el metodo getPrice hemos decidido generar a partir de los parametro \textbf{startDate} y \textbf{endDate} el precio base que tendria el alquiler antes de aplicar 
+cualquier tipo de promocion. Como bien hemos explicado antes en caso de que no exista promocion alguna se instanciara como nulo el atributo en el constructor. Es por eso que 
+antes de calcular el nuevo precio comprobamos si el \textbf{Rental} contiene un tipo de promocion disponible, en caso contrario devolveremos el precio base inicial.
 \newpage
