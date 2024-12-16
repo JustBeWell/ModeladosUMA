@@ -26,9 +26,21 @@ preocupar tampoco de estos cambios, son gestionados por otras operaciones).
 
 
 \subsection{Patrón de Diseño utilizado}
-
+En un principio teniamos pensado usar el patrón visitante pero al final la acabamos descartando porque nos estaba siendo muy complicado 
+pensar la solución con este patrón y además era muy complejo de implementar.\par
+Al final cabamos optando por usar el patrón estrategia ya que es un patrón relativamente simple que nos permitia añadir el algoritmo para calcular 
+los descuentos de una manera sencilla y rápida de llevar a cabo, en nuestro problema hemos implementado una interfaz con la operación de 
+aplicar descuento y dos clases distintas una para descuentos de promociones y otra de porcentajes que veremos con más detalle en el diagrama. \par
 
 \subsection{Efectos sobre el Diagrama de Diseño}
+
+\begin{figure}[H]
+    \centering
+     \includegraphics[width=1\linewidth]{assets/diagramas/UML_Apartado3.png}
+     \caption{Diagrama de Diseño centrado en lo nuevo del apartado 3}
+\end{figure}
+
+Como podemos observar 
 
 \subsection{Implementación de \textit{getPrice() : Integer}}
 \input{body/Ejercicio3/codigosEj3.tex} % Código en el documento "codigosEj3"
