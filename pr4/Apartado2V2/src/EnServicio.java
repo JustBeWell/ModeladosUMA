@@ -19,7 +19,10 @@ public class EnServicio extends Estado{
       context.setSustituto(context.encontrarSustituto());       // Buscamos un coche sustituto
 
    }
-
+   @Override
+   public Car getCocheParaAlquilar() {
+      return context; // Devuelve el coche original porque está en servicio
+   }
    @Override
    public void addRental(Rental rental) {
       context.validateAndAddRental(rental);

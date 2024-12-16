@@ -17,17 +17,22 @@ public class FueraDeServicio extends Estado{
     public void takeOutOfService(Date backToService) {
         throw new IllegalStateException("El coche ya se encuentra fuera de Servicio");
     }
-
+    @Override
+    public Car getCocheParaAlquilar() {
+        if (context.getSustituto() != null) {
+            return context.getSustituto(); // Devuelve el sustituto si existe
+        }
+        throw new IllegalStateException("El coche está fuera de servicio y no tiene sustituto");
+        // Devuelve el coche original porque está en servicio
+    }
     @Override
     public void addRental(Rental rental) {
-        if (this.context.getSustituto() != null){
+        if (this.context.getSustituto() != null) {
             context.getSustituto().addRental(rental);
-        }else{
+        } else {
             throw new IllegalStateException("El coche está fuera de servicio y no tiene sustituto");
         }
-
     }
-
     @Override
     public void removeRental(Rental rental) {
         if (this.context.getSustituto() != null){

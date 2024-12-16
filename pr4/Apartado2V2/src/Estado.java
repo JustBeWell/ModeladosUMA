@@ -8,6 +8,7 @@ public abstract class Estado {
     }
     public abstract boolean sePuedeAlquilar();
     public abstract void takeOutOfService(Date backToService);
+    public abstract Car getCocheParaAlquilar();
     public abstract void addRental( Rental rental);
     public abstract void removeRental( Rental rental);
 }
