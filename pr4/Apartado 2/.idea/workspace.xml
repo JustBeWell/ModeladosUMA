@@ -2,16 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85da6523-1274-4ff5-9b07-e359cffd16b0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../DiagramasVPP/P4/.P4.vpp.lck" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../DiagramasVPP/P4/P4.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../DiagramasVPP/P4/P4.vpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Car.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Customer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Model.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Rental.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RentalOffice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RentalOnSite.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebRental.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/Apartado2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/Car.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/Customer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/EnServicio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/Estado.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/FueraDeServicio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/Model.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/Rental.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/RentalOffice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/RentalOnSite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/TestA2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2/src/WebRental.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,9 +28,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2pzMFHEkFFX6QzAaqyUrkTIWisH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -35,13 +42,23 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/GIT/ModeladosUMA/p4/Apartado 2"
+    "last_opened_file_path": "C:/Users/diego/OneDrive/Documents/GitHub/ModeladosUMA/pr4/Apartado2Correcto",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\GIT\ModeladosUMA\p4\Apartado 2\src" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -51,7 +68,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1733764345142</updated>
+      <workItem from="1734339353082" duration="4000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
