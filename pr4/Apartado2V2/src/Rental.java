@@ -17,7 +17,7 @@ public abstract  class Rental {
         /*assert car.getEstado() instanceof  EnServicio ||(car.getEstado() instanceof FueraDeServicio && car.getSustituto() != null) : "No se puede alquilar un" +
                 " coche que está fuera de servicio y que no tenga sustituto";*/
         assert rentalOffice != null : "Rental office no puede ser null.";
-        if(!customer.rentalEsValido(startDate)) throw new AssertionError("La fecha de inicio es invalida"); //Queremos interrumpir la ejecución del código.
+        if(!customer.rentalEsValido(startDate)) throw new AssertionError("La fecha de inicio no es invalida"); //Queremos interrumpir la ejecución del código.
         this.startDate = startDate;
         this.endDate = endDate;
         this.car = car.getEstado().getCocheParaAlquilar();
