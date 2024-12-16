@@ -34,6 +34,18 @@ public class Customer {
         rentals.remove(rental);
     }
 
+    protected boolean rentalEsValido(Date startDate) {
+        assert startDate != null : "rental no puede ser null";
+        Iterator<Rental> iterator = rentals.iterator();
+        while (iterator.hasNext()) {
+            Rental rentalDelCliente = iterator.next();
+            if(!(startDate.after(rentalDelCliente.getEndDate()))) { //Asumimos que no se pueden meter rentals anteriores a los ya existentes, porque no se puede viajar al pasado.
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object obj) {
         boolean ok = this == obj;

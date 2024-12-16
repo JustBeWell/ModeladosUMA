@@ -29,6 +29,16 @@ public class Customer {
         assert rental != null : "rental no puede ser null";
         rentals.add(rental);
     }
+
+    protected boolean rentalEsValido(Date startDate) {
+        assert startDate != null : "rental no puede ser null";
+        for (Rental existingRental : rentals) {
+            if(!(startDate.after(existingRental.getEndDate()))) { //Asumimos que no se pueden meter rentals anteriores a los ya existentes, porque no se puede viajar al pasado.
+                return false;
+            }
+        }
+        return true;
+    }
     protected void removeRental(Rental rental) {
         assert rental != null : "rental no puede ser null";
         rentals.remove(rental);

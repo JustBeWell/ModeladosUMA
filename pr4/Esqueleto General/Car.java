@@ -49,13 +49,17 @@ public class Car {
 
    protected void addRental(Rental rental) { //Se pone protected para que solo podamos usarlo nostros
         assert rental != null : "Rental es null";
-    for (Rental existingRental : rentals) {
-        assert (!(datesOverlap(existingRental.getStartDate(), existingRental.getEndDate(),
-                         rental.getStartDate(), rental.getEndDate()))):("El alquiler se solapa con otro ya existente.");
-    }
-
-    rentals.add(rental);
-}
+        rentals.add(rental);
+   }
+   protected boolean rentalEsValido(Date startDate) {
+        assert startDate != null : "rental no puede ser null";
+        for (Rental existingRental : rentals) {
+            if(!(startDate.after(existingRental.getEndDate()))) { //Asumimos que no se pueden meter rentals anteriores a los ya existentes, porque no se puede viajar al pasado.
+                return false;
+            }
+        }
+        return true;
+   }
 
 private boolean datesOverlap(Date start1, Date end1, Date start2, Date end2) {
     return !(end1.before(start2) || start1.after(end2));

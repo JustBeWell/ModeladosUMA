@@ -52,10 +52,8 @@ public class Car {
         //copy.addAll(rentals);
         return Collections.unmodifiableSet(rentals); // La copia y sus elementos no son mutables.
     }
-    public Estado changeEstado(){
-        return this.estado;
-    }
-    void setEstado(Estado estado){
+    //public Estado changeEstado(){  return this.estado;}
+    public void setEstado(Estado estado){
         this.estado = estado;
     }
     // Getter para obtener el coche sustituto
@@ -88,11 +86,10 @@ public class Car {
        assert rental != null: "El alquiler no puede ser nulo";
        estado.addRental(rental);
         // En servicio
-        /*for (Rental existingRental : rentals) {
-           assert (!(datesOverlap(existingRental.getStartDate(), existingRental.getEndDate(),
-                rental.getStartDate(), rental.getEndDate()))) : ("El alquiler se solapa con otro ya existente.");
+        for (Rental existingRental : rentals) {
+           assert (!(rental.getStartDate().after(existingRental.getEndDate()))) : ("El alquiler se solapa con otro ya existente.");
         }
-        rentals.add(rental);*/
+        rentals.add(rental);
     }
 
     protected void validateAndAddRental(Rental rental) { //Méto do que solo llama el estado, por lo que estamos delegándole la decisión
@@ -151,7 +148,7 @@ public class Car {
     }
 
     // El método para comprobar si el coche actual es sustituto o no
-    boolean esSustituto(){
+    public boolean esSustituto(){
         Iterator<Car> iter = this.getModel().getCars().iterator();
         while(iter.hasNext()){
             Car curr = iter.next();

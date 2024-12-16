@@ -95,26 +95,4 @@ public class RentalOffice{
     public String toString() {
         return "[RentalOffice: " + address + " " + feeForDelivery + " ; " + cars.toString() + " ; "+ rentals.toString() +" ; "+ webRentals.toString() + "]";
     }
-
-    public String displayRentals(){
-        StringBuilder sb = new StringBuilder();
-        for(Rental rental : rentals){
-            sb.append(rental.toString()).append("\n");
-        }
-        return sb.toString().trim();
-    }
-    public String displayCars(){
-        StringBuilder sb = new StringBuilder();
-        for(Car car : cars){
-            sb.append(car.toString()).append("\n");
-        }
-        return sb.toString().trim();
-    }
-    public String displayWebRentals(){
-        StringBuilder sb = new StringBuilder();
-        for(WebRental wrental : webRentals){
-            sb.append(wrental.toString()).append("\n");
-        }
-        return sb.toString().trim();
-    }
 }

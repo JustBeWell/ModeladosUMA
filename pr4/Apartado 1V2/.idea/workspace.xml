@@ -5,10 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02bc3bbe-3e80-42bd-b1dd-3a47fd74b1ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/EsqueletoA1/FilteredRentalIterator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EsqueletoA1/RentalCollection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EsqueletoA1/RentalSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Apartado 1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Apartado 1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DiagramasVPP/P4/P4.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../DiagramasVPP/P4/P4.vpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2V2/src/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Apartado2V2/src/Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2V2/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Apartado2V2/src/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2V2/src/Rental.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Apartado2V2/src/Rental.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apartado2V2/src/RentalOffice.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Apartado2V2/src/RentalOffice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Esqueleto General/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Esqueleto General/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Esqueleto General/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Esqueleto General/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Esqueleto General/Rental.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Esqueleto General/Rental.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio1/page.aux" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio1/page.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio1/page.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio1/page.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio2/page.aux" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio2/page.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio2/page.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio2/page.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio3/page.aux" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/body/Ejercicio3/page.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/body/Introduccion/page.aux" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/body/Introduccion/page.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/main.aux" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/main.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/main.fdb_latexmk" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/main.fdb_latexmk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/main.fls" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/main.lof" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/main.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/main.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/main.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/main.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/../Memoria P4/main.synctex.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Memoria P4/main.toc" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,9 +56,10 @@
   "keyToString": {
     "Application.Unnamed.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/diego/OneDrive/Documents/GitHub/ModeladosUMA/pr4/Apartado 1V2",
+    "last_opened_file_path": "D:/GIT/ModeladosUMA/pr4/Esqueleto General",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,14 +82,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

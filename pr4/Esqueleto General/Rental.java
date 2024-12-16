@@ -15,6 +15,7 @@ public abstract  class Rental {
         assert customer != null : "Customer no puede ser null.";
         assert car != null : "Car no puede ser null.";
         assert rentalOffice != null : "Rental office no puede ser null.";
+        if(!customer.rentalEsValido(startDate)) throw new AssertionError("La fecha de inicio es invalida"); //Comprobamos que rental es válido
         this.startDate = startDate;
         this.endDate = endDate;
         this.customer = customer;
