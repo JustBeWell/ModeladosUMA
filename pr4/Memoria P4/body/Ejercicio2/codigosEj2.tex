@@ -1,5 +1,22 @@
 \begin{lstlisting}[style = javaNormal, language=Java] 
-
-    introducir codigo aqui
-
+        //Implementacion en la clase Car:
+            public void takeOutOfService(Date backToService){
+            /* assert estado instanceof  EnServicio : "El coche ya esta fuera de servicio";
+            // Registramos la cuando el coche vuelva en servicio*/
+            assert backToService != null;
+            estado.takeOutOfService(backToService);
+        }
+        // Implementacion en la clase EnServicio:
+         public void takeOutOfService(Date backToService) {
+          assert !context.esSustituto(): "El coche es el sustituto del otro";                          // "El coche es sustituto del otro coche";
+          context.setEstado(new FueraDeServicio(context, backToService));       // Ponemos un coche fuera de servicio
+          context.setSustituto(context.encontrarSustituto());       // Buscamos un coche sustituto
+    
+       }
+        // Implementacion en la clase FueraDeServicio:
+       public void takeOutOfService(Date backToService) {
+           throw new IllegalStateException("El coche ya se encuentra fuera de Servicio");
+        }
+    
 \end{lstlisting}
+

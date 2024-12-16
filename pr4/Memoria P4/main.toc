@@ -1,0 +1,27 @@
+\babel@toc {spanish}{}\relax 
+\thispagestyle {empty}
+\contentsline {section}{\numberline {1}Introducción}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Diagrama de Diseño}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Cambios respecto a la implementación original}{4}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Model}{4}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Car}{5}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Customer}{6}{subsubsection.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.2.4}Rental}{7}{subsubsection.1.2.4}%
+\contentsline {subsubsection}{\numberline {1.2.5}RentalOnSite}{8}{subsubsection.1.2.5}%
+\contentsline {subsubsection}{\numberline {1.2.6}WebRental}{8}{subsubsection.1.2.6}%
+\contentsline {subsubsection}{\numberline {1.2.7}RentalOffice}{9}{subsubsection.1.2.7}%
+\contentsline {section}{\numberline {2}Ejercicio 1}{11}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Patrón de Diseño utilizado}{11}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Efectos sobre el Diagrama de Diseño}{12}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Implementación de \textit {numberOfRentalsWithDifferentOffices():Integer}}{13}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Ejemplo de ejecución}{14}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Ejercicio 2}{16}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Patrón de Diseño utilizado}{16}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Efectos sobre el Diagrama de Diseño}{17}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Implementación de \textit {takeOutOfService : date}}{20}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Testing}{21}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Ejercicio 3}{24}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Patrón de Diseño utilizado}{24}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Efectos sobre el Diagrama de Diseño}{25}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Implementación de \textit {getPrice() : Integer}}{26}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Ejemplo de ejecución}{28}{subsection.4.4}%
