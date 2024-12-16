@@ -12,4 +12,11 @@ public class DescuentoPromocion implements DescuentoEstrategia{
         if(descuento >= precioBase) return 0;
         return precioBase - descuento;
     }
+
+    @Override
+    public String toString() {
+        return "[" + descuento + "]";
+    }
+
+    
 }

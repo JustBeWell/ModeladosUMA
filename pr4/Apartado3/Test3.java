@@ -56,9 +56,9 @@ public class Test3 {
         System.out.println("\nOffice Rentals:");
         System.out.println(office1.toString());
         System.out.println(office2.toString());
-
+        //Comprobar que los precios han cambiado en base a la promocion dada en el sistema
         System.out.println("----------------------------------------------------------------");
-        System.out.println(rental1.getPrice());
-        System.out.println(rental2.getPrice());
+        System.out.println("Precio tras aplicar un descuento del " + rental1.getDescuento().toString() + " del tipo " + rental1.getDescuento().getClass().getName() + ": " + rental1.getPrice() + "\n");
+        System.out.println("Precio tras aplicar un descuento del " + rental2.getDescuento().toString() + " del tipo " + rental2.getDescuento().getClass().getName() + ": " + rental2.getPrice() + "\n");
     }
 }

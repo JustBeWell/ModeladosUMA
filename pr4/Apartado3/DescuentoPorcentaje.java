@@ -13,5 +13,12 @@ public class DescuentoPorcentaje implements DescuentoEstrategia{
         int sol = (int)res;
         return sol;
     }
+
+    @Override
+    public String toString() {
+        return "[" + porcentaje + "]";
+    }
+
+    
          
 }
